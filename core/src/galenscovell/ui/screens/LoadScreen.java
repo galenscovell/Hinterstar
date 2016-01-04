@@ -7,17 +7,18 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import galenscovell.oregontrail.OregonTrailMain;
-import galenscovell.util.ResourceManager;
+import galenscovell.util.*;
 
 public class LoadScreen extends AbstractScreen {
 
     public LoadScreen(OregonTrailMain root) {
         super(root);
-        this.stage = new Stage(new FitViewport(240, 400), root.spriteBatch);
     }
 
     @Override
     public void create() {
+        this.stage = new Stage(new FitViewport(Constants.UI_X, Constants.UI_Y), root.spriteBatch);
+
         Table loadingMain = new Table();
         loadingMain.setFillParent(true);
 
