@@ -2,8 +2,8 @@ package galenscovell.oregontrail;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import galenscovell.ui.screens.*;
-import galenscovell.util.ResourceManager;
+import galenscovell.oregontrail.ui.screens.*;
+import galenscovell.oregontrail.util.ResourceManager;
 
 public class OregonTrailMain extends Game {
     public SpriteBatch spriteBatch;

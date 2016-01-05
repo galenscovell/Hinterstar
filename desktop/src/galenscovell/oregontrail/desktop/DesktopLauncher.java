@@ -3,7 +3,7 @@ package galenscovell.oregontrail.desktop;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import galenscovell.oregontrail.OregonTrailMain;
-import galenscovell.util.Constants;
+import galenscovell.oregontrail.util.Constants;
 
 public class DesktopLauncher {
     public static void main (String[] arg) {

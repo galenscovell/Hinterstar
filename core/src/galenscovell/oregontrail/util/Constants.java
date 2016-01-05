@@ -1,4 +1,4 @@
-package galenscovell.util;
+package galenscovell.oregontrail.util;
 
 public class Constants {
     private Constants() {}

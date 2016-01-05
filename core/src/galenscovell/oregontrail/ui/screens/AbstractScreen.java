@@ -1,4 +1,4 @@
-package galenscovell.ui.screens;
+package galenscovell.oregontrail.ui.screens;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;

@@ -1,11 +1,11 @@
-package galenscovell.ui.components;
+package galenscovell.oregontrail.ui.components;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import galenscovell.ui.screens.GameScreen;
-import galenscovell.util.Constants;
+import galenscovell.oregontrail.ui.screens.GameScreen;
+import galenscovell.oregontrail.util.Constants;
 
 public class GameStage extends Stage {
     private GameScreen rootScreen;

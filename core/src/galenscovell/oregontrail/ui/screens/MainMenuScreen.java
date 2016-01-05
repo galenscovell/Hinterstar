@@ -1,10 +1,10 @@
-package galenscovell.ui.screens;
+package galenscovell.oregontrail.ui.screens;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import galenscovell.oregontrail.OregonTrailMain;
-import galenscovell.util.Constants;
+import galenscovell.oregontrail.util.Constants;
 
 public class MainMenuScreen extends AbstractScreen {
 
