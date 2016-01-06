@@ -2,17 +2,22 @@ package galenscovell.oregontrail.util;
 
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.*;
+import com.badlogic.gdx.graphics.g2d.freetype.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader.FreeTypeFontLoaderParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class ResourceManager {
     public static AssetManager assetManager;
     public static TextureAtlas uiAtlas;
-    public static LabelStyle label_menuStyle, label_titleStyle;
+    public static LabelStyle label_tinyStyle, label_mediumStyle, label_detailStyle, label_menuStyle, label_titleStyle;
+    public static NinePatchDrawable buttonUp, buttonDown;
     public static TextButtonStyle button_fullStyle;
     public static Preferences prefs;
 
@@ -22,15 +27,25 @@ public class ResourceManager {
     }
 
     public static void load() {
-//        assetManager.load("atlas/uiAtlas.pack", TextureAtlas.class);
+        assetManager.load("atlas/uiAtlas.pack", TextureAtlas.class);
+
+        FileHandleResolver resolver = new InternalFileHandleResolver();
+        assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
+        assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
+
+        generateFont("ui/nevis.ttf", 14, 0, Color.WHITE, Color.BLACK, "tinyFont.ttf");
+        generateFont("ui/nevis.ttf", 18, 0, Color.DARK_GRAY, Color.BLACK, "smallFont.ttf");
+        generateFont("ui/nevis.ttf", 24, 0, new Color(0.9f, 0.7f, 0.41f, 1), Color.BLACK, "mediumFont.ttf");
+        generateFont("ui/nevis.ttf", 48, 0, Color.WHITE, Color.BLACK, "largeFont.ttf");
+        generateFont("ui/nevis.ttf", 72, 4, new Color(0.35f, 0.28f, 0.16f, 1), new Color(0.9f, 0.7f, 0.41f, 1), "extraLargeFont.ttf");
     }
 
     public static void done() {
-//        uiAtlas = assetManager.get("atlas/uiAtlas.pack", TextureAtlas.class);
-//
-//        loadNinepatches();
-//        loadLabelStyles();
-//        loadButtonStyles();
+        uiAtlas = assetManager.get("atlas/uiAtlas.pack", TextureAtlas.class);
+
+        loadNinepatches();
+        loadLabelStyles();
+        loadButtonStyles();
 //        loadSprites();
 //
 //        // Load user preferences
@@ -42,7 +57,7 @@ public class ResourceManager {
 
     public static void dispose() {
         assetManager.dispose();
-//        uiAtlas.dispose();
+        uiAtlas.dispose();
     }
 
     /***************************************************
@@ -61,17 +76,21 @@ public class ResourceManager {
     }
 
     private static void loadNinepatches() {
-//        frameUp = new NinePatchDrawable(uiAtlas.createPatch("frameup_brown"));
+        buttonUp = new NinePatchDrawable(uiAtlas.createPatch("buttonup"));
+        buttonDown = new NinePatchDrawable(uiAtlas.createPatch("buttondown"));
     }
 
     private static void loadLabelStyles() {
+        label_tinyStyle = new LabelStyle(assetManager.get("tinyFont.ttf", BitmapFont.class), Color.WHITE);
+        label_detailStyle = new LabelStyle(assetManager.get("smallFont.ttf", BitmapFont.class), Color.WHITE);
+        label_mediumStyle = new LabelStyle(assetManager.get("mediumFont.ttf", BitmapFont.class), Color.WHITE);
         label_menuStyle = new LabelStyle(assetManager.get("largeFont.ttf", BitmapFont.class), Color.WHITE);
         label_titleStyle = new LabelStyle(assetManager.get("extraLargeFont.ttf", BitmapFont.class), Color.WHITE);
     }
 
     private static void loadButtonStyles() {
-//        button_fullStyle = new TextButtonStyle(buttonUp, buttonDown, buttonUp, assetManager.get("mediumFont.ttf", BitmapFont.class));
-//        button_fullStyle.pressedOffsetY = -2;
+        button_fullStyle = new TextButtonStyle(buttonUp, buttonDown, buttonUp, assetManager.get("mediumFont.ttf", BitmapFont.class));
+        button_fullStyle.pressedOffsetY = -2;
     }
 
     private static void loadSprites() {

@@ -11,7 +11,6 @@ public class AbstractScreen implements Screen {
 
     public AbstractScreen(OregonTrailMain root) {
         this.root = root;
-        create();
     }
 
     public void create() { }
@@ -33,6 +32,7 @@ public class AbstractScreen implements Screen {
 
     @Override
     public void show() {
+        create();
         Gdx.input.setInputProcessor(stage);
     }
 

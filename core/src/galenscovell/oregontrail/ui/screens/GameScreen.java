@@ -35,7 +35,6 @@ public class GameScreen extends AbstractScreen {
         // Render
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        // renderer.render((double) accumulator / timestep);
         stage.draw();
     }
 

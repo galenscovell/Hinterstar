@@ -17,8 +17,12 @@ public class GameStage extends Stage {
     }
 
     private void construct() {
+        this.setDebugAll(true);
         Table mainTable = new Table();
         mainTable.setFillParent(true);
+
+        Table bottomTable = new Table();
+        mainTable.add(bottomTable).width(440).height(300).center().bottom();
 
         this.addActor(mainTable);
     }

@@ -6,6 +6,7 @@
 *.class
 *.idea
 *.iml
+*.jar
 *.gradle
 *.pro
 *.properties

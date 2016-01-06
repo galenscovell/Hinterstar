@@ -1,0 +1,21 @@
+
+ui_atlas.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+buttondown
+  rotate: false
+  xy: 1, 1
+  size: 48, 48
+  split: 7, 7, 8, 4
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+buttonup
+  rotate: false
+  xy: 51, 1
+  size: 48, 48
+  split: 7, 7, 6, 6
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
