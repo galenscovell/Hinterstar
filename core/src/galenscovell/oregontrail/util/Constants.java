@@ -13,8 +13,8 @@ public class Constants {
     public static final int UI_Y = 240;
 
     // Custom screen dimension units
-    public static final int SCREEN_X = 40;
-    public static final int SCREEN_Y = 24;
+    public static final int SCREEN_X = 200;
+    public static final int SCREEN_Y = 120;
 
     // Exact pixel dimensions
     public static final int EXACT_X = 800;

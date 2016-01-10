@@ -35,9 +35,9 @@ public class ResourceManager {
 
         generateFont("ui/nevis.ttf", 14, 0, Color.WHITE, Color.BLACK, "tinyFont.ttf");
         generateFont("ui/nevis.ttf", 18, 0, Color.DARK_GRAY, Color.BLACK, "smallFont.ttf");
-        generateFont("ui/nevis.ttf", 24, 0, new Color(0.9f, 0.7f, 0.41f, 1), Color.BLACK, "mediumFont.ttf");
+        generateFont("ui/nevis.ttf", 16, 0, new Color(0.9f, 0.7f, 0.41f, 1), Color.BLACK, "mediumFont.ttf");
         generateFont("ui/nevis.ttf", 48, 0, Color.WHITE, Color.BLACK, "largeFont.ttf");
-        generateFont("ui/nevis.ttf", 72, 4, new Color(0.35f, 0.28f, 0.16f, 1), new Color(0.9f, 0.7f, 0.41f, 1), "extraLargeFont.ttf");
+        generateFont("ui/nevis.ttf", 32, 2, new Color(0.35f, 0.28f, 0.16f, 1), new Color(0.9f, 0.7f, 0.41f, 1), "extraLargeFont.ttf");
     }
 
     public static void done() {

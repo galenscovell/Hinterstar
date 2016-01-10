@@ -21,8 +21,12 @@ public class GameStage extends Stage {
         Table mainTable = new Table();
         mainTable.setFillParent(true);
 
+        Table topTable = new Table();
+
         Table bottomTable = new Table();
-        mainTable.add(bottomTable).width(440).height(300).center().bottom();
+        mainTable.add(topTable).width(Constants.SCREEN_X).height(70).center().bottom().padBottom(4);
+        mainTable.row();
+        mainTable.add(bottomTable).width(Constants.SCREEN_X).height(46).center().bottom();
 
         this.addActor(mainTable);
     }

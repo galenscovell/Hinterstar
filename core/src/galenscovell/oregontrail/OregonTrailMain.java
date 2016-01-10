@@ -20,6 +20,14 @@ public class OregonTrailMain extends Game {
         setScreen(loadingScreen);
     }
 
+    public void newGame() {
+        this.gameScreen = new GameScreen(this);
+    }
+
+    public void loadGame() {
+
+    }
+
     @Override
     public void dispose() {
         mainMenuScreen.dispose();

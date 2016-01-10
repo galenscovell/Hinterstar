@@ -1,6 +1,6 @@
 package galenscovell.oregontrail.processing.states;
 
-public interface State {
+public interface IState {
     void enter();
     void exit();
     void update(float delta);

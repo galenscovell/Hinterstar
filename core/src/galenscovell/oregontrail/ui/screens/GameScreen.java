@@ -9,7 +9,7 @@ import galenscovell.oregontrail.ui.components.GameStage;
 public class GameScreen extends AbstractScreen {
     private final int timestep = 15;
     private int accumulator;
-    private State currentState, actionState, menuState;
+    private IState currentState, actionState, menuState;
 
     public GameScreen(OregonTrailMain root) {
         super(root);
@@ -20,16 +20,16 @@ public class GameScreen extends AbstractScreen {
         this.stage = new GameStage(this, root.spriteBatch);
         // this.actionState = new ActionState(this);
         // this.menuState = new MenuState(this);
-        this.currentState = actionState;
+        // this.currentState = actionState;
     }
 
     @Override
     public void render(float delta) {
         // Update
-        if (accumulator > this.timestep) {
-            accumulator = 0;
-            currentState.update(delta);
-        }
+//        if (accumulator > this.timestep) {
+//            accumulator = 0;
+//            currentState.update(delta);
+//        }
         stage.act(delta);
         accumulator++;
         // Render
