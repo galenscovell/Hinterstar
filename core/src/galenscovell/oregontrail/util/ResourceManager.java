@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader.FreeTypeFontLoaderParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.*;
 
 public class ResourceManager {
     public static AssetManager assetManager;
@@ -19,6 +19,7 @@ public class ResourceManager {
     public static LabelStyle label_tinyStyle, label_mediumStyle, label_detailStyle, label_menuStyle, label_titleStyle;
     public static NinePatchDrawable buttonUp, buttonDown;
     public static TextButtonStyle button_fullStyle;
+    public static TextureRegionDrawable background;
     public static Preferences prefs;
 
     public static void create() {
@@ -33,11 +34,11 @@ public class ResourceManager {
         assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 
-        generateFont("ui/nevis.ttf", 14, 0, Color.WHITE, Color.BLACK, "tinyFont.ttf");
-        generateFont("ui/nevis.ttf", 18, 0, Color.DARK_GRAY, Color.BLACK, "smallFont.ttf");
-        generateFont("ui/nevis.ttf", 16, 0, new Color(0.9f, 0.7f, 0.41f, 1), Color.BLACK, "mediumFont.ttf");
-        generateFont("ui/nevis.ttf", 48, 0, Color.WHITE, Color.BLACK, "largeFont.ttf");
-        generateFont("ui/nevis.ttf", 32, 2, new Color(0.35f, 0.28f, 0.16f, 1), new Color(0.9f, 0.7f, 0.41f, 1), "extraLargeFont.ttf");
+        generateFont("ui/kenpixel_blocks.ttf", 14, 0, Color.WHITE, Color.BLACK, "tinyFont.ttf");
+        generateFont("ui/kenpixel_blocks.ttf", 18, 0, Color.DARK_GRAY, Color.BLACK, "smallFont.ttf");
+        generateFont("ui/kenpixel_blocks.ttf", 14, 0, new Color(0.9f, 0.7f, 0.41f, 1), Color.BLACK, "mediumFont.ttf");
+        generateFont("ui/kenpixel_blocks.ttf", 48, 0, Color.WHITE, Color.BLACK, "largeFont.ttf");
+        generateFont("ui/kenpixel_blocks.ttf", 32, 1, new Color(0.35f, 0.28f, 0.16f, 1), new Color(0.9f, 0.7f, 0.41f, 1), "extraLargeFont.ttf");
     }
 
     public static void done() {
@@ -47,7 +48,9 @@ public class ResourceManager {
         loadLabelStyles();
         loadButtonStyles();
 //        loadSprites();
-//
+
+        background = new TextureRegionDrawable(uiAtlas.findRegion("background"));
+
 //        // Load user preferences
 //        prefs = Gdx.app.getPreferences("flicker_settings");
 //        prefs.putBoolean("sfx", true);

@@ -3,9 +3,23 @@ uiAtlas.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-buttondown
+background
   rotate: false
   xy: 1, 1
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+vehicle
+  rotate: false
+  xy: 803, 428
+  size: 51, 53
+  orig: 51, 53
+  offset: 0, 0
+  index: -1
+buttondown
+  rotate: false
+  xy: 803, 378
   size: 48, 48
   split: 7, 7, 8, 4
   orig: 48, 48
@@ -13,7 +27,7 @@ buttondown
   index: -1
 buttonup
   rotate: false
-  xy: 51, 1
+  xy: 856, 433
   size: 48, 48
   split: 7, 7, 6, 6
   orig: 48, 48

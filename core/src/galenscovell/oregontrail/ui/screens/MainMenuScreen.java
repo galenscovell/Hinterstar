@@ -62,10 +62,10 @@ public class MainMenuScreen extends AbstractScreen {
                 stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.25f), quitGame));
             }
         });
-        buttonTable.add(newGameButton).width(80).height(190).padRight(10);
-        buttonTable.add(continueGameButton).width(80).height(190).padRight(10);
-        buttonTable.add(settingButton).width(80).height(190).padRight(10);
-        buttonTable.add(quitButton).width(80).height(190);
+        buttonTable.add(newGameButton).width(90).height(190).padRight(10);
+        buttonTable.add(continueGameButton).width(90).height(190).padRight(10);
+        buttonTable.add(settingButton).width(90).height(190).padRight(10);
+        buttonTable.add(quitButton).width(90).height(190);
 
         mainTable.add(titleTable).width(380).height(40).center().padBottom(4);
         mainTable.row();

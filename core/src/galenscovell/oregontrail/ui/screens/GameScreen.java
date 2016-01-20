@@ -9,7 +9,7 @@ import galenscovell.oregontrail.ui.components.GameStage;
 public class GameScreen extends AbstractScreen {
     private final int timestep = 15;
     private int accumulator;
-    private IState currentState, actionState, menuState;
+    private State currentState, actionState, menuState;
 
     public GameScreen(OregonTrailMain root) {
         super(root);
@@ -50,10 +50,6 @@ public class GameScreen extends AbstractScreen {
 
     public void passInputToState(float x, float y) {
         currentState.handleInput(x, y);
-    }
-
-    public void passInterfaceEventToState(int moveType) {
-        currentState.handleInterfaceEvent(moveType);
     }
 
     public StateType getState() {
