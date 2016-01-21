@@ -49,8 +49,6 @@ public class ResourceManager {
         loadButtonStyles();
 //        loadSprites();
 
-        background = new TextureRegionDrawable(uiAtlas.findRegion("background"));
-
 //        // Load user preferences
 //        prefs = Gdx.app.getPreferences("flicker_settings");
 //        prefs.putBoolean("sfx", true);
