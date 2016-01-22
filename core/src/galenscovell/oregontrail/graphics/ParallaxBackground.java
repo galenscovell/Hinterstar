@@ -9,22 +9,26 @@ public class ParallaxBackground {
     private ParallaxLayer[] layers;
     private Camera camera;
     private SpriteBatch batch;
-    private Vector2 speed = new Vector2();
+    private Vector2 speed;
 
     public ParallaxBackground(SpriteBatch batch, ParallaxLayer[] layers, float width, float height, Vector2 speed) {
         this.layers = layers;
-        this.speed.set(speed);
+        this.speed = speed;
         this.camera = new OrthographicCamera(width, height);
         this.batch = batch;
     }
 
+    public void modifySpeed(Vector2 dxSpeed) {
+        this.speed.x += dxSpeed.x;
+        this.speed.y += dxSpeed.y;
+    }
+
     public void render(float delta) {
         this.camera.position.add(speed.x * delta, speed.y * delta, 0);
+        batch.setProjectionMatrix(camera.projection);
+        batch.begin();
 
         for (ParallaxLayer layer : layers) {
-            batch.setProjectionMatrix(camera.projection);
-            batch.begin();
-
             float currentX = -camera.position.x * layer.parallaxRatio.x % (layer.region.getRegionWidth() + layer.padding.x);
             float currentY;
 
@@ -49,8 +53,7 @@ public class ParallaxBackground {
                 }
                 currentX += layer.region.getRegionWidth() + layer.padding.x;
             }
-
-            batch.end();
         }
+        batch.end();
     }
 }

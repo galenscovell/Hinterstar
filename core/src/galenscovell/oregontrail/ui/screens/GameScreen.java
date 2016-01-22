@@ -21,15 +21,11 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void create() {
-        ParallaxLayer[] parallaxLayers = new ParallaxLayer[2];
-        parallaxLayers[0] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion("bg1"), new Vector2(0.5f, 0.5f), new Vector2(0, 0));
-        parallaxLayers[1] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion("bg2"), new Vector2(0.75f, 0.75f), new Vector2(0, 500));
-        this.parallaxBackground = new ParallaxBackground(root.spriteBatch, parallaxLayers, Constants.EXACT_X, Constants.EXACT_Y, new Vector2(25, 0));
-
+        setBackground("bg1", "bg2");
         this.stage = new GameStage(this, root.spriteBatch);
-        // this.actionState = new ActionState(this);
-        // this.menuState = new MenuState(this);
-        // this.currentState = actionState;
+        this.actionState = new ActionState(this);
+        this.menuState = new MenuState(this);
+        this.currentState = actionState;
     }
 
     @Override
@@ -37,7 +33,7 @@ public class GameScreen extends AbstractScreen {
         // Update
         if (accumulator > timestep) {
             accumulator = 0;
-            // currentState.update(delta);
+            currentState.update(delta);
             stage.act(delta);
         }
         accumulator++;
@@ -68,5 +64,16 @@ public class GameScreen extends AbstractScreen {
 
     public void toMainMenu() {
         root.setScreen(root.mainMenuScreen);
+    }
+
+    public void setBackground(String bg1, String bg2) {
+        ParallaxLayer[] parallaxLayers = new ParallaxLayer[2];
+        parallaxLayers[0] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg1), new Vector2(0.5f, 0.5f), new Vector2(0, 0));
+        parallaxLayers[1] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg2), new Vector2(0.75f, 0.75f), new Vector2(0, 500));
+        this.parallaxBackground = new ParallaxBackground(root.spriteBatch, parallaxLayers, Constants.EXACT_X, Constants.EXACT_Y, new Vector2(25, 0));
+    }
+
+    public void modifyBackground(Vector2 dxSpeed) {
+        parallaxBackground.modifySpeed(dxSpeed);
     }
 }

@@ -18,7 +18,6 @@ public class GameStage extends Stage {
 
     private void construct() {
         Table mainTable = new Table();
-        // mainTable.setBackground(ResourceManager.background);
         mainTable.setFillParent(true);
 
         NavigationTable navigationTable = new NavigationTable(this);
