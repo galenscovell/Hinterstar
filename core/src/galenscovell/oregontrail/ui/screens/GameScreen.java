@@ -1,22 +1,26 @@
 package galenscovell.oregontrail.ui.screens;
 
-import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import galenscovell.oregontrail.OregonTrailMain;
 import galenscovell.oregontrail.graphics.*;
+import galenscovell.oregontrail.processing.controls.*;
 import galenscovell.oregontrail.processing.states.*;
 import galenscovell.oregontrail.ui.components.GameStage;
 import galenscovell.oregontrail.util.*;
 
 public class GameScreen extends AbstractScreen {
-    private final int timestep = 15;
+    private final int timestep = 30;
     private double accumulator;
     private State currentState, actionState, menuState;
     private ParallaxBackground parallaxBackground;
+    private InputMultiplexer input;
 
     public GameScreen(OregonTrailMain root) {
         super(root);
+        create();
     }
 
     @Override
@@ -26,6 +30,7 @@ public class GameScreen extends AbstractScreen {
         this.actionState = new ActionState(this);
         this.menuState = new MenuState(this);
         this.currentState = actionState;
+        setupInput();
     }
 
     @Override
@@ -33,7 +38,7 @@ public class GameScreen extends AbstractScreen {
         // Update
         if (accumulator > timestep) {
             accumulator = 0;
-            currentState.update(delta);
+            currentState.update(delta, (GameStage)stage);
             stage.act(delta);
         }
         accumulator++;
@@ -42,6 +47,11 @@ public class GameScreen extends AbstractScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         parallaxBackground.render(delta);
         stage.draw();
+    }
+
+    @Override
+    public void show() {
+        Gdx.input.setInputProcessor(input);
     }
 
     public void changeState(StateType stateType) {
@@ -75,5 +85,13 @@ public class GameScreen extends AbstractScreen {
 
     public void modifyBackground(Vector2 dxSpeed) {
         parallaxBackground.modifySpeed(dxSpeed);
+    }
+
+    private void setupInput() {
+        this.input = new InputMultiplexer();
+        input.addProcessor(stage);
+        input.addProcessor(new InputHandler(this));
+        input.addProcessor(new GestureDetector(new GestureHandler(this)));
+        Gdx.input.setInputProcessor(input);
     }
 }

@@ -18,7 +18,7 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void create() {
-        this.stage = new Stage(new FitViewport(Constants.UI_X, Constants.UI_Y), root.spriteBatch);
+        this.stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch);
 
         Table mainTable = new Table();
         mainTable.setFillParent(true);
@@ -28,7 +28,7 @@ public class MainMenuScreen extends AbstractScreen {
         Table titleTable = new Table();
         Label titleLabel = new Label("Game Name", ResourceManager.label_titleStyle);
         titleLabel.setAlignment(Align.center, Align.center);
-        titleTable.add(titleLabel).width(200).height(40);
+        titleTable.add(titleLabel).width(400).height(80);
 
 
         // Button Table
@@ -62,14 +62,14 @@ public class MainMenuScreen extends AbstractScreen {
                 stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.25f), quitGame));
             }
         });
-        buttonTable.add(newGameButton).width(90).height(190).padRight(10);
-        buttonTable.add(continueGameButton).width(90).height(190).padRight(10);
-        buttonTable.add(settingButton).width(90).height(190).padRight(10);
-        buttonTable.add(quitButton).width(90).height(190);
+        buttonTable.add(newGameButton).width(180).height(380).padRight(20);
+        buttonTable.add(continueGameButton).width(180).height(380).padRight(20);
+        buttonTable.add(settingButton).width(180).height(380).padRight(20);
+        buttonTable.add(quitButton).width(180).height(380);
 
-        mainTable.add(titleTable).width(380).height(40).center().padBottom(4);
+        mainTable.add(titleTable).width(760).height(80).center().padBottom(8);
         mainTable.row();
-        mainTable.add(buttonTable).width(380).height(200).center();
+        mainTable.add(buttonTable).width(760).height(400).center();
 
         stage.addActor(mainTable);
     }

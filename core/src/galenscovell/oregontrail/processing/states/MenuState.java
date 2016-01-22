@@ -1,5 +1,6 @@
 package galenscovell.oregontrail.processing.states;
 
+import galenscovell.oregontrail.ui.components.GameStage;
 import galenscovell.oregontrail.ui.screens.GameScreen;
 
 public class MenuState implements State {
@@ -20,18 +21,13 @@ public class MenuState implements State {
     }
 
     @Override
-    public void update(float delta) {
+    public void update(float delta, GameStage stage) {
 
     }
 
     @Override
     public void handleInput(float x, float y) {
-
-    }
-
-    @Override
-    public void handleInterfaceEvent(int moveType) {
-
+        System.out.println("Menu: " + x + ", " + y);
     }
 
     @Override

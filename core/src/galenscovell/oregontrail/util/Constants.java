@@ -8,10 +8,6 @@ public class Constants {
     public static final short BIT_WALL = 2;
     public static final short BIT_GROUP = 5;
 
-    // Custom UI dimension units
-    public static final int UI_X = 400;
-    public static final int UI_Y = 240;
-
     // Custom screen dimension units
     public static final int SCREEN_X = 200;
     public static final int SCREEN_Y = 120;

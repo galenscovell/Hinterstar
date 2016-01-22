@@ -17,18 +17,18 @@ public class ActionTable extends Table {
         Group graphicsGroup = new Group();
 
         Table back = new Table();
-        back.setSize(Constants.SCREEN_X, 80);
+        back.setSize(Constants.EXACT_X, 32);
         back.setPosition(0, 0);
 
         Table middle = new Table();
-        middle.setSize(Constants.SCREEN_X, 50);
-        middle.setPosition(0, 10);
+        middle.setSize(Constants.EXACT_X, 200);
+        middle.setPosition(0, 40);
         Vehicle vehicle = new Vehicle();
-        vehicle.setSize(45, 35);
-        middle.add(vehicle).expand().fill().left().padLeft(15);
+        vehicle.setSize(180, 90);
+        middle.add(vehicle).expand().fill().left().padLeft(30);
 
         Table front = new Table();
-        front.setSize(Constants.SCREEN_X, 80);
+        front.setSize(Constants.EXACT_X, 320);
         front.setPosition(0, 0);
 
         graphicsGroup.addActor(back);

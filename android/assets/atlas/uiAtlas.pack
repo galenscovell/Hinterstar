@@ -17,16 +17,9 @@ bg2
   orig: 800, 480
   offset: 0, 0
   index: -1
-vehicle
-  rotate: false
-  xy: 803, 960
-  size: 51, 53
-  orig: 51, 53
-  offset: 0, 0
-  index: -1
 buttondown
   rotate: false
-  xy: 1, 1
+  xy: 803, 965
   size: 48, 48
   split: 7, 7, 8, 4
   orig: 48, 48
@@ -34,9 +27,21 @@ buttondown
   index: -1
 buttonup
   rotate: false
-  xy: 803, 910
+  xy: 1, 1
   size: 48, 48
   split: 7, 7, 6, 6
   orig: 48, 48
+  offset: 0, 0
+  index: -1
+
+uiAtlas2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+placeholder_vehicle
+  rotate: false
+  xy: 1, 1
+  size: 256, 128
+  orig: 256, 128
   offset: 0, 0
   index: -1

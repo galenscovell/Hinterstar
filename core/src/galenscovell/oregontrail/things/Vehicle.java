@@ -9,7 +9,7 @@ public class Vehicle extends Actor {
     private Sprite[] sprites;
 
     public Vehicle() {
-        this.currentSprite = new Sprite(ResourceManager.uiAtlas.createSprite("vehicle"));
+        this.currentSprite = new Sprite(ResourceManager.uiAtlas.createSprite("placeholder_vehicle"));
     }
 
     @Override

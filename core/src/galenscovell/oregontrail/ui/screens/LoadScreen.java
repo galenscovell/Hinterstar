@@ -20,7 +20,7 @@ public class LoadScreen extends AbstractScreen {
 
     @Override
     public void create() {
-        this.stage = new Stage(new FitViewport(Constants.UI_X, Constants.UI_Y), root.spriteBatch);
+        this.stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch);
         Table loadingMain = new Table();
         loadingMain.setFillParent(true);
 
@@ -30,7 +30,7 @@ public class LoadScreen extends AbstractScreen {
 
         Table barTable = new Table();
         this.loadingBar = createBar();
-        barTable.add(loadingBar).width(200).height(60).expand().fill().top();
+        barTable.add(loadingBar).width(400).height(180).expand().fill().top();
         loadingMain.add(barTable).expand().fill();
 
         stage.addActor(loadingMain);

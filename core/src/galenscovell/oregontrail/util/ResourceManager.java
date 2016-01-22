@@ -34,11 +34,11 @@ public class ResourceManager {
         assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 
-        generateFont("ui/kenpixel_blocks.ttf", 14, 0, Color.WHITE, Color.BLACK, "tinyFont.ttf");
-        generateFont("ui/kenpixel_blocks.ttf", 18, 0, Color.DARK_GRAY, Color.BLACK, "smallFont.ttf");
-        generateFont("ui/kenpixel_blocks.ttf", 14, 0, new Color(0.9f, 0.7f, 0.41f, 1), Color.BLACK, "mediumFont.ttf");
-        generateFont("ui/kenpixel_blocks.ttf", 48, 0, Color.WHITE, Color.BLACK, "largeFont.ttf");
-        generateFont("ui/kenpixel_blocks.ttf", 32, 1, new Color(0.35f, 0.28f, 0.16f, 1), new Color(0.9f, 0.7f, 0.41f, 1), "extraLargeFont.ttf");
+        generateFont("ui/kenpixel_blocks.ttf", 12, 0, Color.WHITE, Color.BLACK, "tinyFont.ttf");
+        generateFont("ui/kenpixel_blocks.ttf", 14, 0, Color.WHITE, Color.BLACK, "smallFont.ttf");
+        generateFont("ui/kenpixel_blocks.ttf", 16, 0, Color.WHITE, Color.BLACK, "mediumFont.ttf");
+        generateFont("ui/kenpixel_blocks.ttf", 24, 0, Color.WHITE, Color.BLACK, "largeFont.ttf");
+        generateFont("ui/kenpixel_blocks.ttf", 36, 1, Color.TEAL, Color.BLACK, "extraLargeFont.ttf");
     }
 
     public static void done() {
@@ -90,7 +90,7 @@ public class ResourceManager {
     }
 
     private static void loadButtonStyles() {
-        button_fullStyle = new TextButtonStyle(buttonUp, buttonDown, buttonUp, assetManager.get("mediumFont.ttf", BitmapFont.class));
+        button_fullStyle = new TextButtonStyle(buttonUp, buttonDown, buttonUp, assetManager.get("largeFont.ttf", BitmapFont.class));
         button_fullStyle.pressedOffsetY = -2;
     }
 

@@ -9,9 +9,12 @@ import galenscovell.oregontrail.util.*;
 
 public class GameStage extends Stage {
     private GameScreen rootScreen;
+    private NavigationTable navigationTable;
+    private ActionTable actionTable;
+    private DetailTable detailTable;
 
     public GameStage(GameScreen rootScreen, SpriteBatch spriteBatch) {
-        super(new FitViewport(Constants.SCREEN_X, Constants.SCREEN_Y), spriteBatch);
+        super(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), spriteBatch);
         this.rootScreen = rootScreen;
         construct();
     }
@@ -20,16 +23,20 @@ public class GameStage extends Stage {
         Table mainTable = new Table();
         mainTable.setFillParent(true);
 
-        NavigationTable navigationTable = new NavigationTable(this);
-        ActionTable actionTable = new ActionTable(this);
-        DetailTable detailTable = new DetailTable(this);
+        this.navigationTable = new NavigationTable(this);
+        this.actionTable = new ActionTable(this);
+        this.detailTable = new DetailTable(this);
 
-        mainTable.add(navigationTable).width(Constants.SCREEN_X).height(10).center();
+        mainTable.add(navigationTable).width(Constants.EXACT_X).height(60).center();
         mainTable.row();
-        mainTable.add(actionTable).width(Constants.SCREEN_X).height(80).center();
+        mainTable.add(actionTable).width(Constants.EXACT_X).height(320).center();
         mainTable.row();
-        mainTable.add(detailTable).width(Constants.SCREEN_X).height(30).center();
+        mainTable.add(detailTable).width(Constants.EXACT_X).height(100).center();
 
         this.addActor(mainTable);
+    }
+
+    public void incrementDate() {
+        detailTable.updateDate();
     }
 }
