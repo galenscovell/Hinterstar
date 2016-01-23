@@ -22,7 +22,7 @@ public class ActionState implements State {
 
     @Override
     public void update(float delta, GameStage stage) {
-        stage.incrementDate();
+
     }
 
     @Override

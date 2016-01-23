@@ -33,6 +33,29 @@ buttonup
   orig: 48, 48
   offset: 0, 0
   index: -1
+mapback
+  rotate: false
+  xy: 803, 915
+  size: 48, 48
+  split: 7, 7, 6, 6
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+map_back
+  rotate: false
+  xy: 853, 965
+  size: 48, 48
+  split: 7, 7, 6, 6
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+map_point
+  rotate: false
+  xy: 51, 25
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
 
 uiAtlas2.png
 format: RGBA8888

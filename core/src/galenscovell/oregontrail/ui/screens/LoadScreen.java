@@ -24,13 +24,9 @@ public class LoadScreen extends AbstractScreen {
         Table loadingMain = new Table();
         loadingMain.setFillParent(true);
 
-        Table labelTable = new Table();
-        loadingMain.add(labelTable).expand().fill();
-        loadingMain.row();
-
         Table barTable = new Table();
         this.loadingBar = createBar();
-        barTable.add(loadingBar).width(400).height(180).expand().fill().top();
+        barTable.add(loadingBar).width(400).expand().fill();
         loadingMain.add(barTable).expand().fill();
 
         stage.addActor(loadingMain);

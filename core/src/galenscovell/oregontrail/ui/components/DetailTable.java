@@ -1,6 +1,7 @@
 package galenscovell.oregontrail.ui.components;
 
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.utils.Align;
 import galenscovell.oregontrail.util.ResourceManager;
 
 public class DetailTable extends Table {
@@ -21,25 +22,10 @@ public class DetailTable extends Table {
 
         Table dateTable = new Table();
         this.dateLabel = new Label(dateAsString(), ResourceManager.label_mediumStyle);
+        dateLabel.setAlignment(Align.left, Align.left);
+        dateTable.add(dateLabel).expand().fill();
 
-        dateTable.add(dateLabel);
-
-        this.add(dateTable).height(20).expand().fill().top().padTop(5);
-    }
-
-    public void updateDate() {
-        if (day < 12) {
-            day++;
-        } else {
-            day = 1;
-            if (month < 12) {
-                month++;
-            } else {
-                month = 1;
-                year++;
-            }
-        }
-        dateLabel.setText(dateAsString());
+        this.add(dateTable).height(20).expand().fill().top().padTop(5).padLeft(5);
     }
 
     private String dateAsString() {

@@ -6,7 +6,7 @@ import galenscovell.oregontrail.things.Vehicle;
 import galenscovell.oregontrail.util.*;
 
 public class ActionTable extends Table {
-    private GameStage gameStage;
+    private final GameStage gameStage;
 
     public ActionTable(GameStage gameStage) {
         this.gameStage = gameStage;
@@ -22,10 +22,10 @@ public class ActionTable extends Table {
 
         Table middle = new Table();
         middle.setSize(Constants.EXACT_X, 200);
-        middle.setPosition(0, 40);
+        middle.setPosition(0, 80);
         Vehicle vehicle = new Vehicle();
         vehicle.setSize(180, 90);
-        middle.add(vehicle).expand().fill().left().padLeft(30);
+        middle.add(vehicle).expand().fill().left().padLeft(80);
 
         Table front = new Table();
         front.setSize(Constants.EXACT_X, 320);

@@ -17,7 +17,7 @@ public class ResourceManager {
     public static AssetManager assetManager;
     public static TextureAtlas uiAtlas;
     public static LabelStyle label_tinyStyle, label_mediumStyle, label_detailStyle, label_menuStyle, label_titleStyle;
-    public static NinePatchDrawable buttonUp, buttonDown;
+    public static NinePatchDrawable buttonUp, buttonDown, mapback;
     public static TextButtonStyle button_fullStyle;
     public static TextureRegionDrawable background;
     public static Preferences prefs;
@@ -79,6 +79,7 @@ public class ResourceManager {
     private static void loadNinepatches() {
         buttonUp = new NinePatchDrawable(uiAtlas.createPatch("buttonup"));
         buttonDown = new NinePatchDrawable(uiAtlas.createPatch("buttondown"));
+        mapback = new NinePatchDrawable(uiAtlas.createPatch("map_back"));
     }
 
     private static void loadLabelStyles() {

@@ -12,7 +12,7 @@ import galenscovell.oregontrail.ui.components.GameStage;
 import galenscovell.oregontrail.util.*;
 
 public class GameScreen extends AbstractScreen {
-    private final int timestep = 30;
+    private final int timestep = 60;
     private double accumulator;
     private State currentState, actionState, menuState;
     private ParallaxBackground parallaxBackground;
@@ -79,8 +79,16 @@ public class GameScreen extends AbstractScreen {
     public void setBackground(String bg1, String bg2) {
         ParallaxLayer[] parallaxLayers = new ParallaxLayer[2];
         parallaxLayers[0] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg1), new Vector2(0.5f, 0.5f), new Vector2(0, 0));
-        parallaxLayers[1] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg2), new Vector2(0.75f, 0.75f), new Vector2(0, 500));
-        this.parallaxBackground = new ParallaxBackground(root.spriteBatch, parallaxLayers, Constants.EXACT_X, Constants.EXACT_Y, new Vector2(25, 0));
+        parallaxLayers[1] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg2), new Vector2(0.75f, 0.75f), new Vector2(0, 0));
+        this.parallaxBackground = new ParallaxBackground(root.spriteBatch, parallaxLayers, Constants.EXACT_X, Constants.EXACT_Y, new Vector2(35, 0));
+    }
+
+    public void setBackground(String bg1, String bg2, String bg3) {
+        ParallaxLayer[] parallaxLayers = new ParallaxLayer[3];
+        parallaxLayers[0] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg1), new Vector2(0.05f, 0.05f), new Vector2(0, 0));
+        parallaxLayers[1] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg2), new Vector2(0.25f, 0.25f), new Vector2(0, 0));
+        parallaxLayers[2] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg3), new Vector2(0.4f, 0.4f), new Vector2(0, 0));
+        this.parallaxBackground = new ParallaxBackground(root.spriteBatch, parallaxLayers, Constants.EXACT_X, Constants.EXACT_Y, new Vector2(50, 0));
     }
 
     public void modifyBackground(Vector2 dxSpeed) {

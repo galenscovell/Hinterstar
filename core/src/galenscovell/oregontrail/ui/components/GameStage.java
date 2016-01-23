@@ -1,15 +1,18 @@
 package galenscovell.oregontrail.ui.components;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import galenscovell.oregontrail.processing.states.StateType;
 import galenscovell.oregontrail.ui.screens.GameScreen;
 import galenscovell.oregontrail.util.*;
 
 public class GameStage extends Stage {
-    private GameScreen rootScreen;
-    private NavigationTable navigationTable;
+    private final GameScreen rootScreen;
+    private Table navigationTable;
+    private NavigationMap navigationMap;
     private ActionTable actionTable;
     private DetailTable detailTable;
 
@@ -20,23 +23,53 @@ public class GameStage extends Stage {
     }
 
     private void construct() {
+        this.navigationMap = new NavigationMap(this);
+
         Table mainTable = new Table();
         mainTable.setFillParent(true);
 
-        this.navigationTable = new NavigationTable(this);
+        this.navigationTable = new Table();
+        TextButton navMapButton = new TextButton("Nav", ResourceManager.button_fullStyle);
+        navMapButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                toggleNavMap();
+            }
+        });
+        TextButton teamButton = new TextButton("Team", ResourceManager.button_fullStyle);
+        navMapButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Team button");
+            }
+        });
+        TextButton shipButton = new TextButton("Ship", ResourceManager.button_fullStyle);
+        navMapButton.addListener(new ClickListener() {
+            public void clicked(InputEvent event, float x, float y) {
+                System.out.println("Ship button");
+            }
+        });
+        navigationTable.add(navMapButton).width(84).expand().fill();
+        navigationTable.add(teamButton).width(84).expand().fill();
+        navigationTable.add(shipButton).width(84).expand().fill();
+
         this.actionTable = new ActionTable(this);
         this.detailTable = new DetailTable(this);
 
-        mainTable.add(navigationTable).width(Constants.EXACT_X).height(60).center();
+        mainTable.add(navigationTable).width(Constants.EXACT_X / 3).height(50).center();
         mainTable.row();
-        mainTable.add(actionTable).width(Constants.EXACT_X).height(320).center();
+        mainTable.add(actionTable).width(Constants.EXACT_X).height(340).center();
         mainTable.row();
-        mainTable.add(detailTable).width(Constants.EXACT_X).height(100).center();
+        mainTable.add(detailTable).width(Constants.EXACT_X).height(90).center();
 
         this.addActor(mainTable);
     }
 
-    public void incrementDate() {
-        detailTable.updateDate();
+    public void toggleNavMap() {
+        if (navigationMap.hasParent()) {
+            rootScreen.changeState(StateType.ACTION);
+            navigationMap.remove();
+        } else {
+            rootScreen.changeState(StateType.MENU);
+            this.addActor(navigationMap);
+        }
     }
 }
