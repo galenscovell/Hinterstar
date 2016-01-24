@@ -15,4 +15,8 @@ public class Constants {
     // Exact pixel dimensions
     public static final int EXACT_X = 800;
     public static final int EXACT_Y = 480;
+
+    public static final int MAPWIDTH = 25; // 500px
+    public static final int MAPHEIGHT = 19; // 380px
+    public static final int TILESIZE = 20;
 }
