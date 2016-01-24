@@ -11,7 +11,6 @@ import galenscovell.oregontrail.processing.controls.*;
 import galenscovell.oregontrail.processing.states.*;
 import galenscovell.oregontrail.ui.components.GameStage;
 import galenscovell.oregontrail.util.*;
-import galenscovell.oregontrail.world.MapGenerator;
 
 public class GameScreen extends AbstractScreen {
     private final int timestep = 60;
@@ -33,8 +32,6 @@ public class GameScreen extends AbstractScreen {
         this.menuState = new MenuState(this);
         this.currentState = actionState;
         setupInput();
-        MapGenerator mapGenerator = new MapGenerator(12);
-        mapGenerator.print();
     }
 
     @Override

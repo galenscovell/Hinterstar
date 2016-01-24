@@ -44,7 +44,7 @@ public class MainMenuScreen extends AbstractScreen {
         newGameButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 root.newGame();
-                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.25f), toGameScreen));
+                stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.8f), toGameScreen));
             }
         });
         TextButton continueGameButton = new TextButton("Load", ResourceManager.button_fullStyle);

@@ -36,13 +36,13 @@ public class GameStage extends Stage {
             }
         });
         TextButton teamButton = new TextButton("Team", ResourceManager.button_fullStyle);
-        navMapButton.addListener(new ClickListener() {
+        teamButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Team button");
             }
         });
         TextButton shipButton = new TextButton("Ship", ResourceManager.button_fullStyle);
-        navMapButton.addListener(new ClickListener() {
+        shipButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 System.out.println("Ship button");
             }

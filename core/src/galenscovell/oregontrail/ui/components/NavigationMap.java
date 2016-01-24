@@ -1,9 +1,10 @@
 package galenscovell.oregontrail.ui.components;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 
-import galenscovell.oregontrail.things.MapPoint;
-import galenscovell.oregontrail.util.ResourceManager;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import galenscovell.oregontrail.util.*;
+import galenscovell.oregontrail.world.*;
 
 public class NavigationMap extends Table {
     private final GameStage gameStage;
@@ -19,20 +20,33 @@ public class NavigationMap extends Table {
         Table mapTable = new Table();
         mapTable.setBackground(ResourceManager.buttonUp);
 
+        Table navInfoTable = new Table();
+        Table navInfo = new Table();
+        navInfo.setBackground(ResourceManager.buttonDown);
+        TextButton travelButton = new TextButton("Travel", ResourceManager.button_fullStyle);
+        navInfoTable.add(navInfo).width(160).height(320).expand().fill();
+        navInfoTable.row();
+        navInfoTable.add(travelButton).width(160).height(70).expand().fill().bottom();
+
         Table innerTable = new Table();
-        innerTable.setBackground(ResourceManager.mapback);
+        innerTable.setBackground(new TextureRegionDrawable(ResourceManager.uiAtlas.findRegion("orion-nebula")));
         generateMap(innerTable);
 
-        mapTable.add(innerTable).width(580).height(360).expand().fill().left().padLeft(20);
+        mapTable.add(navInfoTable).width(160).height(400).expand().fill().left().padLeft(8);
+        mapTable.add(innerTable).width(Constants.MAPBORDERWIDTH).height(Constants.MAPBORDERHEIGHT).expand().fill().right().padRight(8);
 
-        this.add(mapTable).width(760).height(400).expand().fill().center().padTop(26);
+        this.add(mapTable).width(Constants.EXACT_X).height(Constants.EXACT_Y - 50).expand().fill().center().padTop(50);
     }
 
     private void generateMap(Table container) {
-        MapPoint p1 = new MapPoint();
-        MapPoint p2 = new MapPoint();
+        MapGenerator mapGenerator = new MapGenerator(14);
+        Tile[][] tiles = mapGenerator.getTiles();
 
-        container.add(p1).width(24).height(24).expand().fill();
-        container.add(p2).width(24).height(24).expand().fill();
+        for (Tile[] row : tiles) {
+            for (Tile tile : row) {
+                container.add(tile).width(Constants.TILESIZE).height(Constants.TILESIZE);
+            }
+            container.row();
+        }
     }
 }

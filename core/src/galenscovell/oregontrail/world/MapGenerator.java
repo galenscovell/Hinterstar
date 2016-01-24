@@ -15,16 +15,12 @@ public class MapGenerator {
         removeAdjacentDestinations();
     }
 
-    public Map<Integer, Tile> getTiles() {
-        // Translate Tile[][] grid to HashMap
-        Map<Integer, Tile> tiles = new HashMap<Integer, Tile>();
-        for (int x = 0; x < Constants.MAPWIDTH; x++) {
-            for (int y = 0; y < Constants.MAPHEIGHT; y++) {
-                int key = x * Constants.MAPWIDTH + y;
-                tiles.put(key, grid[y][x]);
-            }
-        }
-        return tiles;
+    public Tile[][] getTiles() {
+        return grid;
+    }
+
+    public ArrayList<Destination> getDestinations() {
+        return destinations;
     }
 
     public void print() {
@@ -39,7 +35,6 @@ public class MapGenerator {
                 }
             }
         }
-        System.exit(1);
     }
 
     private void build(int numDestinations) {
@@ -51,22 +46,15 @@ public class MapGenerator {
         }
         int destinationCount = getRandom(numDestinations - 4, numDestinations + 4);
         placeDestinations(destinationCount);
-
-        // Set Tiles within each Destination as Unexplored
-        for (int i = 0; i < destinationCount; i++) {
-            Destination destination = this.destinations.get(i);
-            this.grid[destination.y][destination.x].becomeUnexplored();
-        }
     }
 
     private void placeDestinations(int destinationCount) {
         // Place random Destinations, ensuring that they do not collide
         this.destinations = new ArrayList<Destination>();
         for (int i = 0; i < destinationCount; i++) {
-            int x = getRandom(1, Constants.MAPWIDTH);
-            int y = getRandom(1, Constants.MAPHEIGHT);
-            Destination destination = new Destination(x, y);
-            this.destinations.add(destination);
+            int randomX = getRandom(1, Constants.MAPWIDTH);
+            int randomY = getRandom(1, Constants.MAPHEIGHT);
+            this.destinations.add(new Destination(randomX, randomY, grid[randomY][randomX]));
         }
     }
 

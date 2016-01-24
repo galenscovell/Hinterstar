@@ -49,11 +49,46 @@ map_back
   orig: 48, 48
   offset: 0, 0
   index: -1
-map_point
+map_diamond_glow
   rotate: false
-  xy: 51, 25
+  xy: 51, 13
+  size: 36, 36
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
+map_point_empty
+  rotate: false
+  xy: 803, 889
   size: 24, 24
   orig: 24, 24
+  offset: 0, 0
+  index: -1
+map_diamond_explored
+  rotate: false
+  xy: 853, 945
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+map_diamond_selected
+  rotate: false
+  xy: 903, 995
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+map_diamond_unexplored
+  rotate: false
+  xy: 89, 31
+  size: 18, 18
+  orig: 18, 18
+  offset: 0, 0
+  index: -1
+map_point_diamond
+  rotate: false
+  xy: 803, 869
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
 
@@ -61,9 +96,16 @@ uiAtlas2.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-placeholder_vehicle
+orion-nebula
   rotate: false
   xy: 1, 1
+  size: 540, 440
+  orig: 540, 440
+  offset: 0, 0
+  index: -1
+placeholder_vehicle
+  rotate: false
+  xy: 543, 313
   size: 256, 128
   orig: 256, 128
   offset: 0, 0
