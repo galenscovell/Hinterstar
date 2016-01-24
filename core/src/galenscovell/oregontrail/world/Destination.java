@@ -1,14 +1,19 @@
 package galenscovell.oregontrail.world;
 
-import java.util.ArrayList;
-
 public class Destination {
-    public int x, y, width, height;
+    public int x, y;
+    private boolean explored, current;
 
-    public Destination(int topLeftX, int topLeftY, int width, int height) {
-        this.x = topLeftX;
-        this.y = topLeftY;
-        this.width = width;
-        this.height = height;
+    public Destination(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public void explore() {
+        this.explored = true;
+    }
+
+    public void toggleCurrent() {
+        this.current = !current;
     }
 }

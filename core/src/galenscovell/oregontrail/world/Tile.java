@@ -27,10 +27,6 @@ public class Tile {
         return type == TileType.EMPTY;
     }
 
-    public boolean isActive() {
-        return type == TileType.ACTIVE;
-    }
-
     public boolean isCurrent() {
         return type == TileType.CURRENT;
     }
@@ -54,10 +50,6 @@ public class Tile {
 
     public void becomeEmpty() {
         type = TileType.EMPTY;
-    }
-
-    public void becomeActive() {
-        type = TileType.ACTIVE;
     }
 
     public void becomeCurrent() {
