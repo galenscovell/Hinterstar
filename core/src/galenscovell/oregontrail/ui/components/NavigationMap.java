@@ -1,6 +1,7 @@
 package galenscovell.oregontrail.ui.components;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+
 import galenscovell.oregontrail.things.MapPoint;
 import galenscovell.oregontrail.util.ResourceManager;
 

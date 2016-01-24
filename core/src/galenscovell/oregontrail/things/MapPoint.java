@@ -3,6 +3,7 @@ package galenscovell.oregontrail.things;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
+
 import galenscovell.oregontrail.util.ResourceManager;
 
 public class MapPoint extends Actor {

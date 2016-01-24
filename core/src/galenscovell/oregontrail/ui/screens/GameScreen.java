@@ -4,6 +4,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
+
 import galenscovell.oregontrail.OregonTrailMain;
 import galenscovell.oregontrail.graphics.*;
 import galenscovell.oregontrail.processing.controls.*;
