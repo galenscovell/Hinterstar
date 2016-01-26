@@ -1,6 +1,6 @@
 package galenscovell.oregontrail.processing.pathfinding;
 
-import galenscovell.oregontrail.world.Tile;
+import galenscovell.oregontrail.map.Tile;
 
 public class Node {
     private Node parent;

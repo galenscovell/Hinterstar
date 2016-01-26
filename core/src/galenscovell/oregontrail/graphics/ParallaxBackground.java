@@ -18,6 +18,10 @@ public class ParallaxBackground {
         this.batch = batch;
     }
 
+    public void setSpeed(Vector2 speed) {
+        this.speed = speed;
+    }
+
     public void modifySpeed(Vector2 dxSpeed) {
         this.speed.x += dxSpeed.x;
         this.speed.y += dxSpeed.y;

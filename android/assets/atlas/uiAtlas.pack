@@ -10,7 +10,7 @@ bg1
   orig: 800, 480
   offset: 0, 0
   index: -1
-bg2
+bg1_blur
   rotate: false
   xy: 1, 51
   size: 800, 480
@@ -93,6 +93,25 @@ map_point_diamond
   index: -1
 
 uiAtlas2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bg2
+  rotate: false
+  xy: 1, 483
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+bg2_blur
+  rotate: false
+  xy: 1, 1
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
+
+uiAtlas3.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none

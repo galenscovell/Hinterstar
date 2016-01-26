@@ -1,6 +1,6 @@
 package galenscovell.oregontrail.processing.pathfinding;
 
-import galenscovell.oregontrail.world.*;
+import galenscovell.oregontrail.map.*;
 
 import java.util.*;
 

@@ -23,7 +23,7 @@ public class ActionTable extends Table {
         Table middle = new Table();
         middle.setSize(Constants.EXACT_X, 200);
         middle.setPosition(0, 80);
-        Player player = new Player();
+        Player player = new Player(gameStage);
         player.setSize(180, 90);
         middle.add(player).expand().fill().left().padLeft(80);
 

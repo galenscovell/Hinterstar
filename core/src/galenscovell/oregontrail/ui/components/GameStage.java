@@ -10,7 +10,7 @@ import galenscovell.oregontrail.ui.screens.GameScreen;
 import galenscovell.oregontrail.util.*;
 
 public class GameStage extends Stage {
-    private final GameScreen rootScreen;
+    public final GameScreen rootScreen;
     private Table navigationTable;
     private NavigationMap navigationMap;
     private ActionTable actionTable;

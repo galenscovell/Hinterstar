@@ -1,4 +1,4 @@
-package galenscovell.oregontrail.world;
+package galenscovell.oregontrail.map;
 
 public enum TileType {
     EMPTY,

@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.*;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader.FreeTypeFontLoaderParameter;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.*;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 
 public class ResourceManager {
     public static AssetManager assetManager;

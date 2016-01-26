@@ -1,4 +1,4 @@
-package galenscovell.oregontrail.world;
+package galenscovell.oregontrail.map;
 
 public class Point {
     public final int x, y;

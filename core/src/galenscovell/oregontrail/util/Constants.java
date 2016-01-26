@@ -17,9 +17,9 @@ public class Constants {
     public static final int EXACT_Y = 480;
 
     // Map dimensions
-    public static final int MAPWIDTH = 32; // 576px
-    public static final int MAPHEIGHT = 22; // 396px
+    public static final int MAPWIDTH = 32;  // 576px @ 18px
+    public static final int MAPHEIGHT = 22; // 396px @ 18px
     public static final int TILESIZE = 18;
-    public static final int MAPBORDERWIDTH = (MAPWIDTH * TILESIZE) + 22;
-    public static final int MAPBORDERHEIGHT = (MAPHEIGHT * TILESIZE) + 20;
+    public static final int MAPBORDERWIDTH = (MAPWIDTH * TILESIZE) + 22;   // 598px
+    public static final int MAPBORDERHEIGHT = (MAPHEIGHT * TILESIZE) + 20; // 416px
 }

@@ -16,8 +16,11 @@ public class GameScreen extends AbstractScreen {
     private final int timestep = 60;
     private double accumulator;
     private State currentState, actionState, menuState;
-    private ParallaxBackground parallaxBackground;
+    private ParallaxBackground currentbackground, normalStars, blurStars;
     private InputMultiplexer input;
+
+    private int travelTicker;
+    private boolean traveling;
 
     public GameScreen(OregonTrailMain root) {
         super(root);
@@ -26,7 +29,9 @@ public class GameScreen extends AbstractScreen {
 
     @Override
     public void create() {
-        setBackground("bg1", "bg2");
+        this.normalStars = createBackground("bg1", "bg2");
+        this.blurStars = createBackground("bg1_blur", "bg2_blur");
+        this.currentbackground = normalStars;
         this.stage = new GameStage(this, root.spriteBatch);
         this.actionState = new ActionState(this);
         this.menuState = new MenuState(this);
@@ -39,14 +44,19 @@ public class GameScreen extends AbstractScreen {
         // Update
         if (accumulator > timestep) {
             accumulator = 0;
-            currentState.update(delta, (GameStage)stage);
-            stage.act(delta);
+            if (!traveling) {
+                currentState.update(delta, (GameStage)stage);
+                stage.act(delta);
+            }
+        }
+        if (traveling) {
+            travel();
         }
         accumulator++;
         // Render
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        parallaxBackground.render(delta);
+        currentbackground.render(delta);
         stage.draw();
     }
 
@@ -77,23 +87,42 @@ public class GameScreen extends AbstractScreen {
         root.setScreen(root.mainMenuScreen);
     }
 
-    public void setBackground(String bg1, String bg2) {
+    public ParallaxBackground createBackground(String bg1, String bg2) {
         ParallaxLayer[] parallaxLayers = new ParallaxLayer[2];
         parallaxLayers[0] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg1), new Vector2(0.5f, 0.5f), new Vector2(0, 0));
         parallaxLayers[1] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg2), new Vector2(0.75f, 0.75f), new Vector2(0, 0));
-        this.parallaxBackground = new ParallaxBackground(root.spriteBatch, parallaxLayers, Constants.EXACT_X, Constants.EXACT_Y, new Vector2(35, 0));
+        ParallaxBackground parallaxBackground = new ParallaxBackground(root.spriteBatch, parallaxLayers, Constants.EXACT_X, Constants.EXACT_Y, new Vector2(40, 0));
+        return parallaxBackground;
     }
 
-    public void setBackground(String bg1, String bg2, String bg3) {
-        ParallaxLayer[] parallaxLayers = new ParallaxLayer[3];
-        parallaxLayers[0] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg1), new Vector2(0.05f, 0.05f), new Vector2(0, 0));
-        parallaxLayers[1] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg2), new Vector2(0.25f, 0.25f), new Vector2(0, 0));
-        parallaxLayers[2] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg3), new Vector2(0.4f, 0.4f), new Vector2(0, 0));
-        this.parallaxBackground = new ParallaxBackground(root.spriteBatch, parallaxLayers, Constants.EXACT_X, Constants.EXACT_Y, new Vector2(50, 0));
+    public void setTravel() {
+        traveling = true;
+        travelTicker = 600;
     }
 
-    public void modifyBackground(Vector2 dxSpeed) {
-        parallaxBackground.modifySpeed(dxSpeed);
+    public boolean isTraveling() {
+        return traveling;
+    }
+
+    public void travel() {
+        if (travelTicker > 480) {
+            currentbackground.modifySpeed(new Vector2((600 - travelTicker), 0));
+        } else if (travelTicker == 480) {
+            currentbackground = blurStars;
+            currentbackground.setSpeed(new Vector2(2500, 0));
+        } else if (travelTicker == 120) {
+            currentbackground = normalStars;
+            currentbackground.setSpeed(new Vector2(1800, 0));
+        } else if (travelTicker < 60) {
+            currentbackground.modifySpeed(new Vector2(-(60 - travelTicker), 0));
+        }
+        travelTicker--;
+
+        if (travelTicker == 0) {
+            // Set new location background and speed
+            currentbackground.setSpeed(new Vector2(40, 0));
+            traveling = false;
+        }
     }
 
     private void setupInput() {

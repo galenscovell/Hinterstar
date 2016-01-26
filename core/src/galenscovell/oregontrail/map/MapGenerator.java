@@ -1,26 +1,31 @@
-package galenscovell.oregontrail.world;
+package galenscovell.oregontrail.map;
 
-import galenscovell.oregontrail.util.Constants;
+import galenscovell.oregontrail.util.*;
 
 import java.util.*;
 
 public class MapGenerator {
     private Tile[][] grid;
     private ArrayList<Destination> destinations;
+    private MapRepository repo;
 
     public MapGenerator(int numDestinations) {
         this.grid = new Tile[Constants.MAPHEIGHT][Constants.MAPWIDTH];
+        this.repo = new MapRepository();
+
         build(numDestinations);
         setTileNeighbors();
         removeAdjacentDestinations();
+        // setDestinationTypes();
+        repo.setDestinations(destinations);
     }
 
     public Tile[][] getTiles() {
         return grid;
     }
 
-    public ArrayList<Destination> getDestinations() {
-        return destinations;
+    public MapRepository getRepo() {
+        return repo;
     }
 
     public void print() {
@@ -41,7 +46,7 @@ public class MapGenerator {
         // Construct Tile[MAPHEIGHT][MAPWIDTH] grid of all empty tiles
         for (int x = 0; x < Constants.MAPWIDTH; x++) {
             for (int y = 0; y < Constants.MAPHEIGHT; y++) {
-                grid[y][x] = new Tile(x, y);
+                grid[y][x] = new Tile(x, y, repo);
             }
         }
         int destinationCount = getRandom(numDestinations - 4, numDestinations + 4);

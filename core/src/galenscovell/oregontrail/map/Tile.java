@@ -1,4 +1,4 @@
-package galenscovell.oregontrail.world;
+package galenscovell.oregontrail.map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
@@ -16,7 +16,7 @@ public class Tile extends Actor {
     private Sprite sprite;
     private boolean selected, glowUp;
 
-    public Tile(int x, int y) {
+    public Tile(int x, int y, final MapRepository repo) {
         this.x = x;
         this.y = y;
         this.frames = 0;
@@ -26,7 +26,8 @@ public class Tile extends Actor {
         this.addListener(new ActorGestureListener() {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (!isEmpty()) {
-                    selected = !selected;
+                    repo.disableDestinationSelection();
+                    selected = true;
                 }
             }
         });
@@ -56,6 +57,10 @@ public class Tile extends Actor {
         return neighborTilePoints;
     }
 
+    public boolean isSelected() {
+        return selected;
+    }
+
 
     public void setNeighbors(List<Point> points) {
         this.neighborTilePoints = points;
@@ -78,6 +83,10 @@ public class Tile extends Actor {
         type = TileType.UNEXPLORED;
     }
 
+    public void disableSelected() {
+        selected = false;
+    }
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (isEmpty()) {
@@ -95,7 +104,7 @@ public class Tile extends Actor {
             glowUp = true;
         }
         float frameAlpha = (frames / 120.0f);
-        batch.setColor(0.3f, 0.3f, 1, frameAlpha);
+        batch.setColor(0.3f, 0.8f, 1, frameAlpha);
         batch.draw(
                 ResourceManager.mapDiamondGlow,
                 (x + 11) * Constants.TILESIZE - 5,
