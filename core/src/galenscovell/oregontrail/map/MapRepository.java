@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class MapRepository {
     private ArrayList<Destination> destinations;
+    private Destination currentDestination;
 
     public MapRepository() {
 
@@ -11,6 +12,14 @@ public class MapRepository {
 
     public void setDestinations(ArrayList<Destination> destinations) {
         this.destinations = destinations;
+        Destination mostLeftDestination = null;
+        for (Destination destination : destinations) {
+            if (mostLeftDestination == null || destination.x < mostLeftDestination.x) {
+                mostLeftDestination = destination;
+            }
+        }
+        this.currentDestination = mostLeftDestination;
+        currentDestination.getTile().becomeCurrent();
     }
 
     public void disableDestinationSelection() {

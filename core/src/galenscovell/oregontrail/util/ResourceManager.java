@@ -19,7 +19,7 @@ public class ResourceManager {
     public static LabelStyle label_tinyStyle, label_mediumStyle, label_detailStyle, label_menuStyle, label_titleStyle;
     public static NinePatchDrawable buttonUp, buttonDown, mapback;
     public static TextButtonStyle button_fullStyle;
-    public static Sprite mapDiamondGlow, mapDiamondSelect;
+    public static Sprite mapGlow, mapSelect;
     public static Preferences prefs;
 
     public static void create() {
@@ -96,8 +96,8 @@ public class ResourceManager {
     }
 
     private static void loadSprites() {
-        mapDiamondGlow = new Sprite(uiAtlas.createSprite("map_diamond_glow"));
-        mapDiamondSelect = new Sprite(uiAtlas.createSprite("map_diamond_selected"));
+        mapGlow = new Sprite(uiAtlas.createSprite("map_glow"));
+        mapSelect = new Sprite(uiAtlas.createSprite("map_select"));
 //        highlightBlue = new Sprite(uiAtlas.createSprite("highlight_blue"));
 //        highlightBlue.flip(false, true);
 //        highlightOrange = new Sprite(uiAtlas.createSprite("highlight_orange"));

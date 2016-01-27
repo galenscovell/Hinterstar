@@ -49,46 +49,25 @@ map_back
   orig: 48, 48
   offset: 0, 0
   index: -1
-map_diamond_glow
+map_diamond
   rotate: false
   xy: 51, 13
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
-map_point_empty
+map_glow
   rotate: false
-  xy: 803, 889
-  size: 24, 24
-  orig: 24, 24
+  xy: 803, 877
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: -1
-map_diamond_explored
+map_select
   rotate: false
-  xy: 853, 945
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: -1
-map_diamond_selected
-  rotate: false
-  xy: 903, 995
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: -1
-map_diamond_unexplored
-  rotate: false
-  xy: 89, 31
-  size: 18, 18
-  orig: 18, 18
-  offset: 0, 0
-  index: -1
-map_point_diamond
-  rotate: false
-  xy: 803, 869
-  size: 18, 18
-  orig: 18, 18
+  xy: 853, 927
+  size: 36, 36
+  orig: 36, 36
   offset: 0, 0
   index: -1
 

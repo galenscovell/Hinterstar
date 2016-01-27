@@ -112,9 +112,9 @@ public class GameScreen extends AbstractScreen {
             currentbackground.setSpeed(new Vector2(2500, 0));
         } else if (travelTicker == 120) {
             currentbackground = normalStars;
-            currentbackground.setSpeed(new Vector2(1800, 0));
-        } else if (travelTicker < 60) {
-            currentbackground.modifySpeed(new Vector2(-(60 - travelTicker), 0));
+            currentbackground.setSpeed(new Vector2(2500, 0));
+        } else if (travelTicker < 70) {
+            currentbackground.modifySpeed(new Vector2(-(70 - travelTicker), 0));
         }
         travelTicker--;
 

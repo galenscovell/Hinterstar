@@ -20,7 +20,7 @@ public class Tile extends Actor {
         this.x = x;
         this.y = y;
         this.frames = 0;
-        glowUp = true;
+        this.glowUp = true;
         becomeEmpty();
 
         this.addListener(new ActorGestureListener() {
@@ -79,7 +79,7 @@ public class Tile extends Actor {
     }
 
     public void becomeUnexplored() {
-        sprite = new Sprite(ResourceManager.uiAtlas.createSprite("map_diamond_unexplored"));
+        sprite = new Sprite(ResourceManager.uiAtlas.createSprite("map_diamond"));
         type = TileType.UNEXPLORED;
     }
 
@@ -106,30 +106,29 @@ public class Tile extends Actor {
         float frameAlpha = (frames / 120.0f);
         batch.setColor(0.3f, 0.8f, 1, frameAlpha);
         batch.draw(
-                ResourceManager.mapDiamondGlow,
-                (x + 11) * Constants.TILESIZE - 5,
-                Gdx.graphics.getHeight() - (y + 5) * Constants.TILESIZE,
-                Constants.TILESIZE + 10,
-                Constants.TILESIZE + 10
+            ResourceManager.mapGlow,
+            (x + 11) * Constants.TILESIZE - 6,
+            Gdx.graphics.getHeight() - (y + 5) * Constants.TILESIZE + 1,
+            Constants.TILESIZE + 10,
+            Constants.TILESIZE + 10
         );
         batch.setColor(1, 1, 1, 1);
 
         if (selected) {
             batch.draw(
-                    ResourceManager.mapDiamondSelect,
-                    (x + 11) * Constants.TILESIZE,
-                    Gdx.graphics.getHeight() - (y + 5) * Constants.TILESIZE + 5,
-                    Constants.TILESIZE,
-                    Constants.TILESIZE
-            );
-        } else {
-            batch.draw(
-                    sprite,
-                    (x + 11) * Constants.TILESIZE,
-                    Gdx.graphics.getHeight() - (y + 5) * Constants.TILESIZE + 5,
-                    Constants.TILESIZE,
-                    Constants.TILESIZE
+                ResourceManager.mapSelect,
+                (x + 12) * Constants.TILESIZE - 4,
+                Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE,
+                Constants.TILESIZE - 2,
+                Constants.TILESIZE - 2
             );
         }
+        batch.draw(
+            sprite,
+            (x + 11) * Constants.TILESIZE,
+            Gdx.graphics.getHeight() - (y + 5) * Constants.TILESIZE + 5,
+            Constants.TILESIZE,
+            Constants.TILESIZE
+        );
     }
 }
