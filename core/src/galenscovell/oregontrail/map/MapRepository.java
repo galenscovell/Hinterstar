@@ -10,6 +10,14 @@ public class MapRepository {
 
     }
 
+    public Destination getCurrentDestination() {
+        return currentDestination;
+    }
+
+    public void setCurrentDestination(Destination destination) {
+        this.currentDestination = destination;
+    }
+
     public void setDestinations(ArrayList<Destination> destinations) {
         this.destinations = destinations;
         Destination mostLeftDestination = null;
@@ -31,7 +39,9 @@ public class MapRepository {
     public void travelToDestination() {
         for (Destination destination : destinations) {
             if (destination.getTile().isSelected()) {
-
+                currentDestination.getTile().becomeExplored();
+                currentDestination = destination;
+                destination.getTile().becomeCurrent();
             }
         }
     }

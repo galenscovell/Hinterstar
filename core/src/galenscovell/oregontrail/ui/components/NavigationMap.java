@@ -42,7 +42,11 @@ public class NavigationMap extends Table {
         TextButton travelButton = new TextButton("Travel", ResourceManager.button_fullStyle);
         travelButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                travelToDestination();
+                if (gameStage.rootScreen.isTraveling()) {
+                    System.out.println("Already traveling!");
+                } else {
+                    travelToDestination();
+                }
             }
         });
 
@@ -80,5 +84,6 @@ public class NavigationMap extends Table {
     private void travelToDestination() {
         gameStage.toggleNavMap();
         gameStage.rootScreen.setTravel();
+        repo.travelToDestination();
     }
 }

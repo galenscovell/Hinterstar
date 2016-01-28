@@ -105,9 +105,9 @@ public class GameScreen extends AbstractScreen {
     }
 
     public void travel() {
-        if (travelTicker > 480) {
+        if (travelTicker > 500) {
             currentbackground.modifySpeed(new Vector2((600 - travelTicker), 0));
-        } else if (travelTicker == 480) {
+        } else if (travelTicker == 500) {
             currentbackground = blurStars;
             currentbackground.setSpeed(new Vector2(2500, 0));
         } else if (travelTicker == 120) {

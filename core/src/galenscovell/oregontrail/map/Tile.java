@@ -93,6 +93,7 @@ public class Tile extends Actor {
             return;
         }
 
+        // Glow animation
         if (glowUp) {
             frames++;
         } else {
@@ -114,6 +115,7 @@ public class Tile extends Actor {
         );
         batch.setColor(1, 1, 1, 1);
 
+        // Selected graphics
         if (selected) {
             batch.draw(
                 ResourceManager.mapSelect,
@@ -123,6 +125,18 @@ public class Tile extends Actor {
                 Constants.TILESIZE - 2
             );
         }
+
+        // Current location graphics
+        if (isCurrent()) {
+            batch.setColor(0.5f, 1.0f, 0.6f, 1.0f);
+        }
+
+        // Explored location graphics
+        if (isExplored()) {
+            batch.setColor(0.5f, 0.6f, 1.0f, 1.0f);
+        }
+
+        // Map pointer graphics
         batch.draw(
             sprite,
             (x + 11) * Constants.TILESIZE,
@@ -130,5 +144,6 @@ public class Tile extends Actor {
             Constants.TILESIZE,
             Constants.TILESIZE
         );
+        batch.setColor(1, 1, 1, 1);
     }
 }
