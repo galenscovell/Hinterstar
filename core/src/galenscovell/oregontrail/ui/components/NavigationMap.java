@@ -2,10 +2,9 @@ package galenscovell.oregontrail.ui.components;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-
 import com.badlogic.gdx.scenes.scene2d.utils.*;
-import galenscovell.oregontrail.util.*;
 import galenscovell.oregontrail.map.*;
+import galenscovell.oregontrail.util.*;
 
 public class NavigationMap extends Table {
     private final GameStage gameStage;
@@ -14,7 +13,7 @@ public class NavigationMap extends Table {
 
     public NavigationMap(GameStage gameStage) {
         this.gameStage = gameStage;
-        this.mapGenerator = new MapGenerator(16);
+        this.mapGenerator = new MapGenerator(12);
         this.repo = mapGenerator.getRepo();
         construct();
     }

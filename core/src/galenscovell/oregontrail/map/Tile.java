@@ -71,6 +71,10 @@ public class Tile extends Actor {
     }
 
     public void becomeCurrent() {
+        ResourceManager.currentMarker.setTarget(
+            (x + 8) * Constants.TILESIZE - 36,
+            Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE - 32
+        );
         type = TileType.CURRENT;
     }
 
@@ -79,7 +83,7 @@ public class Tile extends Actor {
     }
 
     public void becomeUnexplored() {
-        sprite = new Sprite(ResourceManager.uiAtlas.createSprite("map_diamond"));
+        sprite = new Sprite(ResourceManager.uiAtlas.createSprite("map_hexagon"));
         type = TileType.UNEXPLORED;
     }
 
@@ -93,7 +97,7 @@ public class Tile extends Actor {
             return;
         }
 
-        // Glow animation
+        // Glow
         if (glowUp) {
             frames++;
         } else {
@@ -108,42 +112,48 @@ public class Tile extends Actor {
         batch.setColor(0.3f, 0.8f, 1, frameAlpha);
         batch.draw(
             ResourceManager.mapGlow,
-            (x + 11) * Constants.TILESIZE - 6,
-            Gdx.graphics.getHeight() - (y + 5) * Constants.TILESIZE + 1,
-            Constants.TILESIZE + 10,
-            Constants.TILESIZE + 10
+            (x + 8) * Constants.TILESIZE - 12,
+            Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE - 6,
+            Constants.TILESIZE * 2,
+            Constants.TILESIZE * 2
         );
         batch.setColor(1, 1, 1, 1);
 
-        // Selected graphics
+        // Map location
+        if (isExplored()) {
+            batch.setColor(0.5f, 0.6f, 1.0f, 1.0f);
+            batch.draw(
+                sprite,
+                (x + 8) * Constants.TILESIZE,
+                Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE + 5,
+                Constants.TILESIZE,
+                Constants.TILESIZE
+            );
+            batch.setColor(1, 1, 1, 1);
+        } else {
+            batch.draw(
+                sprite,
+                (x + 8) * Constants.TILESIZE,
+                Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE + 5,
+                Constants.TILESIZE,
+                Constants.TILESIZE
+            );
+        }
+
+        // Current
+        if (isCurrent()) {
+            ResourceManager.currentMarker.render(batch);
+        }
+
+        // Selected
         if (selected) {
             batch.draw(
                 ResourceManager.mapSelect,
-                (x + 12) * Constants.TILESIZE - 4,
-                Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE,
+                (x + 9) * Constants.TILESIZE - 4,
+                Gdx.graphics.getHeight() - (y + 3) * Constants.TILESIZE,
                 Constants.TILESIZE - 2,
                 Constants.TILESIZE - 2
             );
         }
-
-        // Current location graphics
-        if (isCurrent()) {
-            batch.setColor(0.5f, 1.0f, 0.6f, 1.0f);
-        }
-
-        // Explored location graphics
-        if (isExplored()) {
-            batch.setColor(0.5f, 0.6f, 1.0f, 1.0f);
-        }
-
-        // Map pointer graphics
-        batch.draw(
-            sprite,
-            (x + 11) * Constants.TILESIZE,
-            Gdx.graphics.getHeight() - (y + 5) * Constants.TILESIZE + 5,
-            Constants.TILESIZE,
-            Constants.TILESIZE
-        );
-        batch.setColor(1, 1, 1, 1);
     }
 }

@@ -57,8 +57,8 @@ public class MapGenerator {
         // Place random Destinations, ensuring that they do not collide
         this.destinations = new ArrayList<Destination>();
         for (int i = 0; i < destinationCount; i++) {
-            int randomX = getRandom(1, Constants.MAPWIDTH);
-            int randomY = getRandom(1, Constants.MAPHEIGHT);
+            int randomX = getRandom(2, Constants.MAPWIDTH - 2);
+            int randomY = getRandom(2, Constants.MAPHEIGHT - 2);
             this.destinations.add(new Destination(randomX, randomY, grid[randomY][randomX]));
         }
     }

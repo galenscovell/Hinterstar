@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader.FreeTypeFontLoa
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import galenscovell.oregontrail.graphics.CurrentLocationAnimation;
 
 public class ResourceManager {
     public static AssetManager assetManager;
@@ -20,6 +21,7 @@ public class ResourceManager {
     public static NinePatchDrawable buttonUp, buttonDown, mapback;
     public static TextButtonStyle button_fullStyle;
     public static Sprite mapGlow, mapSelect;
+    public static CurrentLocationAnimation currentMarker;
     public static Preferences prefs;
 
     public static void create() {
@@ -48,6 +50,7 @@ public class ResourceManager {
         loadLabelStyles();
         loadButtonStyles();
         loadSprites();
+        loadAnimations();
 
 //        // Load user preferences
 //        prefs = Gdx.app.getPreferences("flicker_settings");
@@ -102,5 +105,9 @@ public class ResourceManager {
 //        highlightBlue.flip(false, true);
 //        highlightOrange = new Sprite(uiAtlas.createSprite("highlight_orange"));
 //        highlightOrange.flip(false, true);
+    }
+
+    private static void loadAnimations() {
+        currentMarker = new CurrentLocationAnimation();
     }
 }
