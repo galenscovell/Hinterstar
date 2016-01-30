@@ -13,7 +13,7 @@ public class NavigationMap extends Table {
 
     public NavigationMap(GameStage gameStage) {
         this.gameStage = gameStage;
-        this.mapGenerator = new MapGenerator(12);
+        this.mapGenerator = new MapGenerator(15);
         this.repo = mapGenerator.getRepo();
         construct();
     }
@@ -22,7 +22,7 @@ public class NavigationMap extends Table {
         this.setFillParent(true);
 
         Table mapTable = new Table();
-        mapTable.setBackground(ResourceManager.buttonUp);
+        mapTable.setBackground(ResourceManager.panel);
 
         Table navInfoTable = createInfoBox();
         Table mainMapTable = createMapBox();
@@ -61,7 +61,7 @@ public class NavigationMap extends Table {
         mainMapTable.setBackground(ResourceManager.mapback);
 
         Table innerTable = new Table();
-        innerTable.setBackground(new TextureRegionDrawable(ResourceManager.uiAtlas.findRegion("orion-nebula")));
+        innerTable.setBackground(new TextureRegionDrawable(ResourceManager.uiAtlas.findRegion("galaxy")));
         generateMap(innerTable);
 
         mainMapTable.add(innerTable).expand().fill();

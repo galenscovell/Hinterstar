@@ -49,7 +49,7 @@ public class MapGenerator {
                 grid[y][x] = new Tile(x, y, repo);
             }
         }
-        int destinationCount = getRandom(numDestinations - 4, numDestinations + 4);
+        int destinationCount = getRandom(numDestinations - 3, numDestinations + 3);
         placeDestinations(destinationCount);
     }
 
@@ -57,9 +57,25 @@ public class MapGenerator {
         // Place random Destinations, ensuring that they do not collide
         this.destinations = new ArrayList<Destination>();
         for (int i = 0; i < destinationCount; i++) {
-            int randomX = getRandom(2, Constants.MAPWIDTH - 2);
-            int randomY = getRandom(2, Constants.MAPHEIGHT - 2);
-            this.destinations.add(new Destination(randomX, randomY, grid[randomY][randomX]));
+            boolean placed = false;
+            Destination destination = null;
+            while (!placed) {
+                int randomX = getRandom(2, Constants.MAPWIDTH - 2);
+                int randomY = getRandom(2, Constants.MAPHEIGHT - 2);
+
+                destination = new Destination(randomX, randomY, grid[randomY][randomX]);
+
+                boolean adjacentDestination = false;
+                for (Destination d : destinations) {
+                    if (destination.x == d.x && destination.y == d.y) {
+                        adjacentDestination = true;
+                    }
+                }
+                if (!adjacentDestination) {
+                    placed = true;
+                }
+            }
+            destinations.add(destination);
         }
     }
 

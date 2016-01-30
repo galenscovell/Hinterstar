@@ -72,8 +72,8 @@ public class Tile extends Actor {
 
     public void becomeCurrent() {
         ResourceManager.currentMarker.setTarget(
-            (x + 8) * Constants.TILESIZE - 36,
-            Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE - 32
+            (x + 8) * Constants.TILESIZE - 24,
+            Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE - 20
         );
         type = TileType.CURRENT;
     }
@@ -121,7 +121,7 @@ public class Tile extends Actor {
 
         // Map location
         if (isExplored()) {
-            batch.setColor(0.5f, 0.6f, 1.0f, 1.0f);
+            batch.setColor(0.6f, 0.8f, 1.0f, 1.0f);
             batch.draw(
                 sprite,
                 (x + 8) * Constants.TILESIZE,
@@ -149,10 +149,10 @@ public class Tile extends Actor {
         if (selected) {
             batch.draw(
                 ResourceManager.mapSelect,
-                (x + 9) * Constants.TILESIZE - 4,
-                Gdx.graphics.getHeight() - (y + 3) * Constants.TILESIZE,
-                Constants.TILESIZE - 2,
-                Constants.TILESIZE - 2
+                (x + 9) * Constants.TILESIZE,
+                Gdx.graphics.getHeight() - (y + 3) * Constants.TILESIZE - 20,
+                Constants.TILESIZE,
+                Constants.TILESIZE
             );
         }
     }

@@ -19,9 +19,9 @@ bg1_blur
   index: -1
 current_marker
   rotate: false
-  xy: 803, 905
-  size: 96, 96
-  orig: 96, 96
+  xy: 803, 921
+  size: 80, 80
+  orig: 80, 80
   offset: 0, 0
   index: -1
 marker
@@ -33,7 +33,7 @@ marker
   index: -1
 buttondown
   rotate: false
-  xy: 803, 855
+  xy: 803, 871
   size: 48, 48
   split: 7, 7, 8, 4
   orig: 48, 48
@@ -41,7 +41,7 @@ buttondown
   index: -1
 buttonup
   rotate: false
-  xy: 901, 953
+  xy: 885, 953
   size: 48, 48
   split: 7, 7, 6, 6
   orig: 48, 48
@@ -49,7 +49,7 @@ buttonup
   index: -1
 mapback
   rotate: false
-  xy: 803, 805
+  xy: 803, 821
   size: 48, 48
   split: 7, 7, 6, 6
   orig: 48, 48
@@ -57,7 +57,7 @@ mapback
   index: -1
 map_back
   rotate: false
-  xy: 951, 953
+  xy: 935, 953
   size: 48, 48
   split: 7, 7, 6, 6
   orig: 48, 48
@@ -65,15 +65,23 @@ map_back
   index: -1
 map_glow
   rotate: false
-  xy: 803, 755
+  xy: 803, 771
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 map_hexagon
   rotate: false
-  xy: 803, 705
+  xy: 803, 721
   size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+panel
+  rotate: false
+  xy: 803, 671
+  size: 48, 48
+  split: 7, 7, 6, 6
   orig: 48, 48
   offset: 0, 0
   index: -1
@@ -86,9 +94,9 @@ map_diamond
   index: -1
 map_select
   rotate: false
-  xy: 853, 867
-  size: 36, 36
-  orig: 36, 36
+  xy: 853, 895
+  size: 24, 24
+  orig: 24, 24
   offset: 0, 0
   index: -1
 
@@ -115,17 +123,17 @@ uiAtlas3.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-orion-nebula
+galaxy
   rotate: false
-  xy: 1, 1
-  size: 540, 440
-  orig: 540, 440
+  xy: 1, 203
+  size: 500, 355
+  orig: 500, 355
   offset: 0, 0
   index: -1
 placeholder_vehicle
   rotate: false
-  xy: 543, 313
-  size: 256, 128
-  orig: 256, 128
+  xy: 1, 1
+  size: 600, 200
+  orig: 600, 200
   offset: 0, 0
   index: -1

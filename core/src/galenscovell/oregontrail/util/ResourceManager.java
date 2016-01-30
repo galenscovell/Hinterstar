@@ -18,7 +18,7 @@ public class ResourceManager {
     public static AssetManager assetManager;
     public static TextureAtlas uiAtlas;
     public static LabelStyle label_tinyStyle, label_mediumStyle, label_detailStyle, label_menuStyle, label_titleStyle;
-    public static NinePatchDrawable buttonUp, buttonDown, mapback;
+    public static NinePatchDrawable buttonUp, buttonDown, mapback, panel;
     public static TextButtonStyle button_fullStyle;
     public static Sprite mapGlow, mapSelect;
     public static CurrentLocationAnimation currentMarker;
@@ -83,6 +83,7 @@ public class ResourceManager {
         buttonUp = new NinePatchDrawable(uiAtlas.createPatch("buttonup"));
         buttonDown = new NinePatchDrawable(uiAtlas.createPatch("buttondown"));
         mapback = new NinePatchDrawable(uiAtlas.createPatch("map_back"));
+        panel = new NinePatchDrawable(uiAtlas.createPatch("panel"));
     }
 
     private static void loadLabelStyles() {

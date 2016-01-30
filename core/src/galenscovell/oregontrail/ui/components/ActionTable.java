@@ -24,7 +24,7 @@ public class ActionTable extends Table {
         middle.setSize(Constants.EXACT_X, 200);
         middle.setPosition(0, 80);
         Player player = new Player(gameStage);
-        player.setSize(180, 90);
+        player.setSize(270, 90);
         middle.add(player).expand().fill().left().padLeft(80);
 
         Table front = new Table();
