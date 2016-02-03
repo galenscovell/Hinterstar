@@ -4,18 +4,27 @@ import java.util.ArrayList;
 
 public class MapRepository {
     private ArrayList<Destination> destinations;
-    private Destination currentDestination;
+    private Destination currentLocation;
 
     public MapRepository() {
 
     }
 
-    public Destination getCurrentDestination() {
-        return currentDestination;
+    public Destination getCurrentLocation() {
+        return currentLocation;
     }
 
     public void setCurrentDestination(Destination destination) {
-        this.currentDestination = destination;
+        this.currentLocation = destination;
+    }
+
+    public Destination getCurrentSelection() {
+        for (Destination destination : destinations) {
+            if (destination.getTile().isSelected()) {
+                return destination;
+            }
+        }
+        return null;
     }
 
     public void setDestinations(ArrayList<Destination> destinations) {
@@ -26,8 +35,8 @@ public class MapRepository {
                 mostLeftDestination = destination;
             }
         }
-        this.currentDestination = mostLeftDestination;
-        currentDestination.getTile().becomeCurrent();
+        this.currentLocation = mostLeftDestination;
+        currentLocation.getTile().becomeCurrent();
     }
 
     public void disableDestinationSelection() {
@@ -36,13 +45,12 @@ public class MapRepository {
         }
     }
 
-    public void travelToDestination() {
-        for (Destination destination : destinations) {
-            if (destination.getTile().isSelected()) {
-                currentDestination.getTile().becomeExplored();
-                currentDestination = destination;
-                destination.getTile().becomeCurrent();
-            }
+    public void travelToSelection() {
+        Destination selection = getCurrentSelection();
+        if (selection != null) {
+            currentLocation.getTile().becomeExplored();
+            currentLocation = selection;
+            selection.getTile().becomeCurrent();
         }
     }
 }

@@ -72,7 +72,7 @@ public class Tile extends Actor {
 
     public void becomeCurrent() {
         ResourceManager.currentMarker.setTarget(
-            (x + 8) * Constants.TILESIZE - 24,
+            (x + 2) * Constants.TILESIZE - 34,
             Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE - 20
         );
         type = TileType.CURRENT;
@@ -112,7 +112,7 @@ public class Tile extends Actor {
         batch.setColor(0.3f, 0.8f, 1, frameAlpha);
         batch.draw(
             ResourceManager.mapGlow,
-            (x + 8) * Constants.TILESIZE - 12,
+            (x + 2) * Constants.TILESIZE - 22,
             Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE - 6,
             Constants.TILESIZE * 2,
             Constants.TILESIZE * 2
@@ -124,7 +124,7 @@ public class Tile extends Actor {
             batch.setColor(0.6f, 0.8f, 1.0f, 1.0f);
             batch.draw(
                 sprite,
-                (x + 8) * Constants.TILESIZE,
+                (x + 2) * Constants.TILESIZE - 10,
                 Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE + 5,
                 Constants.TILESIZE,
                 Constants.TILESIZE
@@ -133,7 +133,7 @@ public class Tile extends Actor {
         } else {
             batch.draw(
                 sprite,
-                (x + 8) * Constants.TILESIZE,
+                (x + 2) * Constants.TILESIZE - 10,
                 Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE + 5,
                 Constants.TILESIZE,
                 Constants.TILESIZE
@@ -149,7 +149,7 @@ public class Tile extends Actor {
         if (selected) {
             batch.draw(
                 ResourceManager.mapSelect,
-                (x + 9) * Constants.TILESIZE,
+                (x + 3) * Constants.TILESIZE - 10,
                 Gdx.graphics.getHeight() - (y + 3) * Constants.TILESIZE - 20,
                 Constants.TILESIZE,
                 Constants.TILESIZE

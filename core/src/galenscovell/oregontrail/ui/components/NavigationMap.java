@@ -22,43 +22,42 @@ public class NavigationMap extends Table {
         this.setFillParent(true);
 
         Table mapTable = new Table();
-        mapTable.setBackground(ResourceManager.panel);
+        mapTable.setBackground(ResourceManager.glass);
 
-        Table navInfoTable = createInfoBox();
         Table mainMapTable = createMapBox();
+        Table navInfoTable = createInfoBox();
 
-        mapTable.add(navInfoTable).width(160).height(400).expand().fill().left().padLeft(8);
-        mapTable.add(mainMapTable).width(Constants.MAPBORDERWIDTH).height(Constants.MAPBORDERHEIGHT).expand().fill().right().padRight(8);
+        mapTable.add(mainMapTable).width(Constants.MAPBORDERWIDTH).height(Constants.MAPBORDERHEIGHT).expand().fill();
+        mapTable.row();
+        mapTable.add(navInfoTable).width(Constants.MAPBORDERWIDTH).padTop(10);
 
-        this.add(mapTable).width(Constants.EXACT_X).height(Constants.EXACT_Y - 50).expand().fill().center().padTop(50);
+        this.add(mapTable).width(Constants.EXACT_X).height(Constants.EXACT_Y - 40).expand().fill().center().padTop(40);
     }
 
     private Table createInfoBox() {
         Table navInfoTable = new Table();
-        Table navInfo = new Table();
-        navInfo.setBackground(ResourceManager.buttonDown);
 
         TextButton travelButton = new TextButton("Travel", ResourceManager.button_fullStyle);
         travelButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 if (gameStage.rootScreen.isTraveling()) {
-                    System.out.println("Already traveling!");
+                    System.out.println("Already traveling");
+                } else if (repo.getCurrentSelection() == null || repo.getCurrentSelection() == repo.getCurrentSelection()) {
+                    System.out.println("Selection invalid");
                 } else {
-                    travelToDestination();
+                    travelToLocation();
                 }
             }
         });
 
-        navInfoTable.add(navInfo).width(160).height(320).expand().fill();
-        navInfoTable.row();
-        navInfoTable.add(travelButton).width(160).height(70).expand().fill().bottom();
+        navInfoTable.add(travelButton).width(120).height(50).expand().fill().right();
 
         return navInfoTable;
     }
 
     private Table createMapBox() {
         Table mainMapTable = new Table();
-        mainMapTable.setBackground(ResourceManager.mapback);
+        mainMapTable.setBackground(ResourceManager.glass);
 
         Table innerTable = new Table();
         innerTable.setBackground(new TextureRegionDrawable(ResourceManager.uiAtlas.findRegion("galaxy")));
@@ -80,9 +79,9 @@ public class NavigationMap extends Table {
         }
     }
 
-    private void travelToDestination() {
+    private void travelToLocation() {
         gameStage.toggleNavMap();
         gameStage.rootScreen.setTravel();
-        repo.travelToDestination();
+        repo.travelToSelection();
     }
 }

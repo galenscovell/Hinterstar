@@ -47,16 +47,16 @@ public class GameStage extends Stage {
                 System.out.println("Ship button");
             }
         });
-        navigationTable.add(navMapButton).width(84).expand().fill();
-        navigationTable.add(teamButton).width(84).expand().fill();
-        navigationTable.add(shipButton).width(84).expand().fill();
+        navigationTable.add(navMapButton).width(90).expand().fill();
+        navigationTable.add(teamButton).width(90).expand().fill();
+        navigationTable.add(shipButton).width(90).expand().fill();
 
         this.actionTable = new ActionTable(this);
         this.detailTable = new DetailTable(this);
 
-        mainTable.add(navigationTable).width(Constants.EXACT_X / 3).height(50).center();
+        mainTable.add(navigationTable).width(Constants.EXACT_X / 3).height(26).center().padTop(4);
         mainTable.row();
-        mainTable.add(actionTable).width(Constants.EXACT_X).height(340).center();
+        mainTable.add(actionTable).width(Constants.EXACT_X).height(360).center();
         mainTable.row();
         mainTable.add(detailTable).width(Constants.EXACT_X).height(90).center();
 

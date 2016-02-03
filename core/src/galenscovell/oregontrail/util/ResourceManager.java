@@ -18,7 +18,7 @@ public class ResourceManager {
     public static AssetManager assetManager;
     public static TextureAtlas uiAtlas;
     public static LabelStyle label_tinyStyle, label_mediumStyle, label_detailStyle, label_menuStyle, label_titleStyle;
-    public static NinePatchDrawable buttonUp, buttonDown, mapback, panel;
+    public static NinePatchDrawable buttonUp, buttonDown, glass, panel;
     public static TextButtonStyle button_fullStyle;
     public static Sprite mapGlow, mapSelect;
     public static CurrentLocationAnimation currentMarker;
@@ -36,11 +36,11 @@ public class ResourceManager {
         assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 
-        generateFont("ui/kenpixel_blocks.ttf", 12, 0, Color.WHITE, Color.BLACK, "tinyFont.ttf");
-        generateFont("ui/kenpixel_blocks.ttf", 14, 0, Color.WHITE, Color.BLACK, "smallFont.ttf");
-        generateFont("ui/kenpixel_blocks.ttf", 16, 0, Color.WHITE, Color.BLACK, "mediumFont.ttf");
-        generateFont("ui/kenpixel_blocks.ttf", 24, 0, Color.WHITE, Color.BLACK, "largeFont.ttf");
-        generateFont("ui/kenpixel_blocks.ttf", 36, 1, Color.TEAL, Color.BLACK, "extraLargeFont.ttf");
+        generateFont("ui/kenvector_future_thin.ttf", 12, 0, Color.WHITE, Color.BLACK, "tinyFont.ttf");
+        generateFont("ui/kenvector_future_thin.ttf", 14, 0, Color.WHITE, Color.BLACK, "smallFont.ttf");
+        generateFont("ui/kenvector_future_thin.ttf", 16, 0, Color.WHITE, Color.BLACK, "mediumFont.ttf");
+        generateFont("ui/kenvector_future.ttf", 21, 0, Color.WHITE, Color.BLACK, "largeFont.ttf");
+        generateFont("ui/kenvector_future.ttf", 36, 1, Color.TEAL, Color.BLACK, "extraLargeFont.ttf");
     }
 
     public static void done() {
@@ -82,7 +82,7 @@ public class ResourceManager {
     private static void loadNinepatches() {
         buttonUp = new NinePatchDrawable(uiAtlas.createPatch("buttonup"));
         buttonDown = new NinePatchDrawable(uiAtlas.createPatch("buttondown"));
-        mapback = new NinePatchDrawable(uiAtlas.createPatch("map_back"));
+        glass = new NinePatchDrawable(uiAtlas.createPatch("glass"));
         panel = new NinePatchDrawable(uiAtlas.createPatch("panel"));
     }
 
