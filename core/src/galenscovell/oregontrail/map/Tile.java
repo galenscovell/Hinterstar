@@ -96,11 +96,11 @@ public class Tile extends Actor {
         if (!isEmpty()) {
             drawGlow(batch);
             if (isExplored()) {
-                batch.setColor(0.6f, 0.8f, 1.0f, 1.0f);
+                batch.setColor(0.5f, 0.5f, 0.5f, 1.0f);
                 batch.draw(
                         sprite,
                         (x + 2) * Constants.TILESIZE - 8,
-                        Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE,
+                        Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE + 12,
                         Constants.TILESIZE,
                         Constants.TILESIZE
                 );

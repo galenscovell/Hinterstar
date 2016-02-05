@@ -42,7 +42,7 @@ public class NavigationMap extends Table {
             public void clicked(InputEvent event, float x, float y) {
                 if (gameStage.rootScreen.isTraveling()) {
                     System.out.println("Already traveling");
-                } else if (repo.getCurrentSelection() == null || repo.getCurrentSelection() == repo.getCurrentSelection()) {
+                } else if (repo.getCurrentSelection() == null || repo.getCurrentLocation() == repo.getCurrentSelection()) {
                     System.out.println("Selection invalid");
                 } else {
                     travelToLocation();
