@@ -22,14 +22,14 @@ public class NavigationMap extends Table {
         this.setFillParent(true);
 
         Table mapTable = new Table();
-        mapTable.setBackground(ResourceManager.glass);
+        mapTable.setBackground(ResourceManager.np_test2);
 
         Table mainMapTable = createMapBox();
         Table navInfoTable = createInfoBox();
 
         mapTable.add(mainMapTable).width(Constants.MAPBORDERWIDTH).height(Constants.MAPBORDERHEIGHT).expand().fill();
         mapTable.row();
-        mapTable.add(navInfoTable).width(Constants.MAPBORDERWIDTH).padTop(10);
+        mapTable.add(navInfoTable).width(Constants.MAPBORDERWIDTH).padTop(5).padBottom(15);
 
         this.add(mapTable).width(Constants.EXACT_X).height(Constants.EXACT_Y - 40).expand().fill().center().padTop(40);
     }
@@ -50,17 +50,16 @@ public class NavigationMap extends Table {
             }
         });
 
-        navInfoTable.add(travelButton).width(120).height(50).expand().fill().right();
+        navInfoTable.add(travelButton).width(150).height(45).expand().fill().right();
 
         return navInfoTable;
     }
 
     private Table createMapBox() {
         Table mainMapTable = new Table();
-        mainMapTable.setBackground(ResourceManager.glass);
 
         Table innerTable = new Table();
-        innerTable.setBackground(new TextureRegionDrawable(ResourceManager.uiAtlas.findRegion("galaxy")));
+        innerTable.setBackground(ResourceManager.np_test4);
         generateMap(innerTable);
 
         mainMapTable.add(innerTable).expand().fill();

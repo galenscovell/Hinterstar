@@ -9,7 +9,7 @@ public class CurrentLocationAnimation {
     private int x, y;
 
     public CurrentLocationAnimation() {
-        this.sprite = new Sprite(ResourceManager.uiAtlas.findRegion("current_marker"));
+        this.sprite = ResourceManager.uiAtlas.createSprite("current_marker");
         this.size = Constants.TILESIZE * 3;
         this.frame = 0.0f;
     }

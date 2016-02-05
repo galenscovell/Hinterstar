@@ -18,9 +18,9 @@ public class ResourceManager {
     public static AssetManager assetManager;
     public static TextureAtlas uiAtlas;
     public static LabelStyle label_tinyStyle, label_mediumStyle, label_detailStyle, label_menuStyle, label_titleStyle;
-    public static NinePatchDrawable buttonUp, buttonDown, glass, panel;
+    public static NinePatchDrawable buttonUp, buttonDown, glass, panel, np_test0, np_test1, np_test2, np_test3, np_test4;
     public static TextButtonStyle button_fullStyle;
-    public static Sprite mapGlow, mapSelect;
+    public static Sprite mapGlow, sp_test0, sp_test1, sp_test2, sp_test3, sp_test4;
     public static CurrentLocationAnimation currentMarker;
     public static Preferences prefs;
 
@@ -83,7 +83,12 @@ public class ResourceManager {
         buttonUp = new NinePatchDrawable(uiAtlas.createPatch("buttonup"));
         buttonDown = new NinePatchDrawable(uiAtlas.createPatch("buttondown"));
         glass = new NinePatchDrawable(uiAtlas.createPatch("glass"));
-        panel = new NinePatchDrawable(uiAtlas.createPatch("panel"));
+
+        np_test0 = new NinePatchDrawable(uiAtlas.createPatch("test-np-0"));
+        np_test1 = new NinePatchDrawable(uiAtlas.createPatch("test-np-1"));
+        np_test2 = new NinePatchDrawable(uiAtlas.createPatch("test-np-2"));
+        np_test3 = new NinePatchDrawable(uiAtlas.createPatch("test-np-3"));
+        np_test4 = new NinePatchDrawable(uiAtlas.createPatch("test-np-4"));
     }
 
     private static void loadLabelStyles() {
@@ -101,11 +106,12 @@ public class ResourceManager {
 
     private static void loadSprites() {
         mapGlow = new Sprite(uiAtlas.createSprite("map_glow"));
-        mapSelect = new Sprite(uiAtlas.createSprite("map_select"));
-//        highlightBlue = new Sprite(uiAtlas.createSprite("highlight_blue"));
-//        highlightBlue.flip(false, true);
-//        highlightOrange = new Sprite(uiAtlas.createSprite("highlight_orange"));
-//        highlightOrange.flip(false, true);
+
+        sp_test0 = new Sprite(uiAtlas.createSprite("test-box-0"));
+        sp_test1 = new Sprite(uiAtlas.createSprite("test-box-1"));
+        sp_test2 = new Sprite(uiAtlas.createSprite("test-box-2"));
+        sp_test3 = new Sprite(uiAtlas.createSprite("test-box-3"));
+        sp_test4 = new Sprite(uiAtlas.createSprite("test-box-4"));
     }
 
     private static void loadAnimations() {
