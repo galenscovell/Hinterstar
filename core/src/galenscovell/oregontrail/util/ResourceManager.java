@@ -18,7 +18,7 @@ public class ResourceManager {
     public static AssetManager assetManager;
     public static TextureAtlas uiAtlas;
     public static LabelStyle label_tinyStyle, label_mediumStyle, label_detailStyle, label_menuStyle, label_titleStyle;
-    public static NinePatchDrawable buttonUp, buttonDown, glass, panel, np_test0, np_test1, np_test2, np_test3, np_test4;
+    public static NinePatchDrawable np_test0, np_test1, np_test2, np_test3, np_test4;
     public static TextButtonStyle button_fullStyle;
     public static Sprite mapGlow, sp_test0, sp_test1, sp_test2, sp_test3, sp_test4;
     public static CurrentLocationAnimation currentMarker;
@@ -80,10 +80,6 @@ public class ResourceManager {
     }
 
     private static void loadNinepatches() {
-        buttonUp = new NinePatchDrawable(uiAtlas.createPatch("buttonup"));
-        buttonDown = new NinePatchDrawable(uiAtlas.createPatch("buttondown"));
-        glass = new NinePatchDrawable(uiAtlas.createPatch("glass"));
-
         np_test0 = new NinePatchDrawable(uiAtlas.createPatch("test-np-0"));
         np_test1 = new NinePatchDrawable(uiAtlas.createPatch("test-np-1"));
         np_test2 = new NinePatchDrawable(uiAtlas.createPatch("test-np-2"));
@@ -100,7 +96,7 @@ public class ResourceManager {
     }
 
     private static void loadButtonStyles() {
-        button_fullStyle = new TextButtonStyle(buttonUp, buttonDown, buttonUp, assetManager.get("largeFont.ttf", BitmapFont.class));
+        button_fullStyle = new TextButtonStyle(np_test4, np_test3, np_test4, assetManager.get("largeFont.ttf", BitmapFont.class));
         button_fullStyle.pressedOffsetY = -2;
     }
 

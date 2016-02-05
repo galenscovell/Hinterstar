@@ -19,7 +19,7 @@ public class Tile extends Actor {
     public Tile(int x, int y, final MapRepository repo) {
         this.x = x;
         this.y = y;
-        this.frames = 0;
+        this.frames = 60;
         this.glowUp = true;
         becomeEmpty();
 
@@ -128,16 +128,16 @@ public class Tile extends Actor {
         } else {
             frames -= 2;
         }
-        if (frames == 160) {
+        if (frames == 240) {
             glowUp = false;
         } else if (frames == 60) {
             glowUp = true;
         }
-        float frameAlpha = (frames / 160.0f);
+        float frameAlpha = (frames / 240.0f);
         if (isSelected()) {
-            batch.setColor(0.95f, 0.3f, 1, frameAlpha);
+            batch.setColor(0.4f, 0.4f, 1, frameAlpha);
         } else {
-            batch.setColor(0.3f, 0.95f, 1, frameAlpha);
+            batch.setColor(0.4f, 1, 0.4f, frameAlpha);
         }
         batch.draw(
                 ResourceManager.mapGlow,

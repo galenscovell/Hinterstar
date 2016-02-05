@@ -54,11 +54,11 @@ public class GameStage extends Stage {
         this.actionTable = new ActionTable(this);
         this.detailTable = new DetailTable(this);
 
-        mainTable.add(navigationTable).width(Constants.EXACT_X / 3).height(26).center().padTop(4);
+        mainTable.add(navigationTable).width(Constants.EXACT_X / 3).height(40).center().padTop(4);
         mainTable.row();
-        mainTable.add(actionTable).width(Constants.EXACT_X).height(360).center();
+        mainTable.add(actionTable).width(Constants.EXACT_X).height(340).center();
         mainTable.row();
-        mainTable.add(detailTable).width(Constants.EXACT_X).height(90).center();
+        mainTable.add(detailTable).width(Constants.EXACT_X).height(110).center();
 
         this.addActor(mainTable);
     }

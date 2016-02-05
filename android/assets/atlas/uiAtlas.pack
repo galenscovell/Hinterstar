@@ -17,75 +17,51 @@ bg1_blur
   orig: 800, 480
   offset: 0, 0
   index: -1
-glass
-  rotate: false
-  xy: 803, 923
-  size: 100, 100
-  split: 15, 15, 15, 15
-  orig: 100, 100
-  offset: 0, 0
-  index: -1
 current_marker
   rotate: false
-  xy: 803, 841
+  xy: 803, 943
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-buttondown
-  rotate: false
-  xy: 1, 11
-  size: 48, 48
-  split: 7, 7, 8, 4
-  orig: 48, 48
-  offset: 0, 0
-  index: -1
-buttonup
-  rotate: false
-  xy: 905, 975
-  size: 48, 48
-  split: 7, 7, 6, 6
-  orig: 48, 48
-  offset: 0, 0
-  index: -1
 map_glow
   rotate: false
-  xy: 803, 791
+  xy: 1, 11
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 test-box-0
   rotate: false
-  xy: 51, 27
+  xy: 803, 909
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-1
   rotate: false
-  xy: 905, 941
+  xy: 885, 991
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-2
   rotate: false
-  xy: 955, 991
+  xy: 51, 27
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-3
   rotate: false
-  xy: 803, 757
+  xy: 803, 875
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-4
   rotate: false
-  xy: 85, 27
+  xy: 837, 909
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -108,7 +84,7 @@ test-np-1
   index: -1
 test-np-2
   rotate: false
-  xy: 103, 1
+  xy: 885, 965
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -116,7 +92,7 @@ test-np-2
   index: -1
 test-np-3
   rotate: false
-  xy: 853, 815
+  xy: 919, 999
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -124,7 +100,7 @@ test-np-3
   index: -1
 test-np-4
   rotate: false
-  xy: 989, 999
+  xy: 803, 849
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24

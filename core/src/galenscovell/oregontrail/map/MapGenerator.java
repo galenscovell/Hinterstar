@@ -49,7 +49,7 @@ public class MapGenerator {
                 grid[y][x] = new Tile(x, y, repo);
             }
         }
-        int destinationCount = getRandom(numDestinations - 3, numDestinations + 3);
+        int destinationCount = getRandom(numDestinations - 2, numDestinations + 2);
         placeDestinations(destinationCount);
     }
 

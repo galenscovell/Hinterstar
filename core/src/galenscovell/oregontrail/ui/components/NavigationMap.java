@@ -50,7 +50,7 @@ public class NavigationMap extends Table {
             }
         });
 
-        navInfoTable.add(travelButton).width(150).height(45).expand().fill().right();
+        navInfoTable.add(travelButton).width(150).height(50).expand().fill().right();
 
         return navInfoTable;
     }

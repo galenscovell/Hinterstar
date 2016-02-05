@@ -15,7 +15,7 @@ public class DetailTable extends Table {
     }
 
     private void construct() {
-        this.setBackground(ResourceManager.buttonUp);
+        this.setBackground(ResourceManager.np_test4);
         this.day = 1;
         this.month = 1;
         this.year = 2500;
