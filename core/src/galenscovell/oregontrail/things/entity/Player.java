@@ -1,4 +1,4 @@
-package galenscovell.oregontrail.things;
+package galenscovell.oregontrail.things.entity;
 
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.*;

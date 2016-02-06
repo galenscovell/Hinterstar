@@ -21,7 +21,7 @@ public class InputHandler extends InputAdapter {
     @Override
     public boolean touchUp(int x, int y, int pointer, int button) {
         if (Math.abs(x - startX) < 10 && Math.abs(y - startY) < 10) {
-            game.passInputToState(x, y);
+            System.out.println("Input: " + x + ", " + y);
             return true;
         } else {
             return false;

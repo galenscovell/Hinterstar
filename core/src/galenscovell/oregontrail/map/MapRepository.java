@@ -1,52 +1,54 @@
 package galenscovell.oregontrail.map;
 
+import galenscovell.oregontrail.things.inanimate.Location;
+
 import java.util.ArrayList;
 
 public class MapRepository {
-    private ArrayList<Destination> destinations;
-    private Destination currentLocation;
+    private ArrayList<Location> locations;
+    private Location currentLocation;
 
     public MapRepository() {
 
     }
 
-    public Destination getCurrentLocation() {
+    public Location getCurrentLocation() {
         return currentLocation;
     }
 
-    public void setCurrentDestination(Destination destination) {
-        this.currentLocation = destination;
+    public void setCurrentLocation(Location location) {
+        this.currentLocation = location;
     }
 
-    public Destination getCurrentSelection() {
-        for (Destination destination : destinations) {
-            if (destination.getTile().isSelected()) {
-                return destination;
+    public Location getCurrentSelection() {
+        for (Location location : locations) {
+            if (location.getTile().isSelected()) {
+                return location;
             }
         }
         return null;
     }
 
-    public void setDestinations(ArrayList<Destination> destinations) {
-        this.destinations = destinations;
-        Destination mostLeftDestination = null;
-        for (Destination destination : destinations) {
-            if (mostLeftDestination == null || destination.x < mostLeftDestination.x) {
-                mostLeftDestination = destination;
+    public void setLocations(ArrayList<Location> locations) {
+        this.locations = locations;
+        Location mostLeftLocation = null;
+        for (Location location : locations) {
+            if (mostLeftLocation == null || location.x < mostLeftLocation.x) {
+                mostLeftLocation = location;
             }
         }
-        this.currentLocation = mostLeftDestination;
+        this.currentLocation = mostLeftLocation;
         currentLocation.getTile().becomeCurrent();
     }
 
-    public void disableDestinationSelection() {
-        for (Destination destination : destinations) {
-            destination.getTile().disableSelected();
+    public void disableLocationSelection() {
+        for (Location location : locations) {
+            location.getTile().disableSelected();
         }
     }
 
     public void travelToSelection() {
-        Destination selection = getCurrentSelection();
+        Location selection = getCurrentSelection();
         if (selection != null) {
             currentLocation.getTile().becomeExplored();
             currentLocation = selection;

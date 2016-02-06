@@ -26,7 +26,7 @@ public class Tile extends Actor {
         this.addListener(new ActorGestureListener() {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (!isEmpty()) {
-                    repo.disableDestinationSelection();
+                    repo.disableLocationSelection();
                     selected = true;
                 }
             }

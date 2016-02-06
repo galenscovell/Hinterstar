@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import galenscovell.oregontrail.processing.states.StateType;
 import galenscovell.oregontrail.ui.screens.GameScreen;
 import galenscovell.oregontrail.util.*;
 
@@ -65,10 +64,8 @@ public class GameStage extends Stage {
 
     public void toggleNavMap() {
         if (navigationMap.hasParent()) {
-            rootScreen.changeState(StateType.ACTION);
             navigationMap.remove();
         } else {
-            rootScreen.changeState(StateType.MENU);
             this.addActor(navigationMap);
         }
     }

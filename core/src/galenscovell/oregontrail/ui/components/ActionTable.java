@@ -2,7 +2,7 @@ package galenscovell.oregontrail.ui.components;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import galenscovell.oregontrail.things.Player;
+import galenscovell.oregontrail.things.entity.Player;
 import galenscovell.oregontrail.util.*;
 
 public class ActionTable extends Table {

@@ -1,23 +1,23 @@
 package galenscovell.oregontrail.map;
 
-import galenscovell.oregontrail.util.*;
+import galenscovell.oregontrail.things.inanimate.Location;
+import galenscovell.oregontrail.util.Constants;
 
 import java.util.*;
 
 public class MapGenerator {
     private Tile[][] grid;
-    private ArrayList<Destination> destinations;
+    private ArrayList<Location> locations;
     private MapRepository repo;
 
-    public MapGenerator(int numDestinations) {
+    public MapGenerator(int numberOfLocations) {
         this.grid = new Tile[Constants.MAPHEIGHT][Constants.MAPWIDTH];
         this.repo = new MapRepository();
 
-        build(numDestinations);
+        build(numberOfLocations);
         setTileNeighbors();
-        removeAdjacentDestinations();
-        // setDestinationTypes();
-        repo.setDestinations(destinations);
+        removeAdjacentLocations();
+        repo.setLocations(locations);
     }
 
     public Tile[][] getTiles() {
@@ -42,62 +42,62 @@ public class MapGenerator {
         }
     }
 
-    private void build(int numDestinations) {
+    private void build(int numberOfLocations) {
         // Construct Tile[MAPHEIGHT][MAPWIDTH] grid of all empty tiles
         for (int x = 0; x < Constants.MAPWIDTH; x++) {
             for (int y = 0; y < Constants.MAPHEIGHT; y++) {
                 grid[y][x] = new Tile(x, y, repo);
             }
         }
-        int destinationCount = getRandom(numDestinations - 2, numDestinations + 2);
-        placeDestinations(destinationCount);
+        int locationAmount = getRandom(numberOfLocations - 2, numberOfLocations + 2);
+        placeDestinations(locationAmount);
     }
 
-    private void placeDestinations(int destinationCount) {
-        // Place random Destinations, ensuring that they do not collide
-        this.destinations = new ArrayList<Destination>();
-        for (int i = 0; i < destinationCount; i++) {
+    private void placeDestinations(int locationAmount) {
+        // Place random Locations, ensuring that they do not collide
+        this.locations = new ArrayList<Location>();
+        for (int i = 0; i < locationAmount; i++) {
             boolean placed = false;
-            Destination destination = null;
+            Location location = null;
             while (!placed) {
                 int randomX = getRandom(2, Constants.MAPWIDTH - 2);
                 int randomY = getRandom(2, Constants.MAPHEIGHT - 2);
 
-                destination = new Destination(randomX, randomY, grid[randomY][randomX]);
+                location = new Location(randomX, randomY, grid[randomY][randomX]);
 
-                boolean adjacentDestination = false;
-                for (Destination d : destinations) {
-                    if (destination.x == d.x && destination.y == d.y) {
-                        adjacentDestination = true;
+                boolean adjacentLocation = false;
+                for (Location d : locations) {
+                    if (location.x == d.x && location.y == d.y) {
+                        adjacentLocation = true;
                     }
                 }
-                if (!adjacentDestination) {
+                if (!adjacentLocation) {
                     placed = true;
                 }
             }
-            destinations.add(destination);
+            locations.add(location);
         }
     }
 
-    private void removeAdjacentDestinations() {
-        ArrayList<Destination> removed = new ArrayList<Destination>();
-        for (Destination destination : destinations) {
-            for (Point point : grid[destination.y][destination.x].getNeighbors()) {
-                boolean adjacentDestination = false;
-                for (Destination d : destinations) {
+    private void removeAdjacentLocations() {
+        ArrayList<Location> removed = new ArrayList<Location>();
+        for (Location location : locations) {
+            for (Point point : grid[location.y][location.x].getNeighbors()) {
+                boolean adjacentLocation = false;
+                for (Location d : locations) {
                     if (point.x == d.x && point.y == d.y) {
-                        adjacentDestination = true;
+                        adjacentLocation = true;
                     }
                 }
-                if (adjacentDestination) {
-                    removed.add(destination);
+                if (adjacentLocation) {
+                    removed.add(location);
                     continue;
                 }
             }
         }
-        for (Destination destination : removed) {
-            destinations.remove(destination);
-            grid[destination.y][destination.x].becomeEmpty();
+        for (Location location : removed) {
+            locations.remove(location);
+            grid[location.y][location.x].becomeEmpty();
         }
     }
 

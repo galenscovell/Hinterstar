@@ -8,14 +8,10 @@ import com.badlogic.gdx.math.Vector2;
 import galenscovell.oregontrail.OregonTrailMain;
 import galenscovell.oregontrail.graphics.*;
 import galenscovell.oregontrail.processing.controls.*;
-import galenscovell.oregontrail.processing.states.*;
 import galenscovell.oregontrail.ui.components.GameStage;
 import galenscovell.oregontrail.util.*;
 
 public class GameScreen extends AbstractScreen {
-    private final int timestep = 60;
-    private double accumulator;
-    private State currentState, actionState, menuState;
     private ParallaxBackground currentbackground, normalStars, blurStars;
     private InputMultiplexer input;
 
@@ -33,27 +29,14 @@ public class GameScreen extends AbstractScreen {
         this.blurStars = createBackground("bg1_blur", "bg2_blur");
         this.currentbackground = normalStars;
         this.stage = new GameStage(this, root.spriteBatch);
-        this.actionState = new ActionState(this);
-        this.menuState = new MenuState(this);
-        this.currentState = actionState;
         setupInput();
     }
 
     @Override
     public void render(float delta) {
-        // Update
-        if (accumulator > timestep) {
-            accumulator = 0;
-            if (!traveling) {
-                currentState.update(delta, (GameStage)stage);
-                stage.act(delta);
-            }
-        }
         if (traveling) {
             travel();
         }
-        accumulator++;
-        // Render
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         currentbackground.render(delta);
@@ -63,24 +46,6 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(input);
-    }
-
-    public void changeState(StateType stateType) {
-        currentState.exit();
-        if (stateType == StateType.ACTION) {
-            currentState = actionState;
-        } else if (stateType == StateType.MENU) {
-            currentState = menuState;
-        }
-        currentState.enter();
-    }
-
-    public void passInputToState(float x, float y) {
-        currentState.handleInput(x, y);
-    }
-
-    public StateType getState() {
-        return currentState.getStateType();
     }
 
     public void toMainMenu() {
