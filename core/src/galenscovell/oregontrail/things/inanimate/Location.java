@@ -7,13 +7,17 @@ import galenscovell.oregontrail.util.Repository;
 import java.util.*;
 
 public class Location {
-    public final int x, y;
-    private final Tile tile;
+    public int x, y, size;
+    private Tile tile;
     private ArrayList<Event> events;
 
-    public Location(int x, int y, Tile tile) {
+    public Location(int x, int y, int size) {
         this.x = x;
         this.y = y;
+        this.size = size;
+    }
+
+    public void setTile(Tile tile) {
         this.tile = tile;
         tile.becomeUnexplored();
     }
@@ -41,6 +45,6 @@ public class Location {
         // Background depends on number and type of events generated
         // eg many planet events = background has planets
         // eg no planet events = background has no planets
-        Repository.gameScreen.setBackground("bg1", "bg2", "bg1_blur", "bg2_blur");
+        Repository.gameScreen.setBackground("blue_bg", "bg1", "bg2", "blue_bg", "bg1_blur", "bg2_blur");
     }
 }

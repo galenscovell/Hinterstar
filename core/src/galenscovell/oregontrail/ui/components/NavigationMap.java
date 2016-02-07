@@ -67,7 +67,7 @@ public class NavigationMap extends Table {
     }
 
     private void generateMap(Table container) {
-        this.mapGenerator = new MapGenerator(15);
+        this.mapGenerator = new MapGenerator();
         Tile[][] tiles = mapGenerator.getTiles();
 
         for (Tile[] row : tiles) {

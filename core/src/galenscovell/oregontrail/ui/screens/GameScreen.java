@@ -19,7 +19,7 @@ public class GameScreen extends AbstractScreen {
     private boolean traveling;
 
     public ParallaxBackground currentbackground, normalBg, blurBg;
-    public String bg1, bg2, bg1Blur, bg2Blur;
+    public String bg0, bg1, bg2, bg0Blur, bg1Blur, bg2Blur;
 
     public GameScreen(OregonTrailMain root) {
         super(root);
@@ -31,8 +31,8 @@ public class GameScreen extends AbstractScreen {
         Repository.setGameScreen(this);
         this.stage = new GameStage(this, root.spriteBatch);
         // Create initial background
-        normalBg = createBackground("bg1", "bg2");
-        blurBg = createBackground("bg1_blur", "bg2_blur");
+        normalBg = createBackground("purple_bg", "bg1", "bg2");
+        blurBg = createBackground("purple_bg", "bg1_blur", "bg2_blur");
         currentbackground = normalBg;
         setupInput();
     }
@@ -97,27 +97,41 @@ public class GameScreen extends AbstractScreen {
         Gdx.input.setInputProcessor(input);
     }
 
-    public void setBackground(String bg1, String bg2, String bg1Blur, String bg2Blur) {
+    public void setBackground(String bg0, String bg1, String bg2, String bg0Blur, String bg1Blur, String bg2Blur) {
+        this.bg0 = bg0;
         this.bg1 = bg1;
         this.bg2 = bg2;
+        this.bg0Blur = bg0Blur;
         this.bg1Blur = bg1Blur;
         this.bg2Blur = bg2Blur;
-        stage.getRoot().addAction(Actions.sequence(Actions.delay(4), Actions.fadeOut(0.75f), transition, Actions.fadeIn(0.75f)));
+        stage.getRoot().addAction(Actions.sequence(Actions.delay(4), Actions.fadeOut(0.75f), transition, Actions.fadeIn(1.25f)));
     }
 
-    private ParallaxBackground createBackground(String bg1, String bg2) {
-        ParallaxLayer[] parallaxLayers = new ParallaxLayer[2];
-        parallaxLayers[0] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg1), new Vector2(0.5f, 0.5f), new Vector2(0, 0));
-        parallaxLayers[1] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg2), new Vector2(0.75f, 0.75f), new Vector2(0, 0));
-        ParallaxBackground parallaxBackground = new ParallaxBackground(root.spriteBatch, parallaxLayers, Constants.EXACT_X, Constants.EXACT_Y, new Vector2(40, 0));
+    private ParallaxBackground createBackground(String bg0, String bg1, String bg2) {
+        ParallaxBackground parallaxBackground;
+
+        if (bg0.length() > 0) {
+            // Three-layered background
+            ParallaxLayer[] parallaxLayers = new ParallaxLayer[3];
+            parallaxLayers[0] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg0), new Vector2(0.02f, 0.02f), new Vector2(0, 0));
+            parallaxLayers[1] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg1), new Vector2(0.5f, 0.5f), new Vector2(0, 0));
+            parallaxLayers[2] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg2), new Vector2(0.75f, 0.75f), new Vector2(0, 0));
+            parallaxBackground = new ParallaxBackground(root.spriteBatch, parallaxLayers, Constants.EXACT_X, Constants.EXACT_Y, new Vector2(40, 0));
+        } else {
+            // Two-layered background
+            ParallaxLayer[] parallaxLayers = new ParallaxLayer[2];
+            parallaxLayers[0] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg1), new Vector2(0.5f, 0.5f), new Vector2(0, 0));
+            parallaxLayers[1] = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg2), new Vector2(0.75f, 0.75f), new Vector2(0, 0));
+            parallaxBackground = new ParallaxBackground(root.spriteBatch, parallaxLayers, Constants.EXACT_X, Constants.EXACT_Y, new Vector2(40, 0));
+        }
         return parallaxBackground;
     }
 
     Action transition = new Action() {
         public boolean act(float delta) {
-            normalBg = createBackground(bg1, bg2);
+            normalBg = createBackground(bg0, bg1, bg2);
             normalBg.setSpeed(new Vector2(2500, 0));
-            blurBg = createBackground(bg1Blur, bg2Blur);
+            blurBg = createBackground(bg0Blur, bg1Blur, bg2Blur);
             blurBg.setSpeed(new Vector2(2500, 0));
             currentbackground = blurBg;
             return true;

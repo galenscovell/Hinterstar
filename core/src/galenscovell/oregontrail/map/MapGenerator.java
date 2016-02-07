@@ -1,8 +1,7 @@
 package galenscovell.oregontrail.map;
 
-import galenscovell.oregontrail.util.Repository;
 import galenscovell.oregontrail.things.inanimate.Location;
-import galenscovell.oregontrail.util.Constants;
+import galenscovell.oregontrail.util.*;
 
 import java.util.*;
 
@@ -10,81 +9,84 @@ public class MapGenerator {
     private Tile[][] grid;
     private ArrayList<Location> locations;
 
-    public MapGenerator(int numberOfLocations) {
+    public MapGenerator() {
         this.grid = new Tile[Constants.MAPHEIGHT][Constants.MAPWIDTH];
+        build();
+    }
 
-        build(numberOfLocations);
-        setTileNeighbors();
-        removeAdjacentLocations();
-        Repository.setLocations(locations);
+    public void print() {
+        // Debug method: print built map to console and exit
+        for (Tile[] row : grid) {
+            System.out.println();
+            for (Tile tile : row) {
+                if (tile.isUnexplored()) {
+                    System.out.print('O');
+                } else if (tile.isExplored()) {
+                    System.out.print('-');
+                } else {
+                    System.out.print('.');
+                }
+            }
+        }
     }
 
     public Tile[][] getTiles() {
         return grid;
     }
 
-    private void build(int numberOfLocations) {
+    private void build() {
         // Construct Tile[MAPHEIGHT][MAPWIDTH] grid of all empty tiles
         for (int x = 0; x < Constants.MAPWIDTH; x++) {
             for (int y = 0; y < Constants.MAPHEIGHT; y++) {
                 grid[y][x] = new Tile(x, y);
             }
         }
-        int locationAmount = getRandom(numberOfLocations - 2, numberOfLocations + 2);
-        placeDestinations(locationAmount);
+        placeDestinations();
+        setTileNeighbors();
+        Repository.setLocations(locations);
     }
 
-    private void placeDestinations(int locationAmount) {
+    private void placeDestinations() {
         // Place random Locations, ensuring that they do not collide
+        final int attempts = 480;
+        final int maxLocations = 8;
+        final int padsize = 3;
         this.locations = new ArrayList<Location>();
-        for (int i = 0; i < locationAmount; i++) {
-            boolean placed = false;
-            Location location = null;
-            while (!placed) {
-                int randomX = getRandom(2, Constants.MAPWIDTH - 2);
-                int randomY = getRandom(2, Constants.MAPHEIGHT - 2);
 
-                location = new Location(randomX, randomY, grid[randomY][randomX]);
-
-                boolean adjacentLocation = false;
-                for (Location d : locations) {
-                    if (location.x == d.x && location.y == d.y) {
-                        adjacentLocation = true;
-                    }
-                }
-                if (!adjacentLocation) {
-                    placed = true;
-                }
+        for (int i = 0; i < attempts; i++) {
+            if (locations.size() == maxLocations) {
+                return;
             }
-            locations.add(location);
+            int x = getRandom(1, Constants.MAPWIDTH - padsize - 1);
+            int y = getRandom(1, Constants.MAPHEIGHT - padsize - 1);
+            Location location = new Location(x, y, padsize);
+
+            if (doesCollide(location, -1)) {
+                continue;
+            }
+
+            int centerX = (location.size / 2) + location.x;
+            int centerY = (location.size / 2) + location.y;
+            location.setTile(grid[centerY][centerX]);
+            this.locations.add(location);
         }
     }
 
-    private void removeAdjacentLocations() {
-        ArrayList<Location> removed = new ArrayList<Location>();
-        for (Location location : locations) {
-            for (Point point : grid[location.y][location.x].getNeighbors()) {
-                boolean adjacentLocation = false;
-                for (Location d : locations) {
-                    if (point.x == d.x && point.y == d.y) {
-                        adjacentLocation = true;
-                    }
-                }
-                if (adjacentLocation) {
-                    removed.add(location);
-                    continue;
-                }
+    private boolean doesCollide(Location location, int ignore) {
+        // Return if target location overlaps already placed location
+        for (int i = 0; i < this.locations.size(); i++) {
+            if (i == ignore) {
+                continue;
+            }
+            Location check = this.locations.get(i);
+            if (!((location.x + location.size < check.x - 2) ||
+                    (location.x - 2 > check.x + check.size) ||
+                    (location.y + location.size < check.y - 2) ||
+                    (location.y - 2 > check.y + check.size))) {
+                return true;
             }
         }
-        for (Location location : removed) {
-            locations.remove(location);
-            grid[location.y][location.x].becomeEmpty();
-        }
-    }
-
-    private int getRandom(int lo, int hi) {
-        // Return random int between low and high
-        return (int)(Math.random() * (hi - lo)) + lo;
+        return false;
     }
 
     private void setTileNeighbors() {
@@ -107,5 +109,10 @@ public class MapGenerator {
 
     private boolean isOutOfBounds(int x, int y) {
         return (x < 0 || y < 0 || x >= Constants.MAPWIDTH || y >= Constants.MAPWIDTH);
+    }
+
+    private int getRandom(int lo, int hi) {
+        // Return random int between low and high
+        return (int)(Math.random() * (hi - lo)) + lo;
     }
 }
