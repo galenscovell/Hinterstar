@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
+import galenscovell.oregontrail.util.Repository;
 import galenscovell.oregontrail.util.*;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class Tile extends Actor {
     private Sprite sprite;
     private boolean selected, glowUp;
 
-    public Tile(int x, int y, final MapRepository repo) {
+    public Tile(int x, int y) {
         this.x = x;
         this.y = y;
         this.frames = 60;
@@ -26,15 +27,11 @@ public class Tile extends Actor {
         this.addListener(new ActorGestureListener() {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (!isEmpty()) {
-                    repo.disableLocationSelection();
+                    Repository.resetSelection();
                     selected = true;
                 }
             }
         });
-    }
-
-    public Sprite getSprite() {
-        return sprite;
     }
 
     public boolean isEmpty() {

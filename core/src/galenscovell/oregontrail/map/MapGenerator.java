@@ -1,5 +1,6 @@
 package galenscovell.oregontrail.map;
 
+import galenscovell.oregontrail.util.Repository;
 import galenscovell.oregontrail.things.inanimate.Location;
 import galenscovell.oregontrail.util.Constants;
 
@@ -8,45 +9,25 @@ import java.util.*;
 public class MapGenerator {
     private Tile[][] grid;
     private ArrayList<Location> locations;
-    private MapRepository repo;
 
     public MapGenerator(int numberOfLocations) {
         this.grid = new Tile[Constants.MAPHEIGHT][Constants.MAPWIDTH];
-        this.repo = new MapRepository();
 
         build(numberOfLocations);
         setTileNeighbors();
         removeAdjacentLocations();
-        repo.setLocations(locations);
+        Repository.setLocations(locations);
     }
 
     public Tile[][] getTiles() {
         return grid;
     }
 
-    public MapRepository getRepo() {
-        return repo;
-    }
-
-    public void print() {
-        // Debug method: print built map to console and exit
-        for (Tile[] row : grid) {
-            System.out.println();
-            for (Tile tile : row) {
-                if (tile.isUnexplored()) {
-                    System.out.print('O');
-                } else {
-                    System.out.print(' ');
-                }
-            }
-        }
-    }
-
     private void build(int numberOfLocations) {
         // Construct Tile[MAPHEIGHT][MAPWIDTH] grid of all empty tiles
         for (int x = 0; x < Constants.MAPWIDTH; x++) {
             for (int y = 0; y < Constants.MAPHEIGHT; y++) {
-                grid[y][x] = new Tile(x, y, repo);
+                grid[y][x] = new Tile(x, y);
             }
         }
         int locationAmount = getRandom(numberOfLocations - 2, numberOfLocations + 2);

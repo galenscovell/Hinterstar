@@ -3,18 +3,17 @@ package galenscovell.oregontrail.ui.components;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.*;
+
 import galenscovell.oregontrail.map.*;
+import galenscovell.oregontrail.util.Repository;
 import galenscovell.oregontrail.util.*;
 
 public class NavigationMap extends Table {
     private final GameStage gameStage;
     private MapGenerator mapGenerator;
-    private MapRepository repo;
 
     public NavigationMap(GameStage gameStage) {
         this.gameStage = gameStage;
-        this.mapGenerator = new MapGenerator(15);
-        this.repo = mapGenerator.getRepo();
         construct();
     }
 
@@ -42,7 +41,7 @@ public class NavigationMap extends Table {
             public void clicked(InputEvent event, float x, float y) {
                 if (gameStage.rootScreen.isTraveling()) {
                     System.out.println("Already traveling");
-                } else if (repo.getCurrentSelection() == null || repo.getCurrentLocation() == repo.getCurrentSelection()) {
+                } else if (!Repository.selectionIsValid()) {
                     System.out.println("Selection invalid");
                 } else {
                     travelToLocation();
@@ -68,6 +67,7 @@ public class NavigationMap extends Table {
     }
 
     private void generateMap(Table container) {
+        this.mapGenerator = new MapGenerator(15);
         Tile[][] tiles = mapGenerator.getTiles();
 
         for (Tile[] row : tiles) {
@@ -81,6 +81,6 @@ public class NavigationMap extends Table {
     private void travelToLocation() {
         gameStage.toggleNavMap();
         gameStage.rootScreen.setTravel();
-        repo.travelToSelection();
+        Repository.travelToSelection();
     }
 }

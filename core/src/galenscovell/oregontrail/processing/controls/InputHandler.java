@@ -22,7 +22,6 @@ public class InputHandler extends InputAdapter {
     public boolean touchUp(int x, int y, int pointer, int button) {
         if (Math.abs(x - startX) < 10 && Math.abs(y - startY) < 10) {
             System.out.println("Input: " + x + ", " + y);
-            game.setBackground("bg1", "bg2", "bg1_blur", "bg2_blur");
             return true;
         } else {
             return false;
