@@ -14,22 +14,6 @@ public class MapGenerator {
         build();
     }
 
-    public void print() {
-        // Debug method: print built map to console and exit
-        for (Tile[] row : grid) {
-            System.out.println();
-            for (Tile tile : row) {
-                if (tile.isUnexplored()) {
-                    System.out.print('O');
-                } else if (tile.isExplored()) {
-                    System.out.print('-');
-                } else {
-                    System.out.print('.');
-                }
-            }
-        }
-    }
-
     public Tile[][] getTiles() {
         return grid;
     }

@@ -5,13 +5,13 @@ import galenscovell.oregontrail.map.*;
 import java.util.*;
 
 public class Pathfinder {
-    private final Tile[][] grid;
     private List<Node> openList, closedList;
     private Node startNode, endNode;
     private final boolean diagonal = true;
 
-    public Pathfinder(Tile startTile, Tile endTile, Tile[][] grid) {
-        this.grid = grid;
+    public Pathfinder() {}
+
+    public List<Point> findPath(Tile startTile, Tile endTile, Tile[][] grid) {
         this.openList = new ArrayList<Node>();
         this.closedList = new ArrayList<Node>();
         this.startNode = new Node(startTile);
@@ -20,10 +20,8 @@ public class Pathfinder {
         startNode.setCostFromStart(0);
         startNode.setTotalCost(startNode.getCostFromStart() + heuristic(startNode, endNode));
         openList.add(startNode);
-    }
 
-    public Stack<Point> findPath() {
-        if (!openList.isEmpty()) {
+        while (!openList.isEmpty()) {
             Node current = getBestNode();
 
             if (current.getTile() == endNode.getTile()) {
@@ -47,7 +45,7 @@ public class Pathfinder {
                     }
                 }
 
-                if (neighborTile != null && neighborTile.isEmpty()) {
+                if (neighborTile != null && (neighborTile == endTile || neighborTile.isEmpty())) {
                     Node neighborNode = new Node(neighborTile);
 
                     if (!inList(neighborTile, closedList)) {
@@ -100,15 +98,16 @@ public class Pathfinder {
         return euclidean(dx, dy);
     }
 
-    public Stack<Point> tracePath() {
-        // Returns ordered stack of points along movement path
-        Stack<Point> path = new Stack<Point>();
+    public List<Point> tracePath() {
+        // Returns ordered list of points along movement path
+        List<Point> path = new ArrayList<Point>();
         // Chase parent of node until start point reached
         Node node = endNode;
         while (node.getParent() != null) {
-            path.push(new Point(node.getTile().x, node.getTile().y));
+            path.add(new Point(node.getTile().x, node.getTile().y));
             node = node.getParent();
         }
+        path.add(new Point(startNode.getTile().x, startNode.getTile().y));
         return path;
     }
 

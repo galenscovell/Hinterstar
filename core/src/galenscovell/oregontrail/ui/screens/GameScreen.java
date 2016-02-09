@@ -49,6 +49,7 @@ public class GameScreen extends AbstractScreen {
             currentbackground.render(delta);
         }
         stage.draw();
+        Repository.drawPath();
     }
 
     @Override

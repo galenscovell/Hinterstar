@@ -4,13 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.*;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
-import galenscovell.oregontrail.util.Repository;
 import galenscovell.oregontrail.util.*;
 
 import java.util.List;
 
 public class Tile extends Actor {
-    public int x, y;
+    public final int x, y;
     private int frames;
     private TileType type;
     private List<Point> neighborTilePoints;
@@ -27,8 +26,11 @@ public class Tile extends Actor {
         this.addListener(new ActorGestureListener() {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (!isEmpty()) {
-                    Repository.resetSelection();
-                    selected = true;
+                    if (!isExplored()) {
+                        Repository.resetSelection();
+                        selected = true;
+                        Repository.setPath(Repository.currentLocation.getTile(), Repository.getCurrentSelection().getTile());
+                    }
                 }
             }
         });
@@ -92,27 +94,13 @@ public class Tile extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         if (!isEmpty()) {
             drawGlow(batch);
-            if (isExplored()) {
-                batch.setColor(0.5f, 0.5f, 0.5f, 1.0f);
-                batch.draw(
-                        sprite,
-                        (x + 2) * Constants.TILESIZE - 8,
-                        Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE + 12,
-                        Constants.TILESIZE,
-                        Constants.TILESIZE
-                );
-                batch.setColor(1, 1, 1, 1);
-            } else {
-                batch.draw(
-                        sprite,
-                        (x + 2) * Constants.TILESIZE - 8,
-                        Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE + 12,
-                        Constants.TILESIZE,
-                        Constants.TILESIZE
-                );
-            }
-
-            // Current
+            batch.draw(
+                    sprite,
+                    (x + 2) * Constants.TILESIZE - 8,
+                    Gdx.graphics.getHeight() - (y + 4) * Constants.TILESIZE + 12,
+                    Constants.TILESIZE,
+                    Constants.TILESIZE
+            );
             if (isCurrent()) {
                 ResourceManager.currentMarker.render(batch);
             }
@@ -125,17 +113,23 @@ public class Tile extends Actor {
         } else {
             frames -= 2;
         }
-        if (frames == 240) {
+
+        if (frames == 120) {
             glowUp = false;
-        } else if (frames == 60) {
+        } else if (frames == 40) {
             glowUp = true;
         }
-        float frameAlpha = (frames / 240.0f);
+
+        float frameAlpha = (frames / 120.0f);
+
         if (isSelected()) {
-            batch.setColor(0.4f, 0.4f, 1, frameAlpha);
+            batch.setColor(1.0f, 1.0f, 1.0f, frameAlpha);
+        } else if (isExplored()) {
+            batch.setColor(0.4f, 0.4f, 1.0f, frameAlpha);
         } else {
-            batch.setColor(0.4f, 1, 0.4f, frameAlpha);
+            batch.setColor(0.4f, 1.0f, 0.4f, frameAlpha);
         }
+
         batch.draw(
                 ResourceManager.mapGlow,
                 (x + 2) * Constants.TILESIZE - 20,
