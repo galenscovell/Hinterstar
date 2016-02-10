@@ -10,6 +10,7 @@ public class Location {
     public int x, y, size;
     private Tile tile;
     private ArrayList<Event> events;
+    private String[] details;
 
     public Location(int x, int y, int size) {
         this.x = x;
@@ -32,6 +33,10 @@ public class Location {
         createBackground(random);
     }
 
+    public String[] getDetails() {
+        return details;
+    }
+
     private void generateEvents(Random random) {
         // Each Location has between 1 and 4 events
         this.events = new ArrayList<Event>();
@@ -39,6 +44,7 @@ public class Location {
         for (int e = 0; e < numberOfEvents; e++) {
 
         }
+        this.details = new String[]{"Title", "Detail"};
     }
 
     private void createBackground(Random random) {

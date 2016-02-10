@@ -16,10 +16,19 @@ public class Constants {
     public static final int EXACT_X = 800;
     public static final int EXACT_Y = 480;
 
-    // Map dimensions
+    // Map dimensions (1 Tile = 1 AU)
     public static final int MAPWIDTH = 30;  // 720px @ 24px
     public static final int MAPHEIGHT = 14; // 336px @ 24px
     public static final int TILESIZE = 24;
     public static final int MAPBORDERWIDTH = (MAPWIDTH * TILESIZE) + 20;   // 740px
     public static final int MAPBORDERHEIGHT = (MAPHEIGHT * TILESIZE) + 20; // 356px
+
+    // Distance Units
+    // ~8min to travel one AU at speed of light
+    // From Sun to Uranus: 19.2 AU
+    // From Sun to Neptune: 30 AU
+    // From Sun to Pluto: 39.4 AU
+    // To nearest star (Proxima Centauri): 271,000 AU
+    public static final double SPEED_OF_LIGHT = 1.86 * Math.pow(10, 3);     // miles per second
+    public static final double ASTRONOMICAL_UNIT = 9.29 * Math.pow(10, 7);  // in miles
 }

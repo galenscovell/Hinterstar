@@ -93,6 +93,7 @@ public class Pathfinder {
             node = node.getParent();
         }
         path.add(new Point(startNode.getTile().x, startNode.getTile().y));
+        System.out.println(node.getTotalCost());
         return path;
     }
 }

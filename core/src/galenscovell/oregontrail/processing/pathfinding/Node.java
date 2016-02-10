@@ -42,6 +42,6 @@ public class Node {
     }
 
     public String toString() {
-        return "Node: Tile[" + getTile().x + ", " + getTile().y + "]";
+        return "Node: Tile[" + getTile().x + ", " + getTile().y + "], [" + costFromStart + ", " + totalCost + "]";
     }
 }

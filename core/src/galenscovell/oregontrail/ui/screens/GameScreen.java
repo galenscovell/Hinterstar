@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import galenscovell.oregontrail.OregonTrailMain;
 import galenscovell.oregontrail.graphics.*;
 import galenscovell.oregontrail.processing.controls.*;
-import galenscovell.oregontrail.ui.components.GameStage;
+import galenscovell.oregontrail.ui.components.*;
 import galenscovell.oregontrail.util.*;
 
 public class GameScreen extends AbstractScreen {
@@ -20,6 +20,7 @@ public class GameScreen extends AbstractScreen {
 
     public ParallaxBackground currentbackground, normalBg, blurBg;
     public String bg0, bg1, bg2, bg0Blur, bg1Blur, bg2Blur;
+    public LocationPanel locationPanel;
 
     public GameScreen(OregonTrailMain root) {
         super(root);
@@ -105,7 +106,11 @@ public class GameScreen extends AbstractScreen {
         this.bg0Blur = bg0Blur;
         this.bg1Blur = bg1Blur;
         this.bg2Blur = bg2Blur;
-        stage.getRoot().addAction(Actions.sequence(Actions.delay(4), Actions.fadeOut(0.75f), transition, Actions.fadeIn(1.25f)));
+
+        String[] locationDetail = Repository.currentLocation.getDetails();
+        this.locationPanel = new LocationPanel(locationDetail[0], locationDetail[1]);
+
+        stage.getRoot().addAction(Actions.sequence(Actions.delay(4), Actions.fadeOut(0.75f), transition, Actions.fadeIn(1.5f), Actions.delay(3), Actions.removeActor(locationPanel)));
     }
 
     private ParallaxBackground createBackground(String bg0, String bg1, String bg2) {
@@ -135,6 +140,7 @@ public class GameScreen extends AbstractScreen {
             blurBg = createBackground(bg0Blur, bg1Blur, bg2Blur);
             blurBg.setSpeed(new Vector2(2500, 0));
             currentbackground = blurBg;
+            stage.addActor(locationPanel);
             return true;
         }
     };
