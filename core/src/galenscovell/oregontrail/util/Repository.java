@@ -21,7 +21,7 @@ public class Repository {
 
     private Repository() {}
 
-    public static void setGameScreen(GameScreen game) {
+    public static void setup(GameScreen game) {
         gameScreen = game;
         shapeRenderer = new ShapeRenderer();
         pathfinder = new Pathfinder();
@@ -38,6 +38,7 @@ public class Repository {
     public static void drawPath() {
         if (pathPoints != null && pathPoints.size() > 0) {
             shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+            shapeRenderer.setColor(0.95f, 0.61f, 0.07f, 0.6f);
             for (int i = 1; i < pathPoints.size(); i++) {
                 Point p = pathPoints.get(i - 1);
                 Point n = pathPoints.get(i);
@@ -87,6 +88,7 @@ public class Repository {
     public static void travelToSelection() {
         Location selection = getCurrentSelection();
         if (selection != null) {
+            pathPoints = null;
             currentLocation.getTile().becomeExplored();
             currentLocation = selection;
             selection.getTile().becomeCurrent();

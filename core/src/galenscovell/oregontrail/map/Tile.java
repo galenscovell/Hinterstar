@@ -123,7 +123,7 @@ public class Tile extends Actor {
         float frameAlpha = (frames / 120.0f);
 
         if (isSelected()) {
-            batch.setColor(1.0f, 1.0f, 1.0f, frameAlpha);
+            batch.setColor(0.95f, 0.61f, 0.07f, frameAlpha);
         } else if (isExplored()) {
             batch.setColor(0.4f, 0.4f, 1.0f, frameAlpha);
         } else {

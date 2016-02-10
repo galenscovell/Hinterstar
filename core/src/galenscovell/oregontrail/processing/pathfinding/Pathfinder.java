@@ -7,9 +7,6 @@ import java.util.*;
 public class Pathfinder {
     private List<Node> openList, closedList;
     private Node startNode, endNode;
-    private final boolean diagonal = true;
-
-    public Pathfinder() {}
 
     public List<Point> findPath(Tile startTile, Tile endTile, Tile[][] grid) {
         this.openList = new ArrayList<Node>();
@@ -34,16 +31,6 @@ public class Pathfinder {
 
             for (Point point : current.getTile().getNeighbors()) {
                 Tile neighborTile = grid[point.y][point.x];
-
-                if (!diagonal) {
-                    Tile currentTile = current.getTile();
-                    int diffX = Math.abs(currentTile.x - neighborTile.x);
-                    int diffY = Math.abs(currentTile.y - neighborTile.y);
-
-                    if (diffX > 0 && diffY > 0) {
-                        continue;
-                    }
-                }
 
                 if (neighborTile != null && (neighborTile == endTile || neighborTile.isEmpty())) {
                     Node neighborNode = new Node(neighborTile);
@@ -93,12 +80,10 @@ public class Pathfinder {
     private double heuristic(Node start, Node end) {
         double dx = start.getTile().x - end.getTile().x;
         double dy = start.getTile().y - end.getTile().y;
-
-//        return manhattan(dx, dy);
-        return euclidean(dx, dy);
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
-    public List<Point> tracePath() {
+    private List<Point> tracePath() {
         // Returns ordered list of points along movement path
         List<Point> path = new ArrayList<Point>();
         // Chase parent of node until start point reached
@@ -109,14 +94,5 @@ public class Pathfinder {
         }
         path.add(new Point(startNode.getTile().x, startNode.getTile().y));
         return path;
-    }
-
-
-    public double manhattan(double dx, double dy) {
-        return Math.abs(dx) + Math.abs(dy);
-    }
-
-    public double euclidean(double dx, double dy) {
-        return Math.sqrt(dx * dx + dy * dy);
     }
 }
