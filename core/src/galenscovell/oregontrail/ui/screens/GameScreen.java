@@ -89,7 +89,6 @@ public class GameScreen extends AbstractScreen {
         travelTicker--;
 
         if (travelTicker == 0) {
-            // Set new location background and speed
             currentbackground.setSpeed(new Vector2(40, 0));
             traveling = false;
         }
@@ -99,7 +98,6 @@ public class GameScreen extends AbstractScreen {
         this.input = new InputMultiplexer();
         input.addProcessor(stage);
         input.addProcessor(new InputHandler(this));
-        input.addProcessor(new GestureDetector(new GestureHandler(this)));
         Gdx.input.setInputProcessor(input);
     }
 
@@ -114,7 +112,7 @@ public class GameScreen extends AbstractScreen {
         String[] locationDetail = Repository.currentLocation.getDetails();
         this.locationPanel = new LocationPanel(locationDetail[0], locationDetail[1]);
 
-        stage.getRoot().addAction(Actions.sequence(Actions.delay(4), Actions.fadeOut(0.75f), transition, Actions.fadeIn(1.5f), Actions.delay(3), Actions.removeActor(locationPanel)));
+        stage.getRoot().addAction(Actions.sequence(Actions.delay(4), Actions.fadeOut(1.0f), transition, Actions.fadeIn(1.5f), Actions.delay(3), Actions.removeActor(locationPanel)));
     }
 
     private ParallaxBackground createBackground(String bg0, String bg1, String bg2) {

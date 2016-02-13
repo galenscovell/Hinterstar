@@ -7,7 +7,7 @@ import galenscovell.oregontrail.util.Repository;
 import java.util.*;
 
 public class Location {
-    public int x, y, size;
+    public final int x, y, size;
     private Tile tile;
     private ArrayList<Event> events;
     private String[] details;
@@ -44,7 +44,7 @@ public class Location {
         for (int e = 0; e < numberOfEvents; e++) {
 
         }
-        this.details = new String[]{"Title", "Detail"};
+        this.details = new String[]{"Title Content", "Detail Content"};
     }
 
     private void createBackground(Random random) {

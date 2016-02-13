@@ -6,5 +6,4 @@ public interface Event {
 
     public void setDistanceTo(int distance);
     public int getDistanceTo(int distance);
-
 }

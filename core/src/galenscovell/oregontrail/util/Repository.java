@@ -22,25 +22,21 @@ public class Repository {
 
     private Repository() {}
 
-    public static void setup(GameScreen game) {
-        gameScreen = game;
-        shapeRenderer = new ShapeRenderer();
-        pathfinder = new Pathfinder();
-    }
-
-    public static void setTiles(Tile[][] tiles) {
-        grid = tiles;
-    }
-
-    public static void setPath(Tile start, Tile end) {
-        pathPoints = pathfinder.findPath(start, end, grid);
-    }
-
     public static void clearPath() {
         if (pathPoints != null && pathPoints.size() > 0) {
             setDistanceToSelection("Distance: 0.0 AU");
             pathPoints.clear();
         }
+    }
+
+
+    /**************************
+     * Called from GameScreen
+     */
+    public static void setup(GameScreen game) {
+        gameScreen = game;
+        shapeRenderer = new ShapeRenderer();
+        pathfinder = new Pathfinder();
     }
 
     public static void drawPath() {
@@ -51,47 +47,27 @@ public class Repository {
                 Point p = pathPoints.get(i - 1);
                 Point n = pathPoints.get(i);
                 shapeRenderer.line(
-                    (p.x + 2) * Constants.TILESIZE - 8 + (Constants.TILESIZE / 2),
-                    Gdx.graphics.getHeight() - (p.y + 4) * Constants.TILESIZE + 12 + (Constants.TILESIZE / 2),
-                    (n.x + 2) * Constants.TILESIZE - 8 + (Constants.TILESIZE / 2),
-                    Gdx.graphics.getHeight() - (n.y + 4) * Constants.TILESIZE + 12 + (Constants.TILESIZE / 2)
+                        (p.x + 2) * Constants.TILESIZE - 8 + (Constants.TILESIZE / 2),
+                        Gdx.graphics.getHeight() - (p.y + 4) * Constants.TILESIZE + 12 + (Constants.TILESIZE / 2),
+                        (n.x + 2) * Constants.TILESIZE - 8 + (Constants.TILESIZE / 2),
+                        Gdx.graphics.getHeight() - (n.y + 4) * Constants.TILESIZE + 12 + (Constants.TILESIZE / 2)
                 );
             }
             shapeRenderer.end();
         }
     }
 
+
+    /**************************
+     * Called from Navmap
+     */
+    public static void setTiles(Tile[][] tiles) {
+        grid = tiles;
+    }
+
     public static boolean selectionIsValid() {
         Location selection = getCurrentSelection();
         return (selection != null && selection != currentLocation);
-    }
-
-    public static Location getCurrentSelection() {
-        for (Location location : locations) {
-            if (location.getTile().isSelected()) {
-                return location;
-            }
-        }
-        return null;
-    }
-
-    public static void setLocations(ArrayList<Location> locationsToSet) {
-        locations = locationsToSet;
-        Location mostLeftLocation = null;
-        for (Location location : locations) {
-            if (mostLeftLocation == null || location.x < mostLeftLocation.x) {
-                mostLeftLocation = location;
-            }
-        }
-        currentLocation = mostLeftLocation;
-        currentLocation.getTile().becomeCurrent();
-    }
-
-    public static void clearSelection() {
-        clearPath();
-        for (Location location : locations) {
-            location.getTile().disableSelected();
-        }
     }
 
     public static void travelToSelection() {
@@ -105,6 +81,50 @@ public class Repository {
         }
     }
 
+
+    /**************************
+     * Called from Tile
+     */
+    public static void setPath(Tile start, Tile end) {
+        pathPoints = pathfinder.findPath(start, end, grid);
+    }
+
+    public static Location getCurrentSelection() {
+        for (Location location : locations) {
+            if (location.getTile().isSelected()) {
+                return location;
+            }
+        }
+        return null;
+    }
+
+    public static void clearSelection() {
+        clearPath();
+        for (Location location : locations) {
+            location.getTile().disableSelected();
+        }
+    }
+
+
+    /**************************
+     * Called from MapGenerator
+     */
+    public static void setLocations(ArrayList<Location> locationsToSet) {
+        locations = locationsToSet;
+        Location mostLeftLocation = null;
+        for (Location location : locations) {
+            if (mostLeftLocation == null || location.x < mostLeftLocation.x) {
+                mostLeftLocation = location;
+            }
+        }
+        currentLocation = mostLeftLocation;
+        currentLocation.getTile().becomeCurrent();
+    }
+
+
+    /**************************
+     * Called from Pathfinder
+     */
     public static void setDistanceToSelection(String d) {
         GameStage gameStage = (GameStage) gameScreen.getGameStage();
         gameStage.updateDistanceLabel(d);
