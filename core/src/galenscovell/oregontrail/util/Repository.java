@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import galenscovell.oregontrail.map.*;
 import galenscovell.oregontrail.processing.pathfinding.Pathfinder;
 import galenscovell.oregontrail.things.inanimate.Location;
+import galenscovell.oregontrail.ui.components.GameStage;
 import galenscovell.oregontrail.ui.screens.GameScreen;
 
 import java.util.*;
@@ -33,6 +34,13 @@ public class Repository {
 
     public static void setPath(Tile start, Tile end) {
         pathPoints = pathfinder.findPath(start, end, grid);
+    }
+
+    public static void clearPath() {
+        if (pathPoints != null && pathPoints.size() > 0) {
+            setDistanceToSelection("Distance: 0.0 AU");
+            pathPoints.clear();
+        }
     }
 
     public static void drawPath() {
@@ -79,7 +87,8 @@ public class Repository {
         currentLocation.getTile().becomeCurrent();
     }
 
-    public static void resetSelection() {
+    public static void clearSelection() {
+        clearPath();
         for (Location location : locations) {
             location.getTile().disableSelected();
         }
@@ -88,11 +97,16 @@ public class Repository {
     public static void travelToSelection() {
         Location selection = getCurrentSelection();
         if (selection != null) {
-            pathPoints = null;
+            clearPath();
             currentLocation.getTile().becomeExplored();
             currentLocation = selection;
             selection.getTile().becomeCurrent();
             selection.enter();
         }
+    }
+
+    public static void setDistanceToSelection(String d) {
+        GameStage gameStage = (GameStage) gameScreen.getGameStage();
+        gameStage.updateDistanceLabel(d);
     }
 }

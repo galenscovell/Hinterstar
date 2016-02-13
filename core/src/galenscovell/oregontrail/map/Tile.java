@@ -27,7 +27,7 @@ public class Tile extends Actor {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (!isEmpty()) {
                     if (!isExplored()) {
-                        Repository.resetSelection();
+                        Repository.clearSelection();
                         selected = true;
                         Repository.setPath(Repository.currentLocation.getTile(), Repository.getCurrentSelection().getTile());
                     }

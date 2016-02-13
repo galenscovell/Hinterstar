@@ -4,7 +4,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import galenscovell.oregontrail.OregonTrailMain;
@@ -56,6 +56,10 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(input);
+    }
+
+    public Stage getGameStage() {
+        return stage;
     }
 
     public void toMainMenu() {
@@ -141,6 +145,7 @@ public class GameScreen extends AbstractScreen {
             blurBg.setSpeed(new Vector2(2500, 0));
             currentbackground = blurBg;
             stage.addActor(locationPanel);
+            Repository.clearSelection();
             return true;
         }
     };

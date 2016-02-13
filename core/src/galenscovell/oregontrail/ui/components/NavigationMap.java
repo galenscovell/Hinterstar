@@ -10,7 +10,7 @@ import galenscovell.oregontrail.util.*;
 
 public class NavigationMap extends Table {
     private final GameStage gameStage;
-    private MapGenerator mapGenerator;
+    private Label distanceLabel;
 
     public NavigationMap(GameStage gameStage) {
         this.gameStage = gameStage;
@@ -49,6 +49,9 @@ public class NavigationMap extends Table {
             }
         });
 
+        this.distanceLabel = new Label("Distance: 0.0 AU", ResourceManager.label_menuStyle);
+
+        navInfoTable.add(distanceLabel).expand().fill().left();
         navInfoTable.add(travelButton).width(150).height(50).expand().fill().right();
 
         return navInfoTable;
@@ -67,7 +70,7 @@ public class NavigationMap extends Table {
     }
 
     private void generateMap(Table container) {
-        this.mapGenerator = new MapGenerator();
+        MapGenerator mapGenerator = new MapGenerator();
         Tile[][] tiles = mapGenerator.getTiles();
         Repository.setTiles(tiles);
 
@@ -80,8 +83,12 @@ public class NavigationMap extends Table {
     }
 
     private void travelToLocation() {
-        gameStage.toggleNavMap();
+        gameStage.toggleNavMap(true);
         gameStage.rootScreen.setTravel();
         Repository.travelToSelection();
+    }
+
+    public void updateDistanceLabel(String d) {
+        distanceLabel.setText(d);
     }
 }

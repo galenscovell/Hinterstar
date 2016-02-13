@@ -1,6 +1,7 @@
 package galenscovell.oregontrail.processing.pathfinding;
 
 import galenscovell.oregontrail.map.*;
+import galenscovell.oregontrail.util.Repository;
 
 import java.util.*;
 
@@ -93,7 +94,8 @@ public class Pathfinder {
             node = node.getParent();
         }
         path.add(new Point(startNode.getTile().x, startNode.getTile().y));
-        System.out.println(node.getTotalCost());
+        String distanceText = "Distance: " + String.format("%.1f", node.getTotalCost()) + " AU";
+        Repository.setDistanceToSelection(distanceText);
         return path;
     }
 }

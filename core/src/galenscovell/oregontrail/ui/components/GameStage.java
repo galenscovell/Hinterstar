@@ -31,7 +31,7 @@ public class GameStage extends Stage {
         TextButton navMapButton = new TextButton("Nav", ResourceManager.button_fullStyle);
         navMapButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                toggleNavMap();
+                toggleNavMap(false);
             }
         });
         TextButton teamButton = new TextButton("Team", ResourceManager.button_fullStyle);
@@ -62,11 +62,20 @@ public class GameStage extends Stage {
         this.addActor(mainTable);
     }
 
-    public void toggleNavMap() {
+    public void toggleNavMap(boolean beganTravel) {
         if (navigationMap.hasParent()) {
-            navigationMap.remove();
+            if (beganTravel) {
+                navigationMap.remove();
+            } else {
+                Repository.clearSelection();
+                navigationMap.remove();
+            }
         } else {
             this.addActor(navigationMap);
         }
+    }
+
+    public void updateDistanceLabel(String d) {
+        navigationMap.updateDistanceLabel(d);
     }
 }
