@@ -17,11 +17,9 @@ public class Constants {
     public static final int EXACT_Y = 480;
 
     // Map dimensions (1 Tile = 1 AU)
-    public static final int MAPWIDTH = 30;  // 720px @ 24px
-    public static final int MAPHEIGHT = 14; // 336px @ 24px
-    public static final int TILESIZE = 24;
-    public static final int MAPBORDERWIDTH = (MAPWIDTH * TILESIZE) + 20;   // 740px
-    public static final int MAPBORDERHEIGHT = (MAPHEIGHT * TILESIZE) + 20; // 356px
+    public static final int MAPWIDTH = 50;  // 800px @ 16px
+    public static final int MAPHEIGHT = 30; // 480px @ 16px
+    public static final int TILESIZE = 16;
 
     // Distance Units
     // ~8min to travel one AU at speed of light

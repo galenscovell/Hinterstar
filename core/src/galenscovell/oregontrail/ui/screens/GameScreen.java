@@ -2,21 +2,20 @@ package galenscovell.oregontrail.ui.screens;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 
 import galenscovell.oregontrail.OregonTrailMain;
 import galenscovell.oregontrail.graphics.*;
-import galenscovell.oregontrail.processing.controls.*;
+import galenscovell.oregontrail.processing.controls.InputHandler;
 import galenscovell.oregontrail.ui.components.*;
 import galenscovell.oregontrail.util.*;
 
 public class GameScreen extends AbstractScreen {
     private InputMultiplexer input;
     private int travelTicker;
-    private boolean traveling;
+    private boolean traveling, mapOpen;
 
     public ParallaxBackground currentbackground, normalBg, blurBg;
     public String bg0, bg1, bg2, bg0Blur, bg1Blur, bg2Blur;
@@ -50,7 +49,10 @@ public class GameScreen extends AbstractScreen {
             currentbackground.render(delta);
         }
         stage.draw();
-        Repository.drawPath();
+        if (mapOpen) {
+            Repository.drawPath();
+            Repository.drawRadius();
+        }
     }
 
     @Override
@@ -69,6 +71,10 @@ public class GameScreen extends AbstractScreen {
     public void setTravel() {
         traveling = true;
         travelTicker = 600;
+    }
+
+    public void toggleMap() {
+        mapOpen = !mapOpen;
     }
 
     public boolean isTraveling() {

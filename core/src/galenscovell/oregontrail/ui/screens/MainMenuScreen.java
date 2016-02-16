@@ -39,7 +39,7 @@ public class MainMenuScreen extends AbstractScreen {
 
         // Button Table
         Table buttonTable = new Table();
-        TextButton newGameButton = new TextButton("New", ResourceManager.button_fullStyle);
+        TextButton newGameButton = new TextButton("New", ResourceManager.button_menuStyle);
         newGameButton.getLabel().setAlignment(Align.bottom, Align.center);
         newGameButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
@@ -47,21 +47,21 @@ public class MainMenuScreen extends AbstractScreen {
                 stage.getRoot().addAction(Actions.sequence(Actions.fadeOut(0.75f), toGameScreen));
             }
         });
-        TextButton continueGameButton = new TextButton("Load", ResourceManager.button_fullStyle);
+        TextButton continueGameButton = new TextButton("Load", ResourceManager.button_menuStyle);
         continueGameButton.getLabel().setAlignment(Align.bottom, Align.center);
         continueGameButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 // root.loadGame();
             }
         });
-        TextButton settingButton = new TextButton("Settings", ResourceManager.button_fullStyle);
+        TextButton settingButton = new TextButton("Settings", ResourceManager.button_menuStyle);
         settingButton.getLabel().setAlignment(Align.bottom, Align.center);
         settingButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
 
             }
         });
-        TextButton quitButton = new TextButton("Quit", ResourceManager.button_fullStyle);
+        TextButton quitButton = new TextButton("Quit", ResourceManager.button_menuStyle);
         quitButton.getLabel().setAlignment(Align.bottom, Align.center);
         quitButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {

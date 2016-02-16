@@ -15,7 +15,7 @@ public class Player extends Actor {
     private float frame;
 
     public Player(GameStage gameStage) {
-        this.gameScreen = gameStage.rootScreen;
+        this.gameScreen = gameStage.gameScreen;
         this.currentSprite = new Sprite(ResourceManager.uiAtlas.createSprite("placeholder_vehicle"));
 
         this.addListener(new ActorGestureListener() {

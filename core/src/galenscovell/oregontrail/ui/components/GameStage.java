@@ -9,15 +9,15 @@ import galenscovell.oregontrail.ui.screens.GameScreen;
 import galenscovell.oregontrail.util.*;
 
 public class GameStage extends Stage {
-    public final GameScreen rootScreen;
+    public final GameScreen gameScreen;
     private Table navigationTable;
     private NavigationMap navigationMap;
     private ActionTable actionTable;
     private DetailTable detailTable;
 
-    public GameStage(GameScreen rootScreen, SpriteBatch spriteBatch) {
+    public GameStage(GameScreen gameScreen, SpriteBatch spriteBatch) {
         super(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), spriteBatch);
-        this.rootScreen = rootScreen;
+        this.gameScreen = gameScreen;
         construct();
     }
 
@@ -63,6 +63,7 @@ public class GameStage extends Stage {
     }
 
     public void toggleNavMap(boolean beganTravel) {
+        gameScreen.toggleMap();
         if (navigationMap.hasParent()) {
             if (beganTravel) {
                 navigationMap.remove();

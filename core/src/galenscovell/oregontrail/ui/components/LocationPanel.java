@@ -15,7 +15,6 @@ public class LocationPanel extends Table {
         this.setFillParent(true);
 
         Table labelTable = new Table();
-        labelTable.setBackground(ResourceManager.np_test2);
 
         Label titleLabel = new Label(title, ResourceManager.label_titleStyle);
         titleLabel.setAlignment(Align.center, Align.center);

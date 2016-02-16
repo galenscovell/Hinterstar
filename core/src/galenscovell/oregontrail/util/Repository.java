@@ -47,14 +47,25 @@ public class Repository {
                 Point p = pathPoints.get(i - 1);
                 Point n = pathPoints.get(i);
                 shapeRenderer.line(
-                        (p.x + 2) * Constants.TILESIZE - 8 + (Constants.TILESIZE / 2),
-                        Gdx.graphics.getHeight() - (p.y + 4) * Constants.TILESIZE + 12 + (Constants.TILESIZE / 2),
-                        (n.x + 2) * Constants.TILESIZE - 8 + (Constants.TILESIZE / 2),
-                        Gdx.graphics.getHeight() - (n.y + 4) * Constants.TILESIZE + 12 + (Constants.TILESIZE / 2)
+                        (p.x * Constants.TILESIZE) + (Constants.TILESIZE / 2),
+                        Gdx.graphics.getHeight() - (p.y * Constants.TILESIZE) - (Constants.TILESIZE / 2),
+                        (n.x * Constants.TILESIZE) + (Constants.TILESIZE / 2),
+                        Gdx.graphics.getHeight() - (n.y * Constants.TILESIZE) - (Constants.TILESIZE / 2)
                 );
             }
             shapeRenderer.end();
         }
+    }
+
+    public static void drawRadius() {
+        int centerX = currentLocation.getTile().x * Constants.TILESIZE + (Constants.TILESIZE / 2);
+        int centerY = Gdx.graphics.getHeight() - (currentLocation.getTile().y * Constants.TILESIZE) - (Constants.TILESIZE / 2);
+
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        shapeRenderer.setColor(0.95f, 0.61f, 0.07f, 0.6f);
+        shapeRenderer.circle(centerX, centerY, 240);
+        shapeRenderer.circle(centerX, centerY, 20);
+        shapeRenderer.end();
     }
 
 
