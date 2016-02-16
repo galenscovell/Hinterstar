@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-
 import galenscovell.oregontrail.OregonTrailMain;
 import galenscovell.oregontrail.graphics.*;
 import galenscovell.oregontrail.processing.controls.InputHandler;
@@ -29,7 +28,7 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void create() {
         Repository.setup(this);
-        this.stage = new GameStage(this, root.spriteBatch);
+        this.stage = new GameStage(this, root.spriteBatch, tweenManager);
         // Create initial background
         normalBg = createBackground("purple_bg", "bg1", "bg2");
         blurBg = createBackground("purple_bg", "bg1_blur", "bg2_blur");
@@ -53,6 +52,7 @@ public class GameScreen extends AbstractScreen {
             Repository.drawPath();
             Repository.drawRadius();
         }
+        tweenManager.update(delta);
     }
 
     @Override

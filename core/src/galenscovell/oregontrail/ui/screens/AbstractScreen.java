@@ -15,6 +15,7 @@ public class AbstractScreen implements Screen {
 
     public AbstractScreen(OregonTrailMain root) {
         this.root = root;
+        this.tweenManager = new TweenManager();
     }
 
     public void create() { }

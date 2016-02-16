@@ -19,7 +19,7 @@ public class ResourceManager {
     public static TextureAtlas uiAtlas;
     public static LabelStyle label_tinyStyle, label_mediumStyle, label_detailStyle, label_menuStyle, label_titleStyle;
     public static NinePatchDrawable np_test0, np_test1, np_test2, np_test3, np_test4;
-    public static TextButtonStyle button_menuStyle, button_fullStyle;
+    public static TextButtonStyle button_menuStyle, button_mapStyle;
     public static Sprite mapGlow, sp_test0, sp_test1, sp_test2, sp_test3, sp_test4;
     public static CurrentLocationAnimation currentMarker;
     public static Preferences prefs;
@@ -39,8 +39,8 @@ public class ResourceManager {
         generateFont("ui/kenvector_future_thin.ttf", 12, 0, Color.WHITE, Color.BLACK, "tinyFont.ttf");
         generateFont("ui/kenvector_future_thin.ttf", 14, 0, Color.WHITE, Color.BLACK, "smallFont.ttf");
         generateFont("ui/kenvector_future_thin.ttf", 16, 0, Color.WHITE, Color.BLACK, "mediumFont.ttf");
-        generateFont("ui/kenvector_future.ttf", 21, 2, Color.WHITE, Color.BLACK, "largeFont.ttf");
-        generateFont("ui/kenvector_future.ttf", 36, 2, Color.TEAL, Color.BLACK, "extraLargeFont.ttf");
+        generateFont("ui/kenvector_future.ttf", 21, 0, Color.WHITE, Color.BLACK, "largeFont.ttf");
+        generateFont("ui/kenvector_future.ttf", 36, 0, Color.TEAL, Color.BLACK, "extraLargeFont.ttf");
     }
 
     public static void done() {
@@ -97,8 +97,9 @@ public class ResourceManager {
 
     private static void loadButtonStyles() {
         button_menuStyle = new TextButtonStyle(np_test4, np_test3, np_test4, assetManager.get("largeFont.ttf", BitmapFont.class));
-        button_fullStyle = new TextButtonStyle(np_test1, np_test3, np_test1, assetManager.get("largeFont.ttf", BitmapFont.class));
-        button_fullStyle.pressedOffsetY = -2;
+        button_menuStyle.pressedOffsetY = -2;
+        button_mapStyle = new TextButtonStyle(np_test1, np_test3, np_test1, assetManager.get("largeFont.ttf", BitmapFont.class));
+        button_mapStyle.pressedOffsetY = -2;
     }
 
     private static void loadSprites() {

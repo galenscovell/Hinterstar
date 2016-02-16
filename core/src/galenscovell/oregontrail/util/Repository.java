@@ -2,7 +2,6 @@ package galenscovell.oregontrail.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-
 import galenscovell.oregontrail.map.*;
 import galenscovell.oregontrail.processing.pathfinding.Pathfinder;
 import galenscovell.oregontrail.things.inanimate.Location;
