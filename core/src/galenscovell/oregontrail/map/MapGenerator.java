@@ -43,6 +43,9 @@ public class MapGenerator {
             }
             int x = getRandom(1, Constants.MAPWIDTH - padsize - 1);
             int y = getRandom(1, Constants.MAPHEIGHT - padsize - 1);
+            if (x == 0 || x == Constants.MAPWIDTH || y == 0 || y == Constants.MAPHEIGHT) {
+                continue;
+            }
             Location location = new Location(x, y, padsize);
 
             if (doesCollide(location, -1)) {
