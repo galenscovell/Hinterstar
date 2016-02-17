@@ -18,7 +18,7 @@ public class Constants {
 
     // Map dimensions (1 Tile = 1 AU)
     public static final int MAPWIDTH = 50;  // 800px @ 16px
-    public static final int MAPHEIGHT = 30; // 480px @ 16px
+    public static final int MAPHEIGHT = 28; // 448px @ 16px
     public static final int TILESIZE = 16;
 
     // Distance Units

@@ -1,11 +1,9 @@
 package galenscovell.oregontrail.ui.screens;
 
 import aurelienribon.tweenengine.TweenManager;
-
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-
 import galenscovell.oregontrail.OregonTrailMain;
 
 public class AbstractScreen implements Screen {

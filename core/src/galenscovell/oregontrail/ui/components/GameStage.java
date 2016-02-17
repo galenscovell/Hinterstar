@@ -1,97 +1,72 @@
 package galenscovell.oregontrail.ui.components;
 
-import aurelienribon.tweenengine.*;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.*;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import galenscovell.oregontrail.ui.screens.GameScreen;
-import galenscovell.oregontrail.ui.tween.ActorAccessor;
 import galenscovell.oregontrail.util.*;
 
 public class GameStage extends Stage {
     public final GameScreen gameScreen;
-    private final TweenManager tweenManager;
-    private Table buttonTable;
-    private NavigationMap navigationMap;
-    private ActionTable actionTable;
-    private DetailTable detailTable;
+    private final NavButtons navButtons;
+    private final ActionTable actionTable;
+    private final DetailTable detailTable;
+    private final NavigationMap navigationMap;
 
-    public GameStage(GameScreen gameScreen, SpriteBatch spriteBatch, TweenManager tweenManager) {
+    public GameStage(GameScreen gameScreen, SpriteBatch spriteBatch) {
         super(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), spriteBatch);
         this.gameScreen = gameScreen;
-        this.tweenManager = tweenManager;
+        this.navButtons = new NavButtons(this);
+        this.actionTable = new ActionTable(this);
+        this.detailTable = new DetailTable(this);
+        this.navigationMap = new NavigationMap(this);
         construct();
     }
 
     private void construct() {
-        this.navigationMap = new NavigationMap(this);
-
         Table mainTable = new Table();
         mainTable.setFillParent(true);
 
-        this.buttonTable = new Table();
-        TextButton navMapButton = new TextButton("Nav", ResourceManager.button_mapStyle);
-        navMapButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                toggleNavMap(false);
-            }
-        });
-        TextButton teamButton = new TextButton("Team", ResourceManager.button_mapStyle);
-        teamButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Team button");
-            }
-        });
-        TextButton shipButton = new TextButton("Ship", ResourceManager.button_mapStyle);
-        shipButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Ship button");
-            }
-        });
-        buttonTable.add(navMapButton).width(90).expand().fill();
-        buttonTable.add(teamButton).width(90).expand().fill();
-        buttonTable.add(shipButton).width(90).expand().fill();
-
-        this.actionTable = new ActionTable(this);
-        this.detailTable = new DetailTable(this);
-
-        mainTable.add(buttonTable).width(Constants.EXACT_X / 3).height(40).center().padTop(4);
+        mainTable.add(navButtons).width(Constants.EXACT_X / 2).height(2 + Constants.TILESIZE * 2);
         mainTable.row();
-        mainTable.add(actionTable).width(Constants.EXACT_X).height(340).center();
+        mainTable.add(actionTable).width(Constants.EXACT_X).height(340);
         mainTable.row();
-        mainTable.add(detailTable).width(Constants.EXACT_X).height(110).center();
+        mainTable.add(detailTable).width(Constants.EXACT_X).height(110);
 
         this.addActor(mainTable);
     }
 
-    public void toggleNavMap(boolean beganTravel) {
-        Tween.registerAccessor(Actor.class, new ActorAccessor());
-        gameScreen.toggleMap();
+    public void toggleMap(boolean beganTravel) {
         if (navigationMap.hasParent()) {
-            Tween.to(navigationMap, ActorAccessor.ALPHA, 0.25f)
-                    .target(0)
-                    .setCallback(new TweenCallback() {
-                        @Override
-                        public void onEvent(int i, BaseTween<?> baseTween) {
-                            navigationMap.remove();
-                            navigationMap.setColor(1, 1, 1, 1);
-                        }
-                    })
-                    .start(tweenManager);
+            navigationMap.addAction(Actions.sequence(
+                    toggleMapAction,
+                    Actions.moveTo(-800, 0, 0.2f, Interpolation.sine),
+                    Actions.removeActor())
+            );
             if (!beganTravel) {
                 Repository.clearSelection();
             }
         } else {
             this.addActor(navigationMap);
-            Tween.from(navigationMap, ActorAccessor.ALPHA, 0.25f).target(0).start(tweenManager);
+            navigationMap.addAction(Actions.sequence(
+                    Actions.moveTo(-800, 0, 0),
+                    Actions.moveTo(0, 0, 0.2f, Interpolation.sine),
+                    toggleMapAction)
+            );
         }
-        tweenManager.update(Gdx.graphics.getDeltaTime());
     }
 
     public void updateDistanceLabel(String d) {
         navigationMap.updateDistanceLabel(d);
     }
+
+    Action toggleMapAction = new Action() {
+        public boolean act(float delta) {
+            gameScreen.toggleMap();
+            return true;
+        }
+    };
 }

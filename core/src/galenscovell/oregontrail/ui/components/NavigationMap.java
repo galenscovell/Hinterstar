@@ -19,25 +19,17 @@ public class NavigationMap extends Table {
     private void construct() {
         this.setFillParent(true);
 
-        Table mainTable = new Table();
-        mainTable.setBackground(ResourceManager.np_test2);
-
         Group mapGroup = new Group();
         Table mapTable = createMapTable();
-        Table closeTable = createCloseTable();
         Table infoTable = createInfoTable();
 
         mapGroup.addActor(mapTable);
-        mapGroup.addActor(closeTable);
         mapGroup.addActor(infoTable);
 
         mapTable.setPosition(0, 0);
-        closeTable.setPosition(0, 430);
         infoTable.setPosition(0, 0);
 
-        mainTable.add(mapGroup).expand().fill();
-
-        this.add(mainTable).width(Constants.EXACT_X).height(Constants.EXACT_Y).center();
+        this.add(mapGroup).width(Constants.EXACT_X).height(Constants.EXACT_Y - (Constants.TILESIZE * 2)).padTop(Constants.TILESIZE * 2);
     }
 
     private Table createMapTable() {
@@ -58,20 +50,6 @@ public class NavigationMap extends Table {
             }
             container.row();
         }
-    }
-
-    private Table createCloseTable() {
-        Table closeTable = new Table();
-        closeTable.setSize(Constants.EXACT_X, 50);
-        closeTable.align(Align.center);
-        TextButton closeButton = new TextButton("Nav", ResourceManager.button_mapStyle);
-        closeButton.addListener(new ClickListener() {
-            public void clicked(InputEvent event, float x, float y) {
-                gameStage.toggleNavMap(false);
-            }
-        });
-        closeTable.add(closeButton).width(80).height(50).expand().fill().right();
-        return closeTable;
     }
 
     private Table createInfoTable() {
@@ -97,7 +75,7 @@ public class NavigationMap extends Table {
     }
 
     private void travelToLocation() {
-        gameStage.toggleNavMap(true);
+        gameStage.toggleMap(true);
         gameStage.gameScreen.setTravel();
         Repository.travelToSelection();
     }

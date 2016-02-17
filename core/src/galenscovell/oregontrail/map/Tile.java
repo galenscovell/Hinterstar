@@ -72,7 +72,7 @@ public class Tile extends Actor {
     public void becomeCurrent() {
         ResourceManager.currentMarker.setTarget(
                 x  * Constants.TILESIZE - Constants.TILESIZE,
-                Gdx.graphics.getHeight() - (y * Constants.TILESIZE) - (2 * Constants.TILESIZE)
+                Gdx.graphics.getHeight() - (y * Constants.TILESIZE) - (4 * Constants.TILESIZE)
         );
         type = TileType.CURRENT;
     }
@@ -97,7 +97,7 @@ public class Tile extends Actor {
             batch.draw(
                     sprite,
                     x * Constants.TILESIZE,
-                    Gdx.graphics.getHeight() - (y * Constants.TILESIZE) - Constants.TILESIZE,
+                    Gdx.graphics.getHeight() - (y * Constants.TILESIZE) - (3 * Constants.TILESIZE),
                     Constants.TILESIZE,
                     Constants.TILESIZE
             );
@@ -133,7 +133,7 @@ public class Tile extends Actor {
         batch.draw(
                 ResourceManager.mapGlow,
                 x * Constants.TILESIZE - Constants.TILESIZE,
-                Gdx.graphics.getHeight() - (y * Constants.TILESIZE) - (2 * Constants.TILESIZE),
+                Gdx.graphics.getHeight() - (y * Constants.TILESIZE) - (4 * Constants.TILESIZE),
                 Constants.TILESIZE * 3,
                 Constants.TILESIZE * 3
         );

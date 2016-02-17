@@ -1,9 +1,7 @@
 package galenscovell.oregontrail.ui.screens;
 
+import aurelienribon.tweenengine.*;
 import aurelienribon.tweenengine.equations.Bounce;
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenManager;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -11,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-
 import galenscovell.oregontrail.OregonTrailMain;
 import galenscovell.oregontrail.ui.tween.ActorAccessor;
 import galenscovell.oregontrail.util.*;
@@ -86,9 +83,11 @@ public class MainMenuScreen extends AbstractScreen {
         Tween.from(titleLabel, ActorAccessor.ALPHA, 0.5f)
                 .target(0)
                 .start(tweenManager);
-        Tween.from(titleLabel, ActorAccessor.POS_Y, 0.75f)
-                .target(100)
-                .ease(Bounce.OUT)
+        Tween.to(titleLabel, ActorAccessor.ALPHA, 0.0f)
+                .target(1)
+                .start(tweenManager);
+        Tween.from(titleLabel, ActorAccessor.ALPHA, 1.5f)
+                .target(0)
                 .start(tweenManager);
         Tween.from(buttonTable, ActorAccessor.ALPHA, 0.5f)
                 .target(0)
