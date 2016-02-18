@@ -14,7 +14,7 @@ public class Tile extends Actor {
     private TileType type;
     private List<Point> neighborTilePoints;
     private Sprite sprite;
-    private boolean selected, glowUp;
+    private boolean glowUp;
 
     public Tile(int x, int y) {
         this.x = x;
@@ -26,11 +26,14 @@ public class Tile extends Actor {
         this.addListener(new ActorGestureListener() {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (!isEmpty() && !isExplored()) {
-                    selected = true;
-                    Repository.setSelection();
+                    Repository.setSelection(getThisTile());
                 }
             }
         });
+    }
+
+    public Tile getThisTile() {
+        return this;
     }
 
     public boolean isEmpty() {
@@ -51,10 +54,6 @@ public class Tile extends Actor {
 
     public List<Point> getNeighbors() {
         return neighborTilePoints;
-    }
-
-    public boolean isSelected() {
-        return selected;
     }
 
 
@@ -81,10 +80,6 @@ public class Tile extends Actor {
     public void becomeUnexplored() {
         sprite = ResourceManager.sp_test0;
         type = TileType.UNEXPLORED;
-    }
-
-    public void disableSelected() {
-        selected = false;
     }
 
     @Override
@@ -119,9 +114,7 @@ public class Tile extends Actor {
 
         float frameAlpha = (frames / 120.0f);
 
-        if (isSelected()) {
-            batch.setColor(0.95f, 0.61f, 0.07f, frameAlpha);
-        } else if (isExplored()) {
+        if (isExplored()) {
             batch.setColor(0.4f, 0.4f, 1.0f, frameAlpha);
         } else {
             batch.setColor(0.4f, 1.0f, 0.4f, frameAlpha);

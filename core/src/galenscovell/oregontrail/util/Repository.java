@@ -33,11 +33,9 @@ public class Repository {
 
     public static void setTargetsInRange() {
         locationsInRange = new ArrayList<Location>();
-        Tile currentTile = currentLocation.getTile();
 
         for (Location location : locations) {
-            Tile locationTile = location.getTile();
-            double squareDist = Math.pow(currentTile.x - locationTile.x, 2) + Math.pow(currentTile.y - locationTile.y, 2);
+            double squareDist = Math.pow(currentLocation.getTile().x - location.getTile().x, 2) + Math.pow(currentLocation.getTile().y - location.getTile().y, 2);
             if (squareDist <= Math.pow(playerRange, 2)) {
                 locationsInRange.add(location);
             }
@@ -55,15 +53,19 @@ public class Repository {
         shapeRenderer.circle(centerX, centerY, radius);
         shapeRenderer.circle(centerX, centerY, 20);
 
+        if (currentSelection != null) {
+            float selectionX = currentSelection.getTile().x * Constants.TILESIZE + (Constants.TILESIZE / 2);
+            float selectionY = Gdx.graphics.getHeight() - (currentSelection.getTile().y * Constants.TILESIZE) - (2 * Constants.TILESIZE) - (Constants.TILESIZE / 2);
+            shapeRenderer.circle(selectionX, selectionY, 20);
+        }
+
         if (locationsInRange != null && locationsInRange.size() > 0) {
-            Tile currentTile = currentLocation.getTile();
             for (Location location : locationsInRange) {
-                Tile locationTile = location.getTile();
                 shapeRenderer.line(
-                            (currentTile.x * Constants.TILESIZE) + (Constants.TILESIZE / 2),
-                            Gdx.graphics.getHeight() - (currentTile.y * Constants.TILESIZE) - (2 * Constants.TILESIZE) - (Constants.TILESIZE / 2),
-                            (locationTile.x * Constants.TILESIZE) + (Constants.TILESIZE / 2),
-                            Gdx.graphics.getHeight() - (locationTile.y * Constants.TILESIZE) - (2 * Constants.TILESIZE) - (Constants.TILESIZE / 2)
+                            (currentLocation.getTile().x * Constants.TILESIZE) + (Constants.TILESIZE / 2),
+                            Gdx.graphics.getHeight() - (currentLocation.getTile().y * Constants.TILESIZE) - (2 * Constants.TILESIZE) - (Constants.TILESIZE / 2),
+                            (location.getTile().x * Constants.TILESIZE) + (Constants.TILESIZE / 2),
+                            Gdx.graphics.getHeight() - (location.getTile().y * Constants.TILESIZE) - (2 * Constants.TILESIZE) - (Constants.TILESIZE / 2)
                     );
             }
         }
@@ -95,28 +97,17 @@ public class Repository {
     /**************************
      * Called from Tile
      */
-    public static void setSelection() {
-        if (currentSelection != null) {
-            currentSelection.getTile().disableSelected();
-        }
-
-        currentSelection = getCurrentSelection();
-        Tile currentTile = currentLocation.getTile();
-        Tile locationTile = currentSelection.getTile();
-        double distance = (Math.pow(currentTile.x - locationTile.x, 2) + Math.pow(currentTile.y - locationTile.y, 2)) / Constants.TILESIZE;
-        String stringDistance = "Distance: " + String.format("%.1f", distance) + " AU";
-
-        GameStage gameStage = (GameStage) gameScreen.getGameStage();
-        gameStage.updateDistanceLabel(stringDistance);
-    }
-
-    public static Location getCurrentSelection() {
+    public static void setSelection(Tile selection) {
         for (Location location : locations) {
-            if (location.getTile().isSelected()) {
-                return location;
+            if (location.getTile() == selection) {
+                currentSelection = location;
             }
         }
-        return null;
+
+        double distance = (Math.pow(currentLocation.getTile().x - selection.x, 2) + Math.pow(currentLocation.getTile().y - selection.y, 2)) / Constants.TILESIZE;
+
+        GameStage gameStage = (GameStage) gameScreen.getGameStage();
+        gameStage.updateDistanceLabel("Distance: " + String.format("%.1f", distance) + " AU");
     }
 
 
@@ -125,13 +116,12 @@ public class Repository {
      */
     public static void populateLocations(ArrayList<Location> locationsToSet) {
         locations = locationsToSet;
-        Location mostLeftLocation = null;
+        currentLocation = null;
         for (Location location : locations) {
-            if (mostLeftLocation == null || location.x < mostLeftLocation.x) {
-                mostLeftLocation = location;
+            if (currentLocation == null || location.x < currentLocation.x) {
+                currentLocation = location;
             }
         }
-        currentLocation = mostLeftLocation;
         currentLocation.getTile().becomeCurrent();
     }
 }
