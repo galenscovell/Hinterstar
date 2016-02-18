@@ -20,7 +20,7 @@ public class NavButtons extends Table {
         TextButton mapButton = new TextButton("Nav", ResourceManager.button_mapStyle);
         mapButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                gameStage.toggleMap(false);
+                gameStage.toggleMap();
             }
         });
         TextButton teamButton = new TextButton("Team", ResourceManager.button_mapStyle);
@@ -36,8 +36,8 @@ public class NavButtons extends Table {
             }
         });
 
-        this.add(mapButton).width(100).expand().fill();
-        this.add(teamButton).width(100).expand().fill();
-        this.add(shipButton).width(100).expand().fill();
+        this.add(mapButton).width(120).expand().fill();
+        this.add(teamButton).width(120).expand().fill();
+        this.add(shipButton).width(120).expand().fill();
     }
 }

@@ -27,14 +27,14 @@ public class MapGenerator {
         }
         placeDestinations();
         setTileNeighbors();
-        Repository.setLocations(locations);
+        Repository.populateLocations(locations);
     }
 
     private void placeDestinations() {
-        // Place random Locations, ensuring that they do not collide
+        // Place random Locations, ensuring that they are distanced apart
         final int attempts = 480;
-        final int maxLocations = 8;
-        final int padsize = 3;
+        final int maxLocations = 12;
+        final int padsize = 4;
         this.locations = new ArrayList<Location>();
 
         for (int i = 0; i < attempts; i++) {

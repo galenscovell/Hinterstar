@@ -49,8 +49,7 @@ public class GameScreen extends AbstractScreen {
         }
         stage.draw();
         if (mapOpen) {
-            Repository.drawPath();
-            Repository.drawRadius();
+            Repository.drawShapes();
         }
     }
 
@@ -117,7 +116,7 @@ public class GameScreen extends AbstractScreen {
         String[] locationDetail = Repository.currentLocation.getDetails();
         this.locationPanel = new LocationPanel(locationDetail[0], locationDetail[1]);
 
-        stage.getRoot().addAction(Actions.sequence(Actions.delay(4), Actions.fadeOut(1.0f), transition, Actions.fadeIn(1.5f), Actions.delay(3), Actions.removeActor(locationPanel)));
+        stage.getRoot().addAction(Actions.sequence(Actions.delay(3), Actions.fadeOut(1.0f), transition, Actions.fadeIn(1.0f), Actions.delay(3), Actions.removeActor(locationPanel)));
     }
 
     private ParallaxBackground createBackground(String bg0, String bg1, String bg2) {
@@ -148,7 +147,6 @@ public class GameScreen extends AbstractScreen {
             blurBg.setSpeed(new Vector2(2500, 0));
             currentbackground = blurBg;
             stage.addActor(locationPanel);
-            Repository.clearSelection();
             return true;
         }
     };

@@ -75,8 +75,9 @@ public class NavigationMap extends Table {
     }
 
     private void travelToLocation() {
-        gameStage.toggleMap(true);
+        gameStage.toggleMap();
         gameStage.gameScreen.setTravel();
+        gameStage.toggleNavButtons();
         Repository.travelToSelection();
     }
 

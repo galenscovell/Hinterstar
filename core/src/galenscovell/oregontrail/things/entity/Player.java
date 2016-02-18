@@ -17,6 +17,7 @@ public class Player extends Actor {
     public Player(GameStage gameStage) {
         this.gameScreen = gameStage.gameScreen;
         this.currentSprite = new Sprite(ResourceManager.uiAtlas.createSprite("placeholder_vehicle"));
+        this.setSize(270, 90);
 
         this.addListener(new ActorGestureListener() {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
