@@ -48,18 +48,13 @@ public class Repository {
         float centerY = Gdx.graphics.getHeight() - (currentLocation.getTile().y * Constants.TILESIZE) - (2 * Constants.TILESIZE) - (Constants.TILESIZE / 2);
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Line);
+        // Circle rendering
         shapeRenderer.setColor(0.95f, 0.61f, 0.07f, 0.6f);
-
         shapeRenderer.circle(centerX, centerY, radius);
         shapeRenderer.circle(centerX, centerY, 20);
-
-        if (currentSelection != null) {
-            float selectionX = currentSelection.getTile().x * Constants.TILESIZE + (Constants.TILESIZE / 2);
-            float selectionY = Gdx.graphics.getHeight() - (currentSelection.getTile().y * Constants.TILESIZE) - (2 * Constants.TILESIZE) - (Constants.TILESIZE / 2);
-            shapeRenderer.circle(selectionX, selectionY, 20);
-        }
-
+        // Path rendering
         if (locationsInRange != null && locationsInRange.size() > 0) {
+            shapeRenderer.setColor(0.93f, 0.94f, 0.95f, 0.6f);
             for (Location location : locationsInRange) {
                 shapeRenderer.line(
                             (currentLocation.getTile().x * Constants.TILESIZE) + (Constants.TILESIZE / 2),
@@ -68,6 +63,13 @@ public class Repository {
                             Gdx.graphics.getHeight() - (location.getTile().y * Constants.TILESIZE) - (2 * Constants.TILESIZE) - (Constants.TILESIZE / 2)
                     );
             }
+        }
+        // Selection rendering
+        if (currentSelection != null) {
+            shapeRenderer.setColor(0.18f, 0.8f, 0.44f, 0.6f);
+            float selectionX = currentSelection.getTile().x * Constants.TILESIZE + (Constants.TILESIZE / 2);
+            float selectionY = Gdx.graphics.getHeight() - (currentSelection.getTile().y * Constants.TILESIZE) - (2 * Constants.TILESIZE) - (Constants.TILESIZE / 2);
+            shapeRenderer.circle(selectionX, selectionY, 20);
         }
         shapeRenderer.end();
     }
