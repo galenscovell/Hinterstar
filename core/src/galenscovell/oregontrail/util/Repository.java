@@ -78,18 +78,15 @@ public class Repository {
 
 
     /**************************
-     * Called from Navmap
+     * Called from MapPanel
      */
     public static void setTiles(Tile[][] tiles) {
         grid = tiles;
     }
 
-    public static boolean selectionIsValid() {
-        return (currentSelection != null && currentSelection != currentLocation && locationsInRange.contains(currentSelection));
-    }
-
     public static void travelToSelection() {
-        if (currentSelection != null) {
+        if (currentSelection != null && currentSelection != currentLocation &&
+                locationsInRange.contains(currentSelection)) {
             currentLocation.getTile().becomeExplored();
             currentLocation = currentSelection;
             currentSelection.getTile().becomeCurrent();
@@ -111,13 +108,15 @@ public class Repository {
 
         for (Location location : locations) {
             if (location.getTile() == selection) {
-                currentSelection = location;
+                if (!(location == currentLocation)) {
+                    currentSelection = location;
+
+                    double distance = Math.sqrt(Math.pow(currentLocation.getTile().x - selection.x, 2) + Math.pow(currentLocation.getTile().y - selection.y, 2)) * 4;
+                    GameStage gameStage = (GameStage) gameScreen.getGameStage();
+                    gameStage.updateDistanceLabel("Distance: " + String.format("%.1f", distance) + " AU");
+                }
             }
         }
-
-        double distance = Math.sqrt(Math.pow(currentLocation.getTile().x - selection.x, 2) + Math.pow(currentLocation.getTile().y - selection.y, 2)) * 4;
-        GameStage gameStage = (GameStage) gameScreen.getGameStage();
-        gameStage.updateDistanceLabel("Distance: " + String.format("%.1f", distance) + " AU");
     }
 
 

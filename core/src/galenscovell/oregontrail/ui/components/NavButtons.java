@@ -8,6 +8,7 @@ import galenscovell.oregontrail.util.ResourceManager;
 
 public class NavButtons extends Table {
     private final GameStage gameStage;
+    private TextButton mapButton, teamButton, shipButton;
 
     public NavButtons(GameStage gameStage) {
         this.gameStage = gameStage;
@@ -17,27 +18,34 @@ public class NavButtons extends Table {
     private void construct() {
         this.align(Align.center);
 
-        TextButton mapButton = new TextButton("Nav", ResourceManager.button_mapStyle);
+        this.mapButton = new TextButton("Map", ResourceManager.button_mapStyle0);
+        this.teamButton = new TextButton("Team", ResourceManager.button_mapStyle1);
+        this.shipButton = new TextButton("Ship", ResourceManager.button_mapStyle2);
+
         mapButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 gameStage.togglePanel(0);
+                teamButton.setChecked(false);
+                shipButton.setChecked(false);
             }
         });
-        TextButton teamButton = new TextButton("Team", ResourceManager.button_mapStyle);
         teamButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 gameStage.togglePanel(1);
+                mapButton.setChecked(false);
+                shipButton.setChecked(false);
             }
         });
-        TextButton shipButton = new TextButton("Ship", ResourceManager.button_mapStyle);
         shipButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
                 gameStage.togglePanel(2);
+                mapButton.setChecked(false);
+                teamButton.setChecked(false);
             }
         });
 
-        this.add(mapButton).width(120).expand().fill();
-        this.add(teamButton).width(120).expand().fill();
-        this.add(shipButton).width(120).expand().fill();
+        this.add(mapButton).width(130).expand().fill();
+        this.add(teamButton).width(130).expand().fill();
+        this.add(shipButton).width(130).expand().fill();
     }
 }

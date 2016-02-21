@@ -56,16 +56,10 @@ public class MapPanel extends Table {
         Table infoTable = new Table();
         infoTable.setSize(Constants.EXACT_X, 50);
         infoTable.align(Align.center);
-        TextButton travelButton = new TextButton("Travel", ResourceManager.button_mapStyle);
+        TextButton travelButton = new TextButton("Travel", ResourceManager.button_menuStyle);
         travelButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                if (gameStage.gameScreen.isTraveling()) {
-                    System.out.println("Already traveling");
-                } else if (!Repository.selectionIsValid()) {
-                    System.out.println("Selection invalid");
-                } else {
-                    travelToLocation();
-                }
+                travelToLocation();
             }
         });
         this.distanceLabel = new Label("Distance: 0.0 AU", ResourceManager.label_menuStyle);

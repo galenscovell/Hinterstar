@@ -17,10 +17,26 @@ import galenscovell.oregontrail.graphics.CurrentLocationAnimation;
 public class ResourceManager {
     public static AssetManager assetManager;
     public static TextureAtlas uiAtlas;
-    public static LabelStyle label_tinyStyle, label_mediumStyle, label_detailStyle, label_menuStyle, label_titleStyle;
-    public static NinePatchDrawable np_test0, np_test1, np_test2, np_test3, np_test4;
-    public static TextButtonStyle button_menuStyle, button_mapStyle;
-    public static Sprite mapGlow, sp_test0, sp_test1, sp_test2, sp_test3, sp_test4;
+    public static LabelStyle label_tinyStyle,
+            label_mediumStyle,
+            label_detailStyle,
+            label_menuStyle,
+            label_titleStyle;
+    public static NinePatchDrawable np_test0,
+            np_test1,
+            np_test2,
+            np_test3,
+            np_test4;
+    public static TextButtonStyle button_menuStyle,
+            button_mapStyle0,
+            button_mapStyle1,
+            button_mapStyle2;
+    public static Sprite mapGlow,
+            sp_test0,
+            sp_test1,
+            sp_test2,
+            sp_test3,
+            sp_test4;
     public static CurrentLocationAnimation currentMarker;
     public static Preferences prefs;
 
@@ -31,7 +47,6 @@ public class ResourceManager {
 
     public static void load() {
         assetManager.load("atlas/uiAtlas.pack", TextureAtlas.class);
-
         FileHandleResolver resolver = new InternalFileHandleResolver();
         assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
@@ -53,7 +68,7 @@ public class ResourceManager {
         loadAnimations();
 
 //        // Load user preferences
-//        prefs = Gdx.app.getPreferences("flicker_settings");
+//        prefs = Gdx.app.getPreferences("trail_settings");
 //        prefs.putBoolean("sfx", true);
 //        prefs.putBoolean("music", true);
 //        prefs.flush();
@@ -63,6 +78,8 @@ public class ResourceManager {
         assetManager.dispose();
         uiAtlas.dispose();
     }
+
+
 
     /***************************************************
      * Font and Resource Generation
@@ -98,8 +115,13 @@ public class ResourceManager {
     private static void loadButtonStyles() {
         button_menuStyle = new TextButtonStyle(np_test4, np_test3, np_test4, assetManager.get("largeFont.ttf", BitmapFont.class));
         button_menuStyle.pressedOffsetY = -2;
-        button_mapStyle = new TextButtonStyle(np_test1, np_test3, np_test1, assetManager.get("largeFont.ttf", BitmapFont.class));
-        button_mapStyle.pressedOffsetY = -2;
+
+        button_mapStyle0 = new TextButtonStyle(np_test1, np_test4, np_test4, assetManager.get("largeFont.ttf", BitmapFont.class));
+        button_mapStyle0.pressedOffsetY = -2;
+        button_mapStyle1 = new TextButtonStyle(np_test1, np_test3, np_test3, assetManager.get("largeFont.ttf", BitmapFont.class));
+        button_mapStyle1.pressedOffsetY = -2;
+        button_mapStyle2 = new TextButtonStyle(np_test1, np_test2, np_test2, assetManager.get("largeFont.ttf", BitmapFont.class));
+        button_mapStyle2.pressedOffsetY = -2;
     }
 
     private static void loadSprites() {

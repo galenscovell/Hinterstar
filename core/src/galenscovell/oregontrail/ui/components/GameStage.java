@@ -13,12 +13,12 @@ import galenscovell.oregontrail.util.*;
 public class GameStage extends Stage {
     public final GameScreen gameScreen;
     private final Player player;
+    private final MapPanel mapPanel;
+    private final TeamPanel teamPanel;
+    private final ShipPanel shipPanel;
     private NavButtons navButtons;
     private Table actionTable;
     private DetailTable detailTable;
-    private MapPanel mapPanel;
-    private TeamPanel teamPanel;
-    private ShipPanel shipPanel;
 
     public GameStage(GameScreen gameScreen, SpriteBatch spriteBatch) {
         super(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), spriteBatch);
@@ -53,16 +53,16 @@ public class GameStage extends Stage {
         if (!mapPanel.hasActions()) {
             if (mapPanel.hasParent()) {
                 mapPanel.addAction(Actions.sequence(
-                        toggleMapAction,
-                        Actions.moveTo(-800, 0, 0.2f, Interpolation.sine),
+                        mapAction,
+                        Actions.moveTo(-800, 0, 0.25f, Interpolation.sine),
                         Actions.removeActor())
                 );
             } else if (num == 0) {
                 this.addActor(mapPanel);
                 mapPanel.addAction(Actions.sequence(
                         Actions.moveTo(-800, 0),
-                        Actions.moveTo(0, 0, 0.2f, Interpolation.sine),
-                        toggleMapAction)
+                        Actions.moveTo(0, 0, 0.25f, Interpolation.sine),
+                        mapAction)
                 );
             }
         }
@@ -70,16 +70,16 @@ public class GameStage extends Stage {
         if (!teamPanel.hasActions()) {
             if (teamPanel.hasParent()) {
                 teamPanel.addAction(Actions.sequence(
-                        toggleTeamAction,
-                        Actions.moveTo(-800, 0, 0.2f, Interpolation.sine),
+                        teamAction,
+                        Actions.moveTo(-800, 0, 0.25f, Interpolation.sine),
                         Actions.removeActor())
                 );
             } else if (num == 1) {
                 this.addActor(teamPanel);
                 teamPanel.addAction(Actions.sequence(
                         Actions.moveTo(-800, 0),
-                        Actions.moveTo(0, 0, 0.2f, Interpolation.sine),
-                        toggleTeamAction)
+                        Actions.moveTo(0, 0, 0.25f, Interpolation.sine),
+                        teamAction)
                 );
             }
         }
@@ -87,16 +87,16 @@ public class GameStage extends Stage {
         if (!shipPanel.hasActions()) {
             if (shipPanel.hasParent()) {
                 shipPanel.addAction(Actions.sequence(
-                        toggleShipAction,
-                        Actions.moveTo(-800, 0, 0.2f, Interpolation.sine),
+                        shipAction,
+                        Actions.moveTo(-800, 0, 0.25f, Interpolation.sine),
                         Actions.removeActor())
                 );
             } else if (num == 2) {
                 this.addActor(shipPanel);
                 shipPanel.addAction(Actions.sequence(
                         Actions.moveTo(-800, 0),
-                        Actions.moveTo(0, 0, 0.2f, Interpolation.sine),
-                        toggleShipAction)
+                        Actions.moveTo(0, 0, 0.25f, Interpolation.sine),
+                        shipAction)
                 );
             }
         }
@@ -115,7 +115,7 @@ public class GameStage extends Stage {
         mapPanel.updateDistanceLabel(d);
     }
 
-    Action toggleMapAction = new Action() {
+    Action mapAction = new Action() {
         public boolean act(float delta) {
             gameScreen.toggleMap();
             Repository.setTargetsInRange();
@@ -123,13 +123,13 @@ public class GameStage extends Stage {
         }
     };
 
-    Action toggleTeamAction = new Action() {
+    Action teamAction = new Action() {
         public boolean act(float delta) {
             return true;
         }
     };
 
-    Action toggleShipAction = new Action() {
+    Action shipAction = new Action() {
         public boolean act(float delta) {
             return true;
         }
