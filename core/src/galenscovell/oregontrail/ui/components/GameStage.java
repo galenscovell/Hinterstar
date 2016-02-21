@@ -16,13 +16,17 @@ public class GameStage extends Stage {
     private NavButtons navButtons;
     private Table actionTable;
     private DetailTable detailTable;
-    private NavigationMap navigationMap;
+    private MapPanel mapPanel;
+    private TeamPanel teamPanel;
+    private ShipPanel shipPanel;
 
     public GameStage(GameScreen gameScreen, SpriteBatch spriteBatch) {
         super(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), spriteBatch);
         this.gameScreen = gameScreen;
         this.player = new Player(this);
-        this.navigationMap = new NavigationMap(this);
+        this.mapPanel = new MapPanel(this);
+        this.teamPanel = new TeamPanel(this);
+        this.shipPanel = new ShipPanel(this);
         construct();
     }
 
@@ -45,20 +49,54 @@ public class GameStage extends Stage {
         this.addActor(mainTable);
     }
 
-    public void toggleMap() {
-        if (!navigationMap.hasActions()) {
-            if (navigationMap.hasParent()) {
-                navigationMap.addAction(Actions.sequence(
+    public void togglePanel(int num) {
+        if (!mapPanel.hasActions()) {
+            if (mapPanel.hasParent()) {
+                mapPanel.addAction(Actions.sequence(
                         toggleMapAction,
                         Actions.moveTo(-800, 0, 0.2f, Interpolation.sine),
                         Actions.removeActor())
                 );
-            } else {
-                this.addActor(navigationMap);
-                navigationMap.addAction(Actions.sequence(
+            } else if (num == 0) {
+                this.addActor(mapPanel);
+                mapPanel.addAction(Actions.sequence(
                         Actions.moveTo(-800, 0),
                         Actions.moveTo(0, 0, 0.2f, Interpolation.sine),
                         toggleMapAction)
+                );
+            }
+        }
+
+        if (!teamPanel.hasActions()) {
+            if (teamPanel.hasParent()) {
+                teamPanel.addAction(Actions.sequence(
+                        toggleTeamAction,
+                        Actions.moveTo(-800, 0, 0.2f, Interpolation.sine),
+                        Actions.removeActor())
+                );
+            } else if (num == 1) {
+                this.addActor(teamPanel);
+                teamPanel.addAction(Actions.sequence(
+                        Actions.moveTo(-800, 0),
+                        Actions.moveTo(0, 0, 0.2f, Interpolation.sine),
+                        toggleTeamAction)
+                );
+            }
+        }
+
+        if (!shipPanel.hasActions()) {
+            if (shipPanel.hasParent()) {
+                shipPanel.addAction(Actions.sequence(
+                        toggleShipAction,
+                        Actions.moveTo(-800, 0, 0.2f, Interpolation.sine),
+                        Actions.removeActor())
+                );
+            } else if (num == 2) {
+                this.addActor(shipPanel);
+                shipPanel.addAction(Actions.sequence(
+                        Actions.moveTo(-800, 0),
+                        Actions.moveTo(0, 0, 0.2f, Interpolation.sine),
+                        toggleShipAction)
                 );
             }
         }
@@ -74,13 +112,25 @@ public class GameStage extends Stage {
     }
 
     public void updateDistanceLabel(String d) {
-        navigationMap.updateDistanceLabel(d);
+        mapPanel.updateDistanceLabel(d);
     }
 
     Action toggleMapAction = new Action() {
         public boolean act(float delta) {
             gameScreen.toggleMap();
             Repository.setTargetsInRange();
+            return true;
+        }
+    };
+
+    Action toggleTeamAction = new Action() {
+        public boolean act(float delta) {
+            return true;
+        }
+    };
+
+    Action toggleShipAction = new Action() {
+        public boolean act(float delta) {
             return true;
         }
     };

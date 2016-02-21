@@ -7,11 +7,11 @@ import com.badlogic.gdx.utils.Align;
 import galenscovell.oregontrail.map.*;
 import galenscovell.oregontrail.util.*;
 
-public class NavigationMap extends Table {
+public class MapPanel extends Table {
     private final GameStage gameStage;
     private Label distanceLabel;
 
-    public NavigationMap(GameStage gameStage) {
+    public MapPanel(GameStage gameStage) {
         this.gameStage = gameStage;
         construct();
     }
@@ -75,7 +75,7 @@ public class NavigationMap extends Table {
     }
 
     private void travelToLocation() {
-        gameStage.toggleMap();
+        gameStage.togglePanel(0);
         gameStage.gameScreen.setTravel();
         gameStage.toggleNavButtons();
         Repository.travelToSelection();

@@ -20,19 +20,19 @@ public class NavButtons extends Table {
         TextButton mapButton = new TextButton("Nav", ResourceManager.button_mapStyle);
         mapButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                gameStage.toggleMap();
+                gameStage.togglePanel(0);
             }
         });
         TextButton teamButton = new TextButton("Team", ResourceManager.button_mapStyle);
         teamButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Team button");
+                gameStage.togglePanel(1);
             }
         });
         TextButton shipButton = new TextButton("Ship", ResourceManager.button_mapStyle);
         shipButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Ship button");
+                gameStage.togglePanel(2);
             }
         });
 

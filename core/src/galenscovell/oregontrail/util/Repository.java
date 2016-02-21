@@ -36,6 +36,7 @@ public class Repository {
 
         for (Location location : locations) {
             double squareDist = Math.pow(currentLocation.getTile().x - location.getTile().x, 2) + Math.pow(currentLocation.getTile().y - location.getTile().y, 2);
+
             if (squareDist <= Math.pow(playerRange, 2)) {
                 locationsInRange.add(location);
             }
@@ -52,6 +53,7 @@ public class Repository {
         shapeRenderer.setColor(0.95f, 0.61f, 0.07f, 0.6f);
         shapeRenderer.circle(centerX, centerY, radius);
         shapeRenderer.circle(centerX, centerY, 20);
+
         // Path rendering
         if (locationsInRange != null && locationsInRange.size() > 0) {
             shapeRenderer.setColor(0.93f, 0.94f, 0.95f, 0.6f);
@@ -92,6 +94,7 @@ public class Repository {
             currentLocation = currentSelection;
             currentSelection.getTile().becomeCurrent();
             currentSelection.enter();
+            setSelection(null);
         }
     }
 
@@ -100,14 +103,19 @@ public class Repository {
      * Called from Tile
      */
     public static void setSelection(Tile selection) {
+        if (selection == null) {
+            GameStage gameStage = (GameStage) gameScreen.getGameStage();
+            gameStage.updateDistanceLabel("Distance: 0.0 AU");
+            return;
+        }
+
         for (Location location : locations) {
             if (location.getTile() == selection) {
                 currentSelection = location;
             }
         }
 
-        double distance = (Math.pow(currentLocation.getTile().x - selection.x, 2) + Math.pow(currentLocation.getTile().y - selection.y, 2)) / Constants.TILESIZE;
-
+        double distance = Math.sqrt(Math.pow(currentLocation.getTile().x - selection.x, 2) + Math.pow(currentLocation.getTile().y - selection.y, 2)) * 4;
         GameStage gameStage = (GameStage) gameScreen.getGameStage();
         gameStage.updateDistanceLabel("Distance: " + String.format("%.1f", distance) + " AU");
     }
