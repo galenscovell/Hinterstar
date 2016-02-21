@@ -29,7 +29,7 @@ public class MapPanel extends Table {
         mapTable.setPosition(0, 0);
         infoTable.setPosition(0, 0);
 
-        this.add(mapGroup).width(Constants.EXACT_X).height(Constants.EXACT_Y - (Constants.TILESIZE * 2)).padTop(Constants.TILESIZE * 2);
+        this.add(mapGroup).width(Constants.EXACT_X).height(Constants.EXACT_Y - (Constants.SECTORSIZE * 2)).padTop(Constants.SECTORSIZE * 2);
     }
 
     private Table createMapTable() {
@@ -42,11 +42,11 @@ public class MapPanel extends Table {
 
     private void generateMap(Table container) {
         MapGenerator mapGenerator = new MapGenerator();
-        Tile[][] tiles = mapGenerator.getTiles();
-        Repository.setTiles(tiles);
-        for (Tile[] row : tiles) {
-            for (Tile tile : row) {
-                container.add(tile).width(Constants.TILESIZE).height(Constants.TILESIZE);
+        Sector[][] sectors = mapGenerator.getSectors();
+        Repository.setTiles(sectors);
+        for (Sector[] row : sectors) {
+            for (Sector sector : row) {
+                container.add(sector).width(Constants.SECTORSIZE).height(Constants.SECTORSIZE);
             }
             container.row();
         }

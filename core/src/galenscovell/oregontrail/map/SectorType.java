@@ -1,6 +1,6 @@
 package galenscovell.oregontrail.map;
 
-public enum TileType {
+public enum SectorType {
     EMPTY,
     CURRENT,
     EXPLORED,

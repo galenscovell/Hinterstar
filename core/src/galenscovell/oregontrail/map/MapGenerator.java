@@ -6,27 +6,27 @@ import galenscovell.oregontrail.util.*;
 import java.util.*;
 
 public class MapGenerator {
-    private final Tile[][] grid;
+    private final Sector[][] sectors;
     private ArrayList<Location> locations;
 
     public MapGenerator() {
-        this.grid = new Tile[Constants.MAPHEIGHT][Constants.MAPWIDTH];
+        this.sectors = new Sector[Constants.MAPHEIGHT][Constants.MAPWIDTH];
         build();
+        Repository.populateLocations(locations);
     }
 
-    public Tile[][] getTiles() {
-        return grid;
+    public Sector[][] getSectors() {
+        return sectors;
     }
 
     private void build() {
-        // Construct Tile[MAPHEIGHT][MAPWIDTH] grid of all empty tiles
+        // Construct Sector[MAPHEIGHT][MAPWIDTH] sectors of all empty Sectors
         for (int x = 0; x < Constants.MAPWIDTH; x++) {
             for (int y = 0; y < Constants.MAPHEIGHT; y++) {
-                grid[y][x] = new Tile(x, y);
+                sectors[y][x] = new Sector(x, y);
             }
         }
         placeDestinations();
-        Repository.populateLocations(locations);
     }
 
     private void placeDestinations() {
@@ -53,7 +53,7 @@ public class MapGenerator {
 
             int centerX = (location.size / 2) + location.x;
             int centerY = (location.size / 2) + location.y;
-            location.setTile(grid[centerY][centerX]);
+            location.setSector(sectors[centerY][centerX]);
             this.locations.add(location);
         }
     }
@@ -73,10 +73,6 @@ public class MapGenerator {
             }
         }
         return false;
-    }
-
-    private boolean isOutOfBounds(int x, int y) {
-        return (x < 0 || y < 0 || x >= Constants.MAPWIDTH || y >= Constants.MAPWIDTH);
     }
 
     private int getRandom(int lo, int hi) {

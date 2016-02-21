@@ -40,7 +40,7 @@ public class GameStage extends Stage {
 
         this.detailTable = new DetailTable(this);
 
-        mainTable.add(navButtons).width(Constants.EXACT_X / 2).height(2 + Constants.TILESIZE * 2);
+        mainTable.add(navButtons).width(Constants.EXACT_X / 2).height(2 + Constants.SECTORSIZE * 2);
         mainTable.row();
         mainTable.add(actionTable).width(Constants.EXACT_X).height(340);
         mainTable.row();
@@ -105,9 +105,9 @@ public class GameStage extends Stage {
     public void toggleNavButtons() {
         navButtons.addAction(Actions.sequence(
                 Actions.touchable(Touchable.disabled),
-                Actions.moveBy(0, 2 + Constants.TILESIZE * 2, 0.5f, Interpolation.sine),
+                Actions.moveBy(0, 2 + Constants.SECTORSIZE * 2, 0.5f, Interpolation.sine),
                 Actions.delay(7.5f),
-                Actions.moveBy(0, -(2 + Constants.TILESIZE * 2), 0.5f, Interpolation.sine),
+                Actions.moveBy(0, -(2 + Constants.SECTORSIZE * 2), 0.5f, Interpolation.sine),
                 Actions.touchable(Touchable.enabled)));
     }
 

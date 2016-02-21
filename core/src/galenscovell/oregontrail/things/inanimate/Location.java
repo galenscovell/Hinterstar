@@ -1,6 +1,6 @@
 package galenscovell.oregontrail.things.inanimate;
 
-import galenscovell.oregontrail.map.Tile;
+import galenscovell.oregontrail.map.Sector;
 import galenscovell.oregontrail.things.inanimate.Events.Event;
 import galenscovell.oregontrail.util.Repository;
 
@@ -8,7 +8,7 @@ import java.util.*;
 
 public class Location {
     public final int x, y, size;
-    private Tile tile;
+    private Sector sector;
     private ArrayList<Event> events;
     private String[] details;
 
@@ -18,13 +18,13 @@ public class Location {
         this.size = size;
     }
 
-    public void setTile(Tile tile) {
-        this.tile = tile;
-        tile.becomeUnexplored();
+    public void setSector(Sector sector) {
+        this.sector = sector;
+        sector.becomeUnexplored();
     }
 
-    public Tile getTile() {
-        return tile;
+    public Sector getSector() {
+        return sector;
     }
 
     public void enter() {

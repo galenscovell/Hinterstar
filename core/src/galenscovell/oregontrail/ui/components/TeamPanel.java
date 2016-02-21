@@ -17,6 +17,6 @@ public class TeamPanel extends Table {
         Table mainTable = new Table();
         mainTable.setBackground(ResourceManager.np_test3);
 
-        this.add(mainTable).width(Constants.EXACT_X).height(Constants.EXACT_Y - (Constants.TILESIZE * 2)).padTop(Constants.TILESIZE * 2);
+        this.add(mainTable).width(Constants.EXACT_X).height(Constants.EXACT_Y - (Constants.SECTORSIZE * 2)).padTop(Constants.SECTORSIZE * 2);
     }
 }

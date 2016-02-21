@@ -10,7 +10,7 @@ public class CurrentLocationAnimation {
 
     public CurrentLocationAnimation() {
         this.sprite = ResourceManager.uiAtlas.createSprite("current_marker");
-        this.size = Constants.TILESIZE * 3;
+        this.size = Constants.SECTORSIZE * 3;
         this.frame = 0.0f;
     }
 
