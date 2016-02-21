@@ -44,7 +44,7 @@ public class Location {
         for (int e = 0; e < numberOfEvents; e++) {
 
         }
-        this.details = new String[]{"Title Content", "Detail Content"};
+        this.details = new String[]{"Location Title", "Location Detail"};
     }
 
     private void createBackground(Random random) {

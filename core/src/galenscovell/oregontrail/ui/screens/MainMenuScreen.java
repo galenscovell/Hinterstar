@@ -1,7 +1,5 @@
 package galenscovell.oregontrail.ui.screens;
 
-import aurelienribon.tweenengine.*;
-import aurelienribon.tweenengine.equations.Bounce;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
@@ -10,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import galenscovell.oregontrail.OregonTrailMain;
-import galenscovell.oregontrail.ui.tween.ActorAccessor;
 import galenscovell.oregontrail.util.*;
 
 public class MainMenuScreen extends AbstractScreen {
@@ -26,13 +23,11 @@ public class MainMenuScreen extends AbstractScreen {
         Table mainTable = new Table();
         mainTable.setFillParent(true);
 
-
         // Title Table
         Table titleTable = new Table();
         Label titleLabel = new Label("Game Name", ResourceManager.label_titleStyle);
         titleLabel.setAlignment(Align.center, Align.center);
         titleTable.add(titleLabel).width(400).height(80);
-
 
         // Button Table
         Table buttonTable = new Table();
@@ -76,23 +71,7 @@ public class MainMenuScreen extends AbstractScreen {
 
         stage.addActor(mainTable);
 
-        // Tweening
-        this.tweenManager = new TweenManager();
-        Tween.registerAccessor(Actor.class, new ActorAccessor());
-
-        Tween.from(titleLabel, ActorAccessor.ALPHA, 0.5f)
-                .target(0)
-                .start(tweenManager);
-        Tween.to(titleLabel, ActorAccessor.ALPHA, 0.0f)
-                .target(1)
-                .start(tweenManager);
-        Tween.from(titleLabel, ActorAccessor.ALPHA, 1.5f)
-                .target(0)
-                .start(tweenManager);
-        Tween.from(buttonTable, ActorAccessor.ALPHA, 0.5f)
-                .target(0)
-                .start(tweenManager);
-        tweenManager.update(Gdx.graphics.getDeltaTime());
+        mainTable.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(0.5f)));
     }
 
     Action toGameScreen = new Action() {

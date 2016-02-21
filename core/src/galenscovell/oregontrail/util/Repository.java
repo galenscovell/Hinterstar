@@ -85,8 +85,7 @@ public class Repository {
     }
 
     public static void travelToSelection() {
-        if (currentSelection != null && currentSelection != currentLocation &&
-                locationsInRange.contains(currentSelection)) {
+        if (currentSelection != null && locationsInRange.contains(currentSelection)) {
             currentLocation.getTile().becomeExplored();
             currentLocation = currentSelection;
             currentSelection.getTile().becomeCurrent();
