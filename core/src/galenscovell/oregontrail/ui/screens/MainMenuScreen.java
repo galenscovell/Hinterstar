@@ -17,19 +17,17 @@ public class MainMenuScreen extends AbstractScreen {
     }
 
     @Override
-    public void create() {
+    protected void create() {
         this.stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch);
 
         Table mainTable = new Table();
         mainTable.setFillParent(true);
 
-        // Title Table
         Table titleTable = new Table();
         Label titleLabel = new Label("Game Name", ResourceManager.label_titleStyle);
         titleLabel.setAlignment(Align.center, Align.center);
         titleTable.add(titleLabel).width(400).height(80);
 
-        // Button Table
         Table buttonTable = new Table();
         TextButton newGameButton = new TextButton("New", ResourceManager.button_menuStyle);
         newGameButton.getLabel().setAlignment(Align.bottom, Align.center);
@@ -50,7 +48,7 @@ public class MainMenuScreen extends AbstractScreen {
         settingButton.getLabel().setAlignment(Align.bottom, Align.center);
         settingButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y) {
-
+                // openSettings();
             }
         });
         TextButton quitButton = new TextButton("Quit", ResourceManager.button_menuStyle);

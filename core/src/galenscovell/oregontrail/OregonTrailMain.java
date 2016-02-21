@@ -11,21 +11,10 @@ public class OregonTrailMain extends Game {
     
     @Override
     public void create () {
-        // Initialize spriteBatch used throughout game
         this.spriteBatch = new SpriteBatch();
-        // Construct game screens
         this.loadingScreen = new LoadScreen(this);
         this.mainMenuScreen = new MainMenuScreen(this);
-        // Move to loading screen
         setScreen(loadingScreen);
-    }
-
-    public void newGame() {
-        this.gameScreen = new GameScreen(this);
-    }
-
-    public void loadGame() {
-
     }
 
     @Override
@@ -35,5 +24,13 @@ public class OregonTrailMain extends Game {
             gameScreen.dispose();
         }
         ResourceManager.dispose();
+    }
+
+    public void newGame() {
+        this.gameScreen = new GameScreen(this);
+    }
+
+    public void loadGame() {
+
     }
 }

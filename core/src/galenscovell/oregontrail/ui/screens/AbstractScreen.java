@@ -13,7 +13,7 @@ public class AbstractScreen implements Screen {
         this.root = root;
     }
 
-    public void create() { }
+    protected void create() { }
 
     @Override
     public void render(float delta) {

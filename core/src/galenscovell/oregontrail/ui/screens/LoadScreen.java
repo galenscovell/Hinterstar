@@ -20,7 +20,7 @@ public class LoadScreen extends AbstractScreen {
     }
 
     @Override
-    public void create() {
+    protected void create() {
         this.stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch);
         Table loadingMain = new Table();
         loadingMain.setFillParent(true);

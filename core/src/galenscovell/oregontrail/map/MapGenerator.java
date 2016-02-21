@@ -6,7 +6,7 @@ import galenscovell.oregontrail.util.*;
 import java.util.*;
 
 public class MapGenerator {
-    private Tile[][] grid;
+    private final Tile[][] grid;
     private ArrayList<Location> locations;
 
     public MapGenerator() {
@@ -26,7 +26,6 @@ public class MapGenerator {
             }
         }
         placeDestinations();
-        setTileNeighbors();
         Repository.populateLocations(locations);
     }
 
@@ -76,30 +75,11 @@ public class MapGenerator {
         return false;
     }
 
-    private void setTileNeighbors() {
-        // Set each tiles neighboring points
-        for (Tile[] row : grid) {
-            for (Tile tile : row) {
-                List<Point> points = new ArrayList<Point>();
-                for (int dx = -1; dx <= 1; dx++) {
-                    for (int dy = -1; dy <= 1; dy++) {
-                        if (tile.x + dx == tile.x && tile.y + dy == tile.y || isOutOfBounds(tile.x + dx, tile.y + dy)) {
-                            continue;
-                        }
-                        points.add(new Point(tile.x + dx, tile.y + dy));
-                    }
-                }
-                tile.setNeighbors(points);
-            }
-        }
-    }
-
     private boolean isOutOfBounds(int x, int y) {
         return (x < 0 || y < 0 || x >= Constants.MAPWIDTH || y >= Constants.MAPWIDTH);
     }
 
     private int getRandom(int lo, int hi) {
-        // Return random int between low and high
         return (int)(Math.random() * (hi - lo)) + lo;
     }
 }

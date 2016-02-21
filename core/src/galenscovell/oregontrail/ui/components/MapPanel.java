@@ -69,10 +69,11 @@ public class MapPanel extends Table {
     }
 
     private void travelToLocation() {
-        gameStage.togglePanel(0);
-        gameStage.gameScreen.setTravel();
-        gameStage.toggleNavButtons();
-        Repository.travelToSelection();
+        if (Repository.travelToSelection()) {
+            gameStage.togglePanel(0);
+            gameStage.gameScreen.setTravel();
+            gameStage.toggleNavButtons();
+        }
     }
 
     public void updateDistanceLabel(String d) {

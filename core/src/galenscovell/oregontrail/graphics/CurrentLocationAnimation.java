@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.*;
 import galenscovell.oregontrail.util.*;
 
 public class CurrentLocationAnimation {
-    private TextureRegion sprite;
+    private final TextureRegion sprite;
     private float frame, size;
     private int x, y;
 

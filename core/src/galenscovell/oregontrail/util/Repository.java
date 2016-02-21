@@ -84,14 +84,16 @@ public class Repository {
         grid = tiles;
     }
 
-    public static void travelToSelection() {
+    public static boolean travelToSelection() {
         if (currentSelection != null && locationsInRange.contains(currentSelection)) {
             currentLocation.getTile().becomeExplored();
             currentLocation = currentSelection;
             currentSelection.getTile().becomeCurrent();
             currentSelection.enter();
             setSelection(null);
+            return true;
         }
+        return false;
     }
 
 

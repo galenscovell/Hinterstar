@@ -26,7 +26,7 @@ public class GameScreen extends AbstractScreen {
     }
 
     @Override
-    public void create() {
+    protected void create() {
         Repository.setup(this);
         this.stage = new GameStage(this, root.spriteBatch);
         // Create initial background

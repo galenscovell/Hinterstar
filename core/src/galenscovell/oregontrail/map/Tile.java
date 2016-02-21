@@ -6,13 +6,10 @@ import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener;
 import galenscovell.oregontrail.util.*;
 
-import java.util.List;
-
 public class Tile extends Actor {
     public final int x, y;
     private int frames;
     private TileType type;
-    private List<Point> neighborTilePoints;
     private Sprite sprite;
     private boolean glowUp;
 
@@ -50,15 +47,6 @@ public class Tile extends Actor {
 
     public boolean isUnexplored() {
         return type == TileType.UNEXPLORED;
-    }
-
-    public List<Point> getNeighbors() {
-        return neighborTilePoints;
-    }
-
-
-    public void setNeighbors(List<Point> points) {
-        this.neighborTilePoints = points;
     }
 
     public void becomeEmpty() {
