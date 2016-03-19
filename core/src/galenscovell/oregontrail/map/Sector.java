@@ -11,18 +11,18 @@ public class Sector extends Actor {
     private int frames;
     private SectorType type;
     private Sprite sprite;
-    private boolean glowUp;
+    private boolean glowing;
 
     public Sector(int x, int y) {
         this.x = x;
         this.y = y;
         this.frames = 60;
-        this.glowUp = true;
+        this.glowing = true;
         becomeEmpty();
 
         this.addListener(new ActorGestureListener() {
             public void touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                if (!isEmpty() && !isExplored()) {
+                if (!isEmpty()) {
                     Repository.setSelection(getThisSector());
                 }
             }
@@ -32,6 +32,8 @@ public class Sector extends Actor {
     public Sector getThisSector() {
         return this;
     }
+
+
 
     public boolean isEmpty() {
         return type == SectorType.EMPTY;
@@ -48,6 +50,8 @@ public class Sector extends Actor {
     public boolean isUnexplored() {
         return type == SectorType.UNEXPLORED;
     }
+
+
 
     public void becomeEmpty() {
         type = SectorType.EMPTY;
@@ -70,10 +74,12 @@ public class Sector extends Actor {
         type = SectorType.UNEXPLORED;
     }
 
+
+
     @Override
     public void draw(Batch batch, float parentAlpha) {
         if (!isEmpty()) {
-            drawGlow(batch);
+            glow(batch);
             batch.draw(
                     sprite,
                     x * Constants.SECTORSIZE,
@@ -87,17 +93,17 @@ public class Sector extends Actor {
         }
     }
 
-    private void drawGlow(Batch batch) {
-        if (glowUp) {
+    private void glow(Batch batch) {
+        if (glowing) {
             frames++;
         } else {
             frames -= 2;
         }
 
         if (frames == 120) {
-            glowUp = false;
+            glowing = false;
         } else if (frames == 40) {
-            glowUp = true;
+            glowing = true;
         }
 
         float frameAlpha = (frames / 120.0f);

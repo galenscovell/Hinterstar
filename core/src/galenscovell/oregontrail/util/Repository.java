@@ -126,7 +126,6 @@ public class Repository {
      */
     public static void populateLocations(ArrayList<Location> locationsToSet) {
         locations = locationsToSet;
-        currentLocation = null;
         for (Location location : locations) {
             if (currentLocation == null || location.x < currentLocation.x) {
                 currentLocation = location;

@@ -137,7 +137,7 @@ blue_bg
   orig: 800, 480
   offset: 0, 0
   index: -1
-purple_bg
+green_bg
   rotate: false
   xy: 1, 1
   size: 800, 480
@@ -149,6 +149,13 @@ uiAtlas4.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+purple_bg
+  rotate: false
+  xy: 1, 203
+  size: 800, 480
+  orig: 800, 480
+  offset: 0, 0
+  index: -1
 placeholder_vehicle
   rotate: false
   xy: 1, 1

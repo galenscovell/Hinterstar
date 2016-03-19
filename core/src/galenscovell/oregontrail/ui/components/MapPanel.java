@@ -70,6 +70,7 @@ public class MapPanel extends Table {
 
     private void travelToLocation() {
         if (Repository.travelToSelection()) {
+            gameStage.getNavButtons().getMapButton().setChecked(false);
             gameStage.togglePanel(0);
             gameStage.gameScreen.setTravel();
             gameStage.toggleNavButtons();

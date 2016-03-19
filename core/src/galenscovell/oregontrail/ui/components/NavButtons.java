@@ -48,4 +48,8 @@ public class NavButtons extends Table {
         this.add(teamButton).width(130).expand().fill();
         this.add(shipButton).width(130).expand().fill();
     }
+
+    public TextButton getMapButton() {
+        return mapButton;
+    }
 }

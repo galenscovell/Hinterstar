@@ -40,7 +40,7 @@ public class GameStage extends Stage {
 
         this.detailTable = new DetailTable(this);
 
-        mainTable.add(navButtons).width(Constants.EXACT_X / 2).height(2 + Constants.SECTORSIZE * 2);
+        mainTable.add(navButtons).width(Constants.EXACT_X / 2).height(2 + Constants.SECTORSIZE * 3);
         mainTable.row();
         mainTable.add(actionTable).width(Constants.EXACT_X).height(340);
         mainTable.row();
@@ -54,14 +54,14 @@ public class GameStage extends Stage {
             if (mapPanel.hasParent()) {
                 mapPanel.addAction(Actions.sequence(
                         mapAction,
-                        Actions.moveTo(-800, 0, 0.25f, Interpolation.sine),
+                        Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
                         Actions.removeActor())
                 );
             } else if (num == 0) {
                 this.addActor(mapPanel);
                 mapPanel.addAction(Actions.sequence(
                         Actions.moveTo(-800, 0),
-                        Actions.moveTo(0, 0, 0.25f, Interpolation.sine),
+                        Actions.moveTo(0, 0, 0.3f, Interpolation.sine),
                         mapAction)
                 );
             }
@@ -71,14 +71,14 @@ public class GameStage extends Stage {
             if (teamPanel.hasParent()) {
                 teamPanel.addAction(Actions.sequence(
                         teamAction,
-                        Actions.moveTo(-800, 0, 0.25f, Interpolation.sine),
+                        Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
                         Actions.removeActor())
                 );
             } else if (num == 1) {
                 this.addActor(teamPanel);
                 teamPanel.addAction(Actions.sequence(
                         Actions.moveTo(-800, 0),
-                        Actions.moveTo(0, 0, 0.25f, Interpolation.sine),
+                        Actions.moveTo(0, 0, 0.3f, Interpolation.sine),
                         teamAction)
                 );
             }
@@ -88,14 +88,14 @@ public class GameStage extends Stage {
             if (shipPanel.hasParent()) {
                 shipPanel.addAction(Actions.sequence(
                         shipAction,
-                        Actions.moveTo(-800, 0, 0.25f, Interpolation.sine),
+                        Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
                         Actions.removeActor())
                 );
             } else if (num == 2) {
                 this.addActor(shipPanel);
                 shipPanel.addAction(Actions.sequence(
                         Actions.moveTo(-800, 0),
-                        Actions.moveTo(0, 0, 0.25f, Interpolation.sine),
+                        Actions.moveTo(0, 0, 0.3f, Interpolation.sine),
                         shipAction)
                 );
             }
@@ -115,10 +115,13 @@ public class GameStage extends Stage {
         mapPanel.updateDistanceLabel(d);
     }
 
+    public NavButtons getNavButtons() {
+        return navButtons;
+    }
+
     Action mapAction = new Action() {
         public boolean act(float delta) {
             gameScreen.toggleMap();
-            Repository.setTargetsInRange();
             return true;
         }
     };
