@@ -31,7 +31,7 @@ class LoadScreen(gameRoot: OregonTrailMain) extends AbstractScreen(gameRoot) {
     Gdx.gl.glClearColor(0, 0, 0, 1)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     stage.act(delta)
-    stage.draw
+    stage.draw()
     if (ResourceManager.assetManager.update) {
       ResourceManager.done
       stage.getRoot.addAction(Actions.sequence(Actions.fadeOut(0.4f), toMainMenuScreen))
@@ -41,7 +41,7 @@ class LoadScreen(gameRoot: OregonTrailMain) extends AbstractScreen(gameRoot) {
 
   override def show: Unit = {
     ResourceManager.load
-    create
+    create()
     stage.getRoot.getColor.a = 0
     stage.getRoot.addAction(Actions.sequence(Actions.fadeIn(0.4f)))
   }
@@ -54,7 +54,7 @@ class LoadScreen(gameRoot: OregonTrailMain) extends AbstractScreen(gameRoot) {
     barStyle.knobBefore = fill
     bar.setValue(0)
     bar.setAnimateDuration(0.1f)
-    return bar
+    bar
   }
 
 

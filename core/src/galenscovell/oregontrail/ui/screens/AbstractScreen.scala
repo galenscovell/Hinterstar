@@ -19,7 +19,7 @@ class AbstractScreen(val gameRoot: OregonTrailMain) extends Screen {
     Gdx.gl.glClearColor(0, 0, 0, 1)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     stage.act(delta)
-    stage.draw
+    stage.draw()
   }
 
   override def resize(width: Int, height: Int): Unit = {
@@ -29,7 +29,7 @@ class AbstractScreen(val gameRoot: OregonTrailMain) extends Screen {
   }
 
   override def show(): Unit = {
-    create
+    create()
     Gdx.input.setInputProcessor(stage)
   }
 
@@ -47,7 +47,7 @@ class AbstractScreen(val gameRoot: OregonTrailMain) extends Screen {
 
   override def dispose(): Unit = {
     if (stage != null) {
-      stage.dispose
+      stage.dispose()
     }
   }
 }

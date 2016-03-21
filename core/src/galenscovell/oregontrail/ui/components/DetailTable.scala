@@ -10,8 +10,7 @@ class DetailTable(stage: GameStage) extends Table {
   private var month: Int = 0
   private var year: Int = 0
   private var dateLabel: Label = null
-
-  construct
+  construct()
 
 
   private def construct(): Unit = {

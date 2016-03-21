@@ -6,8 +6,7 @@ import galenscovell.oregontrail.util._
 
 class ShipPanel(stage: GameStage) extends Table {
   private final val gameStage: GameStage = stage
-
-  construct
+  construct()
 
 
   private def construct(): Unit = {

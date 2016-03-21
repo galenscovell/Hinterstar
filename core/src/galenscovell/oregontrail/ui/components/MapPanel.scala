@@ -11,8 +11,7 @@ import galenscovell.oregontrail.util._
 class MapPanel(stage: GameStage) extends Table {
   private final val gameStage: GameStage = stage
   private var distanceLabel: Label = null
-
-  construct
+  construct()
 
 
   private def construct(): Unit = {

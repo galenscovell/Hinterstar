@@ -20,7 +20,7 @@ class Location(xIn: Int, yIn: Int, sizeIn: Int) {
 
   def setSector(sectorIn: Sector): Unit = {
     this.sector = sectorIn
-    sector.becomeUnexplored
+    sector.becomeUnexplored()
   }
 
   def getSector: Sector = {
@@ -31,7 +31,7 @@ class Location(xIn: Int, yIn: Int, sizeIn: Int) {
     generateEvents(new Random)
   }
 
-  def getDetails(): Array[String] = {
+  def getDetails: Array[String] = {
     details
   }
 

@@ -27,7 +27,7 @@ class MainMenuScreen(gameRoot: OregonTrailMain) extends AbstractScreen(gameRoot)
     newGameButton.getLabel.setAlignment(Align.bottom, Align.center)
     newGameButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
-        root.newGame
+        root.newGame()
         stage.getRoot.addAction(Actions.sequence(Actions.fadeOut(0.75f), toGameScreen))
       }
     })
@@ -70,7 +70,7 @@ class MainMenuScreen(gameRoot: OregonTrailMain) extends AbstractScreen(gameRoot)
   }
   private[screens] var quitGame: Action = new Action() {
     def act(delta: Float): Boolean = {
-      Gdx.app.exit
+      Gdx.app.exit()
       true
     }
   }

@@ -12,8 +12,7 @@ class NavButtons(stage: GameStage) extends Table {
   private var mapButton: TextButton = null
   private var teamButton: TextButton = null
   private var shipButton: TextButton = null
-
-  construct
+  construct()
 
 
   private def construct(): Unit = {

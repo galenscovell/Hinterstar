@@ -56,11 +56,11 @@ object ResourceManager {
 
   def done(): Unit = {
     uiAtlas = assetManager.get("atlas/uiAtlas.pack", classOf[TextureAtlas])
-    loadNinepatches
-    loadLabelStyles
-    loadButtonStyles
-    loadSprites
-    loadAnimations
+    loadNinepatches()
+    loadLabelStyles()
+    loadButtonStyles()
+    loadSprites()
+    loadAnimations()
 
     // Load user preferences
 //    prefs = Gdx.app.getPreferences("trail_settings");
@@ -70,8 +70,8 @@ object ResourceManager {
   }
 
   def dispose(): Unit = {
-    assetManager.dispose
-    uiAtlas.dispose
+    assetManager.dispose()
+    uiAtlas.dispose()
   }
 
 

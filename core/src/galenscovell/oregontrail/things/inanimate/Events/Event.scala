@@ -2,8 +2,8 @@ package galenscovell.oregontrail.things.inanimate.Events
 
 
 trait Event {
-  def start
-  def end
-  def setDistanceTo(distance: Int)
+  def start(): Unit
+  def end(): Unit
+  def setDistanceTo(distance: Int): Unit
   def getDistanceTo(distance: Int): Int
 }

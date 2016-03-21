@@ -20,8 +20,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
   private var navButtons: NavButtons = null
   private var actionTable: Table = null
   private var detailTable: DetailTable = null
-
-  construct
+  construct()
   
 
   private def construct(): Unit = {
@@ -31,7 +30,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     this.actionTable = new Table
     actionTable.add(player).expand.fill.left.padLeft(80)
     this.detailTable = new DetailTable(this)
-    mainTable.add(navButtons).width(Constants.EXACT_X / 2).height(2 + Constants.SECTORSIZE * 3)
+    mainTable.add(navButtons).width(Constants.EXACT_X / 2).height(2 + Constants.SECTORSIZE * 2)
     mainTable.row
     mainTable.add(actionTable).width(Constants.EXACT_X).height(340)
     mainTable.row

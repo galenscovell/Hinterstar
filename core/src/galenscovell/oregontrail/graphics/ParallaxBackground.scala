@@ -25,7 +25,7 @@ class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: F
   def render(delta: Float): Unit = {
     this.camera.position.add(speed.x * delta, speed.y * delta, 0)
     batch.setProjectionMatrix(camera.projection)
-    batch.begin
+    batch.begin()
     for (layer <- layers) {
       var currentX: Float = -camera.position.x * layer.parallaxRatio.x % (layer.region.getRegionWidth + layer.padding.x)
       var currentY: Float = 0.0f
@@ -44,7 +44,7 @@ class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: F
         currentX += layer.region.getRegionWidth + layer.padding.x
       }
     }
-    batch.end
+    batch.end()
   }
 }
 

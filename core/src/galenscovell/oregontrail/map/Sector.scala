@@ -24,23 +24,23 @@ class Sector(x: Int, y: Int) extends Actor {
   })
 
 
-  def getThisSector(): Sector = {
+  def getThisSector: Sector = {
     this
   }
 
-  def isEmpty(): Boolean = {
+  def isEmpty: Boolean = {
     sectorType == Constants.SECTOR_EMPTY
   }
 
-  def isCurrent(): Boolean = {
+  def isCurrent: Boolean = {
     sectorType == Constants.SECTOR_CURRENT
   }
 
-  def isExplored(): Boolean = {
+  def isExplored: Boolean = {
     sectorType == Constants.SECTOR_EXPLORED
   }
 
-  def isUnexplored(): Boolean = {
+  def isUnexplored: Boolean = {
     sectorType == Constants.SECTOR_UNEXPLORED
   }
 

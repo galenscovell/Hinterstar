@@ -26,8 +26,7 @@ class GameScreen(gameRoot: OregonTrailMain) extends AbstractScreen(gameRoot) {
   var bg1Blur: String = null
   var bg2Blur: String = null
   var locationPanel: LocationPanel = null
-
-  create
+  create()
 
 
   protected override def create(): Unit = {
@@ -36,20 +35,20 @@ class GameScreen(gameRoot: OregonTrailMain) extends AbstractScreen(gameRoot) {
     normalBg = createBackground("purple_bg", "bg1", "bg2")
     blurBg = createBackground("purple_bg", "bg1_blur", "bg2_blur")
     currentbackground = normalBg
-    setupInput
+    setupInput()
   }
 
   override def render(delta: Float): Unit = {
-    stage.act
+    stage.act()
     if (travelTicker > 0) {
-      travel
+      travel()
     }
     Gdx.gl.glClearColor(0, 0, 0, 1)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     if (currentbackground != null) {
       currentbackground.render(delta)
     }
-    stage.draw
+    stage.draw()
     if (mapOpen) {
       Repository.drawShapes
     }
@@ -59,7 +58,7 @@ class GameScreen(gameRoot: OregonTrailMain) extends AbstractScreen(gameRoot) {
     Gdx.input.setInputProcessor(input)
   }
 
-  def getGameStage(): Stage = {
+  def getGameStage: Stage = {
     stage
   }
 
@@ -132,7 +131,7 @@ class GameScreen(gameRoot: OregonTrailMain) extends AbstractScreen(gameRoot) {
       parallaxLayers(1) = new ParallaxLayer(ResourceManager.uiAtlas.findRegion(bg2), new Vector2(0.75f, 0.75f), new Vector2(0, 0))
       parallaxBackground = new ParallaxBackground(root.spriteBatch, parallaxLayers, Constants.EXACT_X, Constants.EXACT_Y, new Vector2(40, 0))
     }
-    return parallaxBackground
+    parallaxBackground
   }
 
 

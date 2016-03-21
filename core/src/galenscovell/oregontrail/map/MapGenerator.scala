@@ -9,12 +9,11 @@ import scala.collection.mutable.ArrayBuffer
 class MapGenerator {
   private final val sectors: Array[Array[Sector]] = Array.ofDim[Sector](Constants.MAPHEIGHT, Constants.MAPWIDTH)
   private val locations: ArrayBuffer[Location] = ArrayBuffer()
-
-  build
+  build()
   Repository.populateLocations(locations)
 
 
-  def getSectors(): Array[Array[Sector]] = {
+  def getSectors: Array[Array[Sector]] = {
     sectors
   }
 
@@ -25,7 +24,7 @@ class MapGenerator {
         sectors(y)(x) = new Sector(x, y)
       }
     }
-    placeDestinations
+    placeDestinations()
   }
 
   private def placeDestinations(): Unit = {

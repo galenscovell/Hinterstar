@@ -13,26 +13,26 @@ class OregonTrailMain extends Game {
   var gameScreen: AbstractScreen = null
 
 
-  def create: Unit =  {
+  def create(): Unit =  {
     this.spriteBatch = new SpriteBatch
     this.loadingScreen = new LoadScreen(this)
     this.mainMenuScreen = new MainMenuScreen(this)
     setScreen(loadingScreen)
   }
 
-  override def dispose: Unit =  {
-    mainMenuScreen.dispose
+  override def dispose(): Unit =  {
+    mainMenuScreen.dispose()
     if (gameScreen != null) {
-      gameScreen.dispose
+      gameScreen.dispose()
     }
-    ResourceManager.dispose
+    ResourceManager.dispose()
   }
 
-  def newGame: Unit =  {
+  def newGame(): Unit =  {
     this.gameScreen = new GameScreen(this)
   }
 
-  def loadGame: Unit = {
+  def loadGame(): Unit = {
 
   }
 }

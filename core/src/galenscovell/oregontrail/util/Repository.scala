@@ -63,7 +63,7 @@ object Repository {
       val selectionY: Float = Gdx.graphics.getHeight - (currentSelection.getSector.sy * Constants.SECTORSIZE) - (2 * Constants.SECTORSIZE) - (Constants.SECTORSIZE / 2)
       shapeRenderer.circle(selectionX, selectionY, 20)
     }
-    shapeRenderer.end
+    shapeRenderer.end()
   }
 
 
@@ -76,10 +76,10 @@ object Repository {
 
   def travelToSelection(): Boolean = {
     if (currentSelection != null && locationsInRange.contains(currentSelection)) {
-      currentLocation.getSector.becomeExplored
+      currentLocation.getSector.becomeExplored()
       currentLocation = currentSelection
-      currentSelection.getSector.becomeCurrent
-      currentSelection.enter
+      currentSelection.getSector.becomeCurrent()
+      currentSelection.enter()
       setSelection(null)
       true
     } else {
@@ -121,6 +121,6 @@ object Repository {
         currentLocation = location
       }
     }
-    currentLocation.getSector.becomeCurrent
+    currentLocation.getSector.becomeCurrent()
   }
 }

@@ -11,19 +11,18 @@ class Planet extends Event {
   private var atmosphere: Int = 0
   private var temperature: Int = 0
   private var gravity: Int = 0
+  generate()
 
-  generate
 
-
-  private def generate {
+  private def generate(): Unit = {
     val random: Random = new Random
   }
 
-  override def start: Unit = {
+  override def start(): Unit = {
 
   }
 
-  override def end: Unit = {
+  override def end(): Unit = {
 
   }
 
