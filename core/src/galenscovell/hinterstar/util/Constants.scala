@@ -9,6 +9,10 @@ object Constants {
   val SECTOR_EXPLORED: Short = 2
   val SECTOR_UNEXPLORED: Short = 3
 
+  // State Types
+  val ACTION_STATE: Short = 0
+  val EVENT_STATE: Short = 1
+
   // Lighting masks
   val BIT_LIGHT: Short = 1
   val BIT_WALL: Short = 2

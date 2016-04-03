@@ -8,45 +8,53 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
 import galenscovell.hinterstar.processing.controls.InputHandler
+import galenscovell.hinterstar.processing.states._
 import galenscovell.hinterstar.ui.components._
 import galenscovell.hinterstar.util._
 
 
 class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
-  private var input: InputMultiplexer = null
+  private val input: InputMultiplexer = new InputMultiplexer
   private var travelTicker: Int = 0
   private var mapOpen: Boolean = false
-  var currentbackground: ParallaxBackground = null
-  var normalBg: ParallaxBackground = null
-  var blurBg: ParallaxBackground = null
+
+  private val actionState: State = new ActionState
+  private val eventState: State = new EventState
+  private var currentState: State = actionState
+
+  var normalBg: ParallaxBackground = createBackground("purple_bg", "bg1", "bg2")
+  var blurBg: ParallaxBackground = createBackground("purple_bg", "bg1_blur", "bg2_blur")
+  var currentBackground: ParallaxBackground = normalBg
+  var locationPanel: LocationPanel = null
+
   var bg0: String = null
   var bg1: String = null
   var bg2: String = null
   var bg0Blur: String = null
   var bg1Blur: String = null
   var bg2Blur: String = null
-  var locationPanel: LocationPanel = null
   create()
 
 
   protected override def create(): Unit = {
     Repository.setup(this)
     this.stage = new GameStage(this, root.spriteBatch)
-    normalBg = createBackground("purple_bg", "bg1", "bg2")
-    blurBg = createBackground("purple_bg", "bg1_blur", "bg2_blur")
-    currentbackground = normalBg
-    setupInput()
+    input.addProcessor(stage)
+    input.addProcessor(new InputHandler(this))
+    Gdx.input.setInputProcessor(input)
   }
 
   override def render(delta: Float): Unit = {
-    stage.act()
-    if (travelTicker > 0) {
-      travel()
-    }
     Gdx.gl.glClearColor(0, 0, 0, 1)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-    if (currentbackground != null) {
-      currentbackground.render(delta)
+    stage.act()
+    if (currentState.getStateType() == Constants.ACTION_STATE) {
+      if (travelTicker > 0) {
+        travel()
+      }
+    }
+    if (currentBackground != null) {
+      currentBackground.render(delta)
     }
     stage.draw()
     if (mapOpen) {
@@ -77,31 +85,48 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     }
   }
 
-  def travel(): Unit = {
-    if (travelTicker > 500) {
-      currentbackground.modifySpeed(new Vector2((600 - travelTicker), 0))
+  def toggleState(): Unit = {
+    currentState.exit()
+    if (currentState.getStateType() == Constants.ACTION_STATE) {
+      currentState = eventState
+      currentBackground.pause()
+    } else {
+      currentState = actionState
+      currentBackground.unpause()
     }
-    else if (travelTicker == 500) {
-      currentbackground = blurBg
-      currentbackground.setSpeed(new Vector2(2500, 0))
-    }
-    else if (travelTicker == 120) {
-      currentbackground = normalBg
-    }
-    else if (travelTicker < 70) {
-      currentbackground.modifySpeed(new Vector2(-(70 - travelTicker), 0))
-    }
-    travelTicker -= 1
-    if (travelTicker == 0) {
-      currentbackground.setSpeed(new Vector2(40, 0))
+    currentState.enter()
+  }
+
+  def changeState(stateType: Short): Unit = {
+    if (stateType == Constants.ACTION_STATE && currentState.getStateType() != Constants.ACTION_STATE) {
+      currentState.exit()
+      currentState = actionState
+      currentState.enter()
+    } else if (stateType == Constants.EVENT_STATE && currentState.getStateType() != Constants.EVENT_STATE) {
+      currentState.exit()
+      currentState = eventState
+      currentState.enter()
     }
   }
 
-  private def setupInput(): Unit =  {
-    this.input = new InputMultiplexer
-    input.addProcessor(stage)
-    input.addProcessor(new InputHandler(this))
-    Gdx.input.setInputProcessor(input)
+  def travel(): Unit = {
+    if (travelTicker > 500) {
+      currentBackground.modifySpeed(new Vector2((600 - travelTicker), 0))
+    }
+    else if (travelTicker == 500) {
+      currentBackground = blurBg
+      currentBackground.setSpeed(new Vector2(2500, 0))
+    }
+    else if (travelTicker == 120) {
+      currentBackground = normalBg
+    }
+    else if (travelTicker < 70) {
+      currentBackground.modifySpeed(new Vector2(-(70 - travelTicker), 0))
+    }
+    travelTicker -= 1
+    if (travelTicker == 0) {
+      currentBackground.setSpeed(new Vector2(40, 0))
+    }
   }
 
   def setBackground(bg0: String, bg1: String, bg2: String, bg0Blur: String, bg1Blur: String, bg2Blur: String): Unit = {
@@ -145,7 +170,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       normalBg.setSpeed(new Vector2(2500, 0))
       blurBg = createBackground(bg0Blur, bg1Blur, bg2Blur)
       blurBg.setSpeed(new Vector2(2500, 0))
-      currentbackground = blurBg
+      currentBackground = blurBg
       stage.addActor(locationPanel)
       true
     }

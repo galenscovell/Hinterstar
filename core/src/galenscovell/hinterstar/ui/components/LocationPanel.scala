@@ -13,12 +13,12 @@ class LocationPanel(title: String, detail: String) extends Table {
     this.setFillParent(true)
     val labelTable: Table = new Table
     val titleLabel: Label = new Label(title, ResourceManager.label_titleStyle)
-    titleLabel.setAlignment(Align.center, Align.center)
+    titleLabel.setAlignment(Align.center, Align.right)
     val detailLabel: Label = new Label(detail, ResourceManager.label_menuStyle)
-    detailLabel.setAlignment(Align.center, Align.center)
-    labelTable.add(titleLabel).width(360).height(60).expand.fill.bottom
+    detailLabel.setAlignment(Align.center, Align.right)
+    labelTable.add(titleLabel).width(800).height(60).expand.fill.bottom
     labelTable.row
-    labelTable.add(detailLabel).width(360).height(30).expand.fill.top
-    this.add(labelTable).expand.fill.width(400).height(100).center.padBottom(80)
+    labelTable.add(detailLabel).width(800).height(30).expand.fill.top
+    this.add(labelTable).expand.fill.width(800).height(90).top
   }
 }

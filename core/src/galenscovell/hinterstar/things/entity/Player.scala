@@ -21,6 +21,7 @@ class Player(gameStage: GameStage) extends Actor {
   this.addListener(new ActorGestureListener() {
     override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
       selected = !selected
+      gameScreen.toggleState()
     }
   })
 

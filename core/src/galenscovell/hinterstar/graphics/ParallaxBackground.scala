@@ -11,6 +11,7 @@ class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: F
   private val camera: Camera = new OrthographicCamera(w, h)
   private val batch: SpriteBatch = b
   private var speed: Vector2 = s
+  private var savedSpeed: Vector2 = new Vector2(0, 0)
 
 
   def setSpeed(speed: Vector2): Unit = {
@@ -20,6 +21,18 @@ class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: F
   def modifySpeed(dxSpeed: Vector2): Unit = {
     this.speed.x += dxSpeed.x
     this.speed.y += dxSpeed.y
+  }
+
+  def pause(): Unit = {
+    this.savedSpeed.x = speed.x
+    this.savedSpeed.y = speed.y
+    this.speed.x = 0
+    this.speed.y = 0
+  }
+
+  def unpause(): Unit = {
+    this.speed.x = savedSpeed.x
+    this.speed.y = savedSpeed.y
   }
 
   def render(delta: Float): Unit = {
