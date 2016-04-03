@@ -6,10 +6,11 @@ import galenscovell.hinterstar.util._
 import scala.collection.mutable.ArrayBuffer
 
 
-class MapGenerator {
+class MapGenerator(maxLocations: Int, padSize: Int) {
   private final val sectors: Array[Array[Sector]] = Array.ofDim[Sector](Constants.MAPHEIGHT, Constants.MAPWIDTH)
   private val locations: ArrayBuffer[Location] = ArrayBuffer()
   build()
+  placeLocations()
   Repository.populateLocations(locations)
 
 
@@ -24,20 +25,17 @@ class MapGenerator {
         sectors(y)(x) = new Sector(x, y)
       }
     }
-    placeDestinations()
   }
 
-  private def placeDestinations(): Unit = {
+  private def placeLocations(): Unit = {
     // Place random Locations, ensuring that they are distanced apart
-    var attempts: Int = 480
-    val maxLocations: Int = 12
-    val padsize: Int = 4
+    var attempts: Int = 120
 
     while (attempts > 0 && locations.length < maxLocations) {
-      val x: Int = getRandom(1, Constants.MAPWIDTH - padsize - 1)
-      val y: Int = getRandom(1, Constants.MAPHEIGHT - padsize - 1)
+      val x: Int = getRandom(1, Constants.MAPWIDTH - padSize - 1)
+      val y: Int = getRandom(1, Constants.MAPHEIGHT - padSize - 1)
       if (!(x == 0 || x == Constants.MAPWIDTH || y == 0 || y == Constants.MAPHEIGHT)) {
-        val location: Location = new Location(x, y, padsize)
+        val location: Location = new Location(x, y, padSize)
         if (!(doesCollide(location, -1))) {
           val centerX: Int = (location.size / 2) + location.x
           val centerY: Int = (location.size / 2) + location.y

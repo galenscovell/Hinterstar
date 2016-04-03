@@ -21,13 +21,13 @@ object Repository {
   var playerRange: Int = 0
 
 
-  /***************************
+  /**
     * Called from GameScreen
     */
   def setup(game: GameScreen): Unit = {
     gameScreen = game
     shapeRenderer = new ShapeRenderer
-    playerRange = 12
+    playerRange = 10
   }
 
   def setTargetsInRange(): Unit = {
@@ -67,7 +67,7 @@ object Repository {
   }
 
 
-  /***************************
+  /**
     * Called from MapPanel
     */
   def setSectors(sectors: Array[Array[Sector]]): Unit = {
@@ -88,8 +88,8 @@ object Repository {
   }
 
 
-  /***************************
-    * Called from Tile
+  /**
+    * Called from Sector
     */
   def setSelection(selection: Sector): Unit = {
     if (selection == null) {
@@ -102,7 +102,7 @@ object Repository {
             currentSelection = location
             val distance: Double = Math.sqrt(Math.pow(currentLocation.getSector.sx - selection.sx, 2) + Math.pow(currentLocation.getSector.sy - selection.sy, 2)) * 4
             val gameStage: GameStage = gameScreen.getGameStage.asInstanceOf[GameStage]
-            val outStr: String = f"Distance: $distance%1.2f AU"
+            val outStr: String = f"Distance: $distance%1.1f AU"
             gameStage.updateDistanceLabel(outStr)
           }
         }
@@ -111,7 +111,7 @@ object Repository {
   }
 
 
-  /***************************
+  /**
     * Called from MapGenerator
     */
   def populateLocations(locationsToSet: ArrayBuffer[Location]): Unit = {

@@ -41,9 +41,9 @@ class NavButtons(stage: GameStage) extends Table {
         teamButton.setChecked(false)
       }
     })
-    this.add(mapButton).width(130).expand.fill
-    this.add(teamButton).width(130).expand.fill
-    this.add(shipButton).width(130).expand.fill
+    this.add(mapButton).width(134).expand.fill
+    this.add(teamButton).width(134).expand.fill
+    this.add(shipButton).width(134).expand.fill
   }
 
   def getMapButton: TextButton = {
