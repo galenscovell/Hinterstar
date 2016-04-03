@@ -16,14 +16,15 @@ class Player(gameStage: GameStage) extends Actor {
   private var animUp: Boolean = false
   private var frame: Float = 0.0f
 
-
   this.setSize(270, 90)
   this.addListener(new ActorGestureListener() {
     override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
       selected = !selected
+      // DEBUG
       gameScreen.toggleState()
     }
   })
+
 
   override def act(delta: Float): Unit = {
 

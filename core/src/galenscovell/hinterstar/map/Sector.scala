@@ -8,12 +8,13 @@ import galenscovell.hinterstar.util._
 
 
 class Sector(x: Int, y: Int) extends Actor {
-  val sx: Int = x
-  val sy: Int = y
   private var frames: Int = 60
   private var sectorType: Short = 0
   private var sprite: Sprite = null
   private var glowing: Boolean = true
+
+  val sx: Int = x
+  val sy: Int = y
 
   this.addListener(new ActorGestureListener() {
     override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
@@ -75,23 +76,20 @@ class Sector(x: Int, y: Int) extends Actor {
   private def glow(batch: Batch): Unit = {
     if (glowing) {
       frames += 1
-    }
-    else {
+    } else {
       frames -= 2
     }
 
     if (frames == 120) {
       glowing = false
-    }
-    else if (frames == 40) {
+    } else if (frames == 40) {
       glowing = true
     }
 
     val frameAlpha: Float = (frames / 120.0f)
     if (isExplored) {
       batch.setColor(0.4f, 0.4f, 1.0f, frameAlpha)
-    }
-    else {
+    } else {
       batch.setColor(0.4f, 1.0f, 0.4f, frameAlpha)
     }
 
