@@ -1,2 +1,2 @@
-# Oregon-Trail
-<blockquote>Modern remake of the classic for Android</blockquote>
+# Hinterstar
+<blockquote>Space-themed spiritual successor to Oregon Trail for Android</blockquote>
