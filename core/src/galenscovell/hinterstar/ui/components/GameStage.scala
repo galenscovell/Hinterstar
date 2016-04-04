@@ -69,7 +69,23 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
   }
 
   def toggleNavButtons(): Unit = {
-    navButtons.addAction(Actions.sequence(Actions.touchable(Touchable.disabled), Actions.moveBy(0, 2 + Constants.SECTORSIZE * 2, 0.5f, Interpolation.sine), Actions.delay(7.5f), Actions.moveBy(0, -(2 + Constants.SECTORSIZE * 2), 0.5f, Interpolation.sine), Actions.touchable(Touchable.enabled)))
+    navButtons.addAction(Actions.sequence(
+      Actions.touchable(Touchable.disabled),
+      Actions.moveBy(0, 2 + Constants.SECTORSIZE * 2, 0.5f, Interpolation.sine),
+      Actions.delay(7.5f),
+      Actions.moveBy(0, -(2 + Constants.SECTORSIZE * 2), 0.5f, Interpolation.sine),
+      Actions.touchable(Touchable.enabled)
+    ))
+  }
+
+  def toggleDetailTable(): Unit = {
+    detailTable.addAction(Actions.sequence(
+      Actions.touchable(Touchable.disabled),
+      Actions.moveBy(0, -110, 0.5f, Interpolation.sine),
+      Actions.delay(7.5f),
+      Actions.moveBy(0, 110, 0.5f, Interpolation.sine),
+      Actions.touchable(Touchable.enabled)
+    ))
   }
 
   def updateDistanceLabel(d: String): Unit = {
@@ -80,8 +96,8 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     navButtons
   }
 
-  def getDetailTable: DetailTable = {
-    detailTable
+  def updateDetailTable(loc: String): Unit = {
+    detailTable.updateLocation(loc)
   }
 
 

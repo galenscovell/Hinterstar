@@ -33,7 +33,6 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   var bg0Blur: String = null
   var bg1Blur: String = null
   var bg2Blur: String = null
-  var newLocation: String = null
 
   create()
 
@@ -141,13 +140,13 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     this.bg2Blur = bg2Blur
     val locationDetail: Array[String] = Repository.currentLocation.getDetails
     this.locationPanel = new LocationPanel(locationDetail(0), locationDetail(1))
-    newLocation = locationDetail(0)
+    stage.asInstanceOf[GameStage].updateDetailTable(locationDetail(0))
     stage.getRoot.addAction(Actions.sequence(
       Actions.delay(3),
       Actions.fadeOut(1.0f),
       travelTransitionAction,
       Actions.fadeIn(1.0f),
-      Actions.delay(5.5f),
+      Actions.delay(5.2f),
       Actions.removeActor(locationPanel)
     ))
   }
@@ -213,7 +212,6 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       blurBg = createBackground(bg0Blur, bg1Blur, bg2Blur)
       blurBg.setSpeed(new Vector2(2500, 0))
       currentBackground = blurBg
-      // stage.asInstanceOf[GameStage].getDetailTable.updateLocation(newLocation)
       stage.addActor(locationPanel)
       locationPanel.addAction(Actions.sequence(
         Actions.delay(3.5f),

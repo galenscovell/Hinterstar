@@ -27,8 +27,8 @@ class DetailTable(stage: GameStage) extends Table {
     this.locationLabel = new Label("Sol Sector", ResourceManager.label_mediumStyle)
     locationLabel.setAlignment(Align.center, Align.right)
 
-    labelTable.add(dateLabel).width(380).left
-    labelTable.add(locationLabel).width(380).right
+    labelTable.add(dateLabel).width(390).left
+    labelTable.add(locationLabel).width(390).right
 
     val progressTable: Table = new Table
     progressTable.setBackground(ResourceManager.np_test1)

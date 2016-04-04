@@ -30,7 +30,7 @@ class MapGenerator(maxLocations: Int, padSize: Int) {
 
   private def placeLocations(): Unit = {
     // Place random Locations, ensuring that they are distanced apart
-    var attempts: Int = 120
+    var attempts: Int = 240
 
     while (attempts > 0 && locations.length < maxLocations) {
       val x: Int = getRandom(1, Constants.MAPWIDTH - padSize - 1)
