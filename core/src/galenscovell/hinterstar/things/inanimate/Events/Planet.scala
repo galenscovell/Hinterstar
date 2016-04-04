@@ -11,6 +11,7 @@ class Planet extends Event {
   private var atmosphere: Int = 0
   private var temperature: Int = 0
   private var gravity: Int = 0
+
   generate()
 
 
@@ -19,18 +20,10 @@ class Planet extends Event {
   }
 
   override def start(): Unit = {
-
+    println("Planet event started")
   }
 
   override def end(): Unit = {
-
-  }
-
-  override def setDistanceTo(distance: Int): Unit = {
-
-  }
-
-  override def getDistanceTo(distance: Int): Int = {
-    0
+    println("Planet event ended")
   }
 }

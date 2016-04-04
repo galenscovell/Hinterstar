@@ -9,6 +9,7 @@ import scala.collection.mutable.ArrayBuffer
 class MapGenerator(maxLocations: Int, padSize: Int) {
   private final val sectors: Array[Array[Sector]] = Array.ofDim[Sector](Constants.MAPHEIGHT, Constants.MAPWIDTH)
   private val locations: ArrayBuffer[Location] = ArrayBuffer()
+
   build()
   placeLocations()
   Repository.populateLocations(locations)

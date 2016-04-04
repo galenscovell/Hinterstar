@@ -54,7 +54,12 @@ object Repository {
     if (locationsInRange != null && locationsInRange.size > 0) {
       shapeRenderer.setColor(0.93f, 0.94f, 0.95f, 0.6f)
       for (location <- locationsInRange) {
-        shapeRenderer.line((currentLocation.getSector.sx * Constants.SECTORSIZE) + (Constants.SECTORSIZE / 2), Gdx.graphics.getHeight - (currentLocation.getSector.sy * Constants.SECTORSIZE) - (2 * Constants.SECTORSIZE) - (Constants.SECTORSIZE / 2), (location.getSector.sx * Constants.SECTORSIZE) + (Constants.SECTORSIZE / 2), Gdx.graphics.getHeight - (location.getSector.sy * Constants.SECTORSIZE) - (2 * Constants.SECTORSIZE) - (Constants.SECTORSIZE / 2))
+        shapeRenderer.line(
+          (currentLocation.getSector.sx * Constants.SECTORSIZE) + (Constants.SECTORSIZE / 2),
+          Gdx.graphics.getHeight - (currentLocation.getSector.sy * Constants.SECTORSIZE) - (2 * Constants.SECTORSIZE) - (Constants.SECTORSIZE / 2),
+          (location.getSector.sx * Constants.SECTORSIZE) + (Constants.SECTORSIZE / 2),
+          Gdx.graphics.getHeight - (location.getSector.sy * Constants.SECTORSIZE) - (2 * Constants.SECTORSIZE) - (Constants.SECTORSIZE / 2)
+        )
       }
     }
     if (currentSelection != null) {
@@ -102,8 +107,7 @@ object Repository {
             currentSelection = location
             val distance: Double = Math.sqrt(Math.pow(currentLocation.getSector.sx - selection.sx, 2) + Math.pow(currentLocation.getSector.sy - selection.sy, 2)) * 4
             val gameStage: GameStage = gameScreen.getGameStage.asInstanceOf[GameStage]
-            val outStr: String = f"Distance: $distance%1.1f AU"
-            gameStage.updateDistanceLabel(outStr)
+            gameStage.updateDistanceLabel(f"Distance: $distance%1.1f AU")
           }
         }
       }

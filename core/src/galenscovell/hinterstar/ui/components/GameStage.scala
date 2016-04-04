@@ -80,6 +80,10 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     navButtons
   }
 
+  def getDetailTable: DetailTable = {
+    detailTable
+  }
+
 
 
   /**
