@@ -20,6 +20,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
   private var navButtons: NavButtons = null
   private var actionTable: Table = null
   private var detailTable: DetailTable = null
+
   construct()
   
 
@@ -94,6 +95,10 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
 
   def getNavButtons: NavButtons = {
     navButtons
+  }
+
+  def setProgressPanel(): Unit = {
+    detailTable.establishProgressPanel()
   }
 
   def updateDetailTable(loc: String): Unit = {

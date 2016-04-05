@@ -3,7 +3,7 @@ package galenscovell.hinterstar.things.inanimate.Events
 import java.util.Random
 
 
-class Planet extends Event {
+class Planet(distanceTo: Float) extends Event {
   private var resources: Int = 0
   private var planetType: Int = 0
   private var population: Int = 0
@@ -11,6 +11,8 @@ class Planet extends Event {
   private var atmosphere: Int = 0
   private var temperature: Int = 0
   private var gravity: Int = 0
+
+  private val distance: Float = distanceTo
 
   generate()
 
@@ -25,5 +27,9 @@ class Planet extends Event {
 
   override def end(): Unit = {
     println("Planet event ended")
+  }
+
+  override def getDistance: Float = {
+    distance
   }
 }

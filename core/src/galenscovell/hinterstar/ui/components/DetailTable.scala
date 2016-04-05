@@ -12,6 +12,7 @@ class DetailTable(stage: GameStage) extends Table {
   private var year: Int = 2500
   private var dateLabel: Label = null
   private var locationLabel: Label = null
+  private var progressTable: Table = null
 
   construct()
 
@@ -27,17 +28,23 @@ class DetailTable(stage: GameStage) extends Table {
     this.locationLabel = new Label("Sol Sector", ResourceManager.label_mediumStyle)
     locationLabel.setAlignment(Align.center, Align.right)
 
-    labelTable.add(dateLabel).width(390).left
-    labelTable.add(locationLabel).width(390).right
+    labelTable.add(dateLabel).width(384).left
+    labelTable.add(locationLabel).width(384).right
 
-    val progressTable: Table = new Table
+    this.progressTable = new Table
     progressTable.setBackground(ResourceManager.np_test1)
 
-    mainTable.add(labelTable).height(20).width(Constants.EXACT_X - 10).top.pad(5)
+    mainTable.add(labelTable).height(20).width(Constants.PROGRESS_PANEL_WIDTH).top.padLeft(8).padRight(8).padTop(8)
     mainTable.row
-    mainTable.add(progressTable).expand.fill.bottom.pad(5)
+    mainTable.add(progressTable).expand.fill.bottom.pad(8)
 
     this.add(mainTable).expand.fill
+  }
+
+  def establishProgressPanel(): Unit = {
+    progressTable.clear()
+    var progressPanel: ProgressPanel = new ProgressPanel(this)
+    progressTable.add(progressPanel).expand.fill
   }
 
   def updateDate(): Unit = {

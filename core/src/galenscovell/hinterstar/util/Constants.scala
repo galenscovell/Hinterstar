@@ -18,13 +18,14 @@ object Constants {
   val BIT_WALL: Short = 2
   val BIT_GROUP: Short = 5
 
-  // Custom screen dimension units
-  val SCREEN_X: Int = 200
-  val SCREEN_Y: Int = 120
-
   // Exact pixel dimensions
   val EXACT_X: Int = 800
   val EXACT_Y: Int = 480
+
+  // Custom screen dimension units
+  val SCREEN_X: Int = 200
+  val SCREEN_Y: Int = 120
+  val PROGRESS_PANEL_WIDTH: Int = EXACT_X - 16
 
   // Map dimensions (1 Tile = 1 AU)
   val MAPWIDTH: Int = 50
