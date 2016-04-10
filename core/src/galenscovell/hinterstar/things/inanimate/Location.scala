@@ -16,6 +16,7 @@ class Location(xIn: Int, yIn: Int, sizeIn: Int) {
   private val events: ArrayBuffer[Event] = ArrayBuffer[Event]()
   private val details: Array[String] = Array[String]("Location Title", "Location Detail")
   private var sector: Sector = null
+  private var currentEvent: Int = 0
 
 
   def setSector(sectorIn: Sector): Unit = {
@@ -39,23 +40,41 @@ class Location(xIn: Int, yIn: Int, sizeIn: Int) {
     events
   }
 
+  def getCurrentEvent: Event = {
+    events(currentEvent)
+  }
+
+  def nextEvent(): Unit = {
+    currentEvent += 1
+  }
+
+  def getDistanceToNextEvent: Float = {
+    if (currentEvent == null) {
+      events(currentEvent).getDistance()
+    } else {
+      events(currentEvent + 1).getDistance()
+    }
+  }
+
   private def generateEvents(random: Random): Unit =  {
-    // Each Location has between 3 and 6 events
     this.events.clear()
-    val numberOfEvents: Int = random.nextInt(4) + 3
 
     // Randomly set distances between events
-    val distances: ArrayBuffer[Int] = new ArrayBuffer[Int]()
-    val baseDistance: Float = (Constants.PROGRESS_PANEL_WIDTH - (numberOfEvents * 3f)) / numberOfEvents
-//    while (distances.size < numberOfEvents) {
-//      val randomDifference: Int = random.nextInt(30) - 15
-//      distances += (baseDistance + randomDifference)
-//    }
+    val distances: ArrayBuffer[Float] = new ArrayBuffer[Float]()
 
-    for (x <- 0 until numberOfEvents) {
-//      events += new Planet(distances(x))
-      events += new Planet(baseDistance)
+    while (distances.sum < Constants.PROGRESS_PANEL_WIDTH) {
+      val newDistance: Float = random.nextInt(100) + 100 + 3f
+      if (distances.sum + newDistance > Constants.PROGRESS_PANEL_WIDTH) {
+        distances += (Constants.PROGRESS_PANEL_WIDTH - distances.sum)
+      } else {
+        distances += newDistance
+      }
     }
+
+    for (x <- 0 until distances.length) {
+      events += new Planet(distances(x))
+    }
+
     // Eventually background should be consistent and not created here
     createBackground(random)
   }

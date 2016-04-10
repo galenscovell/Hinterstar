@@ -12,7 +12,7 @@ class DetailTable(stage: GameStage) extends Table {
   private var year: Int = 2500
   private var dateLabel: Label = null
   private var locationLabel: Label = null
-  private var progressTable: Table = null
+  private var infoTable: Table = null
 
   construct()
 
@@ -31,20 +31,20 @@ class DetailTable(stage: GameStage) extends Table {
     labelTable.add(dateLabel).width(384).left
     labelTable.add(locationLabel).width(384).right
 
-    this.progressTable = new Table
-    progressTable.setBackground(ResourceManager.np_test1)
+    this.infoTable = new Table
+    infoTable.setBackground(ResourceManager.np_test1)
 
-    mainTable.add(labelTable).height(20).width(Constants.PROGRESS_PANEL_WIDTH).top.padLeft(8).padRight(8).padTop(8)
+    mainTable.add(infoTable).expand.fill.pad(6)
     mainTable.row
-    mainTable.add(progressTable).expand.fill.bottom.pad(8)
+    mainTable.add(labelTable).height(20).width(Constants.PROGRESS_PANEL_WIDTH).padLeft(6).padRight(6).padBottom(6)
 
     this.add(mainTable).expand.fill
   }
 
-  def establishProgressPanel(): Unit = {
-    progressTable.clear()
-    var progressPanel: ProgressPanel = new ProgressPanel(this)
-    progressTable.add(progressPanel).expand.fill
+  def establishInfoPanel(): Unit = {
+    infoTable.clear()
+    var infoPanel: InfoPanel = new InfoPanel(this)
+    infoTable.add(infoPanel).expand.fill
   }
 
   def updateDate(): Unit = {

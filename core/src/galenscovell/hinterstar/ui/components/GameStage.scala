@@ -1,10 +1,11 @@
 package galenscovell.hinterstar.ui.components
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.math.Interpolation
+import com.badlogic.gdx.math.{Interpolation, Vector2}
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import com.badlogic.gdx.scenes.scene2d.ui.Table
+import com.badlogic.gdx.scenes.scene2d.ui.{Table, TextButton}
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.things.entity.Player
 import galenscovell.hinterstar.ui.screens.GameScreen
@@ -14,12 +15,14 @@ import galenscovell.hinterstar.util._
 class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), spriteBatch) {
   final val gameScreen: GameScreen = game
   private final val player: Player = new Player(this)
+  private var eventButton: TextButton = null
   private final val mapPanel: MapPanel = new MapPanel(this)
   private final val teamPanel: TeamPanel = new TeamPanel(this)
   private final val shipPanel: ShipPanel = new ShipPanel(this)
   private var navButtons: NavButtons = null
   private var actionTable: Table = null
   private var detailTable: DetailTable = null
+  private var nextAnimationFrames: Int = 0
 
   construct()
   
@@ -27,10 +30,22 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
   private def construct(): Unit = {
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
+
+    this.eventButton = new TextButton("Next", ResourceManager.button_mapStyle0)
+    eventButton.getLabelCell.width(80)
+    eventButton.invalidate()
+    eventButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        startNextEventAnimation()
+      }
+    })
+
     this.navButtons = new NavButtons(this)
     this.actionTable = new Table
-    actionTable.add(player).expand.fill.left.padLeft(80)
+    actionTable.add(player).expand.fill.left.padLeft(60)
+    actionTable.add(eventButton).width(90).height(220).expand.fill.right
     this.detailTable = new DetailTable(this)
+
     mainTable.add(navButtons).width(Constants.EXACT_X / 2).height(2 + Constants.SECTORSIZE * 2)
     mainTable.row
     mainTable.add(actionTable).width(Constants.EXACT_X).height(340)
@@ -77,6 +92,13 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
       Actions.moveBy(0, -(2 + Constants.SECTORSIZE * 2), 0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
+    eventButton.addAction(Actions.sequence(
+      Actions.touchable(Touchable.disabled),
+      Actions.moveBy(100, 0, 0.5f, Interpolation.sine),
+      Actions.delay(7.5f),
+      Actions.moveBy(-100, 0, 0.5f, Interpolation.sine),
+      Actions.touchable(Touchable.enabled)
+    ))
   }
 
   def toggleDetailTable(): Unit = {
@@ -98,11 +120,35 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
   }
 
   def setProgressPanel(): Unit = {
-    detailTable.establishProgressPanel()
+    detailTable.establishInfoPanel()
   }
 
   def updateDetailTable(loc: String): Unit = {
     detailTable.updateLocation(loc)
+  }
+
+  private def startNextEventAnimation(): Unit = {
+    // Speedy animation similar to main travel, but not full warp speed
+    nextAnimationFrames = 300
+  }
+
+  def getNextAnimationFrames: Int = {
+    nextAnimationFrames
+  }
+
+  def nextEventAnimation(): Unit = {
+    if (nextAnimationFrames > 200) {
+      gameScreen.currentBackground.modifySpeed(new Vector2((300 - nextAnimationFrames), 0))
+    } else if (nextAnimationFrames == 200) {
+      gameScreen.currentBackground.setSpeed(new Vector2(2500, 0))
+    } else if (nextAnimationFrames == 90) {
+    } else if (nextAnimationFrames < 70) {
+      gameScreen.currentBackground.modifySpeed(new Vector2(-(70 - nextAnimationFrames), 0))
+    }
+    nextAnimationFrames -= 1
+    if (nextAnimationFrames == 0) {
+      gameScreen.currentBackground.setSpeed(new Vector2(40, 0))
+    }
   }
 
 
