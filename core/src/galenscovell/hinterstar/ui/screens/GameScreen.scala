@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
 import galenscovell.hinterstar.processing.controls.InputHandler
-import galenscovell.hinterstar.processing.states._
 import galenscovell.hinterstar.ui.components._
 import galenscovell.hinterstar.util._
 
@@ -17,10 +16,6 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   private val input: InputMultiplexer = new InputMultiplexer
   private var travelTicker: Int = 0
   private var mapOpen: Boolean = false
-
-  private val actionState: State = new ActionState
-  private val eventState: State = new EventState
-  private var currentState: State = actionState
 
   var normalBg: ParallaxBackground = createBackground("purple_bg", "bg1", "bg2")
   var blurBg: ParallaxBackground = createBackground("purple_bg", "bg1_blur", "bg2_blur")
@@ -50,10 +45,8 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     Gdx.gl.glClearColor(0, 0, 0, 1)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     // Handle travel and background animations
-    if (currentState.getStateType() == Constants.ACTION_STATE) {
-      if (travelTicker > 0) {
-        travel()
-      }
+    if (travelTicker > 0) {
+      travel()
     }
     if (currentBackground != null) {
       currentBackground.render(delta)
@@ -94,27 +87,11 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   }
 
   def toggleState(): Unit = {
-    currentState.exit()
-    if (currentState.getStateType == Constants.ACTION_STATE) {
-      currentState = eventState
-      currentBackground.pause()
-    } else {
-      currentState = actionState
-      currentBackground.unpause()
-    }
-    currentState.enter()
+
   }
 
   def changeState(stateType: Short): Unit = {
-    if (stateType == Constants.ACTION_STATE && currentState.getStateType != Constants.ACTION_STATE) {
-      currentState.exit()
-      currentState = actionState
-      currentState.enter()
-    } else if (stateType == Constants.EVENT_STATE && currentState.getStateType != Constants.EVENT_STATE) {
-      currentState.exit()
-      currentState = eventState
-      currentState.enter()
-    }
+
   }
 
   def travel(): Unit = {
