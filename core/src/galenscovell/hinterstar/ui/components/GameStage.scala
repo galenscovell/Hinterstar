@@ -16,6 +16,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
   final val gameScreen: GameScreen = game
   private final val player: Player = new Player(this)
   private var eventButton: TextButton = null
+  private var eventPanel: EventPanel = null
   private final val mapPanel: MapPanel = new MapPanel(this)
   private final val teamPanel: TeamPanel = new TeamPanel(this)
   private final val shipPanel: ShipPanel = new ShipPanel(this)
@@ -156,7 +157,17 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     nextAnimationFrames -= 1
     if (nextAnimationFrames == 0) {
       gameScreen.currentBackground.setSpeed(new Vector2(40, 0))
+      showEventPanel()
     }
+  }
+
+  private def showEventPanel(): Unit = {
+    if (eventPanel != null) {
+      eventPanel.remove()
+      eventPanel = null
+    }
+    eventPanel = new EventPanel(this)
+    this.addActor(eventPanel)
   }
 
 

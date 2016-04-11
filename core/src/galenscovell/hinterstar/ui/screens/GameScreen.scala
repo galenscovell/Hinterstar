@@ -14,7 +14,7 @@ import galenscovell.hinterstar.util._
 
 class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   private val input: InputMultiplexer = new InputMultiplexer
-  private var travelTicker: Int = 0
+  private var travelFrames: Int = 0
   private var mapOpen: Boolean = false
 
   var normalBg: ParallaxBackground = createBackground("purple_bg", "bg1", "bg2")
@@ -45,7 +45,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     Gdx.gl.glClearColor(0, 0, 0, 1)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     // Handle travel and background animations
-    if (travelTicker > 0) {
+    if (travelFrames > 0) {
       travel()
     }
     if (currentBackground != null) {
@@ -75,8 +75,8 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     root.setScreen(root.mainMenuScreen)
   }
 
-  def setTravel(): Unit = {
-    travelTicker = 600
+  def beginTravel(): Unit = {
+    travelFrames = 600
   }
 
   def toggleMap(): Unit = {
@@ -95,23 +95,23 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   }
 
   def travel(): Unit = {
-    if (travelTicker > 500) {
-      currentBackground.modifySpeed(new Vector2((600 - travelTicker), 0))
-    } else if (travelTicker == 500) {
+    if (travelFrames > 500) {
+      currentBackground.modifySpeed(new Vector2((600 - travelFrames), 0))
+    } else if (travelFrames == 500) {
       currentBackground = blurBg
       currentBackground.setSpeed(new Vector2(2500, 0))
-    } else if (travelTicker == 90) {
+    } else if (travelFrames == 90) {
       currentBackground = normalBg
-    } else if (travelTicker < 70) {
-      currentBackground.modifySpeed(new Vector2(-(70 - travelTicker), 0))
+    } else if (travelFrames < 70) {
+      currentBackground.modifySpeed(new Vector2(-(70 - travelFrames), 0))
     }
-    travelTicker -= 1
-    if (travelTicker == 0) {
+    travelFrames -= 1
+    if (travelFrames == 0) {
       currentBackground.setSpeed(new Vector2(40, 0))
     }
   }
 
-  def setBackground(bg0: String, bg1: String, bg2: String, bg0Blur: String, bg1Blur: String, bg2Blur: String): Unit = {
+  def transitionSector(bg0: String, bg1: String, bg2: String, bg0Blur: String, bg1Blur: String, bg2Blur: String): Unit = {
     this.bg0 = bg0
     this.bg1 = bg1
     this.bg2 = bg2

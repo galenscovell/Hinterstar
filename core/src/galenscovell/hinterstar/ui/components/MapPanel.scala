@@ -67,7 +67,7 @@ class MapPanel(stage: GameStage) extends Table {
     if (Repository.travelToSelection) {
       gameStage.getNavButtons.getMapButton.setChecked(false)
       gameStage.togglePanel(0)
-      gameStage.gameScreen.setTravel
+      gameStage.gameScreen.beginTravel
       gameStage.toggleNavButtons
       gameStage.toggleDetailTable
     }

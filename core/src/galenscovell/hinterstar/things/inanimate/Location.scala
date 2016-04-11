@@ -98,6 +98,6 @@ class Location(xIn: Int, yIn: Int, sizeIn: Int) {
     else {
       layerName = ""
     }
-    Repository.gameScreen.setBackground(layerName, "bg1", "bg2", layerName, "bg1_blur", "bg2_blur")
+    Repository.gameScreen.transitionSector(layerName, "bg1", "bg2", layerName, "bg1_blur", "bg2_blur")
   }
 }
