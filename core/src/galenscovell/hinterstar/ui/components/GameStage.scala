@@ -119,17 +119,25 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     navButtons
   }
 
-  def setProgressPanel(): Unit = {
-    detailTable.establishInfoPanel()
-  }
-
   def updateDetailTable(loc: String): Unit = {
     detailTable.updateLocation(loc)
+    player.addAction(Actions.sequence(
+      Actions.moveBy(2, 0, 0.5f, Interpolation.sine),
+      Actions.moveBy(23, 0, 1.5f, Interpolation.sine),
+      Actions.delay(6.0f),
+      Actions.moveBy(-25, 0, 2.0f, Interpolation.sine)
+    ))
   }
 
-  private def startNextEventAnimation(): Unit = {
+  def startNextEventAnimation(): Unit = {
     // Speedy animation similar to main travel, but not full warp speed
     nextAnimationFrames = 300
+    player.addAction(Actions.sequence(
+      Actions.moveBy(2, 0, 0.2f, Interpolation.sine),
+      Actions.moveBy(18, 0, 2.0f, Interpolation.sine),
+      Actions.delay(2.0f),
+      Actions.moveBy(-20, 0, 1.0f, Interpolation.sine)
+    ))
   }
 
   def getNextAnimationFrames: Int = {

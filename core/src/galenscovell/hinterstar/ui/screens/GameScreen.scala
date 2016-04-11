@@ -121,7 +121,6 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     val locationDetail: Array[String] = Repository.currentLocation.getDetails
     this.locationPanel = new LocationPanel(locationDetail(0), locationDetail(1))
     stage.asInstanceOf[GameStage].updateDetailTable(locationDetail(0))
-    stage.asInstanceOf[GameStage].setProgressPanel()
     stage.getRoot.addAction(Actions.sequence(
       Actions.delay(3),
       Actions.fadeOut(1.0f),
