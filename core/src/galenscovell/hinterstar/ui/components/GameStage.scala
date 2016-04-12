@@ -123,10 +123,13 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
   def updateDetailTable(loc: String): Unit = {
     detailTable.updateLocation(loc)
     player.addAction(Actions.sequence(
-      Actions.moveBy(2, 0, 0.5f, Interpolation.sine),
-      Actions.moveBy(23, 0, 1.5f, Interpolation.sine),
-      Actions.delay(6.0f),
-      Actions.moveBy(-25, 0, 2.0f, Interpolation.sine)
+      Actions.moveBy(80, 0, 1.7f, Interpolation.exp5In),
+      Actions.moveBy(0, 5, 1.25f, Interpolation.linear),
+      Actions.moveBy(0, -5, 1.25f, Interpolation.linear),
+      Actions.moveBy(0, -5, 1.25f, Interpolation.linear),
+      Actions.moveBy(0, 5, 1.25f, Interpolation.linear),
+//      Actions.delay(5f),
+      Actions.moveBy(-80, 0, 3.2f, Interpolation.exp5In)
     ))
   }
 
@@ -134,10 +137,12 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     // Speedy animation similar to main travel, but not full warp speed
     nextAnimationFrames = 300
     player.addAction(Actions.sequence(
-      Actions.moveBy(2, 0, 0.2f, Interpolation.sine),
-      Actions.moveBy(18, 0, 2.0f, Interpolation.sine),
-      Actions.delay(2.0f),
-      Actions.moveBy(-20, 0, 1.0f, Interpolation.sine)
+      Actions.moveBy(40, 0, 2.0f, Interpolation.exp5In),
+      Actions.moveBy(0, 2, 0.75f, Interpolation.linear),
+      Actions.moveBy(0, -4, 0.75f, Interpolation.linear),
+      Actions.moveBy(0, 2, 0.75f, Interpolation.linear),
+//      Actions.delay(2.0f),
+      Actions.moveBy(-40, 0, 1.0f, Interpolation.exp5In)
     ))
   }
 
