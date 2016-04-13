@@ -86,17 +86,9 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     }
   }
 
-  def toggleState(): Unit = {
-
-  }
-
-  def changeState(stateType: Short): Unit = {
-
-  }
-
   def travel(): Unit = {
     if (travelFrames > 500) {
-      currentBackground.modifySpeed(new Vector2((600 - travelFrames), 0))
+      currentBackground.modifySpeed(new Vector2(600 - travelFrames, 0))
     } else if (travelFrames == 500) {
       currentBackground = blurBg
       currentBackground.setSpeed(new Vector2(2500, 0))
@@ -195,8 +187,16 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       stage.addActor(locationPanel)
       locationPanel.addAction(Actions.sequence(
         Actions.delay(3.5f),
-        Actions.fadeOut(1.5f)
+        Actions.fadeOut(1.25f),
+        showUIElements
       ))
+      true
+    }
+  }
+
+  private[screens] var showUIElements: Action = new Action() {
+    def act(delta: Float): Boolean = {
+      stage.asInstanceOf[GameStage].showUIElements()
       true
     }
   }

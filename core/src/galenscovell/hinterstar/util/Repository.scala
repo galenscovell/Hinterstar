@@ -79,7 +79,7 @@ object Repository {
     Repository.sectors = sectors
   }
 
-  def travelToSelection(): Boolean = {
+  def travelToSelection: Boolean = {
     if (currentSelection != null && locationsInRange.contains(currentSelection)) {
       currentLocation.getSector.becomeExplored()
       currentLocation = currentSelection

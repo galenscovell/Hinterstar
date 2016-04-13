@@ -26,7 +26,7 @@ class MapPanel(stage: GameStage) extends Table {
     this.add(mapGroup).width(Constants.EXACT_X).height(Constants.EXACT_Y - (Constants.SECTORSIZE * 2)).padTop(Constants.SECTORSIZE * 2)
   }
 
-  private def createMapTable(): Table = {
+  private def createMapTable: Table = {
     val mapTable: Table = new Table
     mapTable.setBackground(ResourceManager.np_test4)
     generateMap(mapTable)
@@ -47,14 +47,14 @@ class MapPanel(stage: GameStage) extends Table {
     }
   }
 
-  private def createInfoTable(): Table = {
+  private def createInfoTable: Table = {
     val infoTable: Table = new Table
     infoTable.setSize(Constants.EXACT_X, 50)
     infoTable.align(Align.center)
     val travelButton: TextButton = new TextButton("Travel", ResourceManager.button_menuStyle)
     travelButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
-        travelToLocation
+        travelToLocation()
       }
     })
     this.distanceLabel = new Label("Distance: 0.0 AU", ResourceManager.label_menuStyle)
@@ -67,9 +67,8 @@ class MapPanel(stage: GameStage) extends Table {
     if (Repository.travelToSelection) {
       gameStage.getNavButtons.getMapButton.setChecked(false)
       gameStage.togglePanel(0)
-      gameStage.gameScreen.beginTravel
-      gameStage.toggleNavButtons
-      gameStage.toggleDetailTable
+      gameStage.gameScreen.beginTravel()
+      gameStage.hideUIElements()
     }
   }
 

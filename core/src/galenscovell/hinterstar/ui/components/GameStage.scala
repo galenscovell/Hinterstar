@@ -60,55 +60,82 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
   def togglePanel(num: Int): Unit = {
     if (!mapPanel.hasActions) {
       if (mapPanel.hasParent) {
-        mapPanel.addAction(Actions.sequence(mapButtonAction, Actions.moveTo(800, 0, 0.3f, Interpolation.sine), Actions.removeActor))
+        mapPanel.addAction(Actions.sequence(
+          mapButtonAction,
+          Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
+          Actions.removeActor
+        ))
       }
       else if (num == 0) {
         this.addActor(mapPanel)
-        mapPanel.addAction(Actions.sequence(Actions.moveTo(-800, 0), Actions.moveTo(0, 0, 0.3f, Interpolation.sine), mapButtonAction))
+        mapPanel.addAction(Actions.sequence(
+          Actions.moveTo(-800, 0),
+          Actions.moveTo(0, 0, 0.3f, Interpolation.sine),
+          mapButtonAction
+        ))
       }
     }
     if (!teamPanel.hasActions) {
       if (teamPanel.hasParent) {
-        teamPanel.addAction(Actions.sequence(teamButtonAction, Actions.moveTo(800, 0, 0.3f, Interpolation.sine), Actions.removeActor))
+        teamPanel.addAction(Actions.sequence(
+          teamButtonAction,
+          Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
+          Actions.removeActor
+        ))
       }
       else if (num == 1) {
         this.addActor(teamPanel)
-        teamPanel.addAction(Actions.sequence(Actions.moveTo(-800, 0), Actions.moveTo(0, 0, 0.3f, Interpolation.sine), teamButtonAction))
+        teamPanel.addAction(Actions.sequence(
+          Actions.moveTo(-800, 0),
+          Actions.moveTo(0, 0, 0.3f, Interpolation.sine),
+          teamButtonAction
+        ))
       }
     }
     if (!shipPanel.hasActions) {
       if (shipPanel.hasParent) {
-        shipPanel.addAction(Actions.sequence(shipButtonAction, Actions.moveTo(800, 0, 0.3f, Interpolation.sine), Actions.removeActor))
+        shipPanel.addAction(Actions.sequence(
+          shipButtonAction,
+          Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
+          Actions.removeActor
+        ))
       }
       else if (num == 2) {
         this.addActor(shipPanel)
-        shipPanel.addAction(Actions.sequence(Actions.moveTo(-800, 0), Actions.moveTo(0, 0, 0.3f, Interpolation.sine), shipButtonAction))
+        shipPanel.addAction(Actions.sequence(
+          Actions.moveTo(-800, 0),
+          Actions.moveTo(0, 0, 0.3f, Interpolation.sine),
+          shipButtonAction
+        ))
       }
     }
   }
 
-  def toggleNavButtons(): Unit = {
+  def hideUIElements(): Unit = {
     navButtons.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
-      Actions.moveBy(0, 2 + Constants.SECTORSIZE * 2, 0.5f, Interpolation.sine),
-      Actions.delay(7.5f),
+      Actions.moveBy(0, 2 + Constants.SECTORSIZE * 2, 0.5f, Interpolation.sine)
+    ))
+    eventButton.addAction(Actions.sequence(
+      Actions.touchable(Touchable.disabled),
+      Actions.moveBy(100, 0, 0.5f, Interpolation.sine)
+    ))
+    detailTable.addAction(Actions.sequence(
+      Actions.touchable(Touchable.disabled),
+      Actions.moveBy(0, -110, 0.5f, Interpolation.sine)
+    ))
+  }
+
+  def showUIElements(): Unit = {
+    navButtons.addAction(Actions.sequence(
       Actions.moveBy(0, -(2 + Constants.SECTORSIZE * 2), 0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
     eventButton.addAction(Actions.sequence(
-      Actions.touchable(Touchable.disabled),
-      Actions.moveBy(100, 0, 0.5f, Interpolation.sine),
-      Actions.delay(7.5f),
       Actions.moveBy(-100, 0, 0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
-  }
-
-  def toggleDetailTable(): Unit = {
     detailTable.addAction(Actions.sequence(
-      Actions.touchable(Touchable.disabled),
-      Actions.moveBy(0, -110, 0.5f, Interpolation.sine),
-      Actions.delay(7.5f),
       Actions.moveBy(0, 110, 0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
@@ -129,19 +156,16 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
       Actions.moveBy(0, 4, 1.5f, Interpolation.linear),
       Actions.moveBy(0, -8, 2.0f, Interpolation.linear),
       Actions.moveBy(0, 4, 1.5f, Interpolation.linear),
-//      Actions.delay(5f),
       Actions.moveBy(-80, 0, 3.0f, Interpolation.exp5In)
     ))
   }
 
   def startNextEventAnimation(): Unit = {
-    // Speedy animation similar to main travel, but not full warp speed
     nextAnimationFrames = 300
     player.addAction(Actions.sequence(
       Actions.moveBy(40, 0, 2.0f, Interpolation.exp5In),
       Actions.moveBy(0, 2, 1.0f, Interpolation.linear),
       Actions.moveBy(0, -2, 1.0f, Interpolation.linear),
-//      Actions.delay(2.0f),
       Actions.moveBy(-40, 0, 1.0f, Interpolation.exp5In)
     ))
   }
@@ -152,7 +176,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
 
   def nextEventAnimation(): Unit = {
     if (nextAnimationFrames > 200) {
-      gameScreen.currentBackground.modifySpeed(new Vector2((300 - nextAnimationFrames), 0))
+      gameScreen.currentBackground.modifySpeed(new Vector2(300 - nextAnimationFrames, 0))
     } else if (nextAnimationFrames == 200) {
       gameScreen.currentBackground.setSpeed(new Vector2(2400, 0))
     } else if (nextAnimationFrames == 90) {
@@ -173,6 +197,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     }
     eventPanel = new EventPanel(this)
     this.addActor(eventPanel)
+    hideUIElements()
   }
 
 

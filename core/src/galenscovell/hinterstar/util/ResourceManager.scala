@@ -31,6 +31,7 @@ object ResourceManager {
   var button_mapStyle0: TextButtonStyle = null
   var button_mapStyle1: TextButtonStyle = null
   var button_mapStyle2: TextButtonStyle = null
+  var button_eventStyle: TextButtonStyle = null
   var mapGlow: Sprite = null
   var sp_test0: Sprite = null
   var sp_test1: Sprite = null
@@ -108,13 +109,15 @@ object ResourceManager {
 
   private def loadButtonStyles(): Unit = {
     button_menuStyle = new TextButtonStyle(np_test4, np_test3, np_test4, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
-    button_menuStyle.pressedOffsetY = -2
+    button_menuStyle.pressedOffsetY = -1
     button_mapStyle0 = new TextButtonStyle(np_test1, np_test4, np_test4, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
-    button_mapStyle0.pressedOffsetY = -2
+    button_mapStyle0.pressedOffsetY = -1
     button_mapStyle1 = new TextButtonStyle(np_test1, np_test3, np_test3, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
-    button_mapStyle1.pressedOffsetY = -2
+    button_mapStyle1.pressedOffsetY = -1
     button_mapStyle2 = new TextButtonStyle(np_test1, np_test2, np_test2, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
-    button_mapStyle2.pressedOffsetY = -2
+    button_mapStyle2.pressedOffsetY = -1
+    button_eventStyle = new TextButtonStyle(np_test1, np_test2, np_test2, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
+    button_eventStyle.pressedOffsetY = -1
   }
 
   private def loadSprites(): Unit = {
