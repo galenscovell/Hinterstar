@@ -37,7 +37,9 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     eventButton.invalidate()
     eventButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        startNextEventAnimation()
+        if (nextAnimationFrames == 0) {
+          startNextEventAnimation()
+        }
       }
     })
 
@@ -124,12 +126,11 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     detailTable.updateLocation(loc)
     player.addAction(Actions.sequence(
       Actions.moveBy(80, 0, 1.7f, Interpolation.exp5In),
-      Actions.moveBy(0, 5, 1.25f, Interpolation.linear),
-      Actions.moveBy(0, -5, 1.25f, Interpolation.linear),
-      Actions.moveBy(0, -5, 1.25f, Interpolation.linear),
-      Actions.moveBy(0, 5, 1.25f, Interpolation.linear),
+      Actions.moveBy(0, 4, 1.5f, Interpolation.linear),
+      Actions.moveBy(0, -8, 2.0f, Interpolation.linear),
+      Actions.moveBy(0, 4, 1.5f, Interpolation.linear),
 //      Actions.delay(5f),
-      Actions.moveBy(-80, 0, 3.2f, Interpolation.exp5In)
+      Actions.moveBy(-80, 0, 3.0f, Interpolation.exp5In)
     ))
   }
 
@@ -138,9 +139,8 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     nextAnimationFrames = 300
     player.addAction(Actions.sequence(
       Actions.moveBy(40, 0, 2.0f, Interpolation.exp5In),
-      Actions.moveBy(0, 2, 0.75f, Interpolation.linear),
-      Actions.moveBy(0, -4, 0.75f, Interpolation.linear),
-      Actions.moveBy(0, 2, 0.75f, Interpolation.linear),
+      Actions.moveBy(0, 2, 1.0f, Interpolation.linear),
+      Actions.moveBy(0, -2, 1.0f, Interpolation.linear),
 //      Actions.delay(2.0f),
       Actions.moveBy(-40, 0, 1.0f, Interpolation.exp5In)
     ))
@@ -154,7 +154,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     if (nextAnimationFrames > 200) {
       gameScreen.currentBackground.modifySpeed(new Vector2((300 - nextAnimationFrames), 0))
     } else if (nextAnimationFrames == 200) {
-      gameScreen.currentBackground.setSpeed(new Vector2(2500, 0))
+      gameScreen.currentBackground.setSpeed(new Vector2(2400, 0))
     } else if (nextAnimationFrames == 90) {
     } else if (nextAnimationFrames < 70) {
       gameScreen.currentBackground.modifySpeed(new Vector2(-(70 - nextAnimationFrames), 0))
