@@ -13,6 +13,7 @@ class Planet(distanceTo: Float) extends Event {
   private var gravity: Int = 0
 
   private val distance: Float = distanceTo
+  private val eventType: String = "Test"
 
   generate()
 
@@ -31,5 +32,9 @@ class Planet(distanceTo: Float) extends Event {
 
   override def getDistance: Float = {
     distance
+  }
+
+  override def getType: String = {
+    eventType
   }
 }

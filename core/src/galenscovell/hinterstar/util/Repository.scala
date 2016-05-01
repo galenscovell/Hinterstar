@@ -3,6 +3,7 @@ package galenscovell.hinterstar.util
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import galenscovell.hinterstar.map.Sector
+import galenscovell.hinterstar.processing.{EventContainer, EventParser}
 import galenscovell.hinterstar.things.inanimate.Location
 import galenscovell.hinterstar.ui.components.GameStage
 import galenscovell.hinterstar.ui.screens.GameScreen
@@ -19,6 +20,7 @@ object Repository {
   var sectors: Array[Array[Sector]] = null
   var shapeRenderer: ShapeRenderer = null
   var playerRange: Int = 0
+  val eventParser: EventParser = new EventParser()
 
 
   /**
@@ -69,6 +71,16 @@ object Repository {
       shapeRenderer.circle(selectionX, selectionY, 20)
     }
     shapeRenderer.end()
+  }
+
+
+  /**
+    * Called from GameStage
+    */
+  def parseNextEvent: EventContainer = {
+    val nextEventType: String = currentLocation.getCurrentEvent.getType
+    val parsedEvent: EventContainer = eventParser.parse(nextEventType)
+    parsedEvent
   }
 
 

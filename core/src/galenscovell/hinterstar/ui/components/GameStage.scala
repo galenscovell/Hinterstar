@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.{Table, TextButton}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.viewport.FitViewport
+import galenscovell.hinterstar.processing.EventContainer
 import galenscovell.hinterstar.things.entity.Player
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
@@ -195,6 +196,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
       eventPanel.remove()
       eventPanel = null
     }
+    val parsedEvent: EventContainer = Repository.parseNextEvent
     eventPanel = new EventPanel(this)
     this.addActor(eventPanel)
     hideUIElements()

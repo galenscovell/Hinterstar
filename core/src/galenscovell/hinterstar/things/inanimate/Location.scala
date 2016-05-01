@@ -50,9 +50,9 @@ class Location(xIn: Int, yIn: Int, sizeIn: Int) {
 
   def getDistanceToNextEvent: Float = {
     if (currentEvent == null) {
-      events(currentEvent).getDistance()
+      events(currentEvent).getDistance
     } else {
-      events(currentEvent + 1).getDistance()
+      events(currentEvent + 1).getDistance
     }
   }
 
