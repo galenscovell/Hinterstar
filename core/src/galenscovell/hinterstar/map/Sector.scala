@@ -59,7 +59,7 @@ class Sector(x: Int, y: Int) extends Actor {
   }
 
   def becomeUnexplored(): Unit = {
-    sprite = ResourceManager.sp_test0
+    sprite = ResourceManager.spTest0
     sectorType = Constants.SECTOR_UNEXPLORED
   }
 

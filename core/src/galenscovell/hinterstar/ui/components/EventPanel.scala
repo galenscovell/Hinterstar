@@ -15,7 +15,7 @@ class EventPanel(gameStage: GameStage) extends Table {
     this.setFillParent(true)
 
     val mainTable: Table = new Table
-    mainTable.setBackground(ResourceManager.np_test4)
+    mainTable.setBackground(ResourceManager.npTest4)
 
     val titleTable: Table = createTitleTable("Event Name")
 
@@ -42,8 +42,8 @@ class EventPanel(gameStage: GameStage) extends Table {
 
   private def createTitleTable(eventTitle: String): Table = {
     val titleTable: Table = new Table
-    titleTable.setBackground(ResourceManager.np_test1)
-    val titleLabel: Label = new Label(eventTitle, ResourceManager.label_titleStyle)
+    titleTable.setBackground(ResourceManager.npTest1)
+    val titleLabel: Label = new Label(eventTitle, ResourceManager.labelTitleStyle)
     titleLabel.setAlignment(Align.center, Align.center)
     titleTable.add(titleLabel)
     titleTable
@@ -51,7 +51,7 @@ class EventPanel(gameStage: GameStage) extends Table {
 
   private def createDescriptionTable(eventDescription: String): Table = {
     val descriptionTable: Table = new Table
-    val descriptionLabel: Label = new Label(eventDescription, ResourceManager.label_detailStyle)
+    val descriptionLabel: Label = new Label(eventDescription, ResourceManager.labelDetailStyle)
     descriptionLabel.setWrap(true)
     descriptionLabel.setAlignment(Align.center, Align.left)
     descriptionTable.add(descriptionLabel).width(680)
@@ -60,30 +60,30 @@ class EventPanel(gameStage: GameStage) extends Table {
 
   private def createOptionTable: Table = {
     val optionTable: Table = new Table
-    optionTable.setBackground(ResourceManager.np_test1)
+    optionTable.setBackground(ResourceManager.npTest1)
     val debugButton1: TextButton = new TextButton(
-      "Choose to continue the game -- pick this (you have a brain)",
-      ResourceManager.button_eventStyle
+      "Choose to continue (pick this)",
+      ResourceManager.buttonEventStyle
     )
     debugButton1.getLabel.setWrap(true)
     val debugButton2: TextButton = new TextButton(
-      "Don't choose to continue the game (useless button)",
-      ResourceManager.button_eventStyle
+      "Don't choose to continue (useless button)",
+      ResourceManager.buttonEventStyle
     )
     debugButton2.getLabel.setWrap(true)
     val debugButton3: TextButton = new TextButton(
-      "Don't choose to continue the game (useless button)",
-      ResourceManager.button_eventStyle
+      "Don't choose to continue (useless button)",
+      ResourceManager.buttonEventStyle
     )
     debugButton3.getLabel.setWrap(true)
     val debugButton4: TextButton = new TextButton(
-      "Don't choose to continue the game (useless button)",
-      ResourceManager.button_eventStyle
+      "Don't choose to continue (useless button)",
+      ResourceManager.buttonEventStyle
     )
     debugButton4.getLabel.setWrap(true)
     val debugButton5: TextButton = new TextButton(
-      "Don't choose to continue the game (useless button)",
-      ResourceManager.button_eventStyle
+      "Don't choose to continue (useless button)",
+      ResourceManager.buttonEventStyle
     )
     debugButton5.getLabel.setWrap(true)
 

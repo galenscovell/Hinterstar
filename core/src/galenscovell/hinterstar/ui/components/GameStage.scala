@@ -32,7 +32,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
-    this.eventButton = new TextButton("Next", ResourceManager.button_mapStyle0)
+    this.eventButton = new TextButton("Next", ResourceManager.buttonMapStyle0)
     eventButton.getLabelCell.width(80)
     eventButton.invalidate()
     eventButton.addListener(new ClickListener() {

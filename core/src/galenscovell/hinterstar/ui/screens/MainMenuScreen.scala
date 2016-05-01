@@ -19,11 +19,11 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
     val titleTable: Table = new Table
-    val titleLabel: Label = new Label("Game Name", ResourceManager.label_titleStyle)
+    val titleLabel: Label = new Label("Game Name", ResourceManager.labelTitleStyle)
     titleLabel.setAlignment(Align.center, Align.center)
     titleTable.add(titleLabel).width(400).height(80)
     val buttonTable: Table = new Table
-    val newGameButton: TextButton = new TextButton("New", ResourceManager.button_menuStyle)
+    val newGameButton: TextButton = new TextButton("New", ResourceManager.buttonMenuStyle)
     newGameButton.getLabel.setAlignment(Align.bottom, Align.center)
     newGameButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
@@ -31,19 +31,19 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
         stage.getRoot.addAction(Actions.sequence(Actions.fadeOut(0.75f), toGameScreenAction))
       }
     })
-    val continueGameButton: TextButton = new TextButton("Load", ResourceManager.button_menuStyle)
+    val continueGameButton: TextButton = new TextButton("Load", ResourceManager.buttonMenuStyle)
     continueGameButton.getLabel.setAlignment(Align.bottom, Align.center)
     continueGameButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
       }
     })
-    val settingButton: TextButton = new TextButton("Settings", ResourceManager.button_menuStyle)
+    val settingButton: TextButton = new TextButton("Settings", ResourceManager.buttonMenuStyle)
     settingButton.getLabel.setAlignment(Align.bottom, Align.center)
     settingButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
       }
     })
-    val quitButton: TextButton = new TextButton("Quit", ResourceManager.button_menuStyle)
+    val quitButton: TextButton = new TextButton("Quit", ResourceManager.buttonMenuStyle)
     quitButton.getLabel.setAlignment(Align.bottom, Align.center)
     quitButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {

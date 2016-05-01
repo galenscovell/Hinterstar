@@ -17,9 +17,9 @@ class NavButtons(stage: GameStage) extends Table {
 
   private def construct(): Unit = {
     this.align(Align.center)
-    this.mapButton = new TextButton("Map", ResourceManager.button_mapStyle0)
-    this.teamButton = new TextButton("Team", ResourceManager.button_mapStyle1)
-    this.shipButton = new TextButton("Ship", ResourceManager.button_mapStyle2)
+    this.mapButton = new TextButton("Map", ResourceManager.buttonMapStyle0)
+    this.teamButton = new TextButton("Team", ResourceManager.buttonMapStyle1)
+    this.shipButton = new TextButton("Ship", ResourceManager.buttonMapStyle2)
     mapButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
         gameStage.togglePanel(0)

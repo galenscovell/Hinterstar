@@ -18,21 +18,21 @@ class DetailTable(stage: GameStage) extends Table {
 
 
   private def construct(): Unit = {
-    this.setBackground(ResourceManager.np_test4)
+    this.setBackground(ResourceManager.npTest4)
     val mainTable: Table = new Table
 
     val labelTable: Table = new Table
-    labelTable.setBackground(ResourceManager.np_test1)
-    this.dateLabel = new Label(dateAsString, ResourceManager.label_mediumStyle)
+    labelTable.setBackground(ResourceManager.npTest1)
+    this.dateLabel = new Label(dateAsString, ResourceManager.labelMediumStyle)
     dateLabel.setAlignment(Align.center, Align.left)
-    this.locationLabel = new Label("Sol Sector", ResourceManager.label_mediumStyle)
+    this.locationLabel = new Label("Sol Sector", ResourceManager.labelMediumStyle)
     locationLabel.setAlignment(Align.center, Align.right)
 
     labelTable.add(dateLabel).width(384).left
     labelTable.add(locationLabel).width(384).right
 
     this.infoTable = new Table
-    infoTable.setBackground(ResourceManager.np_test1)
+    infoTable.setBackground(ResourceManager.npTest1)
 
     mainTable.add(infoTable).expand.fill.pad(6)
     mainTable.row
