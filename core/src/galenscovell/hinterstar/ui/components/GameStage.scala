@@ -197,7 +197,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
       eventPanel = null
     }
     val parsedEvent: EventContainer = Repository.parseNextEvent
-    eventPanel = new EventPanel(this)
+    eventPanel = new EventPanel(this, parsedEvent)
     this.addActor(eventPanel)
     hideUIElements()
   }

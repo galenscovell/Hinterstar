@@ -2,31 +2,34 @@ package galenscovell.hinterstar.ui.components
 
 import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, TextButton}
 import com.badlogic.gdx.utils.Align
+import galenscovell.hinterstar.processing.EventContainer
 import galenscovell.hinterstar.util.ResourceManager
 
+import scala.collection.mutable.ArrayBuffer
 
-class EventPanel(gameStage: GameStage) extends Table {
+
+class EventPanel(gameStage: GameStage, eventContainer: EventContainer) extends Table {
   private final val root: GameStage = gameStage
+  private final val container: EventContainer = eventContainer
+  private var buttons: ArrayBuffer[TextButton] = ArrayBuffer()
 
   construct()
+
+  // Event handling --
+  //  Location entered: events generated
+  //  Next animation completed: event panel created using parsed event data
+  //  Event choice selected: event resolved, location moves event pointer to next event
 
 
   def construct(): Unit = {
     this.setFillParent(true)
-
     val mainTable: Table = new Table
     mainTable.setBackground(ResourceManager.npTest4)
 
-    val titleTable: Table = createTitleTable("Event Name")
+    val titleTable: Table = createTitleTable(container.name)
 
     val centerTable: Table = new Table
-    val descriptionTable: Table = createDescriptionTable(
-      """This is the event text describing exactly in painstaking detail
-        |what this event is all about. It can be multiple lines and sentences long
-        |which should be taken into account. Scala has some convenient ways of
-        |dealing with such long strings, and libGDX shouldn't have any problem
-        |with it.""".stripMargin.replaceAll("\n", " ")
-    )
+    val descriptionTable: Table = createDescriptionTable(container.description)
     val optionTable: Table = createOptionTable
 
     centerTable.add(descriptionTable).height(100).expand.fill.top
@@ -61,41 +64,20 @@ class EventPanel(gameStage: GameStage) extends Table {
   private def createOptionTable: Table = {
     val optionTable: Table = new Table
     optionTable.setBackground(ResourceManager.npTest1)
-    val debugButton1: TextButton = new TextButton(
-      "Choose to continue (pick this)",
-      ResourceManager.buttonEventStyle
-    )
-    debugButton1.getLabel.setWrap(true)
-    val debugButton2: TextButton = new TextButton(
-      "Don't choose to continue (useless button)",
-      ResourceManager.buttonEventStyle
-    )
-    debugButton2.getLabel.setWrap(true)
-    val debugButton3: TextButton = new TextButton(
-      "Don't choose to continue (useless button)",
-      ResourceManager.buttonEventStyle
-    )
-    debugButton3.getLabel.setWrap(true)
-    val debugButton4: TextButton = new TextButton(
-      "Don't choose to continue (useless button)",
-      ResourceManager.buttonEventStyle
-    )
-    debugButton4.getLabel.setWrap(true)
-    val debugButton5: TextButton = new TextButton(
-      "Don't choose to continue (useless button)",
-      ResourceManager.buttonEventStyle
-    )
-    debugButton5.getLabel.setWrap(true)
 
-    optionTable.add(debugButton1).width(700).height(50).expand.fill.top.padTop(2).padBottom(2)
-    optionTable.row
-    optionTable.add(debugButton2).width(700).height(50).expand.fill.top.padTop(2).padBottom(2)
-    optionTable.row
-    optionTable.add(debugButton3).width(700).height(50).expand.fill.top.padTop(2).padBottom(2)
-    optionTable.row
-    optionTable.add(debugButton4).width(700).height(50).expand.fill.top.padTop(2).padBottom(2)
-    optionTable.row
-    optionTable.add(debugButton5).width(700).height(50).expand.fill.top.padTop(2).padBottom(2)
+    for (choice <- container.choices) {
+      val choiceText: String = choice.get("choice-text") match {
+        case Some(a) => s"$a"
+        case None    => "ERROR: Choice text not found"
+      }
+      val choiceButton: TextButton = new TextButton(choiceText, ResourceManager.buttonEventStyle)
+      choiceButton.getLabel.setAlignment(Align.left, Align.left)
+      choiceButton.getLabel.setWrap(true)
+      choiceButton.getLabelCell.padLeft(20).padRight(20)
+      optionTable.add(choiceButton).width(700).height(60).expand.fill.top.padTop(2).padBottom(2)
+      optionTable.row
+    }
+
     optionTable
   }
 }
