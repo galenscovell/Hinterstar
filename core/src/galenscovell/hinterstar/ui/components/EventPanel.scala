@@ -5,13 +5,10 @@ import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.processing.EventContainer
 import galenscovell.hinterstar.util.ResourceManager
 
-import scala.collection.mutable.ArrayBuffer
-
 
 class EventPanel(gameStage: GameStage, eventContainer: EventContainer) extends Table {
   private final val root: GameStage = gameStage
   private final val container: EventContainer = eventContainer
-  private var buttons: ArrayBuffer[TextButton] = ArrayBuffer()
 
   construct()
 
