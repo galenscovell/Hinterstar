@@ -1,5 +1,5 @@
 {
-  "test0": {
+  "Test0": {
     "description": "TEST-0 | This is the event text describing in detail what this event is all about. Each event has a given amount of choices, each with their own text, requirement and probability of success. Success avoids penalty and in rare cases provides an extra reward.",
     "choices": [
       {
@@ -44,8 +44,188 @@
       }
     ]
   },
-  "test1": {
+  "Test1": {
     "description": "TEST-1 | This is the event text describing in detail what this event is all about. Each event has a given amount of choices, each with their own text, requirement and probability of success. Success avoids penalty and in rare cases provides an extra reward.",
+    "choices": [
+      {
+        "choice-text": "Choice-0: no requirement, 100% success chance, no reward",
+        "choice-requirement": null,
+        "choice-chance": "100",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "0",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      },
+      {
+        "choice-text": "Choice-1: no requirement, 70% success chance, low chance of reward",
+        "choice-requirement": null,
+        "choice-chance": "70",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "30",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      },
+      {
+        "choice-text": "Choice-2: no requirement, 30% success chance, high chance of reward",
+        "choice-requirement": null,
+        "choice-chance": "30",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "70",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      },
+      {
+        "choice-text": "Choice-3: requirement, 100% success chance, low chance of reward",
+        "choice-requirement": null,
+        "choice-chance": "100",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "30",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      }
+    ]
+  },
+  "Test2": {
+    "description": "TEST-2 | This is the event text describing in detail what this event is all about. Each event has a given amount of choices, each with their own text, requirement and probability of success. Success avoids penalty and in rare cases provides an extra reward.",
+    "choices": [
+      {
+        "choice-text": "Choice-0: no requirement, 100% success chance, no reward",
+        "choice-requirement": null,
+        "choice-chance": "100",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "0",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      },
+      {
+        "choice-text": "Choice-1: no requirement, 70% success chance, low chance of reward",
+        "choice-requirement": null,
+        "choice-chance": "70",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "30",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      },
+      {
+        "choice-text": "Choice-2: no requirement, 30% success chance, high chance of reward",
+        "choice-requirement": null,
+        "choice-chance": "30",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "70",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      },
+      {
+        "choice-text": "Choice-3: requirement, 100% success chance, low chance of reward",
+        "choice-requirement": null,
+        "choice-chance": "100",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "30",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      }
+    ]
+  },
+  "Test3": {
+    "description": "TEST-3 | This is the event text describing in detail what this event is all about. Each event has a given amount of choices, each with their own text, requirement and probability of success. Success avoids penalty and in rare cases provides an extra reward.",
+    "choices": [
+      {
+        "choice-text": "Choice-0: no requirement, 100% success chance, no reward",
+        "choice-requirement": null,
+        "choice-chance": "100",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "0",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      },
+      {
+        "choice-text": "Choice-1: no requirement, 70% success chance, low chance of reward",
+        "choice-requirement": null,
+        "choice-chance": "70",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "30",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      },
+      {
+        "choice-text": "Choice-2: no requirement, 30% success chance, high chance of reward",
+        "choice-requirement": null,
+        "choice-chance": "30",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "70",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      },
+      {
+        "choice-text": "Choice-3: requirement, 100% success chance, low chance of reward",
+        "choice-requirement": null,
+        "choice-chance": "100",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "30",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      }
+    ]
+  },
+  "Test4": {
+    "description": "TEST-4 | This is the event text describing in detail what this event is all about. Each event has a given amount of choices, each with their own text, requirement and probability of success. Success avoids penalty and in rare cases provides an extra reward.",
+    "choices": [
+      {
+        "choice-text": "Choice-0: no requirement, 100% success chance, no reward",
+        "choice-requirement": null,
+        "choice-chance": "100",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "0",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      },
+      {
+        "choice-text": "Choice-1: no requirement, 70% success chance, low chance of reward",
+        "choice-requirement": null,
+        "choice-chance": "70",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "30",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      },
+      {
+        "choice-text": "Choice-2: no requirement, 30% success chance, high chance of reward",
+        "choice-requirement": null,
+        "choice-chance": "30",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "70",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      },
+      {
+        "choice-text": "Choice-3: requirement, 100% success chance, low chance of reward",
+        "choice-requirement": null,
+        "choice-chance": "100",
+        "success-text": "This is the text displayed on event success.",
+        "success-reward": null,
+        "extra-chance": "30",
+        "failure-text": "This is the text displayed when an event is failed.",
+        "failure-penalty": null
+      }
+    ]
+  },
+  "Test5": {
+    "description": "TEST-5 | This is the event text describing in detail what this event is all about. Each event has a given amount of choices, each with their own text, requirement and probability of success. Success avoids penalty and in rare cases provides an extra reward.",
     "choices": [
       {
         "choice-text": "Choice-0: no requirement, 100% success chance, no reward",

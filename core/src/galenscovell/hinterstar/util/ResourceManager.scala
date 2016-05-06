@@ -1,6 +1,5 @@
 package galenscovell.hinterstar.util
 
-import com.badlogic.gdx.Preferences
 import com.badlogic.gdx.assets.AssetManager
 import com.badlogic.gdx.assets.loaders.FileHandleResolver
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver
@@ -39,7 +38,6 @@ object ResourceManager {
   var spTest3: Sprite = null
   var spTest4: Sprite = null
   var currentMarker: CurrentLocationAnimation = null
-  var prefs: Preferences = null
 
 
   def load(): Unit = {
@@ -62,12 +60,6 @@ object ResourceManager {
     loadButtonStyles()
     loadSprites()
     loadAnimations()
-
-    // Load user preferences
-//    prefs = Gdx.app.getPreferences("trail_settings");
-//    prefs.putBoolean("sfx", true);
-//    prefs.putBoolean("music", true);
-//    prefs.flush();
   }
 
   def dispose(): Unit = {
