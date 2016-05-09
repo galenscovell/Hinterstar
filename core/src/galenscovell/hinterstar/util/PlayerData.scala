@@ -7,7 +7,7 @@ object PlayerData {
   // Windows: %UserProfile%/.prefs/My Preferences
   // Linux and OSX: ~/.prefs/My Preferences
   // Android: System SharedPreferences, survives app updates, deleted when uninstalled
-  var prefs: Preferences = null
+  private var prefs: Preferences = null
 
 
   def init(): Unit = {

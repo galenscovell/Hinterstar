@@ -18,17 +18,22 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     this.stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch)
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
+
     val titleTable: Table = new Table
     val titleLabel: Label = new Label("Game Name", ResourceManager.labelTitleStyle)
     titleLabel.setAlignment(Align.center, Align.center)
-    titleTable.add(titleLabel).width(400).height(80)
+    titleTable.add(titleLabel).width(600).height(80)
+
     val buttonTable: Table = new Table
     val newGameButton: TextButton = new TextButton("New", ResourceManager.buttonMenuStyle)
     newGameButton.getLabel.setAlignment(Align.bottom, Align.center)
     newGameButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
         root.newGame()
-        stage.getRoot.addAction(Actions.sequence(Actions.fadeOut(0.75f), toGameScreenAction))
+        stage.getRoot.addAction(Actions.sequence(
+          Actions.fadeOut(0.5f),
+          toStartScreenAction)
+        )
       }
     })
     val continueGameButton: TextButton = new TextButton("Load", ResourceManager.buttonMenuStyle)
@@ -47,18 +52,27 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     quitButton.getLabel.setAlignment(Align.bottom, Align.center)
     quitButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
-        stage.getRoot.addAction(Actions.sequence(Actions.fadeOut(0.5f), quitGameAction))
+        stage.getRoot.addAction(Actions.sequence(
+          Actions.fadeOut(0.5f),
+          quitGameAction)
+        )
       }
     })
-    buttonTable.add(newGameButton).width(180).height(380).padRight(20)
-    buttonTable.add(continueGameButton).width(180).height(380).padRight(20)
-    buttonTable.add(settingButton).width(180).height(380).padRight(20)
-    buttonTable.add(quitButton).width(180).height(380)
-    mainTable.add(titleTable).width(760).height(80).center.padBottom(8)
+
+    buttonTable.add(newGameButton).width(180).height(360).padRight(20)
+    buttonTable.add(continueGameButton).width(180).height(360).padRight(20)
+    buttonTable.add(settingButton).width(180).height(360).padRight(20)
+    buttonTable.add(quitButton).width(180).height(360)
+
+    mainTable.add(titleTable).width(760).height(80).center.pad(8)
     mainTable.row
-    mainTable.add(buttonTable).width(760).height(400).center
+    mainTable.add(buttonTable).width(760).height(360).center.pad(8)
+
     stage.addActor(mainTable)
-    mainTable.addAction(Actions.sequence(Actions.fadeOut(0), Actions.fadeIn(0.5f)))
+    mainTable.addAction(Actions.sequence(
+      Actions.fadeOut(0),
+      Actions.fadeIn(0.5f))
+    )
   }
 
 
@@ -66,6 +80,12 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   /**
     * Custom Scene2D Actions
     */
+  private[screens] var toStartScreenAction: Action = new Action() {
+    def act(delta: Float): Boolean = {
+      root.setScreen(root.startScreen)
+      true
+    }
+  }
   private[screens] var toGameScreenAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       root.setScreen(root.gameScreen)
