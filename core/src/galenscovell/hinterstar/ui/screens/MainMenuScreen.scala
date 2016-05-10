@@ -20,15 +20,17 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     mainTable.setFillParent(true)
 
     val titleTable: Table = new Table
-    val titleLabel: Label = new Label("Game Name", ResourceManager.labelTitleStyle)
-    titleLabel.setAlignment(Align.center, Align.center)
-    titleTable.add(titleLabel).width(600).height(80)
+    val titleLabel: Label = new Label("Hinterstar", ResourceManager.labelTitleStyle)
+    titleLabel.setAlignment(Align.center, Align.left)
+    titleTable.add(titleLabel).width(760).height(60)
 
     val buttonTable: Table = new Table
-    val newGameButton: TextButton = new TextButton("New", ResourceManager.buttonMenuStyle)
-    newGameButton.getLabel.setAlignment(Align.bottom, Align.center)
+    val newGameTable: Table = new Table
+    newGameTable.setBackground(ResourceManager.npTest4)
+    val newGameButton: TextButton = new TextButton("New Game", ResourceManager.buttonMenuStyle)
+    newGameButton.getLabel.setAlignment(Align.center, Align.center)
     newGameButton.addListener(new ClickListener() {
-      override def clicked(event: InputEvent, x: Float, y: Float) {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         root.newGame()
         stage.getRoot.addAction(Actions.sequence(
           Actions.fadeOut(0.5f),
@@ -36,22 +38,30 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
         )
       }
     })
-    val continueGameButton: TextButton = new TextButton("Load", ResourceManager.buttonMenuStyle)
-    continueGameButton.getLabel.setAlignment(Align.bottom, Align.center)
+    val continueGameTable: Table = new Table
+    continueGameTable.setBackground(ResourceManager.npTest4)
+    val continueGameButton: TextButton = new TextButton("Continue Game", ResourceManager.buttonMenuStyle)
+    continueGameButton.getLabel.setAlignment(Align.center, Align.center)
     continueGameButton.addListener(new ClickListener() {
-      override def clicked(event: InputEvent, x: Float, y: Float) {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+
       }
     })
-    val settingButton: TextButton = new TextButton("Settings", ResourceManager.buttonMenuStyle)
-    settingButton.getLabel.setAlignment(Align.bottom, Align.center)
+    val settingTable: Table = new Table
+    settingTable.setBackground(ResourceManager.npTest4)
+    val settingButton: TextButton = new TextButton("Preferences", ResourceManager.buttonMenuStyle)
+    settingButton.getLabel.setAlignment(Align.center, Align.center)
     settingButton.addListener(new ClickListener() {
-      override def clicked(event: InputEvent, x: Float, y: Float) {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+
       }
     })
-    val quitButton: TextButton = new TextButton("Quit", ResourceManager.buttonMenuStyle)
-    quitButton.getLabel.setAlignment(Align.bottom, Align.center)
+    val quitTable: Table = new Table
+    quitTable.setBackground(ResourceManager.npTest4)
+    val quitButton: TextButton = new TextButton("Close", ResourceManager.buttonMenuStyle)
+    quitButton.getLabel.setAlignment(Align.center, Align.center)
     quitButton.addListener(new ClickListener() {
-      override def clicked(event: InputEvent, x: Float, y: Float) {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         stage.getRoot.addAction(Actions.sequence(
           Actions.fadeOut(0.5f),
           quitGameAction)
@@ -59,14 +69,28 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       }
     })
 
-    buttonTable.add(newGameButton).width(180).height(360).padRight(20)
-    buttonTable.add(continueGameButton).width(180).height(360).padRight(20)
-    buttonTable.add(settingButton).width(180).height(360).padRight(20)
-    buttonTable.add(quitButton).width(180).height(360)
+    val detailTable: Table = new Table
+    val detailLabel: Label = new Label(s"v0.1a 2016 Galen Scovell", ResourceManager.labelDetailStyle)
+    detailLabel.setAlignment(Align.center, Align.right)
+    detailTable.add(detailLabel).width(760).height(40)
 
-    mainTable.add(titleTable).width(760).height(80).center.pad(8)
+    buttonTable.add(newGameButton).width(550).height(90).pad(6).left
+    buttonTable.add(newGameTable).width(212).height(90).expand.pad(6).right
+    buttonTable.row
+    buttonTable.add(continueGameTable).width(212).height(90).expand.pad(6).left
+    buttonTable.add(continueGameButton).width(550).height(90).pad(6).right
+    buttonTable.row
+    buttonTable.add(settingButton).width(550).height(90).pad(6).left
+    buttonTable.add(settingTable).width(212).height(90).expand.pad(6).right
+    buttonTable.row
+    buttonTable.add(quitTable).width(212).height(90).expand.pad(6).left
+    buttonTable.add(quitButton).width(550).height(90).pad(6).right
+
+    mainTable.add(titleTable).width(780).height(60).expand.center.pad(6)
     mainTable.row
-    mainTable.add(buttonTable).width(760).height(360).center.pad(8)
+    mainTable.add(buttonTable).width(780).height(380).expand.center.pad(6)
+    mainTable.row
+    mainTable.add(detailTable).width(780).height(40).expand.center.pad(6)
 
     stage.addActor(mainTable)
     mainTable.addAction(Actions.sequence(

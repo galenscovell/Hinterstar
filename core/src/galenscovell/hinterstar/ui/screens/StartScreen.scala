@@ -49,7 +49,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     titleLabel.setAlignment(Align.center, Align.center)
     val returnButton: TextButton = new TextButton("Return", ResourceManager.buttonMenuStyle)
     returnButton.addListener(new ClickListener() {
-      override def clicked(event: InputEvent, x: Float, y: Float) {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         stage.getRoot.addAction(Actions.sequence(
           Actions.fadeOut(0.5f),
           toMainMenuAction)
