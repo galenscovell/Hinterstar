@@ -59,7 +59,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     stage.draw()
     // Draw map panel shapes
     if (mapOpen) {
-      Repository.drawShapes
+      Repository.drawShapes()
     }
   }
 
@@ -82,7 +82,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   def toggleMap(): Unit = {
     mapOpen = !mapOpen
     if (mapOpen) {
-      Repository.setTargetsInRange
+      Repository.setTargetsInRange()
     }
   }
 

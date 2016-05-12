@@ -64,7 +64,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
         mapPanel.addAction(Actions.sequence(
           mapButtonAction,
           Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
-          Actions.removeActor
+          Actions.removeActor()
         ))
       }
       else if (num == 0) {
@@ -81,7 +81,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
         teamPanel.addAction(Actions.sequence(
           teamButtonAction,
           Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
-          Actions.removeActor
+          Actions.removeActor()
         ))
       }
       else if (num == 1) {
@@ -98,7 +98,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
         shipPanel.addAction(Actions.sequence(
           shipButtonAction,
           Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
-          Actions.removeActor
+          Actions.removeActor()
         ))
       }
       else if (num == 2) {
@@ -209,7 +209,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     */
   private[components] var mapButtonAction: Action = new Action() {
     def act(delta: Float): Boolean = {
-      gameScreen.toggleMap
+      gameScreen.toggleMap()
       true
     }
   }

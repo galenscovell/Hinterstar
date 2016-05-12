@@ -1,6 +1,5 @@
 package galenscovell.hinterstar.ui.screens
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui._
@@ -15,7 +14,7 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
 
   protected override def create(): Unit = {
-    this.stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch)
+    stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch)
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
@@ -31,9 +30,9 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     newGameButton.getLabel.setAlignment(Align.center, Align.center)
     newGameButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        root.newGame()
+        root.createStartScreen()
         stage.getRoot.addAction(Actions.sequence(
-          Actions.fadeOut(0.5f),
+          Actions.fadeOut(0.3f),
           toStartScreenAction)
         )
       }
@@ -63,7 +62,7 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     quitButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         stage.getRoot.addAction(Actions.sequence(
-          Actions.fadeOut(0.5f),
+          Actions.fadeOut(0.3f),
           quitGameAction)
         )
       }
@@ -95,7 +94,7 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     stage.addActor(mainTable)
     mainTable.addAction(Actions.sequence(
       Actions.fadeOut(0),
-      Actions.fadeIn(0.5f))
+      Actions.fadeIn(0.3f))
     )
   }
 
@@ -110,15 +109,9 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       true
     }
   }
-  private[screens] var toGameScreenAction: Action = new Action() {
-    def act(delta: Float): Boolean = {
-      root.setScreen(root.gameScreen)
-      true
-    }
-  }
   private[screens] var quitGameAction: Action = new Action() {
     def act(delta: Float): Boolean = {
-      Gdx.app.exit()
+      root.quitGame()
       true
     }
   }

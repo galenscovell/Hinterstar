@@ -53,7 +53,7 @@ object Repository {
     shapeRenderer.circle(centerX, centerY, radius)
     shapeRenderer.circle(centerX, centerY, 20)
 
-    if (locationsInRange != null && locationsInRange.size > 0) {
+    if (locationsInRange != null && locationsInRange.nonEmpty) {
       shapeRenderer.setColor(0.93f, 0.94f, 0.95f, 0.6f)
       for (location <- locationsInRange) {
         shapeRenderer.line(

@@ -41,7 +41,7 @@ class MapGenerator(maxLocations: Int, padSize: Int) {
           val centerX: Int = (location.size / 2) + location.x
           val centerY: Int = (location.size / 2) + location.y
           location.setSector(sectors(centerY)(centerX))
-          this.locations += location
+          locations += location
         }
       }
       attempts -= 1
@@ -50,9 +50,9 @@ class MapGenerator(maxLocations: Int, padSize: Int) {
 
   private def doesCollide(location: Location, ignore: Int): Boolean = {
     // Return if target location overlaps already placed location
-    for (i <- this.locations.indices) {
+    for (i <- locations.indices) {
       if (i != ignore) {
-        val check: Location = this.locations(i)
+        val check: Location = locations(i)
         if (!((location.x + location.size < check.x - 2) || (location.x - 2 > check.x + check.size) || (location.y + location.size < check.y - 2) || (location.y - 2 > check.y + check.size))) {
           return true
         }

@@ -1,7 +1,7 @@
 package galenscovell.hinterstar
 
-import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.{Game, Gdx}
 import galenscovell.hinterstar.ui.screens._
 import galenscovell.hinterstar.util.ResourceManager
 
@@ -15,28 +15,47 @@ class Hinterstar extends Game {
 
 
   def create(): Unit =  {
-    this.spriteBatch = new SpriteBatch
-    this.loadingScreen = new LoadScreen(this)
-    this.mainMenuScreen = new MainMenuScreen(this)
-    this.startScreen = new StartScreen(this)
+    spriteBatch = new SpriteBatch
+    loadingScreen = new LoadScreen(this)
+    mainMenuScreen = new MainMenuScreen(this)
     setScreen(loadingScreen)
   }
 
   override def dispose(): Unit =  {
     loadingScreen.dispose()
     mainMenuScreen.dispose()
-    startScreen.dispose()
+    if (startScreen != null) {
+      startScreen.dispose()
+    }
     if (gameScreen != null) {
       gameScreen.dispose()
     }
     ResourceManager.dispose()
   }
 
-  def newGame(): Unit =  {
-//    this.gameScreen = new GameScreen(this)
+  def createStartScreen(): Unit = {
+    if (startScreen != null) {
+      startScreen.dispose()
+    }
+    startScreen = new StartScreen(this)
+  }
+
+  def createGameScreen(): Unit =  {
+    if (gameScreen != null) {
+      gameScreen.dispose()
+    }
+    gameScreen = new GameScreen(this)
   }
 
   def loadGame(): Unit = {
-//    this.gameScreen = new GameScreen(this)
+
+  }
+
+  def createPreferenceScreen(): Unit =  {
+
+  }
+
+  def quitGame(): Unit = {
+    Gdx.app.exit()
   }
 }

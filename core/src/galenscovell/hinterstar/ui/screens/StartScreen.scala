@@ -7,7 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent, Stage}
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
+import galenscovell.hinterstar.ui.components.{ResourceSelectionPanel, ShipSelectionPanel, TeamSelectionPanel}
 import galenscovell.hinterstar.util.{Constants, ResourceManager}
+
+import scala.collection.mutable.ArrayBuffer
 
 
 class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
@@ -28,8 +31,6 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   //    Different resources cost different amounts and take up storage
   //    Food, water, fuel, spare parts,
   //    Resources are found throughout game
-
-  // 'Start Journey' or the like is displayed once all panels are finished
   private var teamPanel: Table = null
   private var shipPanel: Table = null
   private var resourcePanel: Table = null
@@ -37,9 +38,9 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
   protected override def create(): Unit = {
     this.stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch)
-    teamPanel = constructTeamPanel
-    shipPanel = constructShipPanel
-    resourcePanel = constructResourcePanel
+    teamPanel = new TeamSelectionPanel
+    shipPanel = new ShipSelectionPanel
+    resourcePanel = new ResourceSelectionPanel
 
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
@@ -51,12 +52,21 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     returnButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         stage.getRoot.addAction(Actions.sequence(
-          Actions.fadeOut(0.5f),
+          Actions.fadeOut(0.3f),
           toMainMenuAction)
         )
       }
     })
     val embarkButton: TextButton = new TextButton("Embark", ResourceManager.buttonMenuStyle)
+    embarkButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        root.createGameScreen()
+        stage.getRoot.addAction(Actions.sequence(
+          Actions.fadeOut(0.3f),
+          toGameScreenAction)
+        )
+      }
+    })
     titleTable.add(returnButton).width(200).height(50)
     titleTable.add(titleLabel).width(375).height(50)
     titleTable.add(embarkButton).width(200).height(50)
@@ -68,39 +78,9 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     stage.addActor(mainTable)
     mainTable.addAction(Actions.sequence(
       Actions.fadeOut(0),
-      Actions.fadeIn(0.5f))
+      Actions.fadeIn(0.3f))
     )
   }
-
-  private def constructTeamPanel: Table = {
-    val teamPanel: Table = new Table
-
-    val leftTable: Table = new Table
-    leftTable.setBackground(ResourceManager.npTest1)
-
-    val rightTable: Table = new Table
-    rightTable.setBackground(ResourceManager.npTest1)
-
-    val nextButton: TextButton = new TextButton(">", ResourceManager.buttonMenuStyle)
-
-    teamPanel.add(leftTable).width(340).height(400).pad(4)
-    teamPanel.add(rightTable).width(340).height(400).pad(4)
-    teamPanel.add(nextButton).width(80).height(400).pad(4)
-    teamPanel
-  }
-
-  private def constructShipPanel: Table = {
-    val shipPanel: Table = new Table
-
-    shipPanel
-  }
-
-  private def constructResourcePanel: Table = {
-    val resourcePanel: Table = new Table
-
-    resourcePanel
-  }
-
 
   /**
     * Custom Scene2D Actions
@@ -108,6 +88,12 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   private[screens] var toMainMenuAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       root.setScreen(root.mainMenuScreen)
+      true
+    }
+  }
+  private[screens] var toGameScreenAction: Action = new Action() {
+    def act(delta: Float): Boolean = {
+      root.setScreen(root.gameScreen)
       true
     }
   }
