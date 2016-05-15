@@ -106,6 +106,22 @@ test-np-4
   orig: 24, 24
   offset: 0, 0
   index: -1
+text-field-bg-np
+  rotate: false
+  xy: 803, 849
+  size: 24, 24
+  split: 0, 0, 0, 0
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+font-cursor-np
+  rotate: false
+  xy: 837, 883
+  size: 3, 24
+  split: 0, 0, 0, 0
+  orig: 3, 24
+  offset: 0, 0
+  index: -1
 
 uiAtlas2.png
 format: RGBA8888

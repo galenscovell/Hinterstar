@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d._
 import com.badlogic.gdx.graphics.g2d.freetype._
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
 import galenscovell.hinterstar.graphics.CurrentLocationAnimation
 
@@ -16,6 +17,7 @@ import galenscovell.hinterstar.graphics.CurrentLocationAnimation
 object ResourceManager {
   val assetManager: AssetManager = new AssetManager
   var uiAtlas: TextureAtlas = null
+  var textFieldStyle: TextFieldStyle = null
   var labelTinyStyle: LabelStyle = null
   var labelMediumStyle: LabelStyle = null
   var labelDetailStyle: LabelStyle = null
@@ -26,6 +28,8 @@ object ResourceManager {
   var npTest2: NinePatchDrawable = null
   var npTest3: NinePatchDrawable = null
   var npTest4: NinePatchDrawable = null
+  var npFontCursor: NinePatchDrawable = null
+  var npTextFieldBg: NinePatchDrawable = null
   var buttonMenuStyle: TextButtonStyle = null
   var buttonMapStyle0: TextButtonStyle = null
   var buttonMapStyle1: TextButtonStyle = null
@@ -60,6 +64,7 @@ object ResourceManager {
     loadButtonStyles()
     loadSprites()
     loadAnimations()
+    loadTextField()
   }
 
   def dispose(): Unit = {
@@ -89,6 +94,8 @@ object ResourceManager {
     npTest2 = new NinePatchDrawable(uiAtlas.createPatch("test-np-2"))
     npTest3 = new NinePatchDrawable(uiAtlas.createPatch("test-np-3"))
     npTest4 = new NinePatchDrawable(uiAtlas.createPatch("test-np-4"))
+    npFontCursor = new NinePatchDrawable(uiAtlas.createPatch("font-cursor-np"))
+    npTextFieldBg = new NinePatchDrawable(uiAtlas.createPatch("text-field-bg-np"))
   }
 
   private def loadLabelStyles(): Unit = {
@@ -101,15 +108,15 @@ object ResourceManager {
 
   private def loadButtonStyles(): Unit = {
     buttonMenuStyle = new TextButtonStyle(npTest4, npTest3, npTest4, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
-    buttonMenuStyle.pressedOffsetY = -1
+    buttonMenuStyle.pressedOffsetY = -2
     buttonMapStyle0 = new TextButtonStyle(npTest1, npTest4, npTest4, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
-    buttonMapStyle0.pressedOffsetY = -1
+    buttonMapStyle0.pressedOffsetY = -2
     buttonMapStyle1 = new TextButtonStyle(npTest1, npTest3, npTest3, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
-    buttonMapStyle1.pressedOffsetY = -1
+    buttonMapStyle1.pressedOffsetY = -2
     buttonMapStyle2 = new TextButtonStyle(npTest1, npTest2, npTest2, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
-    buttonMapStyle2.pressedOffsetY = -1
+    buttonMapStyle2.pressedOffsetY = -2
     buttonEventStyle = new TextButtonStyle(npTest1, npTest2, npTest2, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
-    buttonEventStyle.pressedOffsetY = -1
+    buttonEventStyle.pressedOffsetY = -2
   }
 
   private def loadSprites(): Unit = {
@@ -123,6 +130,17 @@ object ResourceManager {
 
   private def loadAnimations(): Unit = {
     currentMarker = new CurrentLocationAnimation
+  }
+
+  private def loadTextField(): Unit = {
+    textFieldStyle = new TextFieldStyle(
+      assetManager.get("mediumFont.ttf", classOf[BitmapFont]),
+      Color.WHITE,  // Font color
+      npFontCursor, // Cursor ninepatch
+      npTest0,      // Selection ninepatch
+      npTextFieldBg // Background ninepatch
+    )
+    textFieldStyle.background.setLeftWidth(textFieldStyle.background.getLeftWidth + 10)
   }
 }
 

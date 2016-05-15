@@ -67,6 +67,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
         )
       }
     })
+
     titleTable.add(returnButton).width(200).height(50)
     titleTable.add(titleLabel).width(375).height(50)
     titleTable.add(embarkButton).width(200).height(50)
