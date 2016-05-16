@@ -35,6 +35,7 @@ object ResourceManager {
   var buttonMapStyle1: TextButtonStyle = null
   var buttonMapStyle2: TextButtonStyle = null
   var buttonEventStyle: TextButtonStyle = null
+  var toggleButtonStyle: TextButtonStyle = null
   var mapGlow: Sprite = null
   var spTest0: Sprite = null
   var spTest1: Sprite = null
@@ -117,6 +118,8 @@ object ResourceManager {
     buttonMapStyle2.pressedOffsetY = -2
     buttonEventStyle = new TextButtonStyle(npTest1, npTest2, npTest2, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
     buttonEventStyle.pressedOffsetY = -2
+    toggleButtonStyle = new TextButtonStyle(npTest4, npTest3, npTest3, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
+    toggleButtonStyle.pressedOffsetY = -2
   }
 
   private def loadSprites(): Unit = {
@@ -140,6 +143,7 @@ object ResourceManager {
       npTest0,      // Selection ninepatch
       npTextFieldBg // Background ninepatch
     )
+    // This line is a workaround for inner padding in the TextField (10px padding, inner left)
     textFieldStyle.background.setLeftWidth(textFieldStyle.background.getLeftWidth + 10)
   }
 }
