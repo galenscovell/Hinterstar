@@ -11,15 +11,23 @@ import scala.util.Random
 
 class TeamSelectionPanel extends Table {
   private val teamMates: Array[String] = Array[String]("", "", "", "", "", "")
-  private var nameInput: TextField = null
+  private val nameInput: TextField = new TextField("", ResourceManager.textFieldStyle)
   private var currentTeamMember: Int = 0
-  private var currentButton: TextButton = null
+  private var currentTeamButton: TextButton = null
+  private var currentProfessionButton: TextButton = null
+  private var engineerButton: TextButton = null
+  private var physicianButton: TextButton = null
+  private var soldierButton: TextButton = null
+  private var researchButton: TextButton = null
+  private var pilotButton: TextButton = null
+  private var artistButton: TextButton = null
 
+  nameInput.setMaxLength(16)
   construct()
 
 
   private def construct(): Unit = {
-    randomizeStartingTeamNames
+    randomizeStartingTeamNames()
 
     // LEFT TABLE
     val leftTable: Table = new Table
@@ -36,22 +44,68 @@ class TeamSelectionPanel extends Table {
     val nameTable: Table = new Table
     val nameLabel: Label = new Label("Name: ", ResourceManager.labelMenuStyle)
     nameLabel.setAlignment(Align.left)
-    nameInput = new TextField("", ResourceManager.textFieldStyle)
-    nameInput.setMaxLength(16)
     nameTable.add(nameLabel).width(50).height(40).pad(8)
     nameTable.add(nameInput).width(260).height(40).pad(8)
 
     val professionTable: Table = new Table
-    val engineerButton: TextButton = new TextButton("Engineer", ResourceManager.toggleButtonStyle)
-    val medicButton: TextButton = new TextButton("Medic", ResourceManager.toggleButtonStyle)
-    val militaryButton: TextButton = new TextButton("Military", ResourceManager.toggleButtonStyle)
-    val researchButton: TextButton = new TextButton("Researcher", ResourceManager.toggleButtonStyle)
-    val pilotButton: TextButton = new TextButton("Pilot", ResourceManager.toggleButtonStyle)
-    val artistButton: TextButton = new TextButton("Artist", ResourceManager.toggleButtonStyle)
+    engineerButton = new TextButton("Engineer", ResourceManager.toggleButtonStyle)
+    engineerButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        if (currentProfessionButton != null) {
+          currentProfessionButton.setChecked(false)
+        }
+        currentProfessionButton = engineerButton
+      }
+    })
+    physicianButton = new TextButton("Physician", ResourceManager.toggleButtonStyle)
+    physicianButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        if (currentProfessionButton != null) {
+          currentProfessionButton.setChecked(false)
+        }
+        currentProfessionButton = physicianButton
+      }
+    })
+    soldierButton = new TextButton("Soldier", ResourceManager.toggleButtonStyle)
+    soldierButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        if (currentProfessionButton != null) {
+          currentProfessionButton.setChecked(false)
+        }
+        currentProfessionButton = soldierButton
+      }
+    })
+    researchButton = new TextButton("Researcher", ResourceManager.toggleButtonStyle)
+    researchButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        if (currentProfessionButton != null) {
+          currentProfessionButton.setChecked(false)
+        }
+        currentProfessionButton = researchButton
+      }
+    })
+    pilotButton = new TextButton("Pilot", ResourceManager.toggleButtonStyle)
+    pilotButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        if (currentProfessionButton != null) {
+          currentProfessionButton.setChecked(false)
+        }
+        currentProfessionButton = pilotButton
+      }
+    })
+    artistButton = new TextButton("Artist", ResourceManager.toggleButtonStyle)
+    artistButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        if (currentProfessionButton != null) {
+          currentProfessionButton.setChecked(false)
+        }
+        currentProfessionButton = artistButton
+      }
+    })
     professionTable.add(engineerButton).width(160).height(50).pad(2)
-    professionTable.add(medicButton).width(160).height(50).pad(2)
+    professionTable.add(physicianButton).width(160).height(50).pad(2)
     professionTable.row
-    professionTable.add(militaryButton).width(160).height(50).pad(2)
+    professionTable.add(soldierButton).width(160).height(50).pad(2)
     professionTable.add(researchButton).width(160).height(50).pad(2)
     professionTable.row
     professionTable.add(pilotButton).width(160).height(50).pad(2)
@@ -64,17 +118,19 @@ class TeamSelectionPanel extends Table {
     val modifyTeammateButton: TextButton = new TextButton("Modify", ResourceManager.buttonMenuStyle)
     modifyTeammateButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        teamMates(currentTeamMember) = nameInput.getText
+        val inputName: String = nameInput.getText
+        val inputProfession: String = currentProfessionButton.getLabel.getText.toString
+        teamMates(currentTeamMember) = f"$inputName\t$inputProfession"
         val newTeamTable: Table = constructTeamTable
         leftTable.clear()
         leftTable.add(newTeamTable).expand.width(340).height(400)
+        currentTeamButton.setChecked(true)
       }
     })
 
     rightTable.add(optionTable).expand.fill.width(340).height(350)
     rightTable.row
     rightTable.add(modifyTeammateButton).width(340).height(50)
-
 
     val nextButton: TextButton = new TextButton(">", ResourceManager.buttonMenuStyle)
 
@@ -110,13 +166,32 @@ class TeamSelectionPanel extends Table {
       memberButton.addListener(new ClickListener() {
         override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
           currentTeamMember = teammate
-          val memberName: String = memberButton.getText.toString.split("\n")(0)
+          val splitMemberInfo: Array[String] = memberButton.getText.toString.split("\n")
+          val memberName: String = splitMemberInfo(0)
           nameInput.setText(memberName)
-          if (currentButton != null) {
-            currentButton.setChecked(false)
+          val memberProfession: String = splitMemberInfo(1)
+          if (currentTeamButton != null) {
+            currentTeamButton.setChecked(false)
           }
-          currentButton = memberButton
-          currentButton.setChecked(true)
+          currentTeamButton = memberButton
+          currentTeamButton.setChecked(true)
+          if (currentProfessionButton != null) {
+            currentProfessionButton.setChecked(false)
+          }
+          if (memberProfession == "Engineer") {
+            currentProfessionButton = engineerButton
+          } else if (memberProfession == "Physician") {
+            currentProfessionButton = physicianButton
+          } else if (memberProfession == "Soldier") {
+            currentProfessionButton = soldierButton
+          } else if (memberProfession == "Researcher") {
+            currentProfessionButton = researchButton
+          } else if (memberProfession == "Pilot") {
+            currentProfessionButton = pilotButton
+          } else if (memberProfession == "Artist") {
+            currentProfessionButton = artistButton
+          }
+          currentProfessionButton.setChecked(true)
         }
       })
     }
@@ -132,7 +207,8 @@ class TeamSelectionPanel extends Table {
       "Lucas", "Adam", "Robert", "Sarah", "Hannah", "Ruby", "Chloe", "Lily"
     )
     val professions: List[String] = List(
-      "Engineer", "Medic", "Military", "Research", "Pilot", "Artist"
+      "Engineer", "Physician", "Soldier", "Researcher", "Pilot",
+      "Artist", "Psychiatrist", "Linguist", "Botanist", ""
     )
     val random: Random = new Random
     for (x <- 0 until 6) {
