@@ -15,14 +15,17 @@ class TeamSelectionPanel extends Table {
   private var currentTeamMember: Int = 0
   private var currentTeamButton: TextButton = null
   private var currentProfessionButton: TextButton = null
+
   private var engineerButton: TextButton = null
   private var physicianButton: TextButton = null
   private var soldierButton: TextButton = null
   private var researchButton: TextButton = null
   private var pilotButton: TextButton = null
   private var artistButton: TextButton = null
+  private var psychiatristButton: TextButton = null
+  private var linguistButton: TextButton = null
 
-  nameInput.setMaxLength(16)
+  nameInput.setMaxLength(18)
   construct()
 
 
@@ -42,80 +45,78 @@ class TeamSelectionPanel extends Table {
 
     val optionTable: Table = new Table
     val nameTable: Table = new Table
-    val nameLabel: Label = new Label("Name: ", ResourceManager.labelMenuStyle)
-    nameLabel.setAlignment(Align.left)
-    nameTable.add(nameLabel).width(50).height(40).pad(8)
-    nameTable.add(nameInput).width(260).height(40).pad(8)
+    val nameLabel: Label = new Label("Name", ResourceManager.labelMenuStyle)
+    nameLabel.setAlignment(Align.center)
+    nameTable.add(nameLabel).expand.fill.height(40).padBottom(16)
+    nameTable.row
+    nameTable.add(nameInput).expand.fill.height(40).pad(4)
 
     val professionTable: Table = new Table
     engineerButton = new TextButton("Engineer", ResourceManager.toggleButtonStyle)
     engineerButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        if (currentProfessionButton != null) {
-          currentProfessionButton.setChecked(false)
-        }
-        currentProfessionButton = engineerButton
+        refreshProfessionButtons(engineerButton)
       }
     })
     physicianButton = new TextButton("Physician", ResourceManager.toggleButtonStyle)
     physicianButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        if (currentProfessionButton != null) {
-          currentProfessionButton.setChecked(false)
-        }
-        currentProfessionButton = physicianButton
+        refreshProfessionButtons(physicianButton)
       }
     })
     soldierButton = new TextButton("Soldier", ResourceManager.toggleButtonStyle)
     soldierButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        if (currentProfessionButton != null) {
-          currentProfessionButton.setChecked(false)
-        }
-        currentProfessionButton = soldierButton
+        refreshProfessionButtons(soldierButton)
       }
     })
     researchButton = new TextButton("Researcher", ResourceManager.toggleButtonStyle)
     researchButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        if (currentProfessionButton != null) {
-          currentProfessionButton.setChecked(false)
-        }
-        currentProfessionButton = researchButton
+        refreshProfessionButtons(researchButton)
       }
     })
     pilotButton = new TextButton("Pilot", ResourceManager.toggleButtonStyle)
     pilotButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        if (currentProfessionButton != null) {
-          currentProfessionButton.setChecked(false)
-        }
-        currentProfessionButton = pilotButton
+        refreshProfessionButtons(pilotButton)
       }
     })
     artistButton = new TextButton("Artist", ResourceManager.toggleButtonStyle)
     artistButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        if (currentProfessionButton != null) {
-          currentProfessionButton.setChecked(false)
-        }
-        currentProfessionButton = artistButton
+        refreshProfessionButtons(artistButton)
       }
     })
-    professionTable.add(engineerButton).width(160).height(50).pad(2)
-    professionTable.add(physicianButton).width(160).height(50).pad(2)
+    psychiatristButton = new TextButton("Psychiatrist", ResourceManager.toggleButtonStyle)
+    psychiatristButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        refreshProfessionButtons(psychiatristButton)
+      }
+    })
+    linguistButton = new TextButton("Linguist", ResourceManager.toggleButtonStyle)
+    linguistButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        refreshProfessionButtons(linguistButton)
+      }
+    })
+    professionTable.add(engineerButton).width(150).height(50).pad(4)
+    professionTable.add(physicianButton).width(150).height(50).pad(4)
     professionTable.row
-    professionTable.add(soldierButton).width(160).height(50).pad(2)
-    professionTable.add(researchButton).width(160).height(50).pad(2)
+    professionTable.add(soldierButton).width(150).height(50).pad(4)
+    professionTable.add(researchButton).width(150).height(50).pad(4)
     professionTable.row
-    professionTable.add(pilotButton).width(160).height(50).pad(2)
-    professionTable.add(artistButton).width(160).height(50).pad(2)
+    professionTable.add(pilotButton).width(150).height(50).pad(4)
+    professionTable.add(artistButton).width(150).height(50).pad(4)
+    professionTable.row
+    professionTable.add(psychiatristButton).width(150).height(50).pad(4)
+    professionTable.add(linguistButton).width(150).height(50).pad(4)
 
-    optionTable.add(nameTable).expand.width(320).height(60).pad(8)
+    optionTable.add(nameTable).expand.width(320).height(50).pad(4)
     optionTable.row
-    optionTable.add(professionTable).expand.width(320).height(180).pad(4)
+    optionTable.add(professionTable).expand.width(320).height(220).pad(4)
 
-    val modifyTeammateButton: TextButton = new TextButton("Modify", ResourceManager.buttonMenuStyle)
+    val modifyTeammateButton: TextButton = new TextButton("Modify", ResourceManager.greenButtonStyle)
     modifyTeammateButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         val inputName: String = nameInput.getText
@@ -130,7 +131,7 @@ class TeamSelectionPanel extends Table {
 
     rightTable.add(optionTable).expand.fill.width(340).height(350)
     rightTable.row
-    rightTable.add(modifyTeammateButton).width(340).height(50)
+    rightTable.add(modifyTeammateButton).width(320).height(50).padBottom(10).center
 
     val nextButton: TextButton = new TextButton(">", ResourceManager.buttonMenuStyle)
 
@@ -190,6 +191,10 @@ class TeamSelectionPanel extends Table {
             currentProfessionButton = pilotButton
           } else if (memberProfession == "Artist") {
             currentProfessionButton = artistButton
+          } else if (memberProfession == "Psychiatrist") {
+            currentProfessionButton = psychiatristButton
+          } else if (memberProfession == "Linguist") {
+            currentProfessionButton = linguistButton
           }
           currentProfessionButton.setChecked(true)
         }
@@ -217,5 +222,12 @@ class TeamSelectionPanel extends Table {
       val defaultProfession: String = professions(x)
       teamMates(x) = f"$randomName\t$defaultProfession"
     }
+  }
+
+  private def refreshProfessionButtons(textButton: TextButton): Unit = {
+    if (currentProfessionButton != null) {
+      currentProfessionButton.setChecked(false)
+    }
+    currentProfessionButton = textButton
   }
 }

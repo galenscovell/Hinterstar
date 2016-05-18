@@ -20,4 +20,8 @@ object PlayerData {
   def update(): Unit = {
     prefs.flush()
   }
+
+  def establishTeam(teamMates: Array[String]): Unit = {
+    
+  }
 }

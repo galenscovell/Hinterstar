@@ -51,7 +51,7 @@ class MapPanel(stage: GameStage) extends Table {
     val infoTable: Table = new Table
     infoTable.setSize(Constants.EXACT_X, 50)
     infoTable.align(Align.center)
-    val travelButton: TextButton = new TextButton("Travel", ResourceManager.buttonMenuStyle)
+    val travelButton: TextButton = new TextButton("Travel", ResourceManager.greenButtonStyle)
     travelButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
         travelToLocation()
@@ -59,7 +59,7 @@ class MapPanel(stage: GameStage) extends Table {
     })
     this.distanceLabel = new Label("Distance: 0.0 AU", ResourceManager.labelMenuStyle)
     infoTable.add(distanceLabel).expand.fill.left.padLeft(20)
-    infoTable.add(travelButton).width(150).height(50).expand.fill.right
+    infoTable.add(travelButton).width(150).height(50).expand.fill.right.padRight(8).padBottom(12)
     infoTable
   }
 

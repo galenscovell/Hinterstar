@@ -48,7 +48,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     val titleTable: Table = new Table
     val titleLabel: Label = new Label("Loadout", ResourceManager.labelTitleStyle)
     titleLabel.setAlignment(Align.center, Align.center)
-    val returnButton: TextButton = new TextButton("Return", ResourceManager.buttonMenuStyle)
+    val returnButton: TextButton = new TextButton("Return", ResourceManager.greenButtonStyle)
     returnButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         stage.getRoot.addAction(Actions.sequence(
@@ -57,7 +57,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
         )
       }
     })
-    val embarkButton: TextButton = new TextButton("Embark", ResourceManager.buttonMenuStyle)
+    val embarkButton: TextButton = new TextButton("Embark", ResourceManager.greenButtonStyle)
     embarkButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         root.createGameScreen()

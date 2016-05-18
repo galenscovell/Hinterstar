@@ -3,7 +3,7 @@ package galenscovell.hinterstar
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.{Game, Gdx}
 import galenscovell.hinterstar.ui.screens._
-import galenscovell.hinterstar.util.ResourceManager
+import galenscovell.hinterstar.util.{PlayerData, ResourceManager}
 
 
 class Hinterstar extends Game {
@@ -15,6 +15,7 @@ class Hinterstar extends Game {
 
 
   def create(): Unit =  {
+    PlayerData.init()
     spriteBatch = new SpriteBatch
     loadingScreen = new LoadScreen(this)
     mainMenuScreen = new MainMenuScreen(this)
