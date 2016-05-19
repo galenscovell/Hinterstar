@@ -30,6 +30,8 @@ object ResourceManager {
   var npTest4: NinePatchDrawable = null
   var greenButtonNp0: NinePatchDrawable = null
   var greenButtonNp1: NinePatchDrawable = null
+  var blueButtonNp0: NinePatchDrawable = null
+  var blueButtonNp1: NinePatchDrawable = null
   var npFontCursor: NinePatchDrawable = null
   var npTextFieldBg: NinePatchDrawable = null
   var buttonMenuStyle: TextButtonStyle = null
@@ -39,6 +41,7 @@ object ResourceManager {
   var buttonEventStyle: TextButtonStyle = null
   var toggleButtonStyle: TextButtonStyle = null
   var greenButtonStyle: TextButtonStyle = null
+  var blueButtonStyle: TextButtonStyle = null
   var mapGlow: Sprite = null
   var spTest0: Sprite = null
   var spTest1: Sprite = null
@@ -100,6 +103,8 @@ object ResourceManager {
     npTest4 = new NinePatchDrawable(uiAtlas.createPatch("test-np-4"))
     greenButtonNp0 = new NinePatchDrawable(uiAtlas.createPatch("green_button0_np"))
     greenButtonNp1 = new NinePatchDrawable(uiAtlas.createPatch("green_button1_np"))
+    blueButtonNp0 = new NinePatchDrawable(uiAtlas.createPatch("blue_button0_np"))
+    blueButtonNp1 = new NinePatchDrawable(uiAtlas.createPatch("blue_button1_np"))
     npFontCursor = new NinePatchDrawable(uiAtlas.createPatch("font-cursor-np"))
     npTextFieldBg = new NinePatchDrawable(uiAtlas.createPatch("text-field-bg-np"))
   }
@@ -129,6 +134,10 @@ object ResourceManager {
 //    greenButtonStyle.downFontColor = new Color(0.0f, 0.7f, 0.41f, 1.0f)
 //    greenButtonStyle.checkedFontColor = Color.WHITE
     greenButtonStyle.pressedOffsetY = -1
+    blueButtonStyle = new TextButtonStyle(blueButtonNp0, blueButtonNp1, blueButtonNp0, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
+    //    blueButtonStyle.downFontColor = new Color(0.0f, 0.7f, 0.41f, 1.0f)
+    //    blueButtonStyle.checkedFontColor = Color.WHITE
+    blueButtonStyle.pressedOffsetY = -1
   }
 
   private def loadSprites(): Unit = {

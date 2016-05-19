@@ -29,6 +29,10 @@ class TeamSelectionPanel extends Table {
   construct()
 
 
+  def getTeammates: Array[String] = {
+    teamMates
+  }
+
   private def construct(): Unit = {
     randomizeStartingTeamNames()
 
@@ -140,10 +144,6 @@ class TeamSelectionPanel extends Table {
     add(nextButton).width(80).height(400).pad(4)
   }
 
-  def getTeammates: Array[String] = {
-    teamMates
-  }
-
   def constructTeamTable: Table = {
     val teamTable: Table = new Table
     for (teammate <- teamMates.indices) {
@@ -151,7 +151,7 @@ class TeamSelectionPanel extends Table {
       val memberTable: Table = new Table
       val memberButton: TextButton = new TextButton("", ResourceManager.toggleButtonStyle)
       val iconTable: Table = new Table  // Icon for profession
-      iconTable.setBackground(ResourceManager.npTest3)
+      iconTable.setBackground(ResourceManager.blueButtonNp0)
       if (teamEntry.length > 0) {
         val splitString: Array[String] = teamEntry.split("\t")
         val name: String = splitString(0)

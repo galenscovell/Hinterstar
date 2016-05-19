@@ -24,25 +24,27 @@ current_marker
   orig: 80, 80
   offset: 0, 0
   index: -1
-green-button0-np
+map_glow
   rotate: false
   xy: 1, 11
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-green-button1-np
+blue_button0_np
   rotate: false
-  xy: 803, 893
-  size: 48, 48
-  orig: 48, 48
+  xy: 803, 905
+  size: 36, 36
+  split: 4, 4, 4, 4
+  orig: 36, 36
   offset: 0, 0
   index: -1
-map_glow
+blue_button1_np
   rotate: false
-  xy: 885, 975
-  size: 48, 48
-  orig: 48, 48
+  xy: 885, 987
+  size: 36, 36
+  split: 4, 4, 4, 4
+  orig: 36, 36
   offset: 0, 0
   index: -1
 green_button0_np
@@ -55,7 +57,7 @@ green_button0_np
   index: -1
 green_button1_np
   rotate: false
-  xy: 803, 855
+  xy: 803, 867
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -63,35 +65,35 @@ green_button1_np
   index: -1
 test-box-0
   rotate: false
-  xy: 935, 991
+  xy: 841, 909
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-1
   rotate: false
-  xy: 89, 27
+  xy: 885, 953
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-2
   rotate: false
-  xy: 803, 821
+  xy: 923, 991
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-3
   rotate: false
-  xy: 969, 991
+  xy: 89, 27
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-4
   rotate: false
-  xy: 123, 27
+  xy: 803, 833
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -114,7 +116,7 @@ test-np-1
   index: -1
 test-np-2
   rotate: false
-  xy: 141, 1
+  xy: 841, 883
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -122,7 +124,7 @@ test-np-2
   index: -1
 test-np-3
   rotate: false
-  xy: 853, 917
+  xy: 957, 999
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -130,7 +132,7 @@ test-np-3
   index: -1
 test-np-4
   rotate: false
-  xy: 885, 949
+  xy: 803, 807
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -138,7 +140,7 @@ test-np-4
   index: -1
 text-field-bg-np
   rotate: false
-  xy: 885, 949
+  xy: 803, 807
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -146,7 +148,7 @@ text-field-bg-np
   index: -1
 font-cursor-np
   rotate: false
-  xy: 841, 867
+  xy: 875, 917
   size: 3, 24
   split: 0, 0, 0, 0
   orig: 3, 24

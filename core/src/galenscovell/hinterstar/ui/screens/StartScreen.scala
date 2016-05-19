@@ -8,9 +8,7 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.ui.components.{ResourceSelectionPanel, ShipSelectionPanel, TeamSelectionPanel}
-import galenscovell.hinterstar.util.{Constants, ResourceManager}
-
-import scala.collection.mutable.ArrayBuffer
+import galenscovell.hinterstar.util.{Constants, PlayerData, ResourceManager}
 
 
 class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
@@ -60,6 +58,8 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     val embarkButton: TextButton = new TextButton("Embark", ResourceManager.greenButtonStyle)
     embarkButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        val team: Array[String] = teamPanel.asInstanceOf[TeamSelectionPanel].getTeammates
+        establishTeam(team)
         root.createGameScreen()
         stage.getRoot.addAction(Actions.sequence(
           Actions.fadeOut(0.3f),
@@ -81,6 +81,10 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       Actions.fadeOut(0),
       Actions.fadeIn(0.3f))
     )
+  }
+
+  def establishTeam(team: Array[String]): Unit = {
+    PlayerData.establishTeam(team)
   }
 
   /**
