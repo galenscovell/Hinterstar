@@ -28,16 +28,14 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   //    Different resources cost different amounts and take up storage
   //    Food, water, fuel, spare parts
   //    Resources are found/generated throughout game
-  private var teamPanel: Table = null
-  private var shipPanel: Table = null
-  private var resourcePanel: Table = null
+  private val teamPanel: Table = new TeamSelectionPanel
+  private val shipPanel: Table = new ShipSelectionPanel
+  private val resourcePanel: Table = new ResourceSelectionPanel
+  private var contentTable: Table = null
 
 
   protected override def create(): Unit = {
     this.stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch)
-    teamPanel = new TeamSelectionPanel
-    shipPanel = new ShipSelectionPanel
-    resourcePanel = new ResourceSelectionPanel
 
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
@@ -67,15 +65,11 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       }
     })
 
-    val contentTable: Table = new Table
-    val nextButton: TextButton = new TextButton(">", ResourceManager.blueButtonStyle)
+    contentTable = constructContentTable(teamPanel)
 
     titleTable.add(returnButton).width(200).height(50)
     titleTable.add(titleLabel).width(364).height(50)
     titleTable.add(embarkButton).width(200).height(50)
-
-    contentTable.add(teamPanel).width(690).height(400).left.padRight(10)
-    contentTable.add(nextButton).width(80).height(400).right
 
     mainTable.add(titleTable).width(764).height(50).pad(8)
     mainTable.row
@@ -89,17 +83,46 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     )
   }
 
-  def establishTeam(team: Array[String]): Unit = {
+  private def constructContentTable(content: Table): Table = {
+    if (contentTable != null) {
+      contentTable.clear()
+    } else {
+      contentTable = new Table
+    }
+    val nextButton: TextButton = new TextButton(">", ResourceManager.blueButtonStyle)
+    nextButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        transitionPanel()
+      }
+    })
+    contentTable.add(content).width(690).height(400).left.padRight(10)
+    contentTable.add(nextButton).width(80).height(400).right
+    contentTable
+  }
+
+  private def transitionPanel(): Unit = {
+    if (teamPanel.hasParent) {
+      constructContentTable(shipPanel)
+    } else if (shipPanel.hasParent) {
+      constructContentTable(resourcePanel)
+    } else if (resourcePanel.hasParent) {
+      constructContentTable(teamPanel)
+    }
+  }
+
+  private def establishTeam(team: Array[String]): Unit = {
     PlayerData.establishTeam(team)
   }
 
-  def establishShip(): Unit = {
+  private def establishShip(): Unit = {
 
   }
 
-  def establishResources(resources: Map[String, Int]): Unit = {
+  private def establishResources(resources: Map[String, Int]): Unit = {
 
   }
+
+
 
   /**
     * Custom Scene2D Actions
