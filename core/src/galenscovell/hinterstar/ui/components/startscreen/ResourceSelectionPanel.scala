@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.ui.components
+package galenscovell.hinterstar.ui.components.startscreen
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 

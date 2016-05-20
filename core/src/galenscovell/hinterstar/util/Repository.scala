@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import galenscovell.hinterstar.map.Sector
 import galenscovell.hinterstar.processing.{EventContainer, EventParser}
 import galenscovell.hinterstar.things.inanimate.Location
-import galenscovell.hinterstar.ui.components.GameStage
+import galenscovell.hinterstar.ui.components.gamescreen.GameStage
 import galenscovell.hinterstar.ui.screens.GameScreen
 
 import scala.collection.mutable.ArrayBuffer

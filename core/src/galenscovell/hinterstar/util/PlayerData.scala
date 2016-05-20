@@ -10,15 +10,19 @@ object PlayerData {
   private var prefs: Preferences = null
 
 
+  def update(): Unit = {
+    prefs.flush()
+  }
+
+
+  /**
+    * Setup
+    */
   def init(): Unit = {
     prefs = Gdx.app.getPreferences("hinterstar_player_data")
     prefs.putBoolean("sfx", true)
     prefs.putBoolean("music", true)
     update()
-  }
-
-  def update(): Unit = {
-    prefs.flush()
   }
 
   def establishTeam(teamMates: Array[String]): Unit = {
@@ -31,5 +35,37 @@ object PlayerData {
       prefs.putString(f"$teamMate-prof", profession)
     }
     update()
+  }
+
+  def establishShip(): Unit = {
+
+  }
+
+  def establishComponents(): Unit = {
+
+  }
+
+  def establishResources(): Unit = {
+
+  }
+
+
+  /**
+    * Updates
+    */
+  def updateTeam(teamMate1: String, teamMate2: String): Unit = {
+
+  }
+
+  def updateShip(): Unit = {
+
+  }
+
+  def updateComponent(): Unit = {
+
+  }
+
+  def updateResource(resource: String, amount: Int): Unit = {
+
   }
 }

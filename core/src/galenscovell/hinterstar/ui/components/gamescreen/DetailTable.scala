@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.ui.components
+package galenscovell.hinterstar.ui.components.gamescreen
 
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.utils.Align

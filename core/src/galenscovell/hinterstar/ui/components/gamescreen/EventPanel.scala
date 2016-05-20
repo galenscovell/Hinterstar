@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.ui.components
+package galenscovell.hinterstar.ui.components.gamescreen
 
 import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, TextButton}
 import com.badlogic.gdx.utils.Align

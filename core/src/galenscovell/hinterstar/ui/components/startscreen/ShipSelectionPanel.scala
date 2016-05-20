@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.ui.components
+package galenscovell.hinterstar.ui.components.startscreen
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 
@@ -9,11 +9,11 @@ class ShipSelectionPanel extends Table {
   construct()
 
 
-  private def construct(): Unit = {
-
-  }
-
   def getShip: String = {
     ship
+  }
+
+  private def construct(): Unit = {
+
   }
 }

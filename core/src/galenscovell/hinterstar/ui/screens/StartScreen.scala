@@ -7,19 +7,18 @@ import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent, Stage}
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
-import galenscovell.hinterstar.ui.components.{ResourceSelectionPanel, ShipSelectionPanel, TeamSelectionPanel}
+import galenscovell.hinterstar.ui.components.startscreen.{ResourceSelectionPanel, ShipSelectionPanel, TeamSelectionPanel}
 import galenscovell.hinterstar.util.{Constants, PlayerData, ResourceManager}
 
 
 class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   // This screen displays to the player at the start of their journey
-  // Player selects starting loadout here: ship, teammates and resources
+  // Player selects starting loadout here: teammates, ship and resources
 
   // Panels:
-  //  Teammates: Player selects number of teammates (between min and max)
-  //    More teammates means certain resources are depleted faster
+  //  Teammates: Player selects number of teammates
   //    Player names teammates and selects their profession
-  //    This choice is not final, other teammates can become available ingame
+  //    This choice is not final, can replace teammates throughout game
   //  Ship: Player selects ship design from premade options
   //    More options can be unlocked through game accomplishments
   //    This choice is not final, other ships can become available ingame
@@ -27,8 +26,8 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   //  Resources: Player selects starting resources
   //    Player begins with cash amount dependent on team members
   //    Different resources cost different amounts and take up storage
-  //    Food, water, fuel, spare parts,
-  //    Resources are found throughout game
+  //    Food, water, fuel, spare parts
+  //    Resources are found/generated throughout game
   private var teamPanel: Table = null
   private var shipPanel: Table = null
   private var resourcePanel: Table = null
@@ -68,13 +67,20 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       }
     })
 
+    val contentTable: Table = new Table
+    val nextButton: TextButton = new TextButton(">", ResourceManager.blueButtonStyle)
+
     titleTable.add(returnButton).width(200).height(50)
-    titleTable.add(titleLabel).width(375).height(50)
+    titleTable.add(titleLabel).width(364).height(50)
     titleTable.add(embarkButton).width(200).height(50)
 
-    mainTable.add(titleTable).width(780).height(50).center.pad(4)
+    contentTable.add(teamPanel).width(690).height(400).left.padRight(10)
+    contentTable.add(nextButton).width(80).height(400).right
+
+    mainTable.add(titleTable).width(764).height(50).pad(8)
     mainTable.row
-    mainTable.add(teamPanel).width(780).height(400).center.pad(4)
+    mainTable.add(contentTable).width(780).height(400)
+
 
     stage.addActor(mainTable)
     mainTable.addAction(Actions.sequence(
@@ -85,6 +91,14 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
   def establishTeam(team: Array[String]): Unit = {
     PlayerData.establishTeam(team)
+  }
+
+  def establishShip(): Unit = {
+
+  }
+
+  def establishResources(resources: Map[String, Int]): Unit = {
+
   }
 
   /**

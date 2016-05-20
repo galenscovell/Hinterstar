@@ -9,6 +9,7 @@ import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
 import galenscovell.hinterstar.processing.controls.InputHandler
 import galenscovell.hinterstar.ui.components._
+import galenscovell.hinterstar.ui.components.gamescreen.{GameStage, LocationPanel}
 import galenscovell.hinterstar.util._
 
 

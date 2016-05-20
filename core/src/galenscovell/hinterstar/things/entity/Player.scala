@@ -3,7 +3,7 @@ package galenscovell.hinterstar.things.entity
 import com.badlogic.gdx.graphics.g2d._
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
-import galenscovell.hinterstar.ui.components.GameStage
+import galenscovell.hinterstar.ui.components.gamescreen.GameStage
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util.ResourceManager
 
