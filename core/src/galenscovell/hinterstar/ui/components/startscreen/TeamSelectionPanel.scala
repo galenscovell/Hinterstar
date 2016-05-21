@@ -12,7 +12,7 @@ import scala.util.Random
 class TeamSelectionPanel extends Table {
   private val teamMates: Array[String] = Array[String]("", "", "", "", "", "")
   private val nameInput: TextField = new TextField("", ResourceManager.textFieldStyle)
-  private var currentTeamMember: Int = 0
+  private var currentTeammate: Int = 0
   private var currentTeamButton: TextButton = null
   private var currentProfessionButton: TextButton = null
 
@@ -43,14 +43,13 @@ class TeamSelectionPanel extends Table {
     val teamTable: Table = constructTeamTable
     leftTable.add(teamTable).expand.fill
 
-
     // RIGHT TABLE
     val rightTable: Table = new Table
     rightTable.setBackground(ResourceManager.npTest1)
 
     val optionTable: Table = new Table
     val nameTable: Table = new Table
-    val nameLabel: Label = new Label("Name", ResourceManager.labelMenuStyle)
+    val nameLabel: Label = new Label("Teammate", ResourceManager.labelMenuStyle)
     nameLabel.setAlignment(Align.center)
     nameTable.add(nameLabel).expand.fill.height(40).padBottom(16)
     nameTable.row
@@ -65,7 +64,7 @@ class TeamSelectionPanel extends Table {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         val inputName: String = nameInput.getText
         val inputProfession: String = currentProfessionButton.getLabel.getText.toString
-        teamMates(currentTeamMember) = f"$inputName\t$inputProfession"
+        teamMates(currentTeammate) = f"$inputName\t$inputProfession"
         val newTeamTable: Table = constructTeamTable
         leftTable.clear()
         leftTable.add(newTeamTable).expand.width(340).height(400)
@@ -115,7 +114,7 @@ class TeamSelectionPanel extends Table {
 
       memberButton.addListener(new ClickListener() {
         override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-          currentTeamMember = teammate
+          currentTeammate = teammate
           currentTeamButton.setChecked(false)
           if (currentTeamButton != memberButton) {
             currentTeamButton = memberButton

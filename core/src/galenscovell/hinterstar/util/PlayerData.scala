@@ -25,14 +25,13 @@ object PlayerData {
     update()
   }
 
-  def establishTeam(teamMates: Array[String]): Unit = {
-    for (i <- teamMates.indices) {
-      val entry: Array[String] = teamMates(i).split("\t")
+  def establishTeam(team: Array[String]): Unit = {
+    for (i <- team.indices) {
+      val entry: Array[String] = team(i).split("\t")
       val name: String = entry(0)
       val profession: String = entry(1)
-      val teamMate: String = f"team$i"
-      prefs.putString(f"$teamMate-name", name)
-      prefs.putString(f"$teamMate-prof", profession)
+      prefs.putString(f"teammate$i-name", name)
+      prefs.putString(f"teammate$i-prof", profession)
     }
     update()
   }
@@ -53,7 +52,7 @@ object PlayerData {
   /**
     * Updates
     */
-  def updateTeam(teamMate1: String, teamMate2: String): Unit = {
+  def updateTeam(teammate1: String, teammate2: String): Unit = {
 
   }
 
