@@ -1,6 +1,5 @@
 package galenscovell.hinterstar.map
 
-import galenscovell.hinterstar.things.inanimate.Location
 import galenscovell.hinterstar.util._
 
 import scala.collection.mutable.ArrayBuffer

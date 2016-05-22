@@ -2,6 +2,9 @@ package galenscovell.hinterstar.things.parts
 
 
 trait Part {
+  // Part name
+  def getName: String
+
   // Return current health of part
   // When health is low, part has chance of malfunctioning
   // When health is zero, part breaks

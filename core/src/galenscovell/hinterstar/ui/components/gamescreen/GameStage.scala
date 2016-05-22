@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.{Table, TextButton}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.processing.EventContainer
-import galenscovell.hinterstar.things.entity.Player
+import galenscovell.hinterstar.things.entities.Player
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 

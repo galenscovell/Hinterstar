@@ -1,9 +1,8 @@
-package galenscovell.hinterstar.things.inanimate
+package galenscovell.hinterstar.map
 
 import java.util._
 
-import galenscovell.hinterstar.map.Sector
-import galenscovell.hinterstar.things.inanimate.Events.{Event, Planet}
+import galenscovell.hinterstar.processing.Events.{Event, Planet}
 import galenscovell.hinterstar.util.{Constants, Repository}
 
 import scala.collection.mutable.ArrayBuffer

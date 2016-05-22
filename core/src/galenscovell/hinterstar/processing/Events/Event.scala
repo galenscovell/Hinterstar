@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.things.inanimate.Events
+package galenscovell.hinterstar.processing.Events
 
 
 trait Event {

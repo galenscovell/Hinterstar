@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.things.entity
+package galenscovell.hinterstar.things.entities
 
 import com.badlogic.gdx.graphics.g2d._
 import com.badlogic.gdx.scenes.scene2d._
@@ -10,7 +10,7 @@ import galenscovell.hinterstar.util.ResourceManager
 
 class Player(gameStage: GameStage) extends Actor {
   private var gameScreen: GameScreen = gameStage.gameScreen
-  private var currentSprite: Sprite = ResourceManager.uiAtlas.createSprite("placeholder_vehicle")
+  private val currentSprite: Sprite = ResourceManager.uiAtlas.createSprite("placeholder_vehicle")
   private var sprites: Array[Sprite] = null
   private var selected: Boolean = false
 
