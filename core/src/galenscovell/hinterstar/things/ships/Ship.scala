@@ -22,26 +22,17 @@ trait Ship {
   // Parts require maintenance and can be upgraded
   def getParts: ArrayBuffer[Part]
 
-  // Attack is dependent on installed combat parts
-  def getAttack: Int
-
-  // Storage is dependent on installed storage parts
-  // Storage holds resources
-  // As storage is filled, ship weight goes up
-  def getStorage: Int
-
-  // Energy is dependent on installed generator
-  // Most parts require energy
-  def getEnergy: Int
-
-  // Hull is dependent on installed armor plating parts
-  // Armor parts tend to be heavy and require no energy,
-  //  though there are hybrid parts that utilize energy rather than density
-  def getHull: Int
-
-  // Shield is dependent on installed shield parts
-  def getShield: Int
-
-  // Speed is dependent on strength of intalled engine minus weight
-  def getSpeed: Int
+  // 'Attack' is dependent on installed combat parts
+  // 'Storage' is dependent on installed storage parts
+  //    Storage holds resources
+  //    As storage is filled, ship weight goes up
+  // 'Energy' is dependent on installed generator
+  //    Most parts require energy
+  // 'Shield' is dependent on installed shield parts
+  // 'Hull' is dependent on installed armor plating parts
+  //    Armor parts tend to be heavy and require no energy,
+  //    though there are hybrid parts that utilize energy rather than density
+  // 'Speed' is dependent on strength of installed engine minus weight
+  // 'Weight' is all parts weight + stored resources
+  def getStatFromParts(stat: String): Int
 }

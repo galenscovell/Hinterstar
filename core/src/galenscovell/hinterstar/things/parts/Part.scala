@@ -5,6 +5,12 @@ trait Part {
   // Part name
   def getName: String
 
+  // Get part type
+  def getType: String
+
+  // Get part stats
+  def getStat: Int
+
   // Return current health of part
   // When health is low, part has chance of malfunctioning
   // When health is zero, part breaks
