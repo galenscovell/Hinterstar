@@ -5,6 +5,8 @@ import galenscovell.hinterstar.things.parts.Part
 import scala.collection.mutable.ArrayBuffer
 
 
+// A ship is composed of parts which define its abilities
+// Each ship chassis has a predetermined growth potential (install points for parts)
 trait Ship {
   // Ship chassis name
   def getName: String

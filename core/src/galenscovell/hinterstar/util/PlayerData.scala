@@ -4,6 +4,9 @@ import com.badlogic.gdx.{Gdx, Preferences}
 
 
 object PlayerData {
+  // PlayerData persists game data across instances of game (for continuing)
+  // Ingame data usage is maintained elsewhere (ie in the player object)
+
   // Windows: %UserProfile%/.prefs/My Preferences
   // Linux and OSX: ~/.prefs/My Preferences
   // Android: System SharedPreferences, survives app updates, deleted when uninstalled
@@ -14,11 +17,17 @@ object PlayerData {
     prefs.flush()
   }
 
+  def clear(): Unit = {
+    prefs.clear()
+  }
+
 
   /**
     * Setup
+    * Initialize player data
     */
   def init(): Unit = {
+    // Instantiate preferences file and add default SFX/Music settings
     prefs = Gdx.app.getPreferences("hinterstar_player_data")
     prefs.putBoolean("sfx", true)
     prefs.putBoolean("music", true)
@@ -26,6 +35,7 @@ object PlayerData {
   }
 
   def establishTeam(team: Array[String]): Unit = {
+    // Add each teammate to preferences along with their profession
     for (i <- team.indices) {
       val entry: Array[String] = team(i).split("\t")
       val name: String = entry(0)
@@ -37,22 +47,20 @@ object PlayerData {
   }
 
   def establishShip(): Unit = {
-
-  }
-
-  def establishComponents(): Unit = {
+    // Add ship chassis to preferences along with all parts and their activity status
 
   }
 
   def establishResources(): Unit = {
-
+    // Add resource types to preferences along with their current amounts
   }
 
 
   /**
     * Updates
+    * All player data is updated after every game event
     */
-  def updateTeam(teammate1: String, teammate2: String): Unit = {
+  def updateTeam(): Unit = {
 
   }
 
@@ -60,11 +68,7 @@ object PlayerData {
 
   }
 
-  def updateComponent(): Unit = {
-
-  }
-
-  def updateResource(resource: String, amount: Int): Unit = {
+  def updateResources(): Unit = {
 
   }
 }
