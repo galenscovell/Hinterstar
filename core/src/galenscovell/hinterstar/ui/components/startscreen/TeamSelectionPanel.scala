@@ -64,7 +64,7 @@ class TeamSelectionPanel extends Table {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         val inputName: String = nameInput.getText
         val inputProfession: String = currentProfessionButton.getLabel.getText.toString
-        teamMates(currentTeammate) = f"$inputName\t$inputProfession"
+        teamMates(currentTeammate) = s"$inputName\t$inputProfession"
         val newTeamTable: Table = constructTeamTable
         leftTable.clear()
         leftTable.add(newTeamTable).expand.width(340).height(400)
@@ -89,7 +89,7 @@ class TeamSelectionPanel extends Table {
 
       val memberTable: Table = new Table
       val memberButton: TextButton = new TextButton("", ResourceManager.toggleButtonStyle)
-      memberButton.setText(f"$name\n$profession")
+      memberButton.setText(s"$name\n$profession")
       val iconTable: Table = new Table  // Icon for profession
       iconTable.setBackground(ResourceManager.blueButtonNp0)
 
@@ -228,7 +228,7 @@ class TeamSelectionPanel extends Table {
       val randomNameIndex: Int = random.nextInt(names.length - 1)
       val randomName: String = names(randomNameIndex)
       val defaultProfession: String = professions(x)
-      teamMates(x) = f"$randomName\t$defaultProfession"
+      teamMates(x) = s"$randomName\t$defaultProfession"
     }
   }
 

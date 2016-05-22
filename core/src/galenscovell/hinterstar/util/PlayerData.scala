@@ -40,8 +40,8 @@ object PlayerData {
       val entry: Array[String] = team(i).split("\t")
       val name: String = entry(0)
       val profession: String = entry(1)
-      prefs.putString(f"teammate$i-name", name)
-      prefs.putString(f"teammate$i-prof", profession)
+      prefs.putString(s"teammate$i-name", name)
+      prefs.putString(s"teammate$i-prof", profession)
     }
     update()
   }
