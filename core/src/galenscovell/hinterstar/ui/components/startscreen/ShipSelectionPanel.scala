@@ -1,17 +1,19 @@
 package galenscovell.hinterstar.ui.components.startscreen
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
+import galenscovell.hinterstar.things.ships.Ship
 import galenscovell.hinterstar.util.ResourceManager
 
 
 class ShipSelectionPanel extends Table {
-  private val ship: String = "Default Dandy"
+  private val ships: Array[Ship] = Array()
+  private val currentShip: Ship = null
 
   construct()
 
 
-  def getShip: String = {
-    ship
+  def getShip: Ship = {
+    currentShip
   }
 
   private def construct(): Unit = {
