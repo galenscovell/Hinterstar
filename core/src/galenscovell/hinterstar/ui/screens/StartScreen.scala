@@ -15,7 +15,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   //  Ship: Player selects ship design from premade options
   //    More options can be unlocked through game accomplishments
   //    This choice is not final, other ships can become available ingame
-  //    Ships have different looks, upgrade options and starting components/storage
+  //    Ships have different looks, upgrade options and starting parts
   //  Resources: Player selects starting resources
   //    Player begins with cash amount dependent on team members
   //    Different resources cost different amounts and take up storage
