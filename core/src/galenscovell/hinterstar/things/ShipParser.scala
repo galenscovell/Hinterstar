@@ -32,7 +32,6 @@ class ShipParser {
 
   def constructShip(entry: JsonValue): Ship = {
     val name: String = entry.getString("name")
-    println(name)
     val desc: String = entry.getString("description")
     val baseStats: Map[String, Int] = Map()
     val installPoints: Map[String, Int] = Map()
