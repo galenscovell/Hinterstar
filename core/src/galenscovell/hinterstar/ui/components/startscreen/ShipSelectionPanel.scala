@@ -1,6 +1,7 @@
 package galenscovell.hinterstar.ui.components.startscreen
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, TextButton}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
@@ -36,7 +37,10 @@ class ShipSelectionPanel extends Table {
         if (currentShipIndex > allShips.length - 1) {
           currentShipIndex = 0
         }
-        updateShipDetails()
+        shipDetails.addAction(Actions.sequence(
+          Actions.fadeOut(0.15f),
+          updateShipDetailAction
+        ))
       }
     })
     val scrollLeftButton: TextButton = new TextButton("<", ResourceManager.blueButtonStyle)
@@ -46,7 +50,10 @@ class ShipSelectionPanel extends Table {
         if (currentShipIndex < 0) {
           currentShipIndex = allShips.length - 1
         }
-        updateShipDetails()
+        shipDetails.addAction(Actions.sequence(
+          Actions.fadeOut(0.15f),
+          updateShipDetailAction
+        ))
       }
     })
     val shipTable: Table = new Table
@@ -68,8 +75,6 @@ class ShipSelectionPanel extends Table {
   }
 
   private def updateShipDetails(): Unit = {
-    shipDetails.clear()
-
     val shipDetailTop: Table = new Table
     val shipName: String = allShips(currentShipIndex).getName
     val shipDesc: String = allShips(currentShipIndex).getDescription
@@ -86,10 +91,10 @@ class ShipSelectionPanel extends Table {
     val shipPointMap: Map[String, Int] = allShips(currentShipIndex).getInstallPoints
     for ((k, v) <- shipPointMap) {
       val pointTable: Table = new Table
-      pointTable.setBackground(ResourceManager.npTest4)
+      pointTable.setBackground(ResourceManager.greenButtonNp0)
       val pointKey: Label = new Label(k, ResourceManager.labelMediumStyle)
       pointKey.setAlignment(Align.center)
-      val pointVal: Label = new Label(v.toString, ResourceManager.labelMediumStyle)
+      val pointVal: Label = new Label(v.toString, ResourceManager.labelMenuStyle)
       pointVal.setAlignment(Align.center)
 
       pointTable.add(pointKey).expand.fill.top
@@ -102,5 +107,19 @@ class ShipSelectionPanel extends Table {
     shipDetails.add(shipDetailTop).expand.height(50).top.pad(4)
     shipDetails.row
     shipDetails.add(shipDetailBottom).expand.height(80).top.pad(4)
+  }
+
+
+
+  /**
+    * Custom Scene2D Actions
+    */
+  private[startscreen] var updateShipDetailAction: Action = new Action() {
+    def act(delta: Float): Boolean = {
+      shipDetails.clear()
+      updateShipDetails()
+      shipDetails.addAction(Actions.fadeIn(0.15f))
+      true
+    }
   }
 }

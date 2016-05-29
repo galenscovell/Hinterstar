@@ -1,8 +1,9 @@
 package galenscovell.hinterstar.ui.components.startscreen
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, TextButton, TextField}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.util.ResourceManager
 
@@ -27,6 +28,11 @@ class TeamSelectionPanel extends Table {
 
   nameInput.setMaxLength(18)
   randomizeStartingTeamNames()
+
+  private val professionTable: Table = constructProfessionTable
+  private val leftTable: Table = new Table
+  private val rightTable: Table = new Table
+
   construct()
 
 
@@ -35,22 +41,39 @@ class TeamSelectionPanel extends Table {
   }
 
   private def construct(): Unit = {
-    val professionTable: Table = constructProfessionTable
-
-    // LEFT TABLE
-    val leftTable: Table = new Table
     leftTable.setBackground(ResourceManager.npTest1)
-    val teamTable: Table = constructTeamTable
-    leftTable.add(teamTable).expand.fill
-
-    // RIGHT TABLE
-    val rightTable: Table = new Table
     rightTable.setBackground(ResourceManager.npTest1)
 
+    updateLeftTable()
+    updateRightTable()
+
+    add(leftTable).width(340).height(400).left.padRight(10)
+    add(rightTable).width(340).height(400).right
+  }
+
+  private def updateLeftTable(): Unit = {
+    leftTable.clear()
+    var teamTable: Table = null
+    if (currentProfessionButton == null) {
+      // If first time and profession button hasn't been set, initialize it
+      teamTable = constructTeamTable
+    } else {
+      // Otherwise create new team table using updated selection info
+      val inputName: String = nameInput.getText
+      val inputProfession: String = currentProfessionButton.getLabel.getText.toString
+      teamMates(currentTeammate) = s"$inputName\t$inputProfession"
+      teamTable = constructTeamTable
+    }
+
+    leftTable.add(teamTable).expand.fill
+  }
+
+  private def updateRightTable(): Unit = {
     val optionTable: Table = new Table
     val nameTable: Table = new Table
     val nameLabel: Label = new Label("Teammate", ResourceManager.labelMenuStyle)
     nameLabel.setAlignment(Align.center)
+
     nameTable.add(nameLabel).expand.fill.height(40).padBottom(16)
     nameTable.row
     nameTable.add(nameInput).expand.fill.height(40).pad(4)
@@ -62,25 +85,19 @@ class TeamSelectionPanel extends Table {
     val modifyTeammateButton: TextButton = new TextButton("Modify", ResourceManager.greenButtonStyle)
     modifyTeammateButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        val inputName: String = nameInput.getText
-        val inputProfession: String = currentProfessionButton.getLabel.getText.toString
-        teamMates(currentTeammate) = s"$inputName\t$inputProfession"
-        val newTeamTable: Table = constructTeamTable
-        leftTable.clear()
-        leftTable.add(newTeamTable).expand.width(340).height(400)
+        leftTable.addAction(Actions.sequence(
+          Actions.alpha(0.5f, 0.1f),
+          updateLeftTableAction
+        ))
       }
     })
 
     rightTable.add(optionTable).expand.fill.width(340).height(350)
     rightTable.row
     rightTable.add(modifyTeammateButton).width(320).height(50).padBottom(10).center
-
-    // FINALIZE
-    add(leftTable).width(340).height(400).left.padRight(10)
-    add(rightTable).width(340).height(400).right
   }
 
-  def constructTeamTable: Table = {
+  private def constructTeamTable: Table = {
     val teamTable: Table = new Table
     for (teammate <- teamMates.indices) {
       val teamEntry: String = teamMates(teammate)
@@ -92,7 +109,7 @@ class TeamSelectionPanel extends Table {
       val memberButton: TextButton = new TextButton("", ResourceManager.toggleButtonStyle)
       memberButton.setText(s"$name\n$profession")
       val iconTable: Table = new Table  // Icon for profession
-      iconTable.setBackground(ResourceManager.blueButtonNp0)
+      iconTable.setBackground(ResourceManager.greenButtonNp0)
 
       if (currentTeamButton == null) {
         currentTeamButton = memberButton
@@ -115,6 +132,11 @@ class TeamSelectionPanel extends Table {
 
       memberButton.addListener(new ClickListener() {
         override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+          rightTable.addAction(Actions.sequence(
+            Actions.alpha(0.5f, 0.1f),
+            Actions.alpha(1.0f, 0.1f)
+          ))
+
           currentTeammate = teammate
           currentTeamButton.setChecked(false)
           if (currentTeamButton != memberButton) {
@@ -198,6 +220,7 @@ class TeamSelectionPanel extends Table {
         refreshProfessionButtons(linguistButton)
       }
     })
+
     professionTable.add(engineerButton).width(150).height(50).pad(4)
     professionTable.add(physicianButton).width(150).height(50).pad(4)
     professionTable.row
@@ -209,6 +232,7 @@ class TeamSelectionPanel extends Table {
     professionTable.row
     professionTable.add(psychiatristButton).width(150).height(50).pad(4)
     professionTable.add(linguistButton).width(150).height(50).pad(4)
+
     professionTable
   }
 
@@ -216,9 +240,12 @@ class TeamSelectionPanel extends Table {
     val names: List[String] = List(
       "Jack", "James", "Benjamin", "Joshua", "Ryan", "Patrick", "Samuel",
       "William", "Kenji", "Ei", "Ren", "Ken", "Daniel", "Ethan", "Michael",
-      "Tobias", "Alexander", "Noah", "Nathan", "Olivia", "Emily", "Jessica",
-      "Ashley", "Isabella", "Riko", "Nanami", "Misaki", "Jennifer", "Magnus",
-      "Lucas", "Adam", "Robert", "Sarah", "Hannah", "Ruby", "Chloe", "Lily"
+      "Tobias", "Alexander", "Noah", "Nathan", "Magnus", "Lucas", "Adam",
+      "Robert", "Ryou",
+      "Olivia", "Emily", "Jessica", "Ashley", "Isabella", "Riko", "Nanami",
+      "Misaki", "Jennifer", "Sarah", "Hannah", "Ruby", "Chloe", "Lily",
+      "Sophia", "Maria", "Madison", "Chelsea", "Shelby", "Rachel", "Sakura",
+      "Nadia", "Amelia"
     )
     val professions: List[String] = List(
       "Engineer", "Physician", "Soldier", "Researcher", "Pilot",
@@ -239,5 +266,17 @@ class TeamSelectionPanel extends Table {
       currentProfessionButton = textButton
     }
     currentProfessionButton.setChecked(true)
+  }
+
+
+  /**
+    * Custom Scene2D Actions
+    */
+  private[startscreen] var updateLeftTableAction: Action = new Action() {
+    def act(delta: Float): Boolean = {
+      updateLeftTable()
+      leftTable.addAction(Actions.alpha(1.0f, 0.1f))
+      true
+    }
   }
 }
