@@ -1,5 +1,7 @@
 package galenscovell.hinterstar.util
 
+import com.badlogic.gdx.graphics.Color
+
 
 object Constants {
 
@@ -40,4 +42,8 @@ object Constants {
   // To nearest star (Proxima Centauri): 271,000 AU
   val SPEED_OF_LIGHT: Double = 1.86 * Math.pow(10, 3)     // miles per second
   val ASTRONOMICAL_UNIT: Double = 9.29 * Math.pow(10, 7)  // in miles
+
+  // UI Colors
+  val normalColor: Color = new Color(0.5f, 0.5f, 0.5f, 1.0f)
+  val flashColor: Color = new Color(1.0f, 1.0f, 1.0f, 1.0f)
 }

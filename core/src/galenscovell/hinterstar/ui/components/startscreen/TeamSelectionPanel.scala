@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, TextButton, TextField}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.utils.Align
-import galenscovell.hinterstar.util.ResourceManager
+import galenscovell.hinterstar.util.{Constants, ResourceManager}
 
 import scala.util.Random
 
@@ -42,7 +42,9 @@ class TeamSelectionPanel extends Table {
 
   private def construct(): Unit = {
     leftTable.setBackground(ResourceManager.npTest1)
+    leftTable.setColor(Constants.normalColor)
     rightTable.setBackground(ResourceManager.npTest1)
+    rightTable.setColor(Constants.normalColor)
 
     updateLeftTable()
     updateRightTable()
@@ -53,9 +55,10 @@ class TeamSelectionPanel extends Table {
 
   private def updateLeftTable(): Unit = {
     leftTable.clear()
+
     var teamTable: Table = null
     if (currentProfessionButton == null) {
-      // If first time and profession button hasn't been set, initialize it
+      // If profession button hasn't been set, initialize teamTable for the first time
       teamTable = constructTeamTable
     } else {
       // Otherwise create new team table using updated selection info
@@ -86,7 +89,7 @@ class TeamSelectionPanel extends Table {
     modifyTeammateButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         leftTable.addAction(Actions.sequence(
-          Actions.alpha(0.5f, 0.1f),
+          Actions.color(Constants.flashColor, 0.2f),
           updateLeftTableAction
         ))
       }
@@ -133,8 +136,8 @@ class TeamSelectionPanel extends Table {
       memberButton.addListener(new ClickListener() {
         override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
           rightTable.addAction(Actions.sequence(
-            Actions.alpha(0.5f, 0.1f),
-            Actions.alpha(1.0f, 0.1f)
+            Actions.color(Constants.flashColor, 0.2f),
+            Actions.color(Constants.normalColor, 0.2f)
           ))
 
           currentTeammate = teammate
@@ -161,8 +164,8 @@ class TeamSelectionPanel extends Table {
         }
       })
 
-      memberTable.add(memberButton).width(256).height(62).pad(2)
-      memberTable.add(iconTable).width(70).height(62).pad(2)
+      memberTable.add(memberButton).width(252).height(58).pad(4)
+      memberTable.add(iconTable).width(66).height(58).pad(4)
 
       teamTable.add(memberTable).width(330).height(64).pad(1)
       teamTable.row
@@ -275,7 +278,7 @@ class TeamSelectionPanel extends Table {
   private[startscreen] var updateLeftTableAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       updateLeftTable()
-      leftTable.addAction(Actions.alpha(1.0f, 0.1f))
+      leftTable.addAction(Actions.color(Constants.normalColor, 0.2f))
       true
     }
   }

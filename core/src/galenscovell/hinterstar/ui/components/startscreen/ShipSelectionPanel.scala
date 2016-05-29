@@ -1,12 +1,12 @@
 package galenscovell.hinterstar.ui.components.startscreen
 
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, TextButton}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.things.{Ship, ShipParser}
-import galenscovell.hinterstar.util.ResourceManager
+import galenscovell.hinterstar.util.{Constants, ResourceManager}
 
 import scala.collection.mutable.Map
 
@@ -28,6 +28,7 @@ class ShipSelectionPanel extends Table {
   private def construct(): Unit = {
     // TOP TABLE
     val topTable: Table = new Table
+    topTable.setColor(Constants.normalColor)
     topTable.setBackground(ResourceManager.npTest1)
 
     val scrollRightButton: TextButton = new TextButton(">", ResourceManager.blueButtonStyle)
@@ -37,10 +38,7 @@ class ShipSelectionPanel extends Table {
         if (currentShipIndex > allShips.length - 1) {
           currentShipIndex = 0
         }
-        shipDetails.addAction(Actions.sequence(
-          Actions.fadeOut(0.15f),
-          updateShipDetailAction
-        ))
+        updateShipDetails()
       }
     })
     val scrollLeftButton: TextButton = new TextButton("<", ResourceManager.blueButtonStyle)
@@ -50,10 +48,7 @@ class ShipSelectionPanel extends Table {
         if (currentShipIndex < 0) {
           currentShipIndex = allShips.length - 1
         }
-        shipDetails.addAction(Actions.sequence(
-          Actions.fadeOut(0.15f),
-          updateShipDetailAction
-        ))
+        updateShipDetails()
       }
     })
     val shipTable: Table = new Table
@@ -64,7 +59,8 @@ class ShipSelectionPanel extends Table {
 
     // BOTTOM TABLE
     val bottomTable: Table = new Table
-    bottomTable.setBackground(ResourceManager.npTest1)
+    shipDetails.setBackground(ResourceManager.npTest1)
+    shipDetails.setColor(Constants.normalColor)
 
     bottomTable.add(shipDetails).expand.fill
 
@@ -75,6 +71,8 @@ class ShipSelectionPanel extends Table {
   }
 
   private def updateShipDetails(): Unit = {
+    shipDetails.clear()
+
     val shipDetailTop: Table = new Table
     val shipName: String = allShips(currentShipIndex).getName
     val shipDesc: String = allShips(currentShipIndex).getDescription
@@ -107,6 +105,11 @@ class ShipSelectionPanel extends Table {
     shipDetails.add(shipDetailTop).expand.height(50).top.pad(4)
     shipDetails.row
     shipDetails.add(shipDetailBottom).expand.height(80).top.pad(4)
+
+    shipDetails.addAction(Actions.sequence(
+      Actions.color(Constants.flashColor, 0.2f),
+      Actions.color(Constants.normalColor, 0.2f)
+    ))
   }
 
 
@@ -116,9 +119,7 @@ class ShipSelectionPanel extends Table {
     */
   private[startscreen] var updateShipDetailAction: Action = new Action() {
     def act(delta: Float): Boolean = {
-      shipDetails.clear()
       updateShipDetails()
-      shipDetails.addAction(Actions.fadeIn(0.15f))
       true
     }
   }
