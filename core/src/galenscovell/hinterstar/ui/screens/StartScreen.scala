@@ -32,6 +32,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   protected override def create(): Unit = {
     this.stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch)
 
+    // MAIN TABLE
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
@@ -62,6 +63,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       }
     })
 
+    // FINALIZE
     titleTable.add(returnButton).width(200).height(50)
     titleTable.add(titleLabel).width(364).height(50)
     titleTable.add(embarkButton).width(200).height(50)

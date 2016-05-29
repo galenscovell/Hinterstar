@@ -1,15 +1,7 @@
 {
   "Ship0": {
     "name": "Ship-0",
-    "description": "A generic ol' ship",
-    "base-stats": {
-      "combat": 0,
-      "hull": 0,
-      "mobility": 0,
-      "power": 0,
-      "storage": 0,
-      "shield": 0
-    },
+    "description": "A generic ship with average potential across the board",
     "install-points": {
       "combat": 1,
       "hull": 1,
@@ -21,17 +13,21 @@
   },
   "Ship1": {
     "name": "Ship-1",
-    "description": "A generic ol' ship focused on storage",
-    "base-stats": {
-      "combat": 0,
-      "hull": 0,
-      "mobility": -1,
-      "power": 0,
-      "storage": 0,
-      "shield": 0
-    },
+    "description": "A ship with improved storage potential",
     "install-points": {
       "combat": 1,
+      "hull": 1,
+      "mobility": 1,
+      "power": 1,
+      "storage": 2,
+      "shield": 1
+    }
+  },
+  "Ship2": {
+    "name": "Ship-2",
+    "description": "A ship with improved combat potential",
+    "install-points": {
+      "combat": 2,
       "hull": 1,
       "mobility": 1,
       "power": 1,

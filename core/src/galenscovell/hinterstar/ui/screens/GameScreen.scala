@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
 import galenscovell.hinterstar.processing.controls.InputHandler
-import galenscovell.hinterstar.ui.components._
 import galenscovell.hinterstar.ui.components.gamescreen.{GameStage, LocationPanel}
 import galenscovell.hinterstar.util._
 
@@ -125,7 +124,6 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   }
 
   private def createBackground(bg0: String, bg1: String, bg2: String): ParallaxBackground = {
-    var parallaxBackground: ParallaxBackground = null
     if (!(bg0 == "")) {
       val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](3)
       parallaxLayers(0) = new ParallaxLayer(
@@ -143,7 +141,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
         new Vector2(0.75f, 0.75f),
         new Vector2(0, 0)
       )
-      parallaxBackground = new ParallaxBackground(
+      new ParallaxBackground(
         root.spriteBatch,
         parallaxLayers,
         Constants.EXACT_X,
@@ -162,7 +160,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
         new Vector2(0.75f, 0.75f),
         new Vector2(0, 0)
       )
-      parallaxBackground = new ParallaxBackground(
+      new ParallaxBackground(
         root.spriteBatch,
         parallaxLayers,
         Constants.EXACT_X,
@@ -170,7 +168,6 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
         new Vector2(40, 0)
       )
     }
-    parallaxBackground
   }
 
 

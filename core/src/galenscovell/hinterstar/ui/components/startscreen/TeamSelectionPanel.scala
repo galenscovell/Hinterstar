@@ -75,6 +75,7 @@ class TeamSelectionPanel extends Table {
     rightTable.row
     rightTable.add(modifyTeammateButton).width(320).height(50).padBottom(10).center
 
+    // FINALIZE
     add(leftTable).width(340).height(400).left.padRight(10)
     add(rightTable).width(340).height(400).right
   }

@@ -33,15 +33,12 @@ class ShipParser {
   def constructShip(entry: JsonValue): Ship = {
     val name: String = entry.getString("name")
     val desc: String = entry.getString("description")
-    val baseStats: Map[String, Int] = Map()
     val installPoints: Map[String, Int] = Map()
 
-    val baseStatEntry: JsonValue = entry.get("base-stats")
     val installEntry: JsonValue = entry.get("install-points")
     for (stat: String <- stats) {
-      baseStats.put(stat, baseStatEntry.getInt(stat))
       installPoints.put(stat, installEntry.getInt(stat))
     }
-    new Ship(name, desc, baseStats, installPoints)
+    new Ship(name, desc, installPoints)
   }
 }
