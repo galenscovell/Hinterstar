@@ -18,6 +18,7 @@ class MapGenerator(maxLocations: Int, padSize: Int) {
     sectors
   }
 
+
   private def build(): Unit = {
     // Construct Sector[MAPHEIGHT][MAPWIDTH] sectors of all empty Sectors
     for (x <- 0 until Constants.MAPWIDTH) {
@@ -26,6 +27,7 @@ class MapGenerator(maxLocations: Int, padSize: Int) {
       }
     }
   }
+
 
   private def placeLocations(): Unit = {
     // Place random Locations, ensuring that they are distanced apart
@@ -47,6 +49,7 @@ class MapGenerator(maxLocations: Int, padSize: Int) {
     }
   }
 
+
   private def doesCollide(location: Location, ignore: Int): Boolean = {
     // Return if target location overlaps already placed location
     for (i <- locations.indices) {
@@ -59,6 +62,7 @@ class MapGenerator(maxLocations: Int, padSize: Int) {
     }
     false
   }
+
 
   private def getRandom(lo: Int, hi: Int): Int = {
     (Math.random * (hi - lo)).toInt + lo

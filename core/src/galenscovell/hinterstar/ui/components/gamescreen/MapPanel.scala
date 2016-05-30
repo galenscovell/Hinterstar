@@ -26,6 +26,7 @@ class MapPanel(stage: GameStage) extends Table {
     this.add(mapGroup).width(Constants.EXACT_X).height(Constants.EXACT_Y - (Constants.SECTORSIZE * 2)).padTop(Constants.SECTORSIZE * 2)
   }
 
+
   private def createMapTable: Table = {
     val mapTable: Table = new Table
     mapTable.setBackground(ResourceManager.npTest4)
@@ -33,6 +34,7 @@ class MapPanel(stage: GameStage) extends Table {
     mapTable.setFillParent(true)
     mapTable
   }
+
 
   private def generateMap(container: Table): Unit =  {
     // TODO: Each new map has randomized sector layout (depending on difficulty)
@@ -46,6 +48,7 @@ class MapPanel(stage: GameStage) extends Table {
       container.row
     }
   }
+
 
   private def createInfoTable: Table = {
     val infoTable: Table = new Table
@@ -63,6 +66,7 @@ class MapPanel(stage: GameStage) extends Table {
     infoTable
   }
 
+
   private def travelToLocation(): Unit = {
     if (Repository.travelToSelection) {
       gameStage.getNavButtons.getMapButton.setChecked(false)
@@ -72,6 +76,7 @@ class MapPanel(stage: GameStage) extends Table {
     }
   }
 
+  
   def updateDistanceLabel(d: String): Unit = {
     distanceLabel.setText(d)
   }

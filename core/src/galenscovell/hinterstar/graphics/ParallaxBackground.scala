@@ -1,7 +1,6 @@
 package galenscovell.hinterstar.graphics
 
-import com.badlogic.gdx.graphics.Camera
-import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.{Camera, OrthographicCamera}
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Vector2
 
@@ -11,17 +10,19 @@ class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: F
   private val camera: Camera = new OrthographicCamera(w, h)
   private val batch: SpriteBatch = b
   private var speed: Vector2 = s
-  private var savedSpeed: Vector2 = new Vector2(0, 0)
+  private val savedSpeed: Vector2 = new Vector2(0, 0)
 
 
   def setSpeed(speed: Vector2): Unit = {
     this.speed = speed
   }
 
+
   def modifySpeed(dxSpeed: Vector2): Unit = {
     this.speed.x += dxSpeed.x
     this.speed.y += dxSpeed.y
   }
+
 
   def pause(): Unit = {
     this.savedSpeed.x = speed.x
@@ -30,10 +31,12 @@ class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: F
     this.speed.y = 0
   }
 
+
   def unpause(): Unit = {
     this.speed.x = savedSpeed.x
     this.speed.y = savedSpeed.y
   }
+
 
   def render(delta: Float): Unit = {
     this.camera.position.add(speed.x * delta, speed.y * delta, 0)

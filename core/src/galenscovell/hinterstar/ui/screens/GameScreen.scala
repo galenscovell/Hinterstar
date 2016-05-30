@@ -40,6 +40,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     Gdx.input.setInputProcessor(input)
   }
 
+
   override def render(delta: Float): Unit = {
     // Clear screen
     Gdx.gl.glClearColor(0, 0, 0, 1)
@@ -63,21 +64,26 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     }
   }
 
+
   override def show(): Unit = {
     Gdx.input.setInputProcessor(input)
   }
+
 
   def getGameStage: Stage = {
     stage
   }
 
+
   def toMainMenu(): Unit = {
     root.setScreen(root.mainMenuScreen)
   }
 
+
   def beginTravel(): Unit = {
     travelFrames = 600
   }
+
 
   def toggleMap(): Unit = {
     mapOpen = !mapOpen
@@ -86,22 +92,6 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     }
   }
 
-  def travel(): Unit = {
-    if (travelFrames > 500) {
-      currentBackground.modifySpeed(new Vector2(600 - travelFrames, 0))
-    } else if (travelFrames == 500) {
-      currentBackground = blurBg
-      currentBackground.setSpeed(new Vector2(2500, 0))
-    } else if (travelFrames == 90) {
-      currentBackground = normalBg
-    } else if (travelFrames < 70) {
-      currentBackground.modifySpeed(new Vector2(-(70 - travelFrames), 0))
-    }
-    travelFrames -= 1
-    if (travelFrames == 0) {
-      currentBackground.setSpeed(new Vector2(40, 0))
-    }
-  }
 
   def transitionSector(bg0: String, bg1: String, bg2: String, bg0Blur: String, bg1Blur: String, bg2Blur: String): Unit = {
     this.bg0 = bg0
@@ -122,6 +112,25 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       Actions.removeActor(locationPanel)
     ))
   }
+
+
+  private def travel(): Unit = {
+    if (travelFrames > 500) {
+      currentBackground.modifySpeed(new Vector2(600 - travelFrames, 0))
+    } else if (travelFrames == 500) {
+      currentBackground = blurBg
+      currentBackground.setSpeed(new Vector2(2500, 0))
+    } else if (travelFrames == 90) {
+      currentBackground = normalBg
+    } else if (travelFrames < 70) {
+      currentBackground.modifySpeed(new Vector2(-(70 - travelFrames), 0))
+    }
+    travelFrames -= 1
+    if (travelFrames == 0) {
+      currentBackground.setSpeed(new Vector2(40, 0))
+    }
+  }
+
 
   private def createBackground(bg0: String, bg1: String, bg2: String): ParallaxBackground = {
     if (!(bg0 == "")) {

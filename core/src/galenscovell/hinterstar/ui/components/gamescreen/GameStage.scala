@@ -58,6 +58,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     this.addActor(mainTable)
   }
 
+
   def togglePanel(num: Int): Unit = {
     if (!mapPanel.hasActions) {
       if (mapPanel.hasParent) {
@@ -112,6 +113,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     }
   }
 
+
   def hideUIElements(): Unit = {
     navButtons.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
@@ -126,6 +128,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
       Actions.moveBy(0, -110, 0.5f, Interpolation.sine)
     ))
   }
+
 
   def showUIElements(): Unit = {
     navButtons.addAction(Actions.sequence(
@@ -142,13 +145,16 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     ))
   }
 
+
   def updateDistanceLabel(d: String): Unit = {
     mapPanel.updateDistanceLabel(d)
   }
 
+
   def getNavButtons: NavButtons = {
     navButtons
   }
+
 
   def updateDetailTable(loc: String): Unit = {
     detailTable.updateLocation(loc)
@@ -161,6 +167,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     ))
   }
 
+
   def startNextEventAnimation(): Unit = {
     nextAnimationFrames = 300
     player.addAction(Actions.sequence(
@@ -171,9 +178,11 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     ))
   }
 
+
   def getNextAnimationFrames: Int = {
     nextAnimationFrames
   }
+
 
   def nextEventAnimation(): Unit = {
     if (nextAnimationFrames > 200) {
@@ -190,6 +199,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
       showEventPanel()
     }
   }
+
 
   private def showEventPanel(): Unit = {
     if (eventPanel != null) {

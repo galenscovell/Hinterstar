@@ -21,6 +21,7 @@ class Player(gameStage: GameStage) extends Actor {
     }
   })
 
+
   override def draw(batch: Batch, parentAlpha: Float): Unit = {
     if (selected) {
       batch.setColor(0.5f, 0.5f, 1.0f, 1)

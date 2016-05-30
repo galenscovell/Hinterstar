@@ -46,6 +46,7 @@ class NavButtons(stage: GameStage) extends Table {
     this.add(shipButton).width(134).expand.fill
   }
 
+
   def getMapButton: TextButton = {
     mapButton
   }

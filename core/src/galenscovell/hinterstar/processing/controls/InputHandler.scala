@@ -16,6 +16,7 @@ class InputHandler(gameScreen: GameScreen) extends InputAdapter {
     false
   }
 
+
   override def touchUp(x: Int, y: Int, pointer: Int, button: Int): Boolean = {
     if (Math.abs(x - startX) < 10 && Math.abs(y - startY) < 10) {
       println("Input: " + x + ", " + y)
@@ -25,6 +26,7 @@ class InputHandler(gameScreen: GameScreen) extends InputAdapter {
       false
     }
   }
+
 
   override def scrolled(amount: Int): Boolean = {
     true

@@ -12,10 +12,12 @@ import scala.util.Random
 
 class TeamSelectionPanel extends Table {
   private val teamMates: Array[String] = Array[String]("", "", "", "", "", "")
-  private val nameInput: TextField = new TextField("", ResourceManager.textFieldStyle)
+
   private var currentTeammate: Int = 0
   private var currentTeamButton: TextButton = null
   private var currentProfessionButton: TextButton = null
+  private val nameInput: TextField = new TextField("", ResourceManager.textFieldStyle)
+  nameInput.setMaxLength(18)
 
   private var engineerButton: TextButton = null
   private var physicianButton: TextButton = null
@@ -26,7 +28,6 @@ class TeamSelectionPanel extends Table {
   private var psychiatristButton: TextButton = null
   private var linguistButton: TextButton = null
 
-  nameInput.setMaxLength(18)
   randomizeStartingTeamNames()
 
   private val professionTable: Table = constructProfessionTable
@@ -40,6 +41,7 @@ class TeamSelectionPanel extends Table {
     teamMates
   }
 
+
   private def construct(): Unit = {
     leftTable.setBackground(ResourceManager.npTest1)
     leftTable.setColor(Constants.normalColor)
@@ -52,6 +54,7 @@ class TeamSelectionPanel extends Table {
     add(leftTable).width(340).height(400).left.padRight(10)
     add(rightTable).width(340).height(400).right
   }
+
 
   private def updateLeftTable(): Unit = {
     leftTable.clear()
@@ -70,6 +73,7 @@ class TeamSelectionPanel extends Table {
 
     leftTable.add(teamTable).expand.fill
   }
+
 
   private def updateRightTable(): Unit = {
     val optionTable: Table = new Table
@@ -99,6 +103,7 @@ class TeamSelectionPanel extends Table {
     rightTable.row
     rightTable.add(modifyTeammateButton).width(320).height(50).padBottom(10).center
   }
+
 
   private def constructTeamTable: Table = {
     val teamTable: Table = new Table
@@ -173,6 +178,7 @@ class TeamSelectionPanel extends Table {
     teamTable
   }
 
+
   private def constructProfessionTable: Table = {
     val professionTable: Table = new Table
     engineerButton = new TextButton("Engineer", ResourceManager.toggleButtonStyle)
@@ -239,6 +245,7 @@ class TeamSelectionPanel extends Table {
     professionTable
   }
 
+
   private def randomizeStartingTeamNames(): Unit = {
     val names: List[String] = List(
       "Jack", "James", "Benjamin", "Joshua", "Ryan", "Patrick", "Samuel",
@@ -263,6 +270,7 @@ class TeamSelectionPanel extends Table {
     }
   }
 
+
   private def refreshProfessionButtons(textButton: TextButton): Unit = {
     currentProfessionButton.setChecked(false)
     if (currentProfessionButton != null && currentProfessionButton != textButton) {
@@ -270,6 +278,7 @@ class TeamSelectionPanel extends Table {
     }
     currentProfessionButton.setChecked(true)
   }
+
 
 
   /**

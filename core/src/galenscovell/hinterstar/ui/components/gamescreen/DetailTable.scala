@@ -41,11 +41,13 @@ class DetailTable(stage: GameStage) extends Table {
     this.add(mainTable).expand.fill
   }
 
+
   def establishInfoPanel(): Unit = {
     infoTable.clear()
     var infoPanel: InfoPanel = new InfoPanel(this)
     infoTable.add(infoPanel).expand.fill
   }
+
 
   def updateDate(): Unit = {
     if (day < 12) {
@@ -62,9 +64,11 @@ class DetailTable(stage: GameStage) extends Table {
     dateLabel.setText(dateAsString)
   }
 
+
   def updateLocation(loc: String): Unit = {
     locationLabel.setText(loc)
   }
+
 
   private def dateAsString: String = {
     String.valueOf(day) + "." + String.valueOf(month) + "." + String.valueOf(year)

@@ -12,15 +12,6 @@ import galenscovell.hinterstar.util.{Constants, PlayerData, ResourceManager}
 
 
 class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
-  //  Ship: Player selects ship design from premade options
-  //    More options can be unlocked through game accomplishments
-  //    This choice is not final, other ships can become available ingame
-  //    Ships have different looks, upgrade options and starting parts
-  //  Resources: Player selects starting resources
-  //    Player begins with cash amount dependent on team members
-  //    Different resources cost different amounts and take up storage
-  //    Food, water, fuel, spare parts
-  //    Resources are found/generated throughout game
   private val teamPanel: Table = new TeamSelectionPanel
   private val shipPanel: Table = new ShipSelectionPanel
   private val resourcePanel: Table = new ResourceSelectionPanel
@@ -32,7 +23,6 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   protected override def create(): Unit = {
     this.stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch)
 
-    // MAIN TABLE
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
@@ -63,7 +53,6 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       }
     })
 
-    // FINALIZE
     titleTable.add(returnButton).width(200).height(50)
     titleTable.add(titleLabel).width(364).height(50)
     titleTable.add(embarkButton).width(200).height(50)
@@ -79,6 +68,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     )
   }
 
+
   private def updateContentTable(content: Table): Unit = {
     contentTable.clear()
 
@@ -93,6 +83,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     contentTable.add(nextButton).width(80).height(400).right
   }
 
+
   private def transitionPanel(): Unit = {
     if (teamPanel.hasParent) {
       updateContentTable(shipPanel)
@@ -103,13 +94,16 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     }
   }
 
+
   private def establishTeam(team: Array[String]): Unit = {
     PlayerData.establishTeam(team)
   }
 
+
   private def establishShip(): Unit = {
 
   }
+
 
   private def establishResources(resources: Map[String, Int]): Unit = {
 

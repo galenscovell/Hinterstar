@@ -31,6 +31,7 @@ object Repository {
     playerRange = 10
   }
 
+
   def setTargetsInRange(): Unit = {
     locationsInRange.clear()
 
@@ -41,6 +42,7 @@ object Repository {
       }
     }
   }
+
 
   def drawShapes(): Unit = {
     val radius: Float = playerRange * Constants.SECTORSIZE
@@ -73,6 +75,7 @@ object Repository {
   }
 
 
+
   /**
     * Called from GameStage
     */
@@ -83,12 +86,14 @@ object Repository {
   }
 
 
+
   /**
     * Called from MapPanel
     */
   def setSectors(sectors: Array[Array[Sector]]): Unit = {
     Repository.sectors = sectors
   }
+
 
   def travelToSelection: Boolean = {
     if (currentSelection != null && locationsInRange.contains(currentSelection)) {
@@ -102,6 +107,7 @@ object Repository {
       false
     }
   }
+
 
 
   /**
@@ -124,6 +130,7 @@ object Repository {
       }
     }
   }
+
 
 
   /**

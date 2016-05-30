@@ -1,9 +1,9 @@
 package galenscovell.hinterstar.ui.components.startscreen
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, TextButton}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
-import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.things.{Ship, ShipParser}
 import galenscovell.hinterstar.util.{Constants, ResourceManager}
@@ -15,7 +15,10 @@ class ShipSelectionPanel extends Table {
   private val allShips: Array[Ship] = new ShipParser().parseAll
   private var currentShipIndex: Int = 0
   private val selectedShip: Ship = null
+
   private val shipDetails: Table = new Table
+  shipDetails.setBackground(ResourceManager.npTest1)
+  shipDetails.setColor(Constants.normalColor)
 
   updateShipDetails()
   construct()
@@ -25,8 +28,20 @@ class ShipSelectionPanel extends Table {
     selectedShip
   }
 
+
   private def construct(): Unit = {
-    // TOP TABLE
+    val topTable: Table = createTopTable
+    val bottomTable: Table = new Table
+
+    bottomTable.add(shipDetails).expand.fill
+
+    add(topTable).width(690).height(240).center
+    row
+    add(bottomTable).width(690).height(150).padTop(10).center
+  }
+
+
+  private def createTopTable: Table = {
     val topTable: Table = new Table
     topTable.setColor(Constants.normalColor)
     topTable.setBackground(ResourceManager.npTest1)
@@ -57,18 +72,9 @@ class ShipSelectionPanel extends Table {
     topTable.add(shipTable).width(500).expand.fill
     topTable.add(scrollRightButton).width(80).expand.fill.right
 
-    // BOTTOM TABLE
-    val bottomTable: Table = new Table
-    shipDetails.setBackground(ResourceManager.npTest1)
-    shipDetails.setColor(Constants.normalColor)
-
-    bottomTable.add(shipDetails).expand.fill
-
-    // FINALIZE
-    add(topTable).width(690).height(240).center
-    row
-    add(bottomTable).width(690).height(150).padTop(10).center
+    topTable
   }
+
 
   private def updateShipDetails(): Unit = {
     shipDetails.clear()
@@ -110,17 +116,5 @@ class ShipSelectionPanel extends Table {
       Actions.color(Constants.flashColor, 0.2f),
       Actions.color(Constants.normalColor, 0.2f)
     ))
-  }
-
-
-
-  /**
-    * Custom Scene2D Actions
-    */
-  private[startscreen] var updateShipDetailAction: Action = new Action() {
-    def act(delta: Float): Boolean = {
-      updateShipDetails()
-      true
-    }
   }
 }

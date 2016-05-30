@@ -24,11 +24,13 @@ class ShipParser {
     ships.toArray
   }
 
+
   def parseSingle(name: String): Ship = {
     val json: JsonValue = new JsonReader().parse(Gdx.files.internal(source))
     val entry: JsonValue = json.get(name)
     constructShip(entry)
   }
+
 
   def constructShip(entry: JsonValue): Ship = {
     val name: String = entry.getString("name")

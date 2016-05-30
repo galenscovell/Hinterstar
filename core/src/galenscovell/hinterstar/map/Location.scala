@@ -23,29 +23,36 @@ class Location(xIn: Int, yIn: Int, sizeIn: Int) {
     sector.becomeUnexplored()
   }
 
+
   def getSector: Sector = {
     sector
   }
+
 
   def enter(): Unit = {
     generateEvents(new Random)
   }
 
+
   def getDetails: Array[String] = {
     details
   }
+
 
   def getEvents: ArrayBuffer[Event] = {
     events
   }
 
+
   def getCurrentEvent: Event = {
     events(currentEvent)
   }
 
+
   def nextEvent(): Unit = {
     currentEvent += 1
   }
+
 
   def getDistanceToNextEvent: Float = {
     if (currentEvent == 0) {
@@ -54,6 +61,7 @@ class Location(xIn: Int, yIn: Int, sizeIn: Int) {
       events(currentEvent + 1).getDistance
     }
   }
+
 
   private def generateEvents(random: Random): Unit =  {
     this.events.clear()
@@ -78,6 +86,7 @@ class Location(xIn: Int, yIn: Int, sizeIn: Int) {
     createBackground(random)
   }
 
+  
   private def createBackground(random: Random): Unit = {
     // Background depends on number and type of events generated
     // eg many planet events = background has planets
