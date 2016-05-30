@@ -1,10 +1,9 @@
 package galenscovell.hinterstar.ui.components.startscreen
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion
 import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.{Image, Label, Table, TextButton}
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.scenes.scene2d.utils.{ClickListener, TextureRegionDrawable}
 import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.utils.{Align, Scaling}
 import galenscovell.hinterstar.things.{Ship, ShipParser}
@@ -19,6 +18,8 @@ class ShipSelectionPanel extends Table {
   private val selectedShip: Ship = null
 
   private val shipDisplay: Table = new Table
+  private val shipImage: Image = new Image
+  shipImage.setScaling(Scaling.fillX)
   private val shipDetail: Table = new Table
   shipDetail.setBackground(ResourceManager.npTest1)
   shipDetail.setColor(Constants.normalColor)
@@ -78,17 +79,22 @@ class ShipSelectionPanel extends Table {
 
 
   def updateShipDisplay(transitionRight: Boolean): Unit = {
-    shipDisplay.clear()
-
     var amount: Int = 100
+    var origin: Int = 0
     if (!transitionRight) {
+      origin = amount * 2
       amount = -amount
     }
 
+    shipDisplay.clearActions()
+
     shipDisplay.addAction(Actions.sequence(
-      Actions.fadeOut(0.15f),
+      Actions.parallel(
+        Actions.fadeOut(0.15f),
+        Actions.moveBy(amount, 0, 0.15f)
+      ),
       updateShipDisplayAction,
-      Actions.moveBy(-amount, 0),
+      Actions.moveTo(origin, 0),
       Actions.parallel(
         Actions.fadeIn(0.15f),
         Actions.moveBy(amount, 0, 0.15f)
@@ -152,10 +158,14 @@ class ShipSelectionPanel extends Table {
     */
   private[startscreen] var updateShipDisplayAction: Action = new Action() {
     def act(delta: Float): Boolean = {
+//      shipImage.remove()
+      shipImage.clear()
       val shipName: String = allShips(currentShipIndex).getName
-      val shipImage: Image = new Image(new AtlasRegion(ResourceManager.shipAtlas.findRegion(shipName)))
-      shipImage.setScaling(Scaling.fillX)
-      shipDisplay.add(shipImage).expand.fill.center.pad(60)
+      shipImage.setDrawable(new TextureRegionDrawable(ResourceManager.shipAtlas.findRegion(shipName)))
+
+      if (!shipImage.hasParent) {
+        shipDisplay.add(shipImage).pad(60)
+      }
       true
     }
   }

@@ -1,5 +1,5 @@
 {
-  "Ship0": {
+  "Ship-0": {
     "name": "Ship-0",
     "description": "A generic ship with average potential across the board",
     "install-points": {
@@ -11,7 +11,7 @@
       "shield": 1
     }
   },
-  "Ship1": {
+  "Ship-1": {
     "name": "Ship-1",
     "description": "A ship with improved storage potential",
     "install-points": {
@@ -23,7 +23,7 @@
       "shield": 1
     }
   },
-  "Ship2": {
+  "Ship-2": {
     "name": "Ship-2",
     "description": "A ship with improved combat potential",
     "install-points": {
