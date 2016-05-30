@@ -1,6 +1,7 @@
 package galenscovell.hinterstar.util
 
 import com.badlogic.gdx.{Gdx, Preferences}
+import galenscovell.hinterstar.things.Ship
 
 
 object PlayerData {
@@ -50,7 +51,7 @@ object PlayerData {
   }
 
 
-  def establishShip(): Unit = {
+  def establishShip(selectedShip: Ship): Unit = {
     // Add ship chassis to preferences along with all parts and their activity status
 
   }

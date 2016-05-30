@@ -15,7 +15,6 @@ import scala.collection.mutable.Map
 class ShipSelectionPanel extends Table {
   private val allShips: Array[Ship] = new ShipParser().parseAll
   private var currentShipIndex: Int = 0
-  private val selectedShip: Ship = null
 
   private val shipDisplay: Table = new Table
   private val shipImage: Image = new Image
@@ -28,7 +27,7 @@ class ShipSelectionPanel extends Table {
 
 
   def getShip: Ship = {
-    selectedShip
+    allShips(currentShipIndex)
   }
 
 
@@ -158,7 +157,6 @@ class ShipSelectionPanel extends Table {
     */
   private[startscreen] var updateShipDisplayAction: Action = new Action() {
     def act(delta: Float): Boolean = {
-//      shipImage.remove()
       shipImage.clear()
       val shipName: String = allShips(currentShipIndex).getName
       shipImage.setDrawable(new TextureRegionDrawable(ResourceManager.shipAtlas.findRegion(shipName)))

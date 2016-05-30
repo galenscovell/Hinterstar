@@ -7,14 +7,15 @@ import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent, Stage}
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
+import galenscovell.hinterstar.things.Ship
 import galenscovell.hinterstar.ui.components.startscreen.{ResourceSelectionPanel, ShipSelectionPanel, TeamSelectionPanel}
 import galenscovell.hinterstar.util.{Constants, PlayerData, ResourceManager}
 
 
 class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
-  private val teamPanel: Table = new TeamSelectionPanel
-  private val shipPanel: Table = new ShipSelectionPanel
-  private val resourcePanel: Table = new ResourceSelectionPanel
+  private val teamPanel: TeamSelectionPanel = new TeamSelectionPanel
+  private val shipPanel: ShipSelectionPanel = new ShipSelectionPanel
+  private val resourcePanel: ResourceSelectionPanel = new ResourceSelectionPanel
   private val contentTable: Table = new Table
 
   updateContentTable(teamPanel)
@@ -43,8 +44,11 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     val embarkButton: TextButton = new TextButton("Embark", ResourceManager.greenButtonStyle)
     embarkButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        val team: Array[String] = teamPanel.asInstanceOf[TeamSelectionPanel].getTeammates
+        val team: Array[String] = teamPanel.getTeammates
+        val selectedShip: Ship = shipPanel.getShip
         establishTeam(team)
+        establishShip(selectedShip)
+
         root.createGameScreen()
         stage.getRoot.addAction(Actions.sequence(
           Actions.fadeOut(0.3f),
@@ -86,8 +90,8 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
   private def transitionPanel(): Unit = {
     if (teamPanel.hasParent) {
-      shipPanel.asInstanceOf[ShipSelectionPanel].updateShipDetails()
-      shipPanel.asInstanceOf[ShipSelectionPanel].updateShipDisplay(true)
+      shipPanel.updateShipDetails()
+      shipPanel.updateShipDisplay(true)
       updateContentTable(shipPanel)
     } else if (shipPanel.hasParent) {
       updateContentTable(resourcePanel)
@@ -102,8 +106,8 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   }
 
 
-  private def establishShip(): Unit = {
-
+  private def establishShip(selectedShip: Ship): Unit = {
+    PlayerData.establishShip(selectedShip)
   }
 
 
