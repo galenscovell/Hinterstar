@@ -1,5 +1,6 @@
 package galenscovell.hinterstar.ui.components.startscreen
 
+import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, TextButton, TextField}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
@@ -93,7 +94,7 @@ class TeamSelectionPanel extends Table {
     modifyTeammateButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         leftTable.addAction(Actions.sequence(
-          Actions.color(Constants.flashColor, 0.2f),
+          Actions.color(Constants.flashColor, 0.25f, Interpolation.sine),
           updateLeftTableAction
         ))
       }
@@ -141,8 +142,8 @@ class TeamSelectionPanel extends Table {
       memberButton.addListener(new ClickListener() {
         override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
           rightTable.addAction(Actions.sequence(
-            Actions.color(Constants.flashColor, 0.2f),
-            Actions.color(Constants.normalColor, 0.2f)
+            Actions.color(Constants.flashColor, 0.25f, Interpolation.sine),
+            Actions.color(Constants.normalColor, 0.25f, Interpolation.sine)
           ))
 
           currentTeammate = teammate
@@ -287,7 +288,7 @@ class TeamSelectionPanel extends Table {
   private[startscreen] var updateLeftTableAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       updateLeftTable()
-      leftTable.addAction(Actions.color(Constants.normalColor, 0.2f))
+      leftTable.addAction(Actions.color(Constants.normalColor, 0.25f, Interpolation.sine))
       true
     }
   }

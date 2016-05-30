@@ -199,15 +199,8 @@ filter: Nearest,Nearest
 repeat: none
 purple_bg
   rotate: false
-  xy: 1, 203
+  xy: 1, 1
   size: 800, 480
   orig: 800, 480
-  offset: 0, 0
-  index: -1
-placeholder_vehicle
-  rotate: false
-  xy: 1, 1
-  size: 600, 200
-  orig: 600, 200
   offset: 0, 0
   index: -1

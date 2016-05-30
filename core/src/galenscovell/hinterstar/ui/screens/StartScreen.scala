@@ -86,6 +86,8 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
   private def transitionPanel(): Unit = {
     if (teamPanel.hasParent) {
+      shipPanel.asInstanceOf[ShipSelectionPanel].updateShipDetails()
+      shipPanel.asInstanceOf[ShipSelectionPanel].updateShipDisplay(true)
       updateContentTable(shipPanel)
     } else if (shipPanel.hasParent) {
       updateContentTable(resourcePanel)

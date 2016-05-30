@@ -17,6 +17,7 @@ import galenscovell.hinterstar.graphics.CurrentLocationAnimation
 object ResourceManager {
   val assetManager: AssetManager = new AssetManager
   var uiAtlas: TextureAtlas = null
+  var shipAtlas: TextureAtlas = null
   var textFieldStyle: TextFieldStyle = null
   var labelTinyStyle: LabelStyle = null
   var labelMediumStyle: LabelStyle = null
@@ -53,6 +54,7 @@ object ResourceManager {
 
   def load(): Unit = {
     assetManager.load("atlas/uiAtlas.pack", classOf[TextureAtlas])
+    assetManager.load("atlas/shipAtlas.pack", classOf[TextureAtlas])
     val resolver: FileHandleResolver = new InternalFileHandleResolver
     assetManager.setLoader(classOf[FreeTypeFontGenerator], new FreeTypeFontGeneratorLoader(resolver))
     assetManager.setLoader(classOf[BitmapFont], ".ttf", new FreetypeFontLoader(resolver))
@@ -67,6 +69,7 @@ object ResourceManager {
 
   def done(): Unit = {
     uiAtlas = assetManager.get("atlas/uiAtlas.pack", classOf[TextureAtlas])
+    shipAtlas = assetManager.get("atlas/shipAtlas.pack", classOf[TextureAtlas])
     loadNinepatches()
     loadLabelStyles()
     loadButtonStyles()
@@ -79,6 +82,7 @@ object ResourceManager {
   def dispose(): Unit = {
     assetManager.dispose()
     uiAtlas.dispose()
+    shipAtlas.dispose()
   }
 
 

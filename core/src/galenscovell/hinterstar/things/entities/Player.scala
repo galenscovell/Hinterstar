@@ -10,7 +10,7 @@ import galenscovell.hinterstar.util.ResourceManager
 
 class Player(gameStage: GameStage) extends Actor {
   private var gameScreen: GameScreen = gameStage.gameScreen
-  private val currentSprite: Sprite = ResourceManager.uiAtlas.createSprite("placeholder_vehicle")
+  private val currentSprite: Sprite = ResourceManager.shipAtlas.createSprite("placeholder_vehicle")
   private var sprites: Array[Sprite] = null
   private var selected: Boolean = false
 
