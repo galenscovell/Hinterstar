@@ -18,8 +18,9 @@ class ShipSelectionPanel extends Table {
 
   private val shipDisplay: Table = new Table
   private val shipImage: Image = new Image
-  shipImage.setScaling(Scaling.fillX)
   private val shipDetail: Table = new Table
+
+  shipImage.setScaling(Scaling.fillX)
   shipDetail.setBackground(ResourceManager.npTest1)
   shipDetail.setColor(Constants.normalColor)
 
@@ -37,9 +38,9 @@ class ShipSelectionPanel extends Table {
 
     bottomTable.add(shipDetail).expand.fill
 
-    add(topTable).width(690).height(240).center
+    add(topTable).width(690).height(220).center
     row
-    add(bottomTable).width(690).height(150).padTop(10).center
+    add(bottomTable).width(690).height(170).padTop(10).center
   }
 
 
@@ -89,14 +90,14 @@ class ShipSelectionPanel extends Table {
 
     shipDisplay.addAction(Actions.sequence(
       Actions.parallel(
-        Actions.fadeOut(0.15f),
-        Actions.moveBy(amount, 0, 0.15f)
+        Actions.fadeOut(0.2f, Interpolation.sine),
+        Actions.moveBy(amount, 0, 0.2f, Interpolation.sine)
       ),
       updateShipDisplayAction,
       Actions.moveTo(origin, 0),
       Actions.parallel(
-        Actions.fadeIn(0.15f),
-        Actions.moveBy(amount, 0, 0.15f)
+        Actions.fadeIn(0.2f, Interpolation.sine),
+        Actions.moveBy(amount, 0, 0.2f, Interpolation.sine)
       ),
       Actions.forever(
         Actions.sequence(
@@ -118,10 +119,11 @@ class ShipSelectionPanel extends Table {
     shipNameLabel.setAlignment(Align.center, Align.center)
     val shipDescLabel: Label = new Label(shipDesc, ResourceManager.labelMediumStyle)
     shipDescLabel.setAlignment(Align.center, Align.center)
+    shipDescLabel.setWrap(true)
 
-    shipDetailTop.add(shipNameLabel).pad(6)
+    shipDetailTop.add(shipNameLabel).expand.width(660).height(30)
     shipDetailTop.row
-    shipDetailTop.add(shipDescLabel)
+    shipDetailTop.add(shipDescLabel).expand.width(660).height(50)
 
     val shipDetailBottom: Table = new Table
     val shipPointMap: Map[String, Int] = allShips(currentShipIndex).getInstallPoints
@@ -140,7 +142,7 @@ class ShipSelectionPanel extends Table {
       shipDetailBottom.add(pointTable).width(100).height(70).pad(4)
     }
 
-    shipDetail.add(shipDetailTop).expand.height(50).top.pad(4)
+    shipDetail.add(shipDetailTop).expand.height(80).top.pad(4)
     shipDetail.row
     shipDetail.add(shipDetailBottom).expand.height(80).top.pad(4)
 
@@ -157,7 +159,6 @@ class ShipSelectionPanel extends Table {
     */
   private[startscreen] var updateShipDisplayAction: Action = new Action() {
     def act(delta: Float): Boolean = {
-      shipImage.clear()
       val shipName: String = allShips(currentShipIndex).getName
       shipImage.setDrawable(new TextureRegionDrawable(ResourceManager.shipAtlas.findRegion(shipName)))
 

@@ -8,13 +8,14 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.things.Ship
-import galenscovell.hinterstar.ui.components.startscreen.{ResourceSelectionPanel, ShipSelectionPanel, TeamSelectionPanel}
+import galenscovell.hinterstar.ui.components.startscreen.{PartSelectionPanel, ResourceSelectionPanel, ShipSelectionPanel, TeamSelectionPanel}
 import galenscovell.hinterstar.util.{Constants, PlayerData, ResourceManager}
 
 
 class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   private val teamPanel: TeamSelectionPanel = new TeamSelectionPanel
   private val shipPanel: ShipSelectionPanel = new ShipSelectionPanel
+  private val partPanel: PartSelectionPanel = new PartSelectionPanel
   private val resourcePanel: ResourceSelectionPanel = new ResourceSelectionPanel
   private val contentTable: Table = new Table
 
@@ -22,6 +23,9 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
 
   protected override def create(): Unit = {
+    shipPanel.updateShipDetails()
+    shipPanel.updateShipDisplay(true)
+
     this.stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch)
 
     val mainTable: Table = new Table
@@ -90,10 +94,10 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
   private def transitionPanel(): Unit = {
     if (teamPanel.hasParent) {
-      shipPanel.updateShipDetails()
-      shipPanel.updateShipDisplay(true)
       updateContentTable(shipPanel)
     } else if (shipPanel.hasParent) {
+      updateContentTable(partPanel)
+    } else if (partPanel.hasParent) {
       updateContentTable(resourcePanel)
     } else if (resourcePanel.hasParent) {
       updateContentTable(teamPanel)
@@ -108,6 +112,11 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
   private def establishShip(selectedShip: Ship): Unit = {
     PlayerData.establishShip(selectedShip)
+  }
+
+
+  private def establishParts(): Unit = {
+
   }
 
 

@@ -7,25 +7,25 @@
       "hull": 1,
       "mobility": 1,
       "power": 1,
-      "storage": 1,
+      "storage": 2,
       "shield": 1
     }
   },
   "Ship-1": {
     "name": "Ship-1",
-    "description": "A ship with improved storage potential",
+    "description": "A ship with improved storage potential. Not designed for combat.",
     "install-points": {
-      "combat": 1,
+      "combat": 0,
       "hull": 1,
       "mobility": 1,
       "power": 1,
-      "storage": 2,
+      "storage": 3,
       "shield": 1
     }
   },
   "Ship-2": {
     "name": "Ship-2",
-    "description": "A ship with improved combat potential",
+    "description": "A ship with improved combat potential. Storage space is used up by ammunition reserves. \nDeveloper note: These descriptions can be up to 400 characters long with no UI issues.",
     "install-points": {
       "combat": 2,
       "hull": 1,
