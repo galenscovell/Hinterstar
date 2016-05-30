@@ -53,7 +53,9 @@ object PlayerData {
 
   def establishShip(selectedShip: Ship): Unit = {
     // Add ship chassis to preferences along with all parts and their activity status
-
+    val shipName: String = selectedShip.getName
+    prefs.putString("ship-chassis", shipName)
+    update()
   }
 
 

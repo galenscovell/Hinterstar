@@ -22,6 +22,7 @@ class Hinterstar extends Game {
     setScreen(loadingScreen)
   }
 
+
   override def dispose(): Unit =  {
     loadingScreen.dispose()
     mainMenuScreen.dispose()
@@ -34,12 +35,14 @@ class Hinterstar extends Game {
     ResourceManager.dispose()
   }
 
+
   def createStartScreen(): Unit = {
     if (startScreen != null) {
       startScreen.dispose()
     }
     startScreen = new StartScreen(this)
   }
+
 
   def createGameScreen(): Unit =  {
     if (gameScreen != null) {
@@ -48,13 +51,16 @@ class Hinterstar extends Game {
     gameScreen = new GameScreen(this)
   }
 
+
   def loadGame(): Unit = {
 
   }
 
+
   def createPreferenceScreen(): Unit =  {
 
   }
+
 
   def quitGame(): Unit = {
     Gdx.app.exit()
