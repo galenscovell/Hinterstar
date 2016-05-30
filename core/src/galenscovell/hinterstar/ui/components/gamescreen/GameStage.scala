@@ -158,23 +158,35 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
 
   def updateDetailTable(loc: String): Unit = {
     detailTable.updateLocation(loc)
+    player.clearActions()
     player.addAction(Actions.sequence(
       Actions.moveBy(80, 0, 1.7f, Interpolation.exp5In),
       Actions.moveBy(0, 4, 1.5f, Interpolation.linear),
       Actions.moveBy(0, -8, 2.0f, Interpolation.linear),
       Actions.moveBy(0, 4, 1.5f, Interpolation.linear),
-      Actions.moveBy(-80, 0, 3.0f, Interpolation.exp5In)
+      Actions.moveBy(-80, 0, 3.0f, Interpolation.exp5In),
+      Actions.forever(
+        Actions.sequence(
+          Actions.moveBy(0, 8, 4.0f),
+          Actions.moveBy(0, -8, 4.0f)
+        ))
     ))
   }
 
 
   def startNextEventAnimation(): Unit = {
     nextAnimationFrames = 300
+    player.clearActions()
     player.addAction(Actions.sequence(
       Actions.moveBy(40, 0, 2.0f, Interpolation.exp5In),
       Actions.moveBy(0, 2, 1.0f, Interpolation.linear),
       Actions.moveBy(0, -2, 1.0f, Interpolation.linear),
-      Actions.moveBy(-40, 0, 1.0f, Interpolation.exp5In)
+      Actions.moveBy(-40, 0, 1.0f, Interpolation.exp5In),
+      Actions.forever(
+        Actions.sequence(
+          Actions.moveBy(0, 8, 4.0f),
+          Actions.moveBy(0, -8, 4.0f)
+        ))
     ))
   }
 
