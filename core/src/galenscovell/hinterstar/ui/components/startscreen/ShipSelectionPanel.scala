@@ -87,7 +87,6 @@ class ShipSelectionPanel extends Table {
     }
 
     shipDisplay.clearActions()
-
     shipDisplay.addAction(Actions.sequence(
       Actions.parallel(
         Actions.fadeOut(0.2f, Interpolation.sine),

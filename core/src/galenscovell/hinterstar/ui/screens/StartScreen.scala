@@ -17,9 +17,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   private val shipPanel: ShipSelectionPanel = new ShipSelectionPanel
   private val partPanel: PartSelectionPanel = new PartSelectionPanel
   private val resourcePanel: ResourceSelectionPanel = new ResourceSelectionPanel
-  private val contentTable: Table = new Table
-
-  updateContentTable(teamPanel)
+  private val contentPanel: Table = new Table
 
 
   protected override def create(): Unit = {
@@ -65,6 +63,9 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     titleTable.add(titleLabel).width(364).height(50)
     titleTable.add(embarkButton).width(200).height(50)
 
+    val contentTable: Table = createContentTable
+    updateContent()
+
     mainTable.add(titleTable).width(764).height(50).pad(8)
     mainTable.row
     mainTable.add(contentTable).width(780).height(400)
@@ -77,31 +78,34 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   }
 
 
-  private def updateContentTable(content: Table): Unit = {
-    contentTable.clear()
+  private def createContentTable: Table = {
+    val contentTable: Table = new Table
 
     val nextButton: TextButton = new TextButton(">", ResourceManager.blueButtonStyle)
     nextButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        transitionPanel()
+        updateContent()
       }
     })
 
-    contentTable.add(content).width(690).height(400).left.padRight(10)
+    contentTable.add(contentPanel).width(690).height(400).left.padRight(10)
     contentTable.add(nextButton).width(80).height(400).right
+
+    contentTable
   }
 
 
-  private def transitionPanel(): Unit = {
-    if (teamPanel.hasParent) {
-      updateContentTable(shipPanel)
-    } else if (shipPanel.hasParent) {
-      updateContentTable(partPanel)
-    } else if (partPanel.hasParent) {
-      updateContentTable(resourcePanel)
-    } else if (resourcePanel.hasParent) {
-      updateContentTable(teamPanel)
-    }
+  private def updateContent(): Unit = {
+    contentPanel.clearActions()
+    contentPanel.addAction(Actions.sequence(
+      Actions.fadeOut(0.2f),
+      contentTransitionAction,
+      Actions.moveTo(-50, 0),
+      Actions.parallel(
+        Actions.fadeIn(0.1f),
+        Actions.moveBy(50, 0, 0.15f)
+      )
+    ))
   }
 
 
@@ -138,6 +142,28 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   private[screens] var toGameScreenAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       root.setScreen(root.gameScreen)
+      true
+    }
+  }
+  private[screens] var contentTransitionAction: Action = new Action {
+    def act(delta: Float): Boolean = {
+      var newContent: Table = null
+      if (teamPanel.hasParent) {
+        teamPanel.remove()
+        newContent = shipPanel
+      } else if (shipPanel.hasParent) {
+        shipPanel.remove()
+        newContent = partPanel
+      } else if (partPanel.hasParent) {
+        partPanel.remove()
+        newContent = resourcePanel
+      } else if (resourcePanel.hasParent) {
+        resourcePanel.remove()
+        newContent = teamPanel
+      } else {
+        newContent = teamPanel
+      }
+      contentPanel.add(newContent).expand.fill
       true
     }
   }
