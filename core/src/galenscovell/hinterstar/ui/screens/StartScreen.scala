@@ -24,11 +24,28 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     shipPanel.updateShipDetails()
     shipPanel.updateShipDisplay(true)
 
-    this.stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch)
+    stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch)
 
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
+    val titleTable: Table = createTitleTable
+    val contentTable: Table = createContentTable
+    updateContent()
+
+    mainTable.add(titleTable).width(764).height(50).pad(8)
+    mainTable.row
+    mainTable.add(contentTable).width(780).height(400)
+
+    stage.addActor(mainTable)
+    mainTable.addAction(Actions.sequence(
+      Actions.fadeOut(0),
+      Actions.fadeIn(0.3f))
+    )
+  }
+
+
+  private def createTitleTable: Table = {
     val titleTable: Table = new Table
     val titleLabel: Label = new Label("Loadout", ResourceManager.labelTitleStyle)
     titleLabel.setAlignment(Align.center, Align.center)
@@ -63,18 +80,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     titleTable.add(titleLabel).width(364).height(50)
     titleTable.add(embarkButton).width(200).height(50)
 
-    val contentTable: Table = createContentTable
-    updateContent()
-
-    mainTable.add(titleTable).width(764).height(50).pad(8)
-    mainTable.row
-    mainTable.add(contentTable).width(780).height(400)
-
-    stage.addActor(mainTable)
-    mainTable.addAction(Actions.sequence(
-      Actions.fadeOut(0),
-      Actions.fadeIn(0.3f))
-    )
+    titleTable
   }
 
 
@@ -98,7 +104,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   private def updateContent(): Unit = {
     contentPanel.clearActions()
     contentPanel.addAction(Actions.sequence(
-      Actions.fadeOut(0.2f),
+      Actions.fadeOut(0.1f),
       contentTransitionAction,
       Actions.moveTo(-50, 0),
       Actions.parallel(

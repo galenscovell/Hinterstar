@@ -1,0 +1,17 @@
+{
+  "PO-100": {
+    "name": "PO-100",
+    "description": "The most basic of engines. Provides adequate thrust.",
+    "stat": 2
+  },
+  "PO-110": {
+    "name": "PO-110",
+    "description": "A small upgrade of the PO-100.",
+    "stat": 3
+  },
+  "PO-200": {
+    "name": "PO-200",
+    "description": "Redesign of the old PO-100 engine. Much more powerful.",
+    "stat": 4
+  }
+}

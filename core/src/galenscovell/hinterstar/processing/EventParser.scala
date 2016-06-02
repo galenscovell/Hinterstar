@@ -29,7 +29,7 @@ class EventParser {
     // ie 1 -> 2 -> 3 -> 1 can be selected again -> 2 can be selected again, etc.
     val parsedEvent: EventContainer = new EventContainer()
 
-    val eventSource: String = "data/" + targetEventType + "_events.json"
+    val eventSource: String = "data/events/" + targetEventType + "_events.json"
     val json: JsonValue = new JsonReader().parse(Gdx.files.internal(eventSource))
     val targetEvent: JsonValue = json.get(targetEventType + randomChoice.toString)
 
