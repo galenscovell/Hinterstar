@@ -1,31 +1,58 @@
 package galenscovell.hinterstar.things.parts
 
 
-trait Part {
-  // Part name
-  def getName: String
+class Part(n: String, t: String, desc: String, s: Int, re: Int) {
+  private val name: String = n
+  private val partType: String = t
+  private val description: String = desc
+  private val stat: Int = s
+  private val requiredEnergy: Int = re
 
-  // Get part type
-  def getType: String
+  private var health: Int = 100
+  private var active: Boolean = false
 
-  // Get part stats
-  def getStat: Int
 
-  // Return current health of part
-  // When health is low, part has chance of malfunctioning
-  // When health is zero, part breaks
-  def getHealth: Int
+  def getName: String = {
+    name
+  }
 
-  // Restore lost health for part
-  // Depending on profession of assigned teammate, this may fail
-  def repair: Boolean
+  def getType: String = {
+    partType
+  }
 
-  // Return if part is currently activated
-  def isActive: Boolean
+  def getDescription: String = {
+    description
+  }
 
-  // Activate part if there is enough available energy
-  def activate: Boolean
+  def getStat: Int = {
+    stat
+  }
 
-  // Find required energy to activate part
-  def getEnergyRequired: Int
+  def getHealth: Int = {
+    health
+  }
+
+  def getEnergyRequired: Int = {
+    requiredEnergy
+  }
+
+  def repair: Boolean = {
+    // TODO: Not yet implemented
+    true
+  }
+
+  def isActive: Boolean = {
+    // TODO: Not yet implemented
+    active
+  }
+
+  def activate: Boolean = {
+    // TODO: Not yet implemented
+    active
+  }
+
+  def deactivate(): Unit = {
+    // TODO: Not yet implemented
+    active = false
+  }
 }

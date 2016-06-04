@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.{Image, Label, Table, TextButton}
 import com.badlogic.gdx.scenes.scene2d.utils.{ClickListener, TextureRegionDrawable}
 import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.utils.{Align, Scaling}
-import galenscovell.hinterstar.things.{Ship, ShipParser}
+import galenscovell.hinterstar.things.ships.{Ship, ShipParser}
 import galenscovell.hinterstar.util.{Constants, ResourceManager}
 
 import scala.collection.mutable.Map

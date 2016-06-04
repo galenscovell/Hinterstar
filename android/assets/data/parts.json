@@ -1,0 +1,111 @@
+{
+  "combat": 
+    [
+      "Rank-1" {
+        
+      },
+      "Rank-2" {
+        
+      },
+      "Rank-3" {
+        
+      }
+    ]
+  },
+  "engine": 
+    [
+      "Rank-1" {
+        "EN-100": {
+          "name": "EN-100",
+          "description": "The most basic of engines. Provides adequate thrust.",
+          "stat": 2,
+          "required-energy": 10
+        },
+        "EN-110": {
+          "name": "EN-110",
+          "description": "",
+          "stat": 3,
+          "required-energy": 15
+        },
+        "EN-200": {
+          "name": "EN-200",
+          "description": "",
+          "stat": 4,
+          "required-energy": 20
+        }
+      },
+      "Rank-2" {
+        
+      },
+      "Rank-3" {
+        
+      }
+    ]
+  },
+  "hull": 
+    [
+      "Rank-1" {
+        
+      },
+      "Rank-2" {
+        
+      },
+      "Rank-3" {
+        
+      }
+    ]
+  },
+  "power": 
+    [
+      "Rank-1" {
+        "PO-100": {
+          "name": "PO-100",
+          "description": "The most basic of generators.",
+          "stat": 2
+          },
+          "PO-110": {
+          "name": "PO-110",
+          "description": "",
+          "stat": 3
+          },
+          "PO-200": {
+          "name": "PO-200",
+          "description": "",
+          "stat": 4
+          }
+      },
+      "Rank-2" {
+        
+      },
+      "Rank-3" {
+        
+      }
+    ]
+  },
+  "shield": 
+    [
+      "Rank-1" {
+        
+      },
+      "Rank-2" {
+        
+      },
+      "Rank-3" {
+        
+      }
+    ]
+  },
+  "storage": 
+    [
+      "Rank-1" {
+        
+      },
+      "Rank-2" {
+        
+      },
+      "Rank-3" {
+        
+      }
+    ]
+  }
+}

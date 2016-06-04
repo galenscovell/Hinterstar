@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.things
+package galenscovell.hinterstar.things.ships
 
 import galenscovell.hinterstar.things.parts.Part
 

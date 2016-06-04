@@ -1,7 +1,7 @@
 package galenscovell.hinterstar.util
 
 import com.badlogic.gdx.{Gdx, Preferences}
-import galenscovell.hinterstar.things.Ship
+import galenscovell.hinterstar.things.ships.Ship
 
 
 object PlayerData {

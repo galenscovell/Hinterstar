@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent, Stage}
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
-import galenscovell.hinterstar.things.Ship
+import galenscovell.hinterstar.things.ships.Ship
 import galenscovell.hinterstar.ui.components.startscreen.{PartSelectionPanel, ResourceSelectionPanel, ShipSelectionPanel, TeamSelectionPanel}
 import galenscovell.hinterstar.util.{Constants, PlayerData, ResourceManager}
 

@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.things
+package galenscovell.hinterstar.things.ships
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.utils.{JsonReader, JsonValue}

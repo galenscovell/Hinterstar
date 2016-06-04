@@ -18,7 +18,6 @@ class PartSelectionPanel extends Table {
     null
   }
 
-
   private def construct(): Unit = {
     val partTable: Table = createPartTable
     val bottomTable: Table = createBottomTable
@@ -27,7 +26,6 @@ class PartSelectionPanel extends Table {
     row
     add(bottomTable).width(690).height(85).center.padTop(5)
   }
-
 
   private def createPartTable: Table = {
     val partTable: Table = new Table
@@ -46,7 +44,6 @@ class PartSelectionPanel extends Table {
     partTable
   }
 
-  
   private def createBottomTable: Table = {
     val bottomTable: Table = new Table
     bottomTable.setBackground(ResourceManager.npTest1)
