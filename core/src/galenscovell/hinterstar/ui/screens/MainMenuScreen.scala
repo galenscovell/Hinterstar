@@ -109,6 +109,7 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       true
     }
   }
+
   private[screens] var quitGameAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       root.quitGame()

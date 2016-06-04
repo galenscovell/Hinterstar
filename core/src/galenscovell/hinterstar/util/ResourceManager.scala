@@ -66,7 +66,6 @@ object ResourceManager {
     generateFont("ui/Golden Age.ttf", 36, 0, Color.TEAL, Color.BLACK, "extraLargeFont.ttf")
   }
 
-
   def done(): Unit = {
     uiAtlas = assetManager.get("atlas/uiAtlas.pack", classOf[TextureAtlas])
     shipAtlas = assetManager.get("atlas/shipAtlas.pack", classOf[TextureAtlas])
@@ -77,7 +76,6 @@ object ResourceManager {
     loadAnimations()
     loadTextField()
   }
-
 
   def dispose(): Unit = {
     assetManager.dispose()
@@ -102,7 +100,6 @@ object ResourceManager {
     assetManager.load(outName, classOf[BitmapFont], params)
   }
 
-
   private def loadNinepatches(): Unit = {
     npTest0 = new NinePatchDrawable(uiAtlas.createPatch("test-np-0"))
     npTest1 = new NinePatchDrawable(uiAtlas.createPatch("test-np-1"))
@@ -117,7 +114,6 @@ object ResourceManager {
     npTextFieldBg = new NinePatchDrawable(uiAtlas.createPatch("text-field-bg-np"))
   }
 
-
   private def loadLabelStyles(): Unit = {
     labelTinyStyle = new LabelStyle(assetManager.get("tinyFont.ttf", classOf[BitmapFont]), Color.WHITE)
     labelDetailStyle = new LabelStyle(assetManager.get("smallFont.ttf", classOf[BitmapFont]), Color.WHITE)
@@ -125,7 +121,6 @@ object ResourceManager {
     labelMenuStyle = new LabelStyle(assetManager.get("largeFont.ttf", classOf[BitmapFont]), Color.WHITE)
     labelTitleStyle = new LabelStyle(assetManager.get("extraLargeFont.ttf", classOf[BitmapFont]), Color.WHITE)
   }
-
 
   private def loadButtonStyles(): Unit = {
     buttonMenuStyle = new TextButtonStyle(npTest4, npTest3, npTest4, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
@@ -150,7 +145,6 @@ object ResourceManager {
     blueButtonStyle.pressedOffsetY = -1
   }
 
-
   private def loadSprites(): Unit = {
     mapGlow = new Sprite(uiAtlas.createSprite("map_glow"))
     spTest0 = new Sprite(uiAtlas.createSprite("test-box-0"))
@@ -160,11 +154,9 @@ object ResourceManager {
     spTest4 = new Sprite(uiAtlas.createSprite("test-box-4"))
   }
 
-
   private def loadAnimations(): Unit = {
     currentMarker = new CurrentLocationAnimation
   }
-
 
   private def loadTextField(): Unit = {
     textFieldStyle = new TextFieldStyle(

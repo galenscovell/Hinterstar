@@ -29,48 +29,39 @@ class Sector(x: Int, y: Int) extends Actor {
     this
   }
 
-
   def isEmpty: Boolean = {
     sectorType == Constants.SECTOR_EMPTY
   }
-
 
   def isCurrent: Boolean = {
     sectorType == Constants.SECTOR_CURRENT
   }
 
-
   def isExplored: Boolean = {
     sectorType == Constants.SECTOR_EXPLORED
   }
-
 
   def isUnexplored: Boolean = {
     sectorType == Constants.SECTOR_UNEXPLORED
   }
 
-
   def becomeEmpty(): Unit = {
     sectorType = Constants.SECTOR_EMPTY
   }
-
 
   def becomeCurrent(): Unit = {
     ResourceManager.currentMarker.setTarget(sx * Constants.SECTORSIZE - Constants.SECTORSIZE, Gdx.graphics.getHeight - (sy * Constants.SECTORSIZE) - (4 * Constants.SECTORSIZE))
     sectorType = Constants.SECTOR_CURRENT
   }
 
-
   def becomeExplored(): Unit = {
     sectorType = Constants.SECTOR_EXPLORED
   }
-
 
   def becomeUnexplored(): Unit = {
     sprite = ResourceManager.spTest0
     sectorType = Constants.SECTOR_UNEXPLORED
   }
-
 
   override def draw(batch: Batch, parentAlpha: Float): Unit = {
     if (!isEmpty) {
@@ -81,7 +72,6 @@ class Sector(x: Int, y: Int) extends Actor {
       }
     }
   }
-
 
   private def glow(batch: Batch): Unit = {
     if (glowing) {

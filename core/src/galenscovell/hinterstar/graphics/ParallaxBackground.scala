@@ -17,12 +17,10 @@ class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: F
     this.speed = speed
   }
 
-
   def modifySpeed(dxSpeed: Vector2): Unit = {
     this.speed.x += dxSpeed.x
     this.speed.y += dxSpeed.y
   }
-
 
   def pause(): Unit = {
     this.savedSpeed.x = speed.x
@@ -31,12 +29,10 @@ class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: F
     this.speed.y = 0
   }
 
-
   def unpause(): Unit = {
     this.speed.x = savedSpeed.x
     this.speed.y = savedSpeed.y
   }
-
 
   def render(delta: Float): Unit = {
     this.camera.position.add(speed.x * delta, speed.y * delta, 0)

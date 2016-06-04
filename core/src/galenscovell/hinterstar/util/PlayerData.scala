@@ -18,7 +18,6 @@ object PlayerData {
     prefs.flush()
   }
 
-
   def clear(): Unit = {
     prefs.clear()
   }
@@ -37,7 +36,6 @@ object PlayerData {
     update()
   }
 
-
   def establishTeam(team: Array[String]): Unit = {
     // Add each teammate to preferences along with their profession
     for (i <- team.indices) {
@@ -50,14 +48,12 @@ object PlayerData {
     update()
   }
 
-
   def establishShip(selectedShip: Ship): Unit = {
     // Add ship chassis to preferences along with all parts and their activity status
     val shipName: String = selectedShip.getName
     prefs.putString("ship-chassis", shipName)
     update()
   }
-
 
   def establishResources(): Unit = {
     // Add resource types to preferences along with their current amounts
@@ -73,11 +69,9 @@ object PlayerData {
 
   }
 
-
   def updateShip(): Unit = {
 
   }
-
 
   def updateResources(): Unit = {
 

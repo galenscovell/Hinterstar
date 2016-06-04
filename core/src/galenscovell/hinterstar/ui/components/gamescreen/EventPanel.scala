@@ -40,7 +40,6 @@ class EventPanel(gameStage: GameStage, eventContainer: EventContainer) extends T
     this.add(mainTable).width(700).height(420).expand.fill.center
   }
 
-
   private def createTitleTable(eventTitle: String): Table = {
     val titleTable: Table = new Table
     titleTable.setBackground(ResourceManager.npTest1)
@@ -50,7 +49,6 @@ class EventPanel(gameStage: GameStage, eventContainer: EventContainer) extends T
     titleTable
   }
 
-
   private def createDescriptionTable(eventDescription: String): Table = {
     val descriptionTable: Table = new Table
     val descriptionLabel: Label = new Label(eventDescription, ResourceManager.labelDetailStyle)
@@ -59,7 +57,6 @@ class EventPanel(gameStage: GameStage, eventContainer: EventContainer) extends T
     descriptionTable.add(descriptionLabel).width(680)
     descriptionTable
   }
-
 
   private def createOptionTable: Table = {
     val optionTable: Table = new Table

@@ -31,7 +31,6 @@ object Repository {
     playerRange = 10
   }
 
-
   def setTargetsInRange(): Unit = {
     locationsInRange.clear()
 
@@ -42,7 +41,6 @@ object Repository {
       }
     }
   }
-
 
   def drawShapes(): Unit = {
     val radius: Float = playerRange * Constants.SECTORSIZE
@@ -93,7 +91,6 @@ object Repository {
   def setSectors(sectors: Array[Array[Sector]]): Unit = {
     Repository.sectors = sectors
   }
-
 
   def travelToSelection: Boolean = {
     if (currentSelection != null && locationsInRange.contains(currentSelection)) {

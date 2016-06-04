@@ -17,7 +17,6 @@ class CurrentLocationAnimation {
     this.y = y
   }
 
-
   def render(batch: Batch): Unit = {
     batch.draw(sprite, x, y, size / 2, size / 2, size, size, 1, 1, -frame)
     if (frame < 360) {

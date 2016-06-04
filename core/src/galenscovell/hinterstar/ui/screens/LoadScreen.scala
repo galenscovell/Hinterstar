@@ -27,7 +27,6 @@ class LoadScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     stage.addActor(loadingMain)
   }
 
-
   override def render(delta: Float): Unit = {
     Gdx.gl.glClearColor(0, 0, 0, 1)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
@@ -40,14 +39,12 @@ class LoadScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     loadingBar.setValue(ResourceManager.assetManager.getLoadedAssets)
   }
 
-
   override def show(): Unit = {
     ResourceManager.load()
     create()
     stage.getRoot.getColor.a = 0
     stage.getRoot.addAction(Actions.sequence(Actions.fadeIn(0.4f)))
   }
-
 
   private def createBar: ProgressBar = {
     val fill: TextureRegionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/loadingFill.png"))))

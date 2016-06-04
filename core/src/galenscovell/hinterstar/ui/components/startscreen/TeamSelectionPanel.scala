@@ -42,7 +42,6 @@ class TeamSelectionPanel extends Table {
     teamMates
   }
 
-
   private def construct(): Unit = {
     leftTable.setBackground(ResourceManager.npTest1)
     leftTable.setColor(Constants.normalColor)
@@ -55,7 +54,6 @@ class TeamSelectionPanel extends Table {
     add(leftTable).width(340).height(400).left.padRight(10)
     add(rightTable).width(340).height(400).right
   }
-
 
   private def updateLeftTable(): Unit = {
     leftTable.clear()
@@ -74,7 +72,6 @@ class TeamSelectionPanel extends Table {
 
     leftTable.add(teamTable).expand.fill
   }
-
 
   private def updateRightTable(): Unit = {
     val optionTable: Table = new Table
@@ -104,7 +101,6 @@ class TeamSelectionPanel extends Table {
     rightTable.row
     rightTable.add(modifyTeammateButton).width(320).height(50).padBottom(10).center
   }
-
 
   private def constructTeamTable: Table = {
     val teamTable: Table = new Table
@@ -179,7 +175,6 @@ class TeamSelectionPanel extends Table {
     teamTable
   }
 
-
   private def constructProfessionTable: Table = {
     val professionTable: Table = new Table
     engineerButton = new TextButton("Engineer", ResourceManager.toggleButtonStyle)
@@ -246,7 +241,6 @@ class TeamSelectionPanel extends Table {
     professionTable
   }
 
-
   private def randomizeStartingTeamNames(): Unit = {
     val names: List[String] = List(
       "Jack", "James", "Benjamin", "Joshua", "Ryan", "Patrick", "Samuel",
@@ -270,7 +264,6 @@ class TeamSelectionPanel extends Table {
       teamMates(x) = s"$randomName\t$defaultProfession"
     }
   }
-
 
   private def refreshProfessionButtons(textButton: TextButton): Unit = {
     currentProfessionButton.setChecked(false)

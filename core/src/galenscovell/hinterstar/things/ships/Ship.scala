@@ -16,21 +16,17 @@ class Ship(n: String, desc: String, hardpoints: Map[String, Int]) {
     name
   }
 
-
   def getDescription: String = {
     description
   }
-
 
   def getInstallPoints: Map[String, Int] = {
     installPoints
   }
 
-
   def getParts: ArrayBuffer[Part] = {
     parts
   }
-
 
   def getStat(stat: String): Int = {
     var value: Int = 0

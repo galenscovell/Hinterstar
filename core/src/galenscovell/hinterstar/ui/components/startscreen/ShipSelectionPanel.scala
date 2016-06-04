@@ -31,7 +31,6 @@ class ShipSelectionPanel extends Table {
     allShips(currentShipIndex)
   }
 
-
   private def construct(): Unit = {
     val topTable: Table = createTopTable
     val bottomTable: Table = new Table
@@ -42,7 +41,6 @@ class ShipSelectionPanel extends Table {
     row
     add(bottomTable).width(690).height(170).padTop(10).center
   }
-
 
   private def createTopTable: Table = {
     val topTable: Table = new Table
@@ -77,7 +75,6 @@ class ShipSelectionPanel extends Table {
     topTable
   }
 
-
   def updateShipDisplay(transitionRight: Boolean): Unit = {
     var amount: Int = 100
     var origin: Int = 0
@@ -106,7 +103,6 @@ class ShipSelectionPanel extends Table {
       )
     ))
   }
-
 
   def updateShipDetails(): Unit = {
     shipDetail.clear()

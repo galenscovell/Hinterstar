@@ -44,7 +44,6 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     )
   }
 
-
   private def createTitleTable: Table = {
     val titleTable: Table = new Table
     val titleLabel: Label = new Label("Loadout", ResourceManager.labelTitleStyle)
@@ -83,7 +82,6 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     titleTable
   }
 
-
   private def createContentTable: Table = {
     val contentTable: Table = new Table
 
@@ -100,7 +98,6 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     contentTable
   }
 
-
   private def updateContent(): Unit = {
     contentPanel.clearActions()
     contentPanel.addAction(Actions.sequence(
@@ -114,21 +111,17 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     ))
   }
 
-
   private def establishTeam(team: Array[String]): Unit = {
     PlayerData.establishTeam(team)
   }
-
 
   private def establishShip(selectedShip: Ship): Unit = {
     PlayerData.establishShip(selectedShip)
   }
 
-
   private def establishParts(): Unit = {
 
   }
-
 
   private def establishResources(resources: Map[String, Int]): Unit = {
 
@@ -145,12 +138,14 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       true
     }
   }
+
   private[screens] var toGameScreenAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       root.setScreen(root.gameScreen)
       true
     }
   }
+
   private[screens] var contentTransitionAction: Action = new Action {
     def act(delta: Float): Boolean = {
       var newContent: Table = null
