@@ -10,7 +10,7 @@ class PartParser {
   private val source: String = "data/parts.json"
 
 
-  def parseAll(partType: String, rank: Int): Array[Part] = {
+  def parseAll(partType: String, rank: String): Array[Part] = {
     val parts: ArrayBuffer[Part] = ArrayBuffer()
     val partsJson: JsonValue = new JsonReader().parse(Gdx.files.internal(source))
     val partTypeJson: JsonValue = partsJson.get(partType)
@@ -25,7 +25,7 @@ class PartParser {
     parts.toArray
   }
 
-  def parseSingle(partType: String, name: String, rank: Int): Part = {
+  def parseSingle(partType: String, name: String, rank: String): Part = {
     val partsJson: JsonValue = new JsonReader().parse(Gdx.files.internal(source))
     val partTypeJson: JsonValue = partsJson.get(partType)
     val partRankJson: JsonValue = partTypeJson.get(rank)
@@ -38,6 +38,7 @@ class PartParser {
     val desc: String = entry.getString("description")
     val stat: Int = entry.getInt("stat")
     val requiredEnergy: Int = entry.getInt("required-energy")
-    new Part(name, partType, desc, stat, requiredEnergy)
+    val cost: Int = entry.getInt("cost")
+    new Part(name, partType, desc, stat, requiredEnergy, cost)
   }
 }
