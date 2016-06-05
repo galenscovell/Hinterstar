@@ -1,6 +1,8 @@
 package galenscovell.hinterstar.ui.components.startscreen
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, TextButton}
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.util.{Constants, ResourceManager}
 
@@ -8,8 +10,9 @@ import scala.collection.mutable.ArrayBuffer
 
 
 class PartSelectionPanel extends Table {
-  private val moneyLabel: Label = new Label("$10000", ResourceManager.labelMenuStyle)
+  private val moneyLabel: Label = new Label("$100,000.00", ResourceManager.labelMenuStyle)
   moneyLabel.setAlignment(Align.center, Align.center)
+  private var currentPartType: TextButton = null
 
   construct()
 
@@ -55,6 +58,17 @@ class PartSelectionPanel extends Table {
 
     for (x <- partTypes.indices) {
       val typeButton: TextButton = new TextButton(partTypes(x), ResourceManager.toggleButtonStyle)
+      typeButton.addListener(new ClickListener() {
+        override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+          if (currentPartType == null) {
+            currentPartType = typeButton
+          } else if (currentPartType != typeButton) {
+            currentPartType.setChecked(false)
+            currentPartType = typeButton
+          }
+          currentPartType.setChecked(true)
+        }
+      })
       typeButtonsTable.add(typeButton).width(102).height(50).pad(5)
     }
 
