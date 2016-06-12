@@ -1,37 +1,12 @@
 {
-  "combat": {
+  "Combat": {
     "rank-1": {
-      
-    },
-    "rank-2": {
-      
-    },
-    "rank-3": {
-      
-    }
-  },
-  "engine": {
-    "rank-1": {
-      "EN-100": {
-        "name": "EN-100",
-        "description": "The most basic of engines. Provides adequate thrust.",
+      "CO-100": {
+        "name": "CO-100",
+        "description": "",
         "stat": 2,
         "required-energy": 10,
         "cost": 2000
-      },
-      "EN-110": {
-        "name": "EN-110",
-        "description": "",
-        "stat": 3,
-        "required-energy": 15,
-        "cost": 3000
-      },
-      "EN-200": {
-        "name": "EN-200",
-        "description": "",
-        "stat": 4,
-        "required-energy": 20,
-        "cost": 4000
       }
     },
     "rank-2": {
@@ -41,9 +16,15 @@
       
     }
   },
-  "hull": {
+  "Engine": {
     "rank-1": {
-      
+      "EN-100": {
+        "name": "EN-100",
+        "description": "",
+        "stat": 2,
+        "required-energy": 10,
+        "cost": 2000
+      }
     },
     "rank-2": {
       
@@ -52,22 +33,31 @@
       
     }
   },
-  "power": {
+  "Hull": {
+    "rank-1": {
+      "HU-100": {
+        "name": "HU-100",
+        "description": "",
+        "stat": 2,
+        "required-energy": 10,
+        "cost": 2000
+      }
+    },
+    "rank-2": {
+      
+    },
+    "rank-3": {
+      
+    }
+  },
+  "Power": {
     "rank-1": {
       "PO-100": {
         "name": "PO-100",
-        "description": "The most basic of generators.",
-        "stat": 2
-        },
-        "PO-110": {
-        "name": "PO-110",
         "description": "",
-        "stat": 3
-        },
-        "PO-200": {
-        "name": "PO-200",
-        "description": "",
-        "stat": 4
+        "stat": 2,
+        "required-energy": 10,
+        "cost": 2000
         }
     },
     "rank-2": {
@@ -77,9 +67,15 @@
       
     }
   },
-  "shield": {
+  "Shield": {
     "rank-1": {
-      
+      "SH-100": {
+        "name": "SH-100",
+        "description": "",
+        "stat": 2,
+        "required-energy": 10,
+        "cost": 2000
+      }
     },
     "rank-2": {
       
@@ -88,9 +84,15 @@
       
     }
   },
-  "storage": {
+  "Storage": {
     "rank-1": {
-      
+      "ST-100": {
+        "name": "ST-100",
+        "description": "",
+        "stat": 2,
+        "required-energy": 10,
+        "cost": 2000
+      }
     },
     "rank-2": {
       
