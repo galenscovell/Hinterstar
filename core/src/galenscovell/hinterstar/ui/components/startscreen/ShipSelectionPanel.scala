@@ -41,9 +41,9 @@ class ShipSelectionPanel extends Table {
 
     bottomTable.add(shipDetail).expand.fill
 
-    add(topTable).width(700).height(200).center
+    add(topTable).width(780).height(200).center
     row
-    add(bottomTable).width(700).height(190).padTop(10).center
+    add(bottomTable).width(780).height(190).padTop(10).center
   }
 
   private def createTopTable: Table = {
@@ -72,9 +72,9 @@ class ShipSelectionPanel extends Table {
       }
     })
 
-    topTable.add(scrollLeftButton).width(70).expand.fill.left
-    topTable.add(shipDisplay).width(530).expand.fill
-    topTable.add(scrollRightButton).width(70).expand.fill.right
+    topTable.add(scrollLeftButton).width(80).expand.fill.left
+    topTable.add(shipDisplay).width(590).expand.fill
+    topTable.add(scrollRightButton).width(80).expand.fill.right
 
     topTable
   }
@@ -185,7 +185,7 @@ class ShipSelectionPanel extends Table {
       shipImage.setDrawable(new TextureRegionDrawable(ResourceManager.shipAtlas.findRegion(shipName)))
 
       if (!shipImage.hasParent) {
-        shipDisplay.add(shipImage).pad(60)
+        shipDisplay.add(shipImage).pad(80)
       }
       true
     }

@@ -28,7 +28,12 @@
   },
   "Mobility": {
     "rank-1": {
-      
+      "MO-100": {
+        "name": "MO-100",
+        "description": "A basic mobility part.",
+        "stat": 2,
+        "required-energy": 10
+      }
     },
     "rank-2": {
       

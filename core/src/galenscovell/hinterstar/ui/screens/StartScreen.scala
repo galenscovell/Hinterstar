@@ -1,5 +1,7 @@
 package galenscovell.hinterstar.ui.screens
 
+import com.badlogic.gdx.input.GestureDetector
+import com.badlogic.gdx.{Gdx, InputMultiplexer}
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
@@ -7,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent, Stage}
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
+import galenscovell.hinterstar.processing.controls.GestureHandler
 import galenscovell.hinterstar.things.ships.Ship
 import galenscovell.hinterstar.ui.components.startscreen.{ResourceSelectionPanel, ShipSelectionPanel, TeamSelectionPanel}
 import galenscovell.hinterstar.util.{Constants, PlayerData, ResourceManager}
@@ -29,8 +32,9 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     mainTable.setFillParent(true)
 
     val titleTable: Table = createTitleTable
-    val contentTable: Table = createContentTable
-    updateContent()
+    val contentTable: Table = new Table
+    contentTable.add(contentPanel).width(780).height(400).left.padRight(10)
+    updateContent(true)
 
     mainTable.add(titleTable).width(764).height(50).pad(8)
     mainTable.row
@@ -41,6 +45,14 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       Actions.fadeOut(0),
       Actions.fadeIn(0.3f))
     )
+  }
+
+  override def show(): Unit = {
+    create()
+    val inputMultiplexer: InputMultiplexer = new InputMultiplexer
+    inputMultiplexer.addProcessor(new GestureDetector(new GestureHandler(this)))
+    inputMultiplexer.addProcessor(stage)
+    Gdx.input.setInputProcessor(inputMultiplexer)
   }
 
   private def createTitleTable: Table = {
@@ -81,33 +93,30 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     titleTable
   }
 
-  private def createContentTable: Table = {
-    val contentTable: Table = new Table
-
-    val nextButton: TextButton = new TextButton(">", ResourceManager.blueButtonStyle)
-    nextButton.addListener(new ClickListener() {
-      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        updateContent()
-      }
-    })
-
-    contentTable.add(contentPanel).width(700).height(400).left.padRight(10)
-    contentTable.add(nextButton).width(70).height(400).right
-
-    contentTable
-  }
-
-  private def updateContent(): Unit = {
+  def updateContent(right: Boolean): Unit = {
     contentPanel.clearActions()
-    contentPanel.addAction(Actions.sequence(
-      Actions.fadeOut(0.1f),
-      contentTransitionAction,
-      Actions.moveTo(-50, 0),
-      Actions.parallel(
-        Actions.fadeIn(0.1f),
-        Actions.moveBy(50, 0, 0.15f)
-      )
-    ))
+
+    if (right) {
+      contentPanel.addAction(Actions.sequence(
+        Actions.fadeOut(0.1f),
+        contentTransitionRightAction,
+        Actions.moveTo(100, 0),
+        Actions.parallel(
+          Actions.fadeIn(0.1f),
+          Actions.moveBy(-100, 0, 0.15f)
+        )
+      ))
+    } else {
+      contentPanel.addAction(Actions.sequence(
+        Actions.fadeOut(0.1f),
+        contentTransitionLeftAction,
+        Actions.moveTo(-100, 0),
+        Actions.parallel(
+          Actions.fadeIn(0.1f),
+          Actions.moveBy(100, 0, 0.15f)
+        )
+      ))
+    }
   }
 
   private def establishTeam(team: Array[String]): Unit = {
@@ -145,7 +154,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     }
   }
 
-  private[screens] var contentTransitionAction: Action = new Action {
+  private[screens] var contentTransitionRightAction: Action = new Action {
     def act(delta: Float): Boolean = {
       var newContent: Table = null
       if (teamPanel.hasParent) {
@@ -160,7 +169,27 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       } else {
         newContent = teamPanel
       }
-      contentPanel.add(newContent).expand.fill
+      contentPanel.add(newContent).expand.fill.center
+      true
+    }
+  }
+
+  private[screens] var contentTransitionLeftAction: Action = new Action {
+    def act(delta: Float): Boolean = {
+      var newContent: Table = null
+      if (teamPanel.hasParent) {
+        teamPanel.remove()
+        newContent = resourcePanel
+      } else if (shipPanel.hasParent) {
+        shipPanel.remove()
+        newContent = teamPanel
+      } else if (resourcePanel.hasParent) {
+        resourcePanel.remove()
+        newContent = shipPanel
+      } else {
+        newContent = teamPanel
+      }
+      contentPanel.add(newContent).expand.fill.center
       true
     }
   }

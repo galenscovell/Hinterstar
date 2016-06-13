@@ -51,8 +51,8 @@ class TeamSelectionPanel extends Table {
     updateLeftTable()
     updateRightTable()
 
-    add(leftTable).width(345).height(400).left.padRight(10)
-    add(rightTable).width(345).height(400).right
+    add(leftTable).width(385).height(400).left.padRight(10)
+    add(rightTable).width(385).height(400).right
   }
 
   private def updateLeftTable(): Unit = {

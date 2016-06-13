@@ -1,7 +1,7 @@
 {
   "Ship-0": {
     "name": "Ship-0",
-    "description": "A generic ship with average potential across the board",
+    "description": "A generic ship that comes equipped with a basic weapon, engine, generator and storage unit.",
     "starting-parts": {
       "Combat": [
         {
@@ -12,6 +12,10 @@
       "Defense": [
       ],
       "Mobility": [
+        {
+          "Rank": "rank-1",
+          "Name": "MO-100"
+        }
       ],
       "Power": [
         {
