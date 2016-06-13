@@ -18,7 +18,7 @@ class TeamSelectionPanel extends Table {
   private var currentTeamButton: TextButton = null
   private var currentProfessionButton: TextButton = null
   private val nameInput: TextField = new TextField("", ResourceManager.textFieldStyle)
-  nameInput.setMaxLength(18)
+  nameInput.setMaxLength(20)
 
   private var engineerButton: TextButton = null
   private var physicianButton: TextButton = null
@@ -51,8 +51,8 @@ class TeamSelectionPanel extends Table {
     updateLeftTable()
     updateRightTable()
 
-    add(leftTable).width(340).height(400).left.padRight(10)
-    add(rightTable).width(340).height(400).right
+    add(leftTable).width(345).height(400).left.padRight(10)
+    add(rightTable).width(345).height(400).right
   }
 
   private def updateLeftTable(): Unit = {
@@ -81,11 +81,11 @@ class TeamSelectionPanel extends Table {
 
     nameTable.add(nameLabel).expand.fill.height(40).padBottom(16)
     nameTable.row
-    nameTable.add(nameInput).expand.fill.height(40).pad(4)
+    nameTable.add(nameInput).expand.fill.height(40).pad(10)
 
-    optionTable.add(nameTable).expand.width(320).height(50).pad(4)
+    optionTable.add(nameTable).expand.fill.height(50).pad(4)
     optionTable.row
-    optionTable.add(professionTable).expand.width(320).height(220).pad(4)
+    optionTable.add(professionTable).expand.fill.height(220).pad(4)
 
     val modifyTeammateButton: TextButton = new TextButton("Modify", ResourceManager.greenButtonStyle)
     modifyTeammateButton.addListener(new ClickListener() {
@@ -97,9 +97,9 @@ class TeamSelectionPanel extends Table {
       }
     })
 
-    rightTable.add(optionTable).expand.fill.width(340).height(350)
+    rightTable.add(optionTable).expand.fill.height(350)
     rightTable.row
-    rightTable.add(modifyTeammateButton).width(320).height(50).padBottom(10).center
+    rightTable.add(modifyTeammateButton).expand.fill.height(50).pad(10)
   }
 
   private def constructTeamTable: Table = {
@@ -167,9 +167,9 @@ class TeamSelectionPanel extends Table {
       })
 
       memberTable.add(memberButton).width(252).height(58).pad(4)
-      memberTable.add(iconTable).width(66).height(58).pad(4)
+      memberTable.add(iconTable).width(70).height(58).pad(4)
 
-      teamTable.add(memberTable).width(330).height(64).pad(1)
+      teamTable.add(memberTable).expand.fill.height(64).pad(1)
       teamTable.row
     }
     teamTable
@@ -226,17 +226,17 @@ class TeamSelectionPanel extends Table {
       }
     })
 
-    professionTable.add(engineerButton).width(150).height(50).pad(4)
-    professionTable.add(physicianButton).width(150).height(50).pad(4)
+    professionTable.add(engineerButton).width(155).height(50).pad(4)
+    professionTable.add(physicianButton).width(155).height(50).pad(4)
     professionTable.row
-    professionTable.add(soldierButton).width(150).height(50).pad(4)
-    professionTable.add(researchButton).width(150).height(50).pad(4)
+    professionTable.add(soldierButton).width(155).height(50).pad(4)
+    professionTable.add(researchButton).width(155).height(50).pad(4)
     professionTable.row
-    professionTable.add(pilotButton).width(150).height(50).pad(4)
-    professionTable.add(artistButton).width(150).height(50).pad(4)
+    professionTable.add(pilotButton).width(155).height(50).pad(4)
+    professionTable.add(artistButton).width(155).height(50).pad(4)
     professionTable.row
-    professionTable.add(psychiatristButton).width(150).height(50).pad(4)
-    professionTable.add(linguistButton).width(150).height(50).pad(4)
+    professionTable.add(psychiatristButton).width(155).height(50).pad(4)
+    professionTable.add(linguistButton).width(155).height(50).pad(4)
 
     professionTable
   }

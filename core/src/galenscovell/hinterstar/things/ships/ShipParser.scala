@@ -42,6 +42,8 @@ class ShipParser {
       installPoints.put(stat, installEntry.getInt(stat))
     }
 
+    // TODO: Grab starting parts from JSON
+
     new Ship(name, desc, installPoints)
   }
 }

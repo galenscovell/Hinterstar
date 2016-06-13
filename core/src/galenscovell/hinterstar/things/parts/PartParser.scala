@@ -38,7 +38,6 @@ class PartParser {
     val desc: String = entry.getString("description")
     val stat: Int = entry.getInt("stat")
     val requiredEnergy: Int = entry.getInt("required-energy")
-    val cost: Int = entry.getInt("cost")
-    new Part(name, partType, desc, stat, requiredEnergy, cost)
+    new Part(name, partType, desc, stat, requiredEnergy)
   }
 }

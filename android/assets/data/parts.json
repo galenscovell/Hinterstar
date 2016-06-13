@@ -3,10 +3,9 @@
     "rank-1": {
       "CO-100": {
         "name": "CO-100",
-        "description": "",
+        "description": "A basic combat part.",
         "stat": 2,
-        "required-energy": 10,
-        "cost": 2000
+        "required-energy": 10
       }
     },
     "rank-2": {
@@ -22,8 +21,7 @@
         "name": "EN-100",
         "description": "",
         "stat": 2,
-        "required-energy": 10,
-        "cost": 2000
+        "required-energy": 10
       }
     },
     "rank-2": {
@@ -39,8 +37,7 @@
         "name": "HU-100",
         "description": "",
         "stat": 2,
-        "required-energy": 10,
-        "cost": 2000
+        "required-energy": 10
       }
     },
     "rank-2": {
@@ -56,8 +53,7 @@
         "name": "PO-100",
         "description": "",
         "stat": 2,
-        "required-energy": 10,
-        "cost": 2000
+        "required-energy": 10
         }
     },
     "rank-2": {
@@ -73,8 +69,7 @@
         "name": "SH-100",
         "description": "",
         "stat": 2,
-        "required-energy": 10,
-        "cost": 2000
+        "required-energy": 10
       }
     },
     "rank-2": {
@@ -90,8 +85,7 @@
         "name": "ST-100",
         "description": "",
         "stat": 2,
-        "required-energy": 10,
-        "cost": 2000
+        "required-energy": 10
       }
     },
     "rank-2": {

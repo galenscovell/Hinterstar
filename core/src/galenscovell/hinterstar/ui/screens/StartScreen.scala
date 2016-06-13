@@ -8,14 +8,13 @@ import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.things.ships.Ship
-import galenscovell.hinterstar.ui.components.startscreen.{PartSelectionPanel, ResourceSelectionPanel, ShipSelectionPanel, TeamSelectionPanel}
+import galenscovell.hinterstar.ui.components.startscreen.{ResourceSelectionPanel, ShipSelectionPanel, TeamSelectionPanel}
 import galenscovell.hinterstar.util.{Constants, PlayerData, ResourceManager}
 
 
 class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   private val teamPanel: TeamSelectionPanel = new TeamSelectionPanel
   private val shipPanel: ShipSelectionPanel = new ShipSelectionPanel
-  private val partPanel: PartSelectionPanel = new PartSelectionPanel
   private val resourcePanel: ResourceSelectionPanel = new ResourceSelectionPanel
   private val contentPanel: Table = new Table
 
@@ -92,8 +91,8 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       }
     })
 
-    contentTable.add(contentPanel).width(690).height(400).left.padRight(10)
-    contentTable.add(nextButton).width(80).height(400).right
+    contentTable.add(contentPanel).width(700).height(400).left.padRight(10)
+    contentTable.add(nextButton).width(70).height(400).right
 
     contentTable
   }
@@ -120,7 +119,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   }
 
   private def establishParts(): Unit = {
-
+    // Each ship has specific starting parts, grab the parts for the chosen ship and save them
   }
 
   private def establishResources(resources: Map[String, Int]): Unit = {
@@ -154,9 +153,6 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
         newContent = shipPanel
       } else if (shipPanel.hasParent) {
         shipPanel.remove()
-        newContent = partPanel
-      } else if (partPanel.hasParent) {
-        partPanel.remove()
         newContent = resourcePanel
       } else if (resourcePanel.hasParent) {
         resourcePanel.remove()

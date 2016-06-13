@@ -37,9 +37,9 @@ class ShipSelectionPanel extends Table {
 
     bottomTable.add(shipDetail).expand.fill
 
-    add(topTable).width(690).height(220).center
+    add(topTable).width(700).height(220).center
     row
-    add(bottomTable).width(690).height(170).padTop(10).center
+    add(bottomTable).width(700).height(170).padTop(10).center
   }
 
   private def createTopTable: Table = {
@@ -68,9 +68,9 @@ class ShipSelectionPanel extends Table {
       }
     })
 
-    topTable.add(scrollLeftButton).width(80).expand.fill.left
-    topTable.add(shipDisplay).width(500).expand.fill
-    topTable.add(scrollRightButton).width(80).expand.fill.right
+    topTable.add(scrollLeftButton).width(70).expand.fill.left
+    topTable.add(shipDisplay).width(530).expand.fill
+    topTable.add(scrollRightButton).width(70).expand.fill.right
 
     topTable
   }
@@ -116,9 +116,9 @@ class ShipSelectionPanel extends Table {
     shipDescLabel.setAlignment(Align.center, Align.center)
     shipDescLabel.setWrap(true)
 
-    shipDetailTop.add(shipNameLabel).expand.width(660).height(30)
+    shipDetailTop.add(shipNameLabel).expand.fill.height(30)
     shipDetailTop.row
-    shipDetailTop.add(shipDescLabel).expand.width(660).height(50)
+    shipDetailTop.add(shipDescLabel).expand.fill.height(50)
 
     val shipDetailBottom: Table = new Table
     val shipPointMap: Map[String, Int] = allShips(currentShipIndex).getInstallPoints
@@ -137,9 +137,9 @@ class ShipSelectionPanel extends Table {
       shipDetailBottom.add(pointTable).width(100).height(70).pad(4)
     }
 
-    shipDetail.add(shipDetailTop).expand.height(80).top.pad(4)
+    shipDetail.add(shipDetailTop).expand.fill.height(80).top.pad(4)
     shipDetail.row
-    shipDetail.add(shipDetailBottom).expand.height(80).top.pad(4)
+    shipDetail.add(shipDetailBottom).expand.fill.height(80).top.pad(4)
 
     shipDetail.addAction(Actions.sequence(
       Actions.color(Constants.flashColor, 0.25f, Interpolation.sine),
@@ -158,7 +158,7 @@ class ShipSelectionPanel extends Table {
       shipImage.setDrawable(new TextureRegionDrawable(ResourceManager.shipAtlas.findRegion(shipName)))
 
       if (!shipImage.hasParent) {
-        shipDisplay.add(shipImage).pad(60)
+        shipDisplay.add(shipImage).pad(70)
       }
       true
     }

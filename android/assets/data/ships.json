@@ -9,6 +9,9 @@
       "power": 1,
       "storage": 2,
       "shield": 1
+    },
+    "starting-parts": {
+      
     }
   },
   "Ship-1": {
@@ -21,6 +24,9 @@
       "power": 1,
       "storage": 3,
       "shield": 1
+    },
+    "starting-parts": {
+      
     }
   },
   "Ship-2": {
@@ -33,6 +39,9 @@
       "power": 1,
       "storage": 1,
       "shield": 1
+    },
+    "starting-parts": {
+      
     }
   }
 }

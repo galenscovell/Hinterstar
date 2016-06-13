@@ -1,13 +1,12 @@
 package galenscovell.hinterstar.things.parts
 
 
-class Part(n: String, t: String, desc: String, s: Int, re: Int, c: Int) {
+class Part(n: String, t: String, desc: String, s: Int, re: Int) {
   private val name: String = n
   private val partType: String = t
   private val description: String = desc
   private val stat: Int = s
   private val requiredEnergy: Int = re
-  private val cost: Int = c
 
   private var health: Int = 100
   private var active: Boolean = false
@@ -27,10 +26,6 @@ class Part(n: String, t: String, desc: String, s: Int, re: Int, c: Int) {
 
   def getStat: Int = {
     stat
-  }
-
-  def getCost: Int = {
-    cost
   }
 
   def getHealth: Int = {

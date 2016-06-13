@@ -26,10 +26,10 @@ class ResourceSelectionPanel extends Table {
     val bottomTable: Table = new Table
     bottomTable.setBackground(ResourceManager.npTest1)
 
-    add(topTable).width(690).height(140).center
+    add(topTable).width(700).height(140).center
     row
-    add(middleTable).width(690).height(100).padTop(10).center
+    add(middleTable).width(700).height(100).padTop(10).center
     row
-    add(bottomTable).width(690).height(140).padTop(10).center
+    add(bottomTable).width(700).height(140).padTop(10).center
   }
 }
