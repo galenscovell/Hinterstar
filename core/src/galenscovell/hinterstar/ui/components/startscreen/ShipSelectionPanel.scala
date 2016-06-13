@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.{Image, Label, Table, TextButton}
 import com.badlogic.gdx.scenes.scene2d.utils.{ClickListener, TextureRegionDrawable}
 import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.utils.{Align, Scaling}
+import galenscovell.hinterstar.things.parts.Part
 import galenscovell.hinterstar.things.ships.{Ship, ShipParser}
 import galenscovell.hinterstar.util.{Constants, ResourceManager}
 
@@ -13,6 +14,9 @@ import scala.collection.mutable.Map
 
 
 class ShipSelectionPanel extends Table {
+  private val partTypes: List[String] = List(
+    "Combat", "Defense", "Mobility", "Power", "Storage"
+  )
   private val allShips: Array[Ship] = new ShipParser().parseAll
   private var currentShipIndex: Int = 0
 
@@ -37,9 +41,9 @@ class ShipSelectionPanel extends Table {
 
     bottomTable.add(shipDetail).expand.fill
 
-    add(topTable).width(700).height(220).center
+    add(topTable).width(700).height(200).center
     row
-    add(bottomTable).width(700).height(170).padTop(10).center
+    add(bottomTable).width(700).height(190).padTop(10).center
   }
 
   private def createTopTable: Table = {
@@ -108,6 +112,7 @@ class ShipSelectionPanel extends Table {
     shipDetail.clear()
 
     val shipDetailTop: Table = new Table
+    shipDetailTop.setBackground(ResourceManager.npTest2)
     val shipName: String = allShips(currentShipIndex).getName
     val shipDesc: String = allShips(currentShipIndex).getDescription
     val shipNameLabel: Label = new Label(shipName, ResourceManager.labelMenuStyle)
@@ -116,26 +121,48 @@ class ShipSelectionPanel extends Table {
     shipDescLabel.setAlignment(Align.center, Align.center)
     shipDescLabel.setWrap(true)
 
-    shipDetailTop.add(shipNameLabel).expand.fill.height(30)
+    shipDetailTop.add(shipNameLabel).expand.fill.height(20)
     shipDetailTop.row
-    shipDetailTop.add(shipDescLabel).expand.fill.height(50)
+    shipDetailTop.add(shipDescLabel).expand.fill.height(60)
 
     val shipDetailBottom: Table = new Table
-    val shipPointMap: Map[String, Int] = allShips(currentShipIndex).getInstallPoints
-    for ((k, v) <- shipPointMap) {
-      val pointTable: Table = new Table
-      pointTable.setBackground(ResourceManager.greenButtonNp0)
-      val pointKey: Label = new Label(k, ResourceManager.labelMediumStyle)
-      pointKey.setAlignment(Align.center)
-      val pointVal: Label = new Label(v.toString, ResourceManager.labelMenuStyle)
-      pointVal.setAlignment(Align.center)
+    val startingPartsTable: Table = new Table
+    val shipStartingParts: Map[String, Array[Part]] = allShips(currentShipIndex).getStartingParts
+    for (pt: String <- partTypes) {
+      val parts: Array[Part] = shipStartingParts.get(pt).get
+      for (p: Part <- parts) {
+        val partTable: Table = new Table
+        partTable.setBackground(ResourceManager.npTest4)
 
-      pointTable.add(pointKey).expand.fill.top
-      pointTable.row
-      pointTable.add(pointVal).expand.fill.bottom
+        val topBarTable: Table = new Table
+        topBarTable.setBackground(ResourceManager.npTest3)
+        val iconTable = new Table
+        iconTable.setBackground(ResourceManager.npTest0)
+        val typeLabel: Label = new Label(pt, ResourceManager.labelDetailStyle)
+        typeLabel.setAlignment(Align.center)
 
-      shipDetailBottom.add(pointTable).width(100).height(70).pad(4)
+        topBarTable.add(iconTable).expand.fill.width(20).height(20)
+        topBarTable.add(typeLabel).expand.fill.width(70).height(20)
+
+        val partImage: Table = new Table
+
+        val bottomPartTable: Table = new Table
+        bottomPartTable.setBackground(ResourceManager.npTest1)
+        val partLabel: Label = new Label(p.getName, ResourceManager.labelDetailStyle)
+        partLabel.setAlignment(Align.center)
+
+        bottomPartTable.add(partLabel).expand.fill
+
+        partTable.add(topBarTable).expand.fill.height(20)
+        partTable.row
+        partTable.add(partImage).expand.fill.height(50)
+        partTable.row
+        partTable.add(bottomPartTable).expand.fill.height(20)
+
+        startingPartsTable.add(partTable).width(90).pad(5)
+      }
     }
+    shipDetailBottom.add(startingPartsTable).expand.fill.pad(4)
 
     shipDetail.add(shipDetailTop).expand.fill.height(80).top.pad(4)
     shipDetail.row
@@ -158,7 +185,7 @@ class ShipSelectionPanel extends Table {
       shipImage.setDrawable(new TextureRegionDrawable(ResourceManager.shipAtlas.findRegion(shipName)))
 
       if (!shipImage.hasParent) {
-        shipDisplay.add(shipImage).pad(70)
+        shipDisplay.add(shipImage).pad(60)
       }
       true
     }

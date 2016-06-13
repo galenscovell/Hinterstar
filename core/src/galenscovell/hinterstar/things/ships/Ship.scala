@@ -5,10 +5,10 @@ import galenscovell.hinterstar.things.parts.Part
 import scala.collection.mutable.{ArrayBuffer, Map}
 
 
-class Ship(n: String, desc: String, hardpoints: Map[String, Int]) {
+class Ship(n: String, desc: String, sp: Map[String, Array[Part]]) {
   private val name: String = n
   private val description: String = desc
-  private val installPoints: Map[String, Int] = hardpoints
+  private val startingParts: Map[String, Array[Part]] = sp
   private val parts: ArrayBuffer[Part] = ArrayBuffer()
 
 
@@ -20,8 +20,8 @@ class Ship(n: String, desc: String, hardpoints: Map[String, Int]) {
     description
   }
 
-  def getInstallPoints: Map[String, Int] = {
-    installPoints
+  def getStartingParts: Map[String, Array[Part]] = {
+    startingParts
   }
 
   def getParts: ArrayBuffer[Part] = {

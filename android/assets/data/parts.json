@@ -15,14 +15,9 @@
       
     }
   },
-  "Engine": {
+  "Defense": {
     "rank-1": {
-      "EN-100": {
-        "name": "EN-100",
-        "description": "",
-        "stat": 2,
-        "required-energy": 10
-      }
+      
     },
     "rank-2": {
       
@@ -31,14 +26,9 @@
       
     }
   },
-  "Hull": {
+  "Mobility": {
     "rank-1": {
-      "HU-100": {
-        "name": "HU-100",
-        "description": "",
-        "stat": 2,
-        "required-energy": 10
-      }
+      
     },
     "rank-2": {
       
@@ -51,23 +41,7 @@
     "rank-1": {
       "PO-100": {
         "name": "PO-100",
-        "description": "",
-        "stat": 2,
-        "required-energy": 10
-        }
-    },
-    "rank-2": {
-      
-    },
-    "rank-3": {
-      
-    }
-  },
-  "Shield": {
-    "rank-1": {
-      "SH-100": {
-        "name": "SH-100",
-        "description": "",
+        "description": "A basic power part.",
         "stat": 2,
         "required-energy": 10
       }
@@ -83,7 +57,7 @@
     "rank-1": {
       "ST-100": {
         "name": "ST-100",
-        "description": "",
+        "description": "A basic storage part.",
         "stat": 2,
         "required-energy": 10
       }

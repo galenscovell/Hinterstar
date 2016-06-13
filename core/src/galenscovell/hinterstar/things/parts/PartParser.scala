@@ -11,6 +11,7 @@ class PartParser {
 
 
   def parseAll(partType: String, rank: String): Array[Part] = {
+    // Parse out all Parts from parts.json to an Array
     val parts: ArrayBuffer[Part] = ArrayBuffer()
     val partsJson: JsonValue = new JsonReader().parse(Gdx.files.internal(source))
     val partTypeJson: JsonValue = partsJson.get(partType)
@@ -26,6 +27,7 @@ class PartParser {
   }
 
   def parseSingle(partType: String, name: String, rank: String): Part = {
+    // Parse out single Part from parts.json
     val partsJson: JsonValue = new JsonReader().parse(Gdx.files.internal(source))
     val partTypeJson: JsonValue = partsJson.get(partType)
     val partRankJson: JsonValue = partTypeJson.get(rank)

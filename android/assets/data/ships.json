@@ -2,46 +2,51 @@
   "Ship-0": {
     "name": "Ship-0",
     "description": "A generic ship with average potential across the board",
-    "install-points": {
-      "combat": 1,
-      "hull": 1,
-      "mobility": 1,
-      "power": 1,
-      "storage": 2,
-      "shield": 1
-    },
     "starting-parts": {
-      
+      "Combat": [
+        {
+          "Rank": "rank-1",
+          "Name": "CO-100"
+        }
+      ],
+      "Defense": [
+      ],
+      "Mobility": [
+      ],
+      "Power": [
+        {
+          "Rank": "rank-1",
+          "Name": "PO-100"
+        }
+      ],
+      "Storage": [
+        {
+          "Rank": "rank-1",
+          "Name": "ST-100"
+        }
+      ],
     }
   },
   "Ship-1": {
     "name": "Ship-1",
     "description": "A ship with improved storage potential. Not designed for combat.",
-    "install-points": {
-      "combat": 0,
-      "hull": 1,
-      "mobility": 1,
-      "power": 1,
-      "storage": 3,
-      "shield": 1
-    },
     "starting-parts": {
-      
+      "Combat": [],
+      "Defense": [],
+      "Mobility": [],
+      "Power": [],
+      "Storage": []
     }
   },
   "Ship-2": {
     "name": "Ship-2",
     "description": "A ship with improved combat potential. Storage space is used up by ammunition reserves. \nDeveloper note: These descriptions can be up to 400 characters long with no UI issues.",
-    "install-points": {
-      "combat": 2,
-      "hull": 1,
-      "mobility": 1,
-      "power": 1,
-      "storage": 1,
-      "shield": 1
-    },
     "starting-parts": {
-      
+      "Combat": [],
+      "Defense": [],
+      "Mobility": [],
+      "Power": [],
+      "Storage": []
     }
   }
 }
