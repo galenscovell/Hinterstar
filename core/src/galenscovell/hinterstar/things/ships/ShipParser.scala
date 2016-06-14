@@ -38,7 +38,7 @@ class ShipParser {
 
   def constructShip(entry: JsonValue): Ship = {
     // Create new Ship with name, desc and starting parts in ships.json
-    val name: String = entry.getString("name")
+    val name: String = entry.name
     val desc: String = entry.getString("description")
     val startingParts: Map[String, Array[Part]] = Map()
 

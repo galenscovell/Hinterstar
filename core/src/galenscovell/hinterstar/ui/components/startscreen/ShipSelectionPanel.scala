@@ -112,18 +112,18 @@ class ShipSelectionPanel extends Table {
     shipDetail.clear()
 
     val shipDetailTop: Table = new Table
-    shipDetailTop.setBackground(ResourceManager.npTest2)
+    shipDetailTop.setBackground(ResourceManager.npTest1)
     val shipName: String = allShips(currentShipIndex).getName
     val shipDesc: String = allShips(currentShipIndex).getDescription
     val shipNameLabel: Label = new Label(shipName, ResourceManager.labelMenuStyle)
     shipNameLabel.setAlignment(Align.center, Align.center)
     val shipDescLabel: Label = new Label(shipDesc, ResourceManager.labelMediumStyle)
-    shipDescLabel.setAlignment(Align.center, Align.center)
+    shipDescLabel.setAlignment(Align.top, Align.center)
     shipDescLabel.setWrap(true)
 
-    shipDetailTop.add(shipNameLabel).expand.fill.height(20)
+    shipDetailTop.add(shipNameLabel).expand.fill.height(20).pad(5)
     shipDetailTop.row
-    shipDetailTop.add(shipDescLabel).expand.fill.height(60)
+    shipDetailTop.add(shipDescLabel).expand.fill.height(60).pad(5)
 
     val shipDetailBottom: Table = new Table
     val startingPartsTable: Table = new Table
@@ -142,7 +142,7 @@ class ShipSelectionPanel extends Table {
         typeLabel.setAlignment(Align.center)
 
         topBarTable.add(iconTable).expand.fill.width(20).height(20)
-        topBarTable.add(typeLabel).expand.fill.width(70).height(20)
+        topBarTable.add(typeLabel).expand.fill.width(80).height(20)
 
         val partImage: Table = new Table
 
@@ -159,14 +159,14 @@ class ShipSelectionPanel extends Table {
         partTable.row
         partTable.add(bottomPartTable).expand.fill.height(20)
 
-        startingPartsTable.add(partTable).width(90).pad(5)
+        startingPartsTable.add(partTable).width(100).pad(5)
       }
     }
     shipDetailBottom.add(startingPartsTable).expand.fill.pad(4)
 
-    shipDetail.add(shipDetailTop).expand.fill.height(80).top.pad(4)
+    shipDetail.add(shipDetailTop).expand.fill.height(90).top.pad(5)
     shipDetail.row
-    shipDetail.add(shipDetailBottom).expand.fill.height(80).top.pad(4)
+    shipDetail.add(shipDetailBottom).expand.fill.height(90).top.pad(5)
 
     shipDetail.addAction(Actions.sequence(
       Actions.color(Constants.flashColor, 0.25f, Interpolation.sine),

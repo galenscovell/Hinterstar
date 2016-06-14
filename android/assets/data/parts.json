@@ -1,8 +1,7 @@
 {
   "Combat": {
     "rank-1": {
-      "CO-100": {
-        "name": "CO-100",
+      "Machinegun": {
         "description": "A basic combat part.",
         "stat": 2,
         "required-energy": 10
@@ -28,8 +27,7 @@
   },
   "Mobility": {
     "rank-1": {
-      "MO-100": {
-        "name": "MO-100",
+      "Thruster": {
         "description": "A basic mobility part.",
         "stat": 2,
         "required-energy": 10
@@ -44,8 +42,7 @@
   },
   "Power": {
     "rank-1": {
-      "PO-100": {
-        "name": "PO-100",
+      "Generator": {
         "description": "A basic power part.",
         "stat": 2,
         "required-energy": 10
@@ -60,8 +57,7 @@
   },
   "Storage": {
     "rank-1": {
-      "ST-100": {
-        "name": "ST-100",
+      "Container": {
         "description": "A basic storage part.",
         "stat": 2,
         "required-energy": 10

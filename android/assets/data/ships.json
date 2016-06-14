@@ -1,12 +1,11 @@
 {
   "Ship-0": {
-    "name": "Ship-0",
     "description": "A generic ship that comes equipped with a basic weapon, engine, generator and storage unit.",
     "starting-parts": {
       "Combat": [
         {
           "Rank": "rank-1",
-          "Name": "CO-100"
+          "Name": "Machinegun"
         }
       ],
       "Defense": [
@@ -14,42 +13,78 @@
       "Mobility": [
         {
           "Rank": "rank-1",
-          "Name": "MO-100"
+          "Name": "Thruster"
         }
       ],
       "Power": [
         {
           "Rank": "rank-1",
-          "Name": "PO-100"
+          "Name": "Generator"
         }
       ],
       "Storage": [
         {
           "Rank": "rank-1",
-          "Name": "ST-100"
+          "Name": "Container"
         }
       ],
     }
   },
   "Ship-1": {
-    "name": "Ship-1",
-    "description": "A ship with improved storage potential. Not designed for combat.",
+    "description": "A ship with additional storage space, but lacks any weapon.",
     "starting-parts": {
       "Combat": [],
       "Defense": [],
-      "Mobility": [],
-      "Power": [],
-      "Storage": []
+      "Mobility": [
+        {
+          "Rank": "rank-1",
+          "Name": "Thruster"
+        }
+      ],
+      "Power": [
+        {
+          "Rank": "rank-1",
+          "Name": "Generator"
+        }
+      ],
+      "Storage": [
+        {
+          "Rank": "rank-1",
+          "Name": "Container"
+        },
+        {
+          "Rank": "rank-1",
+          "Name": "Container"
+        }
+      ]
     }
   },
   "Ship-2": {
-    "name": "Ship-2",
-    "description": "A ship with improved combat potential. Storage space is used up by ammunition reserves. \nDeveloper note: These descriptions can be up to 400 characters long with no UI issues.",
+    "description": "A ship with improved combat potential. Extra storage space is used up by ammunition reserves.",
     "starting-parts": {
-      "Combat": [],
+      "Combat": [
+        {
+          "Rank": "rank-1",
+          "Name": "Machinegun"
+        },
+        {
+          "Rank": "rank-1",
+          "Name": "Machinegun"
+        }
+      ],
       "Defense": [],
-      "Mobility": [],
-      "Power": [],
+      "Mobility": [
+        {
+          "Rank": "rank-1",
+          "Name": "Thruster"
+        }
+      ],
+      "Power": [
+        {
+          "Rank": "rank-1",
+          "Name": "Generator"
+        }
+      ],
       "Storage": []
     }
   }

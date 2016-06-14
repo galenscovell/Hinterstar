@@ -36,7 +36,7 @@ class PartParser {
   }
 
   def constructPart(entry: JsonValue, partType: String): Part = {
-    val name: String = entry.getString("name")
+    val name: String = entry.name
     val desc: String = entry.getString("description")
     val stat: Int = entry.getInt("stat")
     val requiredEnergy: Int = entry.getInt("required-energy")
