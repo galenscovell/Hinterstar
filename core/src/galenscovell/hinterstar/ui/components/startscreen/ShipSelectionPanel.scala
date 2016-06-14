@@ -24,7 +24,7 @@ class ShipSelectionPanel extends Table {
   private val shipImage: Image = new Image
   private val shipDetail: Table = new Table
 
-  shipImage.setScaling(Scaling.fillX)
+  shipImage.setScaling(Scaling.fillY)
   shipDetail.setBackground(ResourceManager.npTest1)
   shipDetail.setColor(Constants.normalColor)
 
@@ -72,9 +72,9 @@ class ShipSelectionPanel extends Table {
       }
     })
 
-    topTable.add(scrollLeftButton).width(80).expand.fill.left
-    topTable.add(shipDisplay).width(590).expand.fill
-    topTable.add(scrollRightButton).width(80).expand.fill.right
+    topTable.add(scrollLeftButton).width(60).expand.fill.left
+    topTable.add(shipDisplay).expand.fill
+    topTable.add(scrollRightButton).width(60).expand.fill.right
 
     topTable
   }
@@ -185,7 +185,7 @@ class ShipSelectionPanel extends Table {
       shipImage.setDrawable(new TextureRegionDrawable(ResourceManager.shipAtlas.findRegion(shipName)))
 
       if (!shipImage.hasParent) {
-        shipDisplay.add(shipImage).pad(80)
+        shipDisplay.add(shipImage).padTop(20).padBottom(20).expandY
       }
       true
     }

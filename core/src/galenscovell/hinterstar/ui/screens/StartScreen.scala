@@ -33,7 +33,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
     val titleTable: Table = createTitleTable
     val contentTable: Table = new Table
-    contentTable.add(contentPanel).width(780).height(400).left.padRight(10)
+    contentTable.add(contentPanel).width(780).height(400)
     updateContent(true)
 
     mainTable.add(titleTable).width(764).height(50).pad(8)
