@@ -8,16 +8,18 @@ import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.util.{Constants, ResourceManager}
 
+import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 
 class TeamSelectionPanel extends Table {
-  private val teamMates: Array[String] = Array[String]("", "", "", "", "", "")
+  private val teamMates: Array[String] = randomizeStartingTeamNames
 
   private var currentTeammate: Int = 0
   private var currentTeamButton: TextButton = null
   private var currentProfessionButton: TextButton = null
   private val nameInput: TextField = new TextField("", ResourceManager.textFieldStyle)
+  nameInput.setAlignment(Align.left)
   nameInput.setMaxLength(20)
 
   private var engineerButton: TextButton = null
@@ -28,8 +30,6 @@ class TeamSelectionPanel extends Table {
   private var artistButton: TextButton = null
   private var psychiatristButton: TextButton = null
   private var linguistButton: TextButton = null
-
-  randomizeStartingTeamNames()
 
   private val professionTable: Table = constructProfessionTable
   private val leftTable: Table = new Table
@@ -87,7 +87,7 @@ class TeamSelectionPanel extends Table {
     optionTable.row
     optionTable.add(professionTable).expand.fill.height(220).pad(4)
 
-    val modifyTeammateButton: TextButton = new TextButton("Modify", ResourceManager.greenButtonStyle)
+    val modifyTeammateButton: TextButton = new TextButton("Update Teammate", ResourceManager.greenButtonStyle)
     modifyTeammateButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         leftTable.addAction(Actions.sequence(
@@ -241,7 +241,8 @@ class TeamSelectionPanel extends Table {
     professionTable
   }
 
-  private def randomizeStartingTeamNames(): Unit = {
+  private def randomizeStartingTeamNames: Array[String] = {
+    val tempTeammates: ArrayBuffer[String] = ArrayBuffer()
     val names: List[String] = List(
       "Jack", "James", "Benjamin", "Joshua", "Ryan", "Patrick", "Samuel",
       "William", "Kenji", "Ei", "Ren", "Ken", "Daniel", "Ethan", "Michael",
@@ -254,15 +255,30 @@ class TeamSelectionPanel extends Table {
     )
     val professions: List[String] = List(
       "Engineer", "Physician", "Soldier", "Researcher", "Pilot",
-      "Artist", "Psychiatrist", "Linguist", "Botanist", ""
+      "Artist", "Psychiatrist", "Linguist", "Botanist"
     )
     val random: Random = new Random
-    for (x <- 0 until 6) {
+
+    while (tempTeammates.length < 6) {
       val randomNameIndex: Int = random.nextInt(names.length - 1)
+      val randomProfIndex: Int = random.nextInt(professions.length - 1)
       val randomName: String = names(randomNameIndex)
-      val defaultProfession: String = professions(x)
-      teamMates(x) = s"$randomName\t$defaultProfession"
+      val randomProf: String = professions(randomProfIndex)
+      val teammateEntry: String = s"$randomName\t$randomProf"
+      var unique: Boolean = true
+
+      for (entry: String <- tempTeammates) {
+        val components: Array[String] = entry.split("\t")
+        if (components(0) == randomName || components(1) == randomProf) {
+          unique = false
+        }
+      }
+
+      if (unique) {
+        tempTeammates.append(teammateEntry)
+      }
     }
+    tempTeammates.toArray
   }
 
   private def refreshProfessionButtons(textButton: TextButton): Unit = {
