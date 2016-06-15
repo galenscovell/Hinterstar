@@ -1,15 +1,11 @@
 package galenscovell.hinterstar.ui.screens
 
-import com.badlogic.gdx.input.GestureDetector
-import com.badlogic.gdx.{Gdx, InputMultiplexer}
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent, Stage}
-import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
-import galenscovell.hinterstar.processing.controls.GestureHandler
 import galenscovell.hinterstar.things.ships.Ship
 import galenscovell.hinterstar.ui.components.startscreen.{ResourceSelectionPanel, ShipSelectionPanel, TeamSelectionPanel}
 import galenscovell.hinterstar.util.{Constants, PlayerData, ResourceManager}
@@ -19,6 +15,9 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   private val teamPanel: TeamSelectionPanel = new TeamSelectionPanel
   private val shipPanel: ShipSelectionPanel = new ShipSelectionPanel
   private val resourcePanel: ResourceSelectionPanel = new ResourceSelectionPanel
+  private val teamPanelButton: TextButton = new TextButton("Team", ResourceManager.toggleButtonStyle)
+  private val shipPanelButton: TextButton = new TextButton("Ship", ResourceManager.toggleButtonStyle)
+  private var currentPanelButton: TextButton = teamPanelButton
   private val contentPanel: Table = new Table
 
 
@@ -35,8 +34,9 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     val contentTable: Table = new Table
     contentTable.add(contentPanel).width(780).height(400)
     updateContent(true)
+    currentPanelButton.setChecked(true)
 
-    mainTable.add(titleTable).width(764).height(50).pad(8)
+    mainTable.add(titleTable).width(770).height(50).pad(5)
     mainTable.row
     mainTable.add(contentTable).width(780).height(400)
 
@@ -47,18 +47,32 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     )
   }
 
-  override def show(): Unit = {
-    create()
-    val inputMultiplexer: InputMultiplexer = new InputMultiplexer
-    inputMultiplexer.addProcessor(new GestureDetector(new GestureHandler(this)))
-    inputMultiplexer.addProcessor(stage)
-    Gdx.input.setInputProcessor(inputMultiplexer)
-  }
-
   private def createTitleTable: Table = {
     val titleTable: Table = new Table
-    val titleLabel: Label = new Label("Loadout", ResourceManager.labelTitleStyle)
-    titleLabel.setAlignment(Align.center, Align.center)
+
+    val noticeTable: Table = new Table
+    teamPanelButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        if (currentPanelButton != teamPanelButton) {
+          currentPanelButton.setChecked(false)
+          currentPanelButton = teamPanelButton
+          updateContent(false)
+        }
+        currentPanelButton.setChecked(true)
+      }
+    })
+    shipPanelButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        if (currentPanelButton != shipPanelButton) {
+          currentPanelButton.setChecked(false)
+          currentPanelButton = shipPanelButton
+          updateContent(true)
+        }
+        currentPanelButton.setChecked(true)
+      }
+    })
+    noticeTable.add(teamPanelButton).width(90).height(50).left
+    noticeTable.add(shipPanelButton).width(90).height(50).right
 
     val returnButton: TextButton = new TextButton("Return", ResourceManager.greenButtonStyle)
     returnButton.addListener(new ClickListener() {
@@ -87,7 +101,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     })
 
     titleTable.add(returnButton).width(200).height(50)
-    titleTable.add(titleLabel).width(364).height(50)
+    titleTable.add(noticeTable).width(364).height(50)
     titleTable.add(embarkButton).width(200).height(50)
 
     titleTable
