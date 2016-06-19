@@ -7,14 +7,15 @@ import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent, Stage}
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.things.ships.Ship
-import galenscovell.hinterstar.ui.components.startscreen.{ResourceSelectionPanel, ShipSelectionPanel, TeamSelectionPanel}
+import galenscovell.hinterstar.ui.components.startscreen.{ShipSelectionPanel, TeamSelectionPanel}
 import galenscovell.hinterstar.util.{Constants, PlayerData, ResourceManager}
+
+import scala.collection.mutable.Map
 
 
 class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   private val teamPanel: TeamSelectionPanel = new TeamSelectionPanel
   private val shipPanel: ShipSelectionPanel = new ShipSelectionPanel
-  private val resourcePanel: ResourceSelectionPanel = new ResourceSelectionPanel
   private val teamPanelButton: TextButton = new TextButton("Team", ResourceManager.toggleButtonStyle)
   private val shipPanelButton: TextButton = new TextButton("Ship", ResourceManager.toggleButtonStyle)
   private var currentPanelButton: TextButton = teamPanelButton
@@ -176,9 +177,6 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
         newContent = shipPanel
       } else if (shipPanel.hasParent) {
         shipPanel.remove()
-        newContent = resourcePanel
-      } else if (resourcePanel.hasParent) {
-        resourcePanel.remove()
         newContent = teamPanel
       } else {
         newContent = teamPanel
@@ -193,13 +191,10 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       var newContent: Table = null
       if (teamPanel.hasParent) {
         teamPanel.remove()
-        newContent = resourcePanel
+        newContent = shipPanel
       } else if (shipPanel.hasParent) {
         shipPanel.remove()
         newContent = teamPanel
-      } else if (resourcePanel.hasParent) {
-        resourcePanel.remove()
-        newContent = shipPanel
       } else {
         newContent = teamPanel
       }

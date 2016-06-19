@@ -37,13 +37,33 @@ object PlayerData {
   }
 
   def establishTeam(team: Array[String]): Unit = {
-    // Add each teammate to preferences along with their profession
-    for (i <- team.indices) {
-      val entry: Array[String] = team(i).split("\t")
-      val name: String = entry(0)
-      val profession: String = entry(1)
-      prefs.putString(s"teammate$i-name", name)
-      prefs.putString(s"teammate$i-prof", profession)
+    // Add each teammate to preferences along with their proficiencies
+    val proficiencies: List[String] = List("Engineer", "Pilot", "Physician", "Scientist", "Soldier")
+    // 6 core proficiencies with important roles
+    // Each proficiency has 5 ranks
+    // Rank increases as teammate spends time assigned to each area
+    // When current rank reaches 100%, next rank is attained
+    // Higher rank decreases time required for Active ability, increases Passive bonus
+    //   Engineer --
+    //           Active: fixes broken parts
+    //          Passive: ++Power part effectiveness
+    //  Physician --
+    //           Active: heals injured teammates
+    //          Passive: ++Defense part effectiveness
+    //    Soldier --
+    //           Active: fends off boarding invasions
+    //          Passive: ++Combat part effectiveness
+    //  Scientist --
+    //           Active: creates new parts
+    //          Passive: ++Research part effectiveness
+    //      Pilot --
+    //           Active:
+    //          Passive: ++Mobility part effectiveness
+
+    for (teammate: String <- team) {
+      for (proficiency: String <- proficiencies) {
+        prefs.putString(s"$teammate-$proficiency", "0, 0")
+      }
     }
     update()
   }

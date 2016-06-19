@@ -55,6 +55,21 @@
       
     }
   },
+  "Research": {
+    "rank-1": {
+      "Laboratory": {
+        "description": "A basic research part.",
+        "stat": 2,
+        "required-energy": 10
+      }
+    },
+    "rank-2": {
+      
+    },
+    "rank-3": {
+      
+    }
+  },
   "Storage": {
     "rank-1": {
       "Container": {

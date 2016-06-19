@@ -11,7 +11,7 @@ class ShipParser {
   private val partParser: PartParser = new PartParser
   private val source: String = "data/ships.json"
   private val partTypes: List[String] = List(
-    "Combat", "Defense", "Mobility", "Power", "Storage"
+    "Combat", "Defense", "Mobility", "Power", "Research", "Storage"
   )
 
 
