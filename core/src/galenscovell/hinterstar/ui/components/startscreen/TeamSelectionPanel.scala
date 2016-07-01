@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.util.{Constants, ResourceManager}
 
-import scala.collection.mutable.{ArrayBuffer, Map}
+import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 

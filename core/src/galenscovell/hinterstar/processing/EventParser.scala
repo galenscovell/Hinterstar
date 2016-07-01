@@ -27,7 +27,7 @@ class EventParser {
     // Encountered events are saved in player data
     // Ensure no single event is repeated within two events of itself
     // ie 1 -> 2 -> 3 -> 1 can be selected again -> 2 can be selected again, etc.
-    val parsedEvent: EventContainer = new EventContainer()
+    val parsedEvent: EventContainer = new EventContainer(0)
 
     val eventSource: String = "data/events/" + targetEventType + "_events.json"
     val json: JsonValue = new JsonReader().parse(Gdx.files.internal(eventSource))

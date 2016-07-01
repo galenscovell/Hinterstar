@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.{Table, TextButton}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.viewport.FitViewport
-import galenscovell.hinterstar.processing.EventContainer
 import galenscovell.hinterstar.things.entities.Player
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
@@ -27,13 +26,13 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
   private var nextAnimationFrames: Int = 0
 
   construct()
-  
+
 
   private def construct(): Unit = {
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
-    this.eventButton = new TextButton("Next", ResourceManager.buttonMapStyle0)
+    this.eventButton = new TextButton(">", ResourceManager.buttonMapStyle0)
     eventButton.getLabelCell.width(80)
     eventButton.invalidate()
     eventButton.addListener(new ClickListener() {
@@ -47,7 +46,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     this.navButtons = new NavButtons(this)
     this.actionTable = new Table
     actionTable.add(player).expand.fill.left.padLeft(60)
-    actionTable.add(eventButton).width(90).height(220).expand.fill.right
+    actionTable.add(eventButton).width(60).height(220).expand.fill.right
     this.detailTable = new DetailTable(this)
 
     mainTable.add(navButtons).width(Constants.EXACT_X / 2).height(2 + Constants.SECTORSIZE * 2)
@@ -112,7 +111,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     }
   }
 
-  def hideUIElements(): Unit = {
+  def hideNavButtons(): Unit = {
     navButtons.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
       Actions.moveBy(0, 2 + Constants.SECTORSIZE * 2, 0.5f, Interpolation.sine)
@@ -127,7 +126,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     ))
   }
 
-  def showUIElements(): Unit = {
+  def showNavButtons(): Unit = {
     navButtons.addAction(Actions.sequence(
       Actions.moveBy(0, -(2 + Constants.SECTORSIZE * 2), 0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
@@ -208,10 +207,9 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
       eventPanel.remove()
       eventPanel = null
     }
-    val parsedEvent: EventContainer = Repository.parseNextEvent
-    eventPanel = new EventPanel(this, parsedEvent)
+    eventPanel = new EventPanel(this, Repository.parseNextEvent)
     this.addActor(eventPanel)
-    hideUIElements()
+    hideNavButtons()
   }
 
 

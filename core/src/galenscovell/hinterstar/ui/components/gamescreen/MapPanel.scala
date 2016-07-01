@@ -68,7 +68,7 @@ class MapPanel(stage: GameStage) extends Table {
       gameStage.getNavButtons.getMapButton.setChecked(false)
       gameStage.togglePanel(0)
       gameStage.gameScreen.beginTravel()
-      gameStage.hideUIElements()
+      gameStage.hideNavButtons()
     }
   }
   

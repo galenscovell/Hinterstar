@@ -39,7 +39,7 @@ object PlayerData {
   def establishTeam(team: Array[String]): Unit = {
     // Add each teammate to preferences along with their proficiencies
     val proficiencies: List[String] = List("Engineer", "Pilot", "Physician", "Scientist", "Soldier")
-    // 6 core proficiencies with important roles
+    // 5 core proficiencies with important roles
     // Each proficiency has 5 ranks
     // Rank increases as teammate spends time assigned to each area
     // When current rank reaches 100%, next rank is attained

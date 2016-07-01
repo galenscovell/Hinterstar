@@ -194,7 +194,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
   private[screens] var showUIElements: Action = new Action() {
     def act(delta: Float): Boolean = {
-      stage.asInstanceOf[GameStage].showUIElements()
+      stage.asInstanceOf[GameStage].showNavButtons()
       true
     }
   }

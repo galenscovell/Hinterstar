@@ -78,9 +78,7 @@ object Repository {
     * Called from GameStage
     */
   def parseNextEvent: EventContainer = {
-    val nextEventType: String = currentLocation.getCurrentEvent.getType
-    val parsedEvent: EventContainer = eventParser.parse(nextEventType)
-    parsedEvent
+    currentLocation.getCurrentEvent
   }
 
 
@@ -141,5 +139,8 @@ object Repository {
       }
     }
     currentLocation.getSector.becomeCurrent()
+
+    // Establish starting location as the Sol sector
+    currentLocation.setStartLocation()
   }
 }

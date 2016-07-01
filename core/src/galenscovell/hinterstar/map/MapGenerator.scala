@@ -36,7 +36,7 @@ class MapGenerator(maxLocations: Int, padSize: Int) {
       val y: Int = getRandom(1, Constants.MAPHEIGHT - padSize - 1)
       if (!(x == 0 || x == Constants.MAPWIDTH || y == 0 || y == Constants.MAPHEIGHT)) {
         val location: Location = new Location(x, y, padSize)
-        if (!(doesCollide(location, -1))) {
+        if (!doesCollide(location, -1)) {
           val centerX: Int = (location.size / 2) + location.x
           val centerY: Int = (location.size / 2) + location.y
           location.setSector(sectors(centerY)(centerX))
