@@ -13,8 +13,8 @@ import com.badlogic.gdx.math.Vector2
   *     a padding (amount of space around the layer to prevent graphics issues)
   */
 class ParallaxLayer(r: TextureRegion, pRatio: Vector2, pad: Vector2) {
-  final val region: TextureRegion = r
-  final val parallaxRatio: Vector2 = pRatio
+  val region: TextureRegion = r
+  val parallaxRatio: Vector2 = pRatio
   var startPosition: Vector2 = new Vector2(0, 0)
   var padding: Vector2 = pad
 

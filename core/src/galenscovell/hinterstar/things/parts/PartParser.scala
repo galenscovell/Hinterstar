@@ -6,12 +6,17 @@ import com.badlogic.gdx.utils.{JsonReader, JsonValue}
 import scala.collection.mutable.ArrayBuffer
 
 
+/**
+  * PartParser handles parsing of Parts from JSON.
+  */
 class PartParser {
   private val source: String = "data/parts.json"
 
 
+  /**
+    * Parse out all Parts from parts.json to an Array.
+    */
   def parseAll(partType: String, rank: String): Array[Part] = {
-    // Parse out all Parts from parts.json to an Array
     val parts: ArrayBuffer[Part] = ArrayBuffer()
     val partsJson: JsonValue = new JsonReader().parse(Gdx.files.internal(source))
     val partTypeJson: JsonValue = partsJson.get(partType)
@@ -26,8 +31,10 @@ class PartParser {
     parts.toArray
   }
 
+  /**
+    * Parse out single Part from parts.json.
+    */
   def parseSingle(partType: String, name: String, rank: String): Part = {
-    // Parse out single Part from parts.json
     val partsJson: JsonValue = new JsonReader().parse(Gdx.files.internal(source))
     val partTypeJson: JsonValue = partsJson.get(partType)
     val partRankJson: JsonValue = partTypeJson.get(rank)
@@ -35,6 +42,9 @@ class PartParser {
     constructPart(entry, partType)
   }
 
+  /**
+    * Create new Part with name, desc, stat and required-energy in parts.json.
+    */
   def constructPart(entry: JsonValue, partType: String): Part = {
     val name: String = entry.name
     val desc: String = entry.getString("description")

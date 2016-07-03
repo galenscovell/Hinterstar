@@ -9,8 +9,8 @@ import scala.collection.mutable.ArrayBuffer
   * MapGenerator constructs Sector grid and places non-overlapping Locations.
   */
 class MapGenerator(maxLocations: Int, padSize: Int) {
-  private final val sectors: Array[Array[Sector]] = Array.ofDim[Sector](Constants.MAPHEIGHT, Constants.MAPWIDTH)
-  private final val locations: ArrayBuffer[Location] = ArrayBuffer()
+  private val sectors: Array[Array[Sector]] = Array.ofDim[Sector](Constants.MAPHEIGHT, Constants.MAPWIDTH)
+  private val locations: ArrayBuffer[Location] = ArrayBuffer()
 
   build()
   placeLocations()

@@ -15,9 +15,9 @@ import com.badlogic.gdx.math.Vector2
   *     a savedSpeed (initially (0, 0), used for pause() and unpause())
   */
 class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: Float, s: Vector2) {
-  private final val layers: Array[ParallaxLayer] = l
-  private final val camera: Camera = new OrthographicCamera(w, h)
-  private final val batch: SpriteBatch = b
+  private val layers: Array[ParallaxLayer] = l
+  private val camera: Camera = new OrthographicCamera(w, h)
+  private val batch: SpriteBatch = b
   private var speed: Vector2 = s
   private val savedSpeed: Vector2 = new Vector2(0, 0)
 

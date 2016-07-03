@@ -16,11 +16,11 @@ import scala.collection.mutable.ArrayBuffer
   *     randomized background
   */
 class Location(gridX: Int, gridY: Int, gridSize: Int) {
-  final val x: Int = gridX
-  final val y: Int = gridY
-  final val size: Int = gridSize
+  val x: Int = gridX
+  val y: Int = gridY
+  val size: Int = gridSize
 
-  private final val events: ArrayBuffer[Event] = new ArrayBuffer[Event]()
+  private val events: ArrayBuffer[Event] = new ArrayBuffer[Event]()
   private var details: Array[String] = Array[String]("Location Title", "Location Detail")
   private var sector: Sector = null
   private var currentEvent: Int = 0

@@ -5,35 +5,49 @@ import galenscovell.hinterstar.things.parts.Part
 import scala.collection.mutable.{ArrayBuffer, Map}
 
 
-class Ship(n: String, desc: String, sp: Map[String, Array[Part]]) {
+/**
+  * A Ship is the container for the Player's current loadout.
+  * Ship's have:
+  *     a name
+  *     a description
+  *     a Map of part ArrayBuffers
+  */
+class Ship(n: String, desc: String, sp: Map[String, ArrayBuffer[Part]]) {
   private val name: String = n
   private val description: String = desc
-  private val startingParts: Map[String, Array[Part]] = sp
-  private val parts: ArrayBuffer[Part] = ArrayBuffer()
+  private val parts: Map[String, ArrayBuffer[Part]] = sp
 
 
+  /**
+    * Return the Ship's name.
+    */
   def getName: String = {
     name
   }
 
+  /**
+    * Return the Ship's description.
+    */
   def getDescription: String = {
     description
   }
 
-  def getStartingParts: Map[String, Array[Part]] = {
-    startingParts
-  }
-
-  def getParts: ArrayBuffer[Part] = {
+  /**
+    * Return the Ship's current Parts.
+    */
+  def getParts: Map[String, ArrayBuffer[Part]] = {
     parts
   }
 
+  /**
+    * Return the Ship's current stat based on its current Parts.
+    */
   def getStat(stat: String): Int = {
     var value: Int = 0
-    for (p: Part <- parts) {
-      if (p.getType == stat) {
-        value += p.getStat
-      }
+    val partArray: ArrayBuffer[Part] = parts.get(stat).get
+
+    for (p: Part <- partArray) {
+      value += p.getStat
     }
     value
   }

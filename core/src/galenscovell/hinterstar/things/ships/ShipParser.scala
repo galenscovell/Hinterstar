@@ -7,6 +7,9 @@ import galenscovell.hinterstar.things.parts.{Part, PartParser}
 import scala.collection.mutable.{ArrayBuffer, Map}
 
 
+/**
+  * ShipParser handles the parsing of Ships from JSON.
+  */
 class ShipParser {
   private val partParser: PartParser = new PartParser
   private val source: String = "data/ships.json"
@@ -15,8 +18,10 @@ class ShipParser {
   )
 
 
-  def parseAll: Array[Ship] = {
-    // Parse out all Ships from ships.json as an Array
+  /**
+    * Parse out all Ships from ships.json as an ArrayBuffer.
+    */
+  def parseAll: ArrayBuffer[Ship] = {
     val ships: ArrayBuffer[Ship] = ArrayBuffer()
     val json: JsonValue = new JsonReader().parse(Gdx.files.internal(source))
 
@@ -26,23 +31,27 @@ class ShipParser {
       ships.append(ship)
     }
 
-    ships.toArray
+    ships
   }
 
+  /**
+    * Parse out a single Ship from ships.json.
+    */
   def parseSingle(name: String): Ship = {
-    // Parse out a single Ship from ships.json
     val json: JsonValue = new JsonReader().parse(Gdx.files.internal(source))
     val entry: JsonValue = json.get(name)
     constructShip(entry)
   }
 
+  /**
+    * Create new Ship with name, desc and starting parts in ships.json.
+    */
   def constructShip(entry: JsonValue): Ship = {
-    // Create new Ship with name, desc and starting parts in ships.json
     val name: String = entry.name
     val desc: String = entry.getString("description")
-    val startingParts: Map[String, Array[Part]] = Map()
+    val startingParts: Map[String, ArrayBuffer[Part]] = Map()
 
-    // For each partType, assemble Array of Parts to be stored in a map
+    // For each partType, assemble ArrayBuffer of Parts to be stored in a map
     val startingPartsEntry: JsonValue = entry.get("starting-parts")
     for (pt: String <- partTypes) {
       val foundParts: ArrayBuffer[Part] = ArrayBuffer()
@@ -57,7 +66,7 @@ class ShipParser {
         foundParts.append(parsedPart)
       }
 
-      startingParts.put(pt, foundParts.toArray)
+      startingParts.put(pt, foundParts)
     }
 
     new Ship(name, desc, startingParts)

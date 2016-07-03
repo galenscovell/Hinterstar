@@ -8,8 +8,8 @@ import galenscovell.hinterstar.util._
   * CurrentLocationAnimation is an animation signifying the current Player location.
   */
 class CurrentLocationAnimation {
-  private final val sprite: TextureRegion = ResourceManager.uiAtlas.createSprite("current_marker")
-  private final val size: Float = Constants.SECTORSIZE * 3
+  private val sprite: TextureRegion = ResourceManager.uiAtlas.createSprite("current_marker")
+  private val size: Float = Constants.SECTORSIZE * 3
   private var frame: Float = 0.0f
   private var lx: Int = 0
   private var ly: Int = 0

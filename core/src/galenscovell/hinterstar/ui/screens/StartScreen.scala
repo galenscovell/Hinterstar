@@ -88,6 +88,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     val embarkButton: TextButton = new TextButton("Embark", ResourceManager.greenButtonStyle)
     embarkButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        PlayerData.clear()
         val team: Array[String] = teamPanel.getTeammates
         val selectedShip: Ship = shipPanel.getShip
         establishTeam(team)

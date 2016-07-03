@@ -13,11 +13,12 @@ import scala.collection.mutable.{ArrayBuffer, Map}
   *     multiple choices (options for Player in interaction dialogue)
   */
 class Event(d: Float) {
-  var distance: Float = d
+  val distance: Float = d
+  val choices: ArrayBuffer[Map[String, String]] = ArrayBuffer()
+
   var eventType: String = ""
   var name: String = ""
   var description: String = ""
-  var choices: ArrayBuffer[Map[String, String]] = ArrayBuffer()
 
 
   /**

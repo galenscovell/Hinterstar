@@ -13,8 +13,8 @@ import galenscovell.hinterstar.util._
   * Sectors also carry state (eg EMPTY, CURRENT, EXPLORED, UNEXPLORED).
   */
 class Sector(x: Int, y: Int) extends Actor {
-  final val sx: Int = x
-  final val sy: Int = y
+  val sx: Int = x
+  val sy: Int = y
 
   private var frames: Int = 60
   private var sectorType: Short = 0
