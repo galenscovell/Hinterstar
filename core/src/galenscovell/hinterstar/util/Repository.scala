@@ -3,7 +3,7 @@ package galenscovell.hinterstar.util
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import galenscovell.hinterstar.map.{Location, Sector}
-import galenscovell.hinterstar.processing.{EventContainer, EventParser}
+import galenscovell.hinterstar.processing.{Event, EventParser}
 import galenscovell.hinterstar.ui.components.gamescreen.GameStage
 import galenscovell.hinterstar.ui.screens.GameScreen
 
@@ -77,7 +77,7 @@ object Repository {
   /**
     * Called from GameStage
     */
-  def parseNextEvent: EventContainer = {
+  def parseNextEvent: Event = {
     currentLocation.getCurrentEvent
   }
 

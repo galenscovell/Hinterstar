@@ -7,14 +7,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
 import galenscovell.hinterstar.util._
 
 
+/**
+  * A Sector is a node on the map grid.
+  * Sectors are the graphical components of Locations which have sprites and are rendered.
+  * Sectors also carry state (eg EMPTY, CURRENT, EXPLORED, UNEXPLORED).
+  */
 class Sector(x: Int, y: Int) extends Actor {
+  final val sx: Int = x
+  final val sy: Int = y
+
   private var frames: Int = 60
   private var sectorType: Short = 0
   private var sprite: Sprite = null
   private var glowing: Boolean = true
-
-  val sx: Int = x
-  val sy: Int = y
 
   this.addListener(new ActorGestureListener() {
     override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
@@ -25,44 +30,78 @@ class Sector(x: Int, y: Int) extends Actor {
   })
 
 
+  /**
+    * Return this Sector.
+    */
   def getThisSector: Sector = {
     this
   }
 
+  /**
+    * Return true if this Sector is currently EMPTY (no sprite).
+    */
   def isEmpty: Boolean = {
     sectorType == Constants.SECTOR_EMPTY
   }
 
+  /**
+    * Return true if this Sector is the CURRENT place the Player is.
+    */
   def isCurrent: Boolean = {
     sectorType == Constants.SECTOR_CURRENT
   }
 
+  /**
+    * Return true if this Sector has been EXPLORED by the Player.
+    */
   def isExplored: Boolean = {
     sectorType == Constants.SECTOR_EXPLORED
   }
 
+  /**
+    * Return true if this Sector is UNEXPLORED by the Player.
+    */
   def isUnexplored: Boolean = {
     sectorType == Constants.SECTOR_UNEXPLORED
   }
 
+
+
+  /**
+    * Make this Sector EMPTY (remove its sprite)
+    */
   def becomeEmpty(): Unit = {
     sectorType = Constants.SECTOR_EMPTY
   }
 
+  /**
+    * Make this Sector the CURRENT Player location.
+    */
   def becomeCurrent(): Unit = {
     ResourceManager.currentMarker.setTarget(sx * Constants.SECTORSIZE - Constants.SECTORSIZE, Gdx.graphics.getHeight - (sy * Constants.SECTORSIZE) - (4 * Constants.SECTORSIZE))
     sectorType = Constants.SECTOR_CURRENT
   }
 
+  /**
+    * Mark this Sector as EXPLORED by the Player.
+    */
   def becomeExplored(): Unit = {
     sectorType = Constants.SECTOR_EXPLORED
   }
 
+  /**
+    * Mark this Sector as UNEXPLORED by the Player.
+    */
   def becomeUnexplored(): Unit = {
     sprite = ResourceManager.spTest0
     sectorType = Constants.SECTOR_UNEXPLORED
   }
 
+
+
+  /**
+    * Draw this Sector's sprite.
+    */
   override def draw(batch: Batch, parentAlpha: Float): Unit = {
     if (!isEmpty) {
       glow(batch)
@@ -73,6 +112,9 @@ class Sector(x: Int, y: Int) extends Actor {
     }
   }
 
+  /**
+    * Draw this Sector's animation effects (glowing/color).
+    */
   private def glow(batch: Batch): Unit = {
     if (glowing) {
       frames += 1

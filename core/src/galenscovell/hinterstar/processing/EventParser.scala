@@ -7,6 +7,9 @@ import scala.collection.mutable.Map
 import scala.util.Random
 
 
+/**
+  * EventParser handles the parsing of Events from JSON.
+  */
 class EventParser {
   private val choiceJsonItems: List[String] = List(
     "choice-text",
@@ -21,13 +24,16 @@ class EventParser {
   private val random: Random = new Random
 
 
-  def parse(targetEventType: String): EventContainer = {
-    // Randomly select event within targetEventType (6 unique events within each type)
+  /**
+    * Parses out an Event from JSON.
+    * Randomly select event within targetEventType (6 unique events within each type)
+    * TODO: Encountered events are saved in player data
+    * TODO: Ensure no single event is repeated within two events of itself
+    *   ie 1 -> 2 -> 3 -> 1 can be selected again -> 2 can be selected again, etc.
+    */
+  def parse(targetEventType: String): Event = {
     val randomChoice: Int = random.nextInt(6)
-    // Encountered events are saved in player data
-    // Ensure no single event is repeated within two events of itself
-    // ie 1 -> 2 -> 3 -> 1 can be selected again -> 2 can be selected again, etc.
-    val parsedEvent: EventContainer = new EventContainer(0)
+    val parsedEvent: Event = new Event(0)
 
     val eventSource: String = "data/events/" + targetEventType + "_events.json"
     val json: JsonValue = new JsonReader().parse(Gdx.files.internal(eventSource))

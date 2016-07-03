@@ -5,21 +5,29 @@ import galenscovell.hinterstar.util._
 import scala.collection.mutable.ArrayBuffer
 
 
+/**
+  * MapGenerator constructs Sector grid and places non-overlapping Locations.
+  */
 class MapGenerator(maxLocations: Int, padSize: Int) {
   private final val sectors: Array[Array[Sector]] = Array.ofDim[Sector](Constants.MAPHEIGHT, Constants.MAPWIDTH)
-  private val locations: ArrayBuffer[Location] = ArrayBuffer()
+  private final val locations: ArrayBuffer[Location] = ArrayBuffer()
 
   build()
   placeLocations()
   Repository.populateLocations(locations)
 
 
+  /**
+    * Return 2D Array of Sectors.
+    */
   def getSectors: Array[Array[Sector]] = {
     sectors
   }
 
+  /**
+    * Construct Sector[MAPHEIGHT][MAPWIDTH] sectors of all empty Sectors
+    */
   private def build(): Unit = {
-    // Construct Sector[MAPHEIGHT][MAPWIDTH] sectors of all empty Sectors
     for (x <- 0 until Constants.MAPWIDTH) {
       for (y <- 0 until Constants.MAPHEIGHT) {
         sectors(y)(x) = new Sector(x, y)
@@ -27,8 +35,10 @@ class MapGenerator(maxLocations: Int, padSize: Int) {
     }
   }
 
+  /**
+    * Place random Locations, ensuring that they are distanced apart.
+    */
   private def placeLocations(): Unit = {
-    // Place random Locations, ensuring that they are distanced apart
     var attempts: Int = 240
 
     while (attempts > 0 && locations.length < maxLocations) {
@@ -47,8 +57,10 @@ class MapGenerator(maxLocations: Int, padSize: Int) {
     }
   }
 
+  /**
+    * Return if target Location overlaps an already placed Location.
+    */
   private def doesCollide(location: Location, ignore: Int): Boolean = {
-    // Return if target location overlaps already placed location
     for (i <- locations.indices) {
       if (i != ignore) {
         val check: Location = locations(i)
@@ -60,8 +72,11 @@ class MapGenerator(maxLocations: Int, padSize: Int) {
     false
   }
 
-  private def getRandom(lo: Int, hi: Int): Int = {
-    (Math.random * (hi - lo)).toInt + lo
+  /**
+    * Return a random integer between low and high.
+    */
+  private def getRandom(low: Int, high: Int): Int = {
+    (Math.random * (high - low)).toInt + low
   }
 }
 
