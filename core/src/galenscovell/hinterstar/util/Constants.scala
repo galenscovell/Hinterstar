@@ -3,6 +3,9 @@ package galenscovell.hinterstar.util
 import com.badlogic.gdx.graphics.Color
 
 
+/**
+  * Stores values used throughout application numerous times.
+  */
 object Constants {
 
   // Sector Types

@@ -17,7 +17,7 @@ class ShipSelectionPanel extends Table {
   private val partTypes: List[String] = List(
     "Combat", "Defense", "Mobility", "Power", "Storage"
   )
-  private val allShips: Array[Ship] = new ShipParser().parseAll
+  private val allShips: Array[Ship] = new ShipParser().parseAll.toArray
   private var currentShipIndex: Int = 0
 
   private val shipDisplay: Table = new Table
@@ -129,7 +129,7 @@ class ShipSelectionPanel extends Table {
     val startingPartsTable: Table = new Table
     val shipStartingParts: Map[String, ArrayBuffer[Part]] = allShips(currentShipIndex).getParts
     for (pt: String <- partTypes) {
-      val parts: ArrayBuffer[Part] = shipStartingParts.get(pt).get
+      val parts: Array[Part] = shipStartingParts.get(pt).get.toArray
       for (p: Part <- parts) {
         val partTable: Table = new Table
         partTable.setBackground(ResourceManager.npTest4)

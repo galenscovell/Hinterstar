@@ -14,7 +14,7 @@ class MapGenerator(maxLocations: Int, padSize: Int) {
 
   build()
   placeLocations()
-  Repository.populateLocations(locations)
+  LocationRepo.populateLocations(locations)
 
 
   /**

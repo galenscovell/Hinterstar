@@ -14,6 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
 import galenscovell.hinterstar.graphics.CurrentLocationAnimation
 
 
+/**
+  * ResourceManager handles loading of resources and assets used throughout application.
+  */
 object ResourceManager {
   val assetManager: AssetManager = new AssetManager
   var uiAtlas: TextureAtlas = null
@@ -52,6 +55,9 @@ object ResourceManager {
   var currentMarker: CurrentLocationAnimation = null
 
 
+  /**
+    * Load in all resources.
+    */
   def load(): Unit = {
     assetManager.load("atlas/uiAtlas.pack", classOf[TextureAtlas])
     assetManager.load("atlas/shipAtlas.pack", classOf[TextureAtlas])
@@ -66,6 +72,9 @@ object ResourceManager {
     generateFont("ui/Golden Age.ttf", 36, 0, Color.TEAL, Color.BLACK, "extraLargeFont.ttf")
   }
 
+  /**
+    * Use loaded in resources to create assets.
+    */
   def done(): Unit = {
     uiAtlas = assetManager.get("atlas/uiAtlas.pack", classOf[TextureAtlas])
     shipAtlas = assetManager.get("atlas/shipAtlas.pack", classOf[TextureAtlas])
@@ -77,6 +86,9 @@ object ResourceManager {
     loadTextField()
   }
 
+  /**
+    * Safely dispose of all resources/assets in ResourceManager (assetManager + atlases).
+    */
   def dispose(): Unit = {
     assetManager.dispose()
     uiAtlas.dispose()
@@ -85,8 +97,9 @@ object ResourceManager {
 
 
 
-  /****************************************************
-    * Font and Resource Generation
+// Font and Resource Generation //
+  /**
+    * Create Font.
     */
   private def generateFont(fontName: String, size: Int, borderWidth: Int, fontColor: Color, borderColor: Color, outName: String): Unit = {
     val params: FreetypeFontLoader.FreeTypeFontLoaderParameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter
@@ -100,6 +113,9 @@ object ResourceManager {
     assetManager.load(outName, classOf[BitmapFont], params)
   }
 
+  /**
+    * Create NightPatches.
+    */
   private def loadNinepatches(): Unit = {
     npTest0 = new NinePatchDrawable(uiAtlas.createPatch("test-np-0"))
     npTest1 = new NinePatchDrawable(uiAtlas.createPatch("test-np-1"))
@@ -114,6 +130,9 @@ object ResourceManager {
     npTextFieldBg = new NinePatchDrawable(uiAtlas.createPatch("text-field-bg-np"))
   }
 
+  /**
+    * Create LabelStyles.
+    */
   private def loadLabelStyles(): Unit = {
     labelTinyStyle = new LabelStyle(assetManager.get("tinyFont.ttf", classOf[BitmapFont]), Color.WHITE)
     labelDetailStyle = new LabelStyle(assetManager.get("smallFont.ttf", classOf[BitmapFont]), Color.WHITE)
@@ -122,6 +141,9 @@ object ResourceManager {
     labelTitleStyle = new LabelStyle(assetManager.get("extraLargeFont.ttf", classOf[BitmapFont]), Color.WHITE)
   }
 
+  /**
+    * Create ButtonStyles.
+    */
   private def loadButtonStyles(): Unit = {
     buttonMenuStyle = new TextButtonStyle(npTest4, npTest3, npTest4, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
     buttonMenuStyle.pressedOffsetY = -2
@@ -145,6 +167,9 @@ object ResourceManager {
     blueButtonStyle.pressedOffsetY = -1
   }
 
+  /**
+    * Create map sprites.
+    */
   private def loadSprites(): Unit = {
     mapGlow = new Sprite(uiAtlas.createSprite("map_glow"))
     spTest0 = new Sprite(uiAtlas.createSprite("test-box-0"))
@@ -154,10 +179,16 @@ object ResourceManager {
     spTest4 = new Sprite(uiAtlas.createSprite("test-box-4"))
   }
 
+  /**
+    * Create CurrentLocationAnimation.
+    */
   private def loadAnimations(): Unit = {
     currentMarker = new CurrentLocationAnimation
   }
 
+  /**
+    * Create TextFieldStyle.
+    */
   private def loadTextField(): Unit = {
     textFieldStyle = new TextFieldStyle(
       assetManager.get("mediumFont.ttf", classOf[BitmapFont]),

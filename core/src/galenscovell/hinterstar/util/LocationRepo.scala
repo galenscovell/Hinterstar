@@ -10,27 +10,38 @@ import galenscovell.hinterstar.ui.screens.GameScreen
 import scala.collection.mutable.ArrayBuffer
 
 
-object Repository {
-  var gameScreen: GameScreen = null
-  var locations: ArrayBuffer[Location] = ArrayBuffer()
-  var locationsInRange: ArrayBuffer[Location] = ArrayBuffer()
-  var currentLocation: Location = null
-  var currentSelection: Location = null
-  var sectors: Array[Array[Sector]] = null
-  var shapeRenderer: ShapeRenderer = null
-  var playerRange: Int = 0
+/**
+  * LocationRepo houses Location data and methods that are called throughout application.
+  * Currently, Location data is needed in some areas that aren't created with it.
+  * Ideally, this will be able to be eradicated through redesign in architecture.
+  */
+object LocationRepo {
+  val locationsInRange: ArrayBuffer[Location] = ArrayBuffer()
   val eventParser: EventParser = new EventParser()
 
+  var gameScreen: GameScreen = null
+  var locations: ArrayBuffer[Location] = ArrayBuffer()
+  var currentLocation: Location = null
+  var currentSelection: Location = null
+  var shapeRenderer: ShapeRenderer = new ShapeRenderer
+  var playerRange: Int = 10  // playerRange should be based on equipped Engine Parts
 
+
+// Called from GameScreen //
   /**
-    * Called from GameScreen
+    * Sets the gameScreen for LocationRepo.
+    * WHY IT'S HERE: Repository has to have gameScreen set but object has no constructor.
+    * WORKAROUND IDEAS:
     */
   def setup(game: GameScreen): Unit = {
     gameScreen = game
-    shapeRenderer = new ShapeRenderer
-    playerRange = 10
   }
 
+  /**
+    * Finds all of the Locations in range of the Player's current Location.
+    * WHY IT'S HERE: Navmap has to display Locations in range of player but it has no access to Locations data.
+    * WORKAROUND IDEAS:
+    */
   def setTargetsInRange(): Unit = {
     locationsInRange.clear()
 
@@ -42,6 +53,11 @@ object Repository {
     }
   }
 
+  /**
+    * Use ShapeRenderer to render circles and pathing on navmap.
+    * WHY IT'S HERE: Navmap has to display these shapes but has no access to Locations data.
+    * WORKAROUND IDEAS:
+    */
   def drawShapes(): Unit = {
     val radius: Float = playerRange * Constants.SECTORSIZE
     val centerX: Float = currentLocation.getSector.sx * Constants.SECTORSIZE + (Constants.SECTORSIZE / 2)
@@ -54,6 +70,7 @@ object Repository {
 
     if (locationsInRange != null && locationsInRange.nonEmpty) {
       shapeRenderer.setColor(0.93f, 0.94f, 0.95f, 0.6f)
+
       for (location <- locationsInRange) {
         shapeRenderer.line(
           (currentLocation.getSector.sx * Constants.SECTORSIZE) + (Constants.SECTORSIZE / 2),
@@ -69,13 +86,17 @@ object Repository {
       val selectionY: Float = Gdx.graphics.getHeight - (currentSelection.getSector.sy * Constants.SECTORSIZE) - (2 * Constants.SECTORSIZE) - (Constants.SECTORSIZE / 2)
       shapeRenderer.circle(selectionX, selectionY, 20)
     }
+
     shapeRenderer.end()
   }
 
 
 
+// Called from GameStage //
   /**
-    * Called from GameStage
+    * Increments the current Location's current Event.
+    * WHY IT'S HERE: GameStage houses 'Next Event' button, but has no access to Location data.
+    * WORKAROUND IDEAS:
     */
   def parseNextEvent: Event = {
     currentLocation.getCurrentEvent
@@ -83,13 +104,12 @@ object Repository {
 
 
 
+// Called from MapPanel //
   /**
-    * Called from MapPanel
+    * If currently selected Location is within range of Player, travel to it (set is as Current and enter()).
+    * WHY IT'S HERE: Travel is called from MapPanel, but it has no access to Location data.
+    * WORKAROUND IDEAS:
     */
-  def setSectors(sectors: Array[Array[Sector]]): Unit = {
-    Repository.sectors = sectors
-  }
-
   def travelToSelection: Boolean = {
     if (currentSelection != null && locationsInRange.contains(currentSelection)) {
       currentLocation.getSector.becomeExplored()
@@ -105,31 +125,42 @@ object Repository {
 
 
 
+// Called from Sector //
   /**
-    * Called from Sector
+    * When a non-EMPTY Sector is clicked on, locates its associated Location.
+    * If associated Location is not the currentLocation, sets this Location as the currentSelection,
+    *     then calculates 4 * euclidean distance to it and updateDistanceLabel().
+    * WHY IT'S HERE: Each Sector has no access to its containing Location, GameStage has no access to Location data.
+    * WORKAROUND IDEAS:
     */
   def setSelection(selection: Sector): Unit = {
-    if (selection == null) {
-      val gameStage: GameStage = gameScreen.getGameStage.asInstanceOf[GameStage]
-      gameStage.updateDistanceLabel("Distance: 0.0 AU")
-    } else {
+    var distance: Double = 0.0
+
+    if (selection != null) {
       for (location <- locations) {
-        if (location.getSector eq selection) {
-          if (!(location eq currentLocation)) {
-            currentSelection = location
-            val distance: Double = Math.sqrt(Math.pow(currentLocation.getSector.sx - selection.sx, 2) + Math.pow(currentLocation.getSector.sy - selection.sy, 2)) * 4
-            val gameStage: GameStage = gameScreen.getGameStage.asInstanceOf[GameStage]
-            gameStage.updateDistanceLabel(f"Distance: $distance%1.1f AU")
-          }
+        if ((location.getSector == selection) && !(location == currentLocation)) {
+          currentSelection = location
+          distance = 4 * Math.sqrt(
+            Math.pow(currentLocation.getSector.sx - selection.sx, 2) +
+              Math.pow(currentLocation.getSector.sy - selection.sy, 2)
+          )
         }
       }
     }
+
+    val gameStage: GameStage = gameScreen.getGameStage.asInstanceOf[GameStage]
+    gameStage.updateDistanceLabel(f"Distance: $distance%1.1f AU")
   }
 
 
 
+// Called from MapGenerator //
   /**
-    * Called from MapGenerator
+    * Establishes Location data for LocationRepo.
+    * Sets the furthest to the left Location as the Player's currentLocation.
+    * Sets this first Location as the Tutorial Location.
+    * WHY IT'S HERE: LocationRepo needs Location data for everything else.
+    * WORKAROUND IDEAS:
     */
   def populateLocations(locationsToSet: ArrayBuffer[Location]): Unit = {
     locations = locationsToSet

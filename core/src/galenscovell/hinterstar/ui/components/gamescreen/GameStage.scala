@@ -207,7 +207,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
       eventPanel.remove()
       eventPanel = null
     }
-    eventPanel = new EventPanel(this, Repository.parseNextEvent)
+    eventPanel = new EventPanel(this, LocationRepo.parseNextEvent)
     this.addActor(eventPanel)
     hideNavButtons()
   }

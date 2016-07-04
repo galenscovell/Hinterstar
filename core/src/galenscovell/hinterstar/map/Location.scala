@@ -3,7 +3,7 @@ package galenscovell.hinterstar.map
 import java.util._
 
 import galenscovell.hinterstar.processing.Event
-import galenscovell.hinterstar.util.{Constants, Repository}
+import galenscovell.hinterstar.util.{Constants, LocationRepo}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -149,6 +149,6 @@ class Location(gridX: Int, gridY: Int, gridSize: Int) {
       case _ => layerName = ""
     }
 
-    Repository.gameScreen.transitionSector(layerName, "bg1", "bg2", layerName, "bg1_blur", "bg2_blur")
+    LocationRepo.gameScreen.transitionSector(layerName, "bg1", "bg2", layerName, "bg1_blur", "bg2_blur")
   }
 }

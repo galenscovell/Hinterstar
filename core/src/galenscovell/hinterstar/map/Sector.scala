@@ -24,7 +24,7 @@ class Sector(x: Int, y: Int) extends Actor {
   this.addListener(new ActorGestureListener() {
     override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
       if (!isEmpty) {
-        Repository.setSelection(getThisSector)
+        LocationRepo.setSelection(getThisSector)
       }
     }
   })
@@ -78,7 +78,10 @@ class Sector(x: Int, y: Int) extends Actor {
     * Make this Sector the CURRENT Player location.
     */
   def becomeCurrent(): Unit = {
-    ResourceManager.currentMarker.setTarget(sx * Constants.SECTORSIZE - Constants.SECTORSIZE, Gdx.graphics.getHeight - (sy * Constants.SECTORSIZE) - (4 * Constants.SECTORSIZE))
+    ResourceManager.currentMarker.setTarget(
+      sx * Constants.SECTORSIZE - Constants.SECTORSIZE,
+      Gdx.graphics.getHeight - (sy * Constants.SECTORSIZE) - (4 * Constants.SECTORSIZE)
+    )
     sectorType = Constants.SECTOR_CURRENT
   }
 
@@ -105,7 +108,12 @@ class Sector(x: Int, y: Int) extends Actor {
   override def draw(batch: Batch, parentAlpha: Float): Unit = {
     if (!isEmpty) {
       glow(batch)
-      batch.draw(sprite, sx * Constants.SECTORSIZE, Gdx.graphics.getHeight - (sy * Constants.SECTORSIZE) - (3 * Constants.SECTORSIZE), Constants.SECTORSIZE, Constants.SECTORSIZE)
+      batch.draw(
+        sprite, sx * Constants.SECTORSIZE,
+        Gdx.graphics.getHeight - (sy * Constants.SECTORSIZE) - (3 * Constants.SECTORSIZE),
+        Constants.SECTORSIZE,
+        Constants.SECTORSIZE
+      )
       if (isCurrent) {
         ResourceManager.currentMarker.render(batch)
       }
@@ -135,7 +143,13 @@ class Sector(x: Int, y: Int) extends Actor {
       batch.setColor(0.4f, 1.0f, 0.4f, frameAlpha)
     }
 
-    batch.draw(ResourceManager.mapGlow, sx * Constants.SECTORSIZE - Constants.SECTORSIZE, Gdx.graphics.getHeight - (sy * Constants.SECTORSIZE) - (4 * Constants.SECTORSIZE), Constants.SECTORSIZE * 3, Constants.SECTORSIZE * 3)
+    batch.draw(
+      ResourceManager.mapGlow,
+      sx * Constants.SECTORSIZE - Constants.SECTORSIZE,
+      Gdx.graphics.getHeight - (sy * Constants.SECTORSIZE) - (4 * Constants.SECTORSIZE),
+      Constants.SECTORSIZE * 3,
+      Constants.SECTORSIZE * 3
+    )
     batch.setColor(1, 1, 1, 1)
   }
 }
