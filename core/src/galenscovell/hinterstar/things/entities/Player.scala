@@ -14,7 +14,7 @@ import galenscovell.hinterstar.util.{PlayerData, ResourceManager}
   */
 class Player(gameStage: GameStage) extends Actor {
   private val gameScreen: GameScreen = gameStage.gameScreen
-  private var sprite: Sprite = null
+  private var sprite: Sprite = _
   private var selected: Boolean = false
 
   initialize()

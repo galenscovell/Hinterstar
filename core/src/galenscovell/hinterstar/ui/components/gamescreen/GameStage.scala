@@ -13,16 +13,17 @@ import galenscovell.hinterstar.util._
 
 
 class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), spriteBatch) {
-  final val gameScreen: GameScreen = game
-  private final val player: Player = new Player(this)
-  private var eventButton: TextButton = null
-  private var eventPanel: EventPanel = null
-  private final val mapPanel: MapPanel = new MapPanel(this)
-  private final val teamPanel: TeamPanel = new TeamPanel(this)
-  private final val shipPanel: ShipPanel = new ShipPanel(this)
-  private var navButtons: NavButtons = null
-  private var actionTable: Table = null
-  private var detailTable: DetailTable = null
+  val gameScreen: GameScreen = game
+  private val player: Player = new Player(this)
+  private val mapPanel: MapPanel = new MapPanel(this)
+  private val teamPanel: TeamPanel = new TeamPanel(this)
+  private val shipPanel: ShipPanel = new ShipPanel(this)
+
+  private var eventButton: TextButton = _
+  private var eventPanel: EventPanel = _
+  private var navButtons: NavButtons = _
+  private var actionTable: Table = _
+  private var detailTable: DetailTable = _
   private var nextAnimationFrames: Int = 0
 
   construct()

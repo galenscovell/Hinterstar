@@ -19,10 +19,10 @@ object LocationRepo {
   val locationsInRange: ArrayBuffer[Location] = ArrayBuffer()
   val eventParser: EventParser = new EventParser()
 
-  var gameScreen: GameScreen = null
+  var gameScreen: GameScreen = _
   var locations: ArrayBuffer[Location] = ArrayBuffer()
-  var currentLocation: Location = null
-  var currentSelection: Location = null
+  var currentLocation: Location = _
+  var currentSelection: Location = _
   var shapeRenderer: ShapeRenderer = new ShapeRenderer
   var playerRange: Int = 10  // playerRange should be based on equipped Engine Parts
 
@@ -39,7 +39,7 @@ object LocationRepo {
 
   /**
     * Finds all of the Locations in range of the Player's current Location.
-    * WHY IT'S HERE: Navmap has to display Locations in range of player but it has no access to Locations data.
+    * WHY IT'S HERE: Navmap has to display Locations in range of player but it has no access to Location data.
     * WORKAROUND IDEAS:
     */
   def setTargetsInRange(): Unit = {
@@ -55,7 +55,7 @@ object LocationRepo {
 
   /**
     * Use ShapeRenderer to render circles and pathing on navmap.
-    * WHY IT'S HERE: Navmap has to display these shapes but has no access to Locations data.
+    * WHY IT'S HERE: Navmap has to display these shapes but has no access to Location data.
     * WORKAROUND IDEAS:
     */
   def drawShapes(): Unit = {
@@ -172,6 +172,6 @@ object LocationRepo {
     currentLocation.getSector.becomeCurrent()
 
     // Establish starting location as the Sol sector
-    currentLocation.setStartLocation()
+    currentLocation.setTutorialLocation()
   }
 }

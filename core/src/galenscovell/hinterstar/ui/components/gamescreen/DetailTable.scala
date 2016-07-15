@@ -10,9 +10,9 @@ class DetailTable(stage: GameStage) extends Table {
   private var day: Int = 1
   private var month: Int = 1
   private var year: Int = 2500
-  private var dateLabel: Label = null
-  private var locationLabel: Label = null
-  private var infoTable: Table = null
+  private var dateLabel: Label = _
+  private var locationLabel: Label = _
+  private var infoTable: Table = _
 
   construct()
 
@@ -43,7 +43,7 @@ class DetailTable(stage: GameStage) extends Table {
 
   def establishInfoPanel(): Unit = {
     infoTable.clear()
-    var infoPanel: InfoPanel = new InfoPanel(this)
+    val infoPanel: InfoPanel = new InfoPanel(this)
     infoTable.add(infoPanel).expand.fill
   }
 

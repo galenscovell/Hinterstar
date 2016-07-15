@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 
 
 class InfoPanel(detailTable: Table) extends Table {
-  private final val root: Table = detailTable
+  private val root: Table = detailTable
 
   construct()
 

@@ -8,10 +8,11 @@ import galenscovell.hinterstar.util.ResourceManager
 
 
 class NavButtons(stage: GameStage) extends Table {
-  private final val gameStage: GameStage = stage
-  private var mapButton: TextButton = null
-  private var teamButton: TextButton = null
-  private var shipButton: TextButton = null
+  private val gameStage: GameStage = stage
+  private var mapButton: TextButton = _
+  private var teamButton: TextButton = _
+  private var shipButton: TextButton = _
+
   construct()
 
 

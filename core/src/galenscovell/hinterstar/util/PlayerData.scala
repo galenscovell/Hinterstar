@@ -13,7 +13,7 @@ import galenscovell.hinterstar.things.ships.Ship
   * Android: System SharedPreferences, survives app updates, deleted when uninstalled
   */
 object PlayerData {
-  var prefs: Preferences = null
+  var prefs: Preferences = _
 
 
   /**

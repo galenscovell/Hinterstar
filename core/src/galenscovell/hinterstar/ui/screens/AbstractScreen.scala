@@ -8,7 +8,7 @@ import galenscovell.hinterstar.Hinterstar
 
 class AbstractScreen(val gameRoot: Hinterstar) extends Screen {
   protected final val root: Hinterstar = gameRoot
-  protected var stage: Stage = null
+  protected var stage: Stage = _
 
 
   protected def create(): Unit = {

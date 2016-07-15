@@ -5,7 +5,8 @@ import galenscovell.hinterstar.util._
 
 
 class ShipPanel(stage: GameStage) extends Table {
-  private final val gameStage: GameStage = stage
+  private val gameStage: GameStage = stage
+
   construct()
 
 

@@ -18,7 +18,7 @@ class Sector(x: Int, y: Int) extends Actor {
 
   private var frames: Int = 60
   private var sectorType: Short = 0
-  private var sprite: Sprite = null
+  private var sprite: Sprite = _
   private var glowing: Boolean = true
 
   this.addListener(new ActorGestureListener() {

@@ -13,7 +13,7 @@ import galenscovell.hinterstar.util._
 
 
 class LoadScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
-  private var loadingBar: ProgressBar = null
+  private var loadingBar: ProgressBar = _
 
 
   protected override def create(): Unit = {

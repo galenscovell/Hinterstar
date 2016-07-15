@@ -7,8 +7,8 @@ import galenscovell.hinterstar.util.ResourceManager
 
 
 class EventPanel(gameStage: GameStage, eventContainer: Event) extends Table {
-  private final val root: GameStage = gameStage
-  private final val container: Event = eventContainer
+  private val root: GameStage = gameStage
+  private val container: Event = eventContainer
 
   construct()
 

@@ -12,11 +12,11 @@ import galenscovell.hinterstar.util.{PlayerData, ResourceManager}
   *     all Screens used throughout game
   */
 class Hinterstar extends Game {
-  var spriteBatch: SpriteBatch = null
-  var loadingScreen: AbstractScreen = null
-  var mainMenuScreen: AbstractScreen = null
-  var startScreen: AbstractScreen = null
-  var gameScreen: AbstractScreen = null
+  var spriteBatch: SpriteBatch = _
+  var loadingScreen: AbstractScreen = _
+  var mainMenuScreen: AbstractScreen = _
+  var startScreen: AbstractScreen = _
+  var gameScreen: AbstractScreen = _
 
 
   /**

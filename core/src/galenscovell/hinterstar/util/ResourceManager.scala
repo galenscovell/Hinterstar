@@ -19,40 +19,47 @@ import galenscovell.hinterstar.graphics.CurrentLocationAnimation
   */
 object ResourceManager {
   val assetManager: AssetManager = new AssetManager
-  var uiAtlas: TextureAtlas = null
-  var shipAtlas: TextureAtlas = null
-  var textFieldStyle: TextFieldStyle = null
-  var labelTinyStyle: LabelStyle = null
-  var labelMediumStyle: LabelStyle = null
-  var labelDetailStyle: LabelStyle = null
-  var labelMenuStyle: LabelStyle = null
-  var labelTitleStyle: LabelStyle = null
-  var npTest0: NinePatchDrawable = null
-  var npTest1: NinePatchDrawable = null
-  var npTest2: NinePatchDrawable = null
-  var npTest3: NinePatchDrawable = null
-  var npTest4: NinePatchDrawable = null
-  var greenButtonNp0: NinePatchDrawable = null
-  var greenButtonNp1: NinePatchDrawable = null
-  var blueButtonNp0: NinePatchDrawable = null
-  var blueButtonNp1: NinePatchDrawable = null
-  var npFontCursor: NinePatchDrawable = null
-  var npTextFieldBg: NinePatchDrawable = null
-  var buttonMenuStyle: TextButtonStyle = null
-  var buttonMapStyle0: TextButtonStyle = null
-  var buttonMapStyle1: TextButtonStyle = null
-  var buttonMapStyle2: TextButtonStyle = null
-  var buttonEventStyle: TextButtonStyle = null
-  var toggleButtonStyle: TextButtonStyle = null
-  var greenButtonStyle: TextButtonStyle = null
-  var blueButtonStyle: TextButtonStyle = null
-  var mapGlow: Sprite = null
-  var spTest0: Sprite = null
-  var spTest1: Sprite = null
-  var spTest2: Sprite = null
-  var spTest3: Sprite = null
-  var spTest4: Sprite = null
-  var currentMarker: CurrentLocationAnimation = null
+
+  var uiAtlas: TextureAtlas = _
+  var shipAtlas: TextureAtlas = _
+
+  var textFieldStyle: TextFieldStyle = _
+
+  var labelTinyStyle: LabelStyle = _
+  var labelMediumStyle: LabelStyle = _
+  var labelDetailStyle: LabelStyle = _
+  var labelMenuStyle: LabelStyle = _
+  var labelTitleStyle: LabelStyle = _
+
+  var npTest0: NinePatchDrawable = _
+  var npTest1: NinePatchDrawable = _
+  var npTest2: NinePatchDrawable = _
+  var npTest3: NinePatchDrawable = _
+  var npTest4: NinePatchDrawable = _
+  var greenButtonNp0: NinePatchDrawable = _
+  var greenButtonNp1: NinePatchDrawable = _
+  var blueButtonNp0: NinePatchDrawable = _
+  var blueButtonNp1: NinePatchDrawable = _
+  var npFontCursor: NinePatchDrawable = _
+  var npTextFieldBg: NinePatchDrawable = _
+
+  var buttonMenuStyle: TextButtonStyle = _
+  var buttonMapStyle0: TextButtonStyle = _
+  var buttonMapStyle1: TextButtonStyle = _
+  var buttonMapStyle2: TextButtonStyle = _
+  var buttonEventStyle: TextButtonStyle = _
+  var toggleButtonStyle: TextButtonStyle = _
+  var greenButtonStyle: TextButtonStyle = _
+  var blueButtonStyle: TextButtonStyle = _
+
+  var mapGlow: Sprite = _
+  var spTest0: Sprite = _
+  var spTest1: Sprite = _
+  var spTest2: Sprite = _
+  var spTest3: Sprite = _
+  var spTest4: Sprite = _
+
+  var currentMarker: CurrentLocationAnimation = _
 
 
   /**

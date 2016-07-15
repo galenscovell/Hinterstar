@@ -20,14 +20,14 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   var normalBg: ParallaxBackground = createBackground("purple_bg", "bg1", "bg2")
   var blurBg: ParallaxBackground = createBackground("purple_bg", "bg1_blur", "bg2_blur")
   var currentBackground: ParallaxBackground = normalBg
-  var locationPanel: LocationPanel = null
+  var locationPanel: LocationPanel = _
 
-  var bg0: String = null
-  var bg1: String = null
-  var bg2: String = null
-  var bg0Blur: String = null
-  var bg1Blur: String = null
-  var bg2Blur: String = null
+  var bg0: String = _
+  var bg1: String = _
+  var bg2: String = _
+  var bg0Blur: String = _
+  var bg1Blur: String = _
+  var bg2Blur: String = _
 
   create()
 

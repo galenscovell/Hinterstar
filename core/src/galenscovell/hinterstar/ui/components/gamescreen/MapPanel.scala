@@ -9,8 +9,9 @@ import galenscovell.hinterstar.util._
 
 
 class MapPanel(stage: GameStage) extends Table {
-  private final val gameStage: GameStage = stage
-  private var distanceLabel: Label = null
+  private val gameStage: GameStage = stage
+  private var distanceLabel: Label = _
+
   construct()
 
 

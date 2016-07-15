@@ -15,8 +15,8 @@ import scala.util.Random
 class TeamSelectionPanel extends Table {
   private val teamMates: Array[String] = randomizeStartingTeamNames
 
-  private var currentTeammate: String = null
-  private var currentTeamButton: TextButton = null
+  private var currentTeammate: String = _
+  private var currentTeamButton: TextButton = _
   private val nameInput: TextField = new TextField("", ResourceManager.textFieldStyle)
   nameInput.setAlignment(Align.left)
   nameInput.setMaxLength(20)

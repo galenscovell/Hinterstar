@@ -22,7 +22,7 @@ class Location(gridX: Int, gridY: Int, gridSize: Int) {
 
   private val events: ArrayBuffer[Event] = new ArrayBuffer[Event]()
   private var details: Array[String] = Array[String]("Location Title", "Location Detail")
-  private var sector: Sector = null
+  private var sector: Sector = _
   private var currentEvent: Int = 0
 
 
@@ -85,7 +85,7 @@ class Location(gridX: Int, gridY: Int, gridSize: Int) {
   /**
     * Set this Location as the starting location for the game (it's special!).
     */
-  def setStartLocation(): Unit = {
+  def setTutorialLocation(): Unit = {
     this.details = Array("Sol Sector", "Humanities Last Stand")
     this.events.clear()
     val startingEvent: Event = new Event(0)
