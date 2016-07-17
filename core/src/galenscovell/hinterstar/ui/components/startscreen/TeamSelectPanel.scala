@@ -12,7 +12,7 @@ import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 
-class TeamSelectionPanel extends Table {
+class TeamSelectPanel extends Table {
   private val teamMates: Array[String] = randomizeStartingTeamNames
 
   private var currentTeammate: String = _

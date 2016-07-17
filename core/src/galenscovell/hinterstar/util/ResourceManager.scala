@@ -20,44 +20,21 @@ import galenscovell.hinterstar.graphics.CurrentSystemAnimation
 object ResourceManager {
   val assetManager: AssetManager = new AssetManager
 
-  var uiAtlas: TextureAtlas = _
-  var shipAtlas: TextureAtlas = _
+  var uiAtlas, shipAtlas: TextureAtlas = _
 
   var textFieldStyle: TextFieldStyle = _
 
-  var labelTinyStyle: LabelStyle = _
-  var labelMediumStyle: LabelStyle = _
-  var labelDetailStyle: LabelStyle = _
-  var labelMenuStyle: LabelStyle = _
-  var labelTitleStyle: LabelStyle = _
+  var labelTinyStyle, labelMediumStyle, labelDetailStyle, labelMenuStyle,
+      labelTitleStyle: LabelStyle = _
 
-  var npTest0: NinePatchDrawable = _
-  var npTest1: NinePatchDrawable = _
-  var npTest2: NinePatchDrawable = _
-  var npTest3: NinePatchDrawable = _
-  var npTest4: NinePatchDrawable = _
-  var greenButtonNp0: NinePatchDrawable = _
-  var greenButtonNp1: NinePatchDrawable = _
-  var blueButtonNp0: NinePatchDrawable = _
-  var blueButtonNp1: NinePatchDrawable = _
-  var npFontCursor: NinePatchDrawable = _
-  var npTextFieldBg: NinePatchDrawable = _
+  var npTest0, npTest1, npTest2, npTest3, npTest4, greenButtonNp0,
+      greenButtonNp1, blueButtonNp0, blueButtonNp1, npFontCursor,
+      npTextFieldBg: NinePatchDrawable = _
 
-  var buttonMenuStyle: TextButtonStyle = _
-  var buttonMapStyle0: TextButtonStyle = _
-  var buttonMapStyle1: TextButtonStyle = _
-  var buttonMapStyle2: TextButtonStyle = _
-  var buttonEventStyle: TextButtonStyle = _
-  var toggleButtonStyle: TextButtonStyle = _
-  var greenButtonStyle: TextButtonStyle = _
-  var blueButtonStyle: TextButtonStyle = _
+  var buttonMenuStyle, buttonMapStyle0, buttonMapStyle1, buttonMapStyle2,
+      buttonEventStyle, toggleButtonStyle, greenButtonStyle, blueButtonStyle: TextButtonStyle = _
 
-  var mapGlow: Sprite = _
-  var spTest0: Sprite = _
-  var spTest1: Sprite = _
-  var spTest2: Sprite = _
-  var spTest3: Sprite = _
-  var spTest4: Sprite = _
+  var mapGlow, spTest0, spTest1, spTest2, spTest3, spTest4: Sprite = _
 
   var currentMarker: CurrentSystemAnimation = _
 

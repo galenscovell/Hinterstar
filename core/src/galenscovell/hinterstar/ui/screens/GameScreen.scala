@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
 import galenscovell.hinterstar.processing.controls.InputHandler
-import galenscovell.hinterstar.ui.components.gamescreen.{GameStage, LocationPanel}
+import galenscovell.hinterstar.ui.components.gamescreen.{GameStage, SystemPanel}
 import galenscovell.hinterstar.util._
 
 
@@ -20,7 +20,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   var normalBg: ParallaxBackground = createBackground("purple_bg", "bg1", "bg2")
   var blurBg: ParallaxBackground = createBackground("purple_bg", "bg1_blur", "bg2_blur")
   var currentBackground: ParallaxBackground = normalBg
-  var locationPanel: LocationPanel = _
+  var locationPanel: SystemPanel = _
 
   var bg0: String = _
   var bg1: String = _
@@ -94,7 +94,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     this.bg1Blur = bg1Blur
     this.bg2Blur = bg2Blur
     val systemDetail: Array[String] = SystemRepo.currentSystem.getDetails
-    this.locationPanel = new LocationPanel(systemDetail(0), systemDetail(1))
+    this.locationPanel = new SystemPanel(systemDetail(0), systemDetail(1))
     stage.asInstanceOf[GameStage].updateDetailTable(systemDetail(0))
     stage.getRoot.addAction(Actions.sequence(
       Actions.delay(3),

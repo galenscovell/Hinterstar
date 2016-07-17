@@ -13,7 +13,7 @@ import galenscovell.hinterstar.util.{Constants, ResourceManager}
 import scala.collection.mutable.{ArrayBuffer, Map}
 
 
-class ShipSelectionPanel extends Table {
+class ShipSelectPanel extends Table {
   private val partTypes: List[String] = List(
     "Combat", "Defense", "Mobility", "Power", "Storage"
   )
