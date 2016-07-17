@@ -8,11 +8,11 @@ import galenscovell.hinterstar.util._
 
 
 /**
-  * A Sector is a node on the map grid.
-  * Sectors are the graphical components of Locations which have sprites and are rendered.
-  * Sectors also carry state (eg EMPTY, CURRENT, EXPLORED, UNEXPLORED).
+  * A SystemMarker is a node on the map grid.
+  * SystemMarkers are the graphical components of Locations which have sprites and are rendered.
+  * SystemMarker also carry state (eg EMPTY, CURRENT, EXPLORED, UNEXPLORED).
   */
-class Sector(x: Int, y: Int) extends Actor {
+class SystemMarker(x: Int, y: Int) extends Actor {
   val sx: Int = x
   val sy: Int = y
 
@@ -24,42 +24,42 @@ class Sector(x: Int, y: Int) extends Actor {
   this.addListener(new ActorGestureListener() {
     override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
       if (!isEmpty) {
-        LocationRepo.setSelection(getThisSector)
+        SystemRepo.setSelection(getThisSystemMarker)
       }
     }
   })
 
 
   /**
-    * Return this Sector.
+    * Return this SystemMarker.
     */
-  def getThisSector: Sector = {
+  def getThisSystemMarker: SystemMarker = {
     this
   }
 
   /**
-    * Return true if this Sector is currently EMPTY (no sprite).
+    * Return true if this SystemMarker is currently EMPTY (no sprite).
     */
   def isEmpty: Boolean = {
     sectorType == Constants.SECTOR_EMPTY
   }
 
   /**
-    * Return true if this Sector is the CURRENT place the Player is.
+    * Return true if this SystemMarker is the CURRENT place the Player is.
     */
   def isCurrent: Boolean = {
     sectorType == Constants.SECTOR_CURRENT
   }
 
   /**
-    * Return true if this Sector has been EXPLORED by the Player.
+    * Return true if this SystemMarker has been EXPLORED by the Player.
     */
   def isExplored: Boolean = {
     sectorType == Constants.SECTOR_EXPLORED
   }
 
   /**
-    * Return true if this Sector is UNEXPLORED by the Player.
+    * Return true if this SystemMarker is UNEXPLORED by the Player.
     */
   def isUnexplored: Boolean = {
     sectorType == Constants.SECTOR_UNEXPLORED
@@ -68,14 +68,14 @@ class Sector(x: Int, y: Int) extends Actor {
 
 
   /**
-    * Make this Sector EMPTY (remove its sprite)
+    * Make this SystemMarker EMPTY (remove its sprite)
     */
   def becomeEmpty(): Unit = {
     sectorType = Constants.SECTOR_EMPTY
   }
 
   /**
-    * Make this Sector the CURRENT Player location.
+    * Make this SystemMarker the CURRENT Player location.
     */
   def becomeCurrent(): Unit = {
     ResourceManager.currentMarker.setTarget(
@@ -86,14 +86,14 @@ class Sector(x: Int, y: Int) extends Actor {
   }
 
   /**
-    * Mark this Sector as EXPLORED by the Player.
+    * Mark this SystemMarker as EXPLORED by the Player.
     */
   def becomeExplored(): Unit = {
     sectorType = Constants.SECTOR_EXPLORED
   }
 
   /**
-    * Mark this Sector as UNEXPLORED by the Player.
+    * Mark this SystemMarker as UNEXPLORED by the Player.
     */
   def becomeUnexplored(): Unit = {
     sprite = ResourceManager.spTest0
@@ -103,7 +103,7 @@ class Sector(x: Int, y: Int) extends Actor {
 
 
   /**
-    * Draw this Sector's sprite.
+    * Draw this SystemMarker's sprite.
     */
   override def draw(batch: Batch, parentAlpha: Float): Unit = {
     if (!isEmpty) {
@@ -121,7 +121,7 @@ class Sector(x: Int, y: Int) extends Actor {
   }
 
   /**
-    * Draw this Sector's animation effects (glowing/color).
+    * Draw this SystemMarker's animation effects (glowing/color).
     */
   private def glow(batch: Batch): Unit = {
     if (glowing) {

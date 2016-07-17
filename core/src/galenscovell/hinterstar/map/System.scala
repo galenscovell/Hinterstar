@@ -3,59 +3,59 @@ package galenscovell.hinterstar.map
 import java.util._
 
 import galenscovell.hinterstar.processing.Event
-import galenscovell.hinterstar.util.{Constants, LocationRepo}
+import galenscovell.hinterstar.util.{Constants, SystemRepo}
 
 import scala.collection.mutable.ArrayBuffer
 
 
 /**
-  * A Location is an abstraction the Player explores.
-  * Locations have:
-  *     an associated Sector (aka a node on the map grid)
+  * A System contains various planets and other events.
+  * Systems have:
+  *     an associated SystemMarker (aka a node on the map grid)
   *     randomized Events
   *     randomized background
   */
-class Location(gridX: Int, gridY: Int, gridSize: Int) {
+class System(gridX: Int, gridY: Int, gridSize: Int) {
   val x: Int = gridX
   val y: Int = gridY
   val size: Int = gridSize
 
   private val events: ArrayBuffer[Event] = new ArrayBuffer[Event]()
   private var details: Array[String] = Array[String]("Location Title", "Location Detail")
-  private var sector: Sector = _
+  private var systemMarker: SystemMarker = _
   private var currentEvent: Int = 0
 
 
   /**
-    * Return the Sector for this Location.
+    * Return the SystemMarker for this Location.
     */
-  def getSector: Sector = {
-    sector
+  def getSystemMarker: SystemMarker = {
+    systemMarker
   }
 
   /**
-    * Return the Location title and subtitle detail strings.
+    * Return the System title and subtitle detail strings.
     */
   def getDetails: Array[String] = {
     details
   }
 
   /**
-    * Return array of Events for this Location.
+    * Return array of Events for this System.
     */
   def getEvents: ArrayBuffer[Event] = {
     events
   }
 
   /**
-    * Return the current Event for this Location.
+    * Return the current Event for this System.
     */
   def getCurrentEvent: Event = {
     events(currentEvent)
   }
 
   /**
-    * Return the distance to the next Event.
+    * Return the distance to the next Event in this System.
     */
   def getDistanceToNextEvent: Float = {
     if (currentEvent == 0) {
@@ -68,25 +68,25 @@ class Location(gridX: Int, gridY: Int, gridSize: Int) {
 
 
   /**
-    * Set the Sector for this Location and initialize it is as being unexplored.
+    * Set the SystemMarker for this Location and initialize it is as being unexplored.
     */
-  def setSector(sectorIn: Sector): Unit = {
-    this.sector = sectorIn
-    sector.becomeUnexplored()
+  def setSystemMarker(newSystemMarker: SystemMarker): Unit = {
+    this.systemMarker = newSystemMarker
+    systemMarker.becomeUnexplored()
   }
 
   /**
-    * Set the Location title and subtitle detail strings.
+    * Set the System title and subtitle detail strings.
     */
   def setDetails(details: Array[String]): Unit = {
     this.details = details
   }
 
   /**
-    * Set this Location as the starting location for the game (it's special!).
+    * Set this System as the starting System for the game (the tutorial System).
     */
-  def setTutorialLocation(): Unit = {
-    this.details = Array("Sol Sector", "Humanities Last Stand")
+  def setAsTutorial(): Unit = {
+    this.details = Array("Sol System", "Humanities Last Stand")
     this.events.clear()
     val startingEvent: Event = new Event(0)
     startingEvent.setStartEvent()
@@ -96,8 +96,8 @@ class Location(gridX: Int, gridY: Int, gridSize: Int) {
 
 
   /**
-    * Enter this Location, causing Location Events and background to be generated.
-    * Events and background should be consistent with the type/atmosphere of this Location.
+    * Enter this System, causing System Events and background to be generated.
+    * Events and background should be consistent with the type/atmosphere of this System.
     */
   def enter(): Unit = {
     val random = new Random()
@@ -106,14 +106,14 @@ class Location(gridX: Int, gridY: Int, gridSize: Int) {
   }
 
   /**
-    * Increment the current Event for this Location.
+    * Increment the current Event for this System.
     */
   def nextEvent(): Unit = {
     currentEvent += 1
   }
 
   /**
-    * Create random Events for this Location.
+    * Create random Events for this System.
     */
   private def createEvents(random: Random): Unit =  {
     val distances: ArrayBuffer[Float] = new ArrayBuffer[Float]()
@@ -133,7 +133,7 @@ class Location(gridX: Int, gridY: Int, gridSize: Int) {
   }
 
   /**
-    * Create a random background for this Location.
+    * Create a random background for this System.
     * Background depends on number and type of events generated
     * eg many planet events = background has planets
     * eg no planet events = background has no planets
@@ -149,6 +149,6 @@ class Location(gridX: Int, gridY: Int, gridSize: Int) {
       case _ => layerName = ""
     }
 
-    LocationRepo.gameScreen.transitionSector(layerName, "bg1", "bg2", layerName, "bg1_blur", "bg2_blur")
+    SystemRepo.gameScreen.transitionSector(layerName, "bg1", "bg2", layerName, "bg1_blur", "bg2_blur")
   }
 }

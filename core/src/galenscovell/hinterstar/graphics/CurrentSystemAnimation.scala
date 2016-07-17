@@ -5,9 +5,9 @@ import galenscovell.hinterstar.util._
 
 
 /**
-  * CurrentLocationAnimation is an animation signifying the current Player location.
+  * CurrentSystemAnimation is an animation signifying the current Player System.
   */
-class CurrentLocationAnimation {
+class CurrentSystemAnimation {
   private val sprite: TextureRegion = ResourceManager.uiAtlas.createSprite("current_marker")
   private val size: Float = Constants.SECTORSIZE * 3
   private var frame: Float = 0.0f
@@ -16,7 +16,7 @@ class CurrentLocationAnimation {
 
 
   /**
-    * Set the central location for this animation to revolve around.
+    * Set the central System for this animation to revolve around.
     */
   def setTarget(x: Int, y: Int): Unit = {
     this.lx = x
@@ -24,7 +24,7 @@ class CurrentLocationAnimation {
   }
 
   /**
-    * Render the animation revolving around the current location.
+    * Render the animation revolving around the current System.
     */
   def render(batch: Batch): Unit = {
     batch.draw(sprite, lx, ly, size / 2, size / 2, size, size, 1, 1, -frame)

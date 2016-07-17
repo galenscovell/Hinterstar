@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
-import galenscovell.hinterstar.graphics.CurrentLocationAnimation
+import galenscovell.hinterstar.graphics.CurrentSystemAnimation
 
 
 /**
@@ -59,7 +59,7 @@ object ResourceManager {
   var spTest3: Sprite = _
   var spTest4: Sprite = _
 
-  var currentMarker: CurrentLocationAnimation = _
+  var currentMarker: CurrentSystemAnimation = _
 
 
   /**
@@ -190,7 +190,7 @@ object ResourceManager {
     * Create CurrentLocationAnimation.
     */
   private def loadAnimations(): Unit = {
-    currentMarker = new CurrentLocationAnimation
+    currentMarker = new CurrentSystemAnimation
   }
 
   /**

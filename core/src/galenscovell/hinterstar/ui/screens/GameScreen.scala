@@ -33,7 +33,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
 
   protected override def create(): Unit = {
-    LocationRepo.setup(this)
+    SystemRepo.setup(this)
     this.stage = new GameStage(this, root.spriteBatch)
     input.addProcessor(stage)
     input.addProcessor(new InputHandler(this))
@@ -59,7 +59,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     stage.draw()
     // Draw map panel shapes
     if (mapOpen) {
-      LocationRepo.drawShapes()
+      SystemRepo.drawShapes()
     }
   }
 
@@ -82,7 +82,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   def toggleMap(): Unit = {
     mapOpen = !mapOpen
     if (mapOpen) {
-      LocationRepo.setTargetsInRange()
+      SystemRepo.setTargetsInRange()
     }
   }
 
@@ -93,9 +93,9 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     this.bg0Blur = bg0Blur
     this.bg1Blur = bg1Blur
     this.bg2Blur = bg2Blur
-    val locationDetail: Array[String] = LocationRepo.currentLocation.getDetails
-    this.locationPanel = new LocationPanel(locationDetail(0), locationDetail(1))
-    stage.asInstanceOf[GameStage].updateDetailTable(locationDetail(0))
+    val systemDetail: Array[String] = SystemRepo.currentSystem.getDetails
+    this.locationPanel = new LocationPanel(systemDetail(0), systemDetail(1))
+    stage.asInstanceOf[GameStage].updateDetailTable(systemDetail(0))
     stage.getRoot.addAction(Actions.sequence(
       Actions.delay(3),
       Actions.fadeOut(1.0f),

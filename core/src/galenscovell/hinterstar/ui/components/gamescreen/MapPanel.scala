@@ -38,7 +38,7 @@ class MapPanel(stage: GameStage) extends Table {
   private def generateMap(container: Table): Unit =  {
     // TODO: Each new map has randomized sector layout (depending on difficulty)
     val mapGenerator: MapGenerator = new MapGenerator(16, 4)
-    val sectors: Array[Array[Sector]] = mapGenerator.getSectors
+    val sectors: Array[Array[SystemMarker]] = mapGenerator.getSectors
 
     for (row <- sectors) {
       for (sector <- row) {
@@ -65,7 +65,7 @@ class MapPanel(stage: GameStage) extends Table {
   }
 
   private def travelToLocation(): Unit = {
-    if (LocationRepo.travelToSelection) {
+    if (SystemRepo.travelToSelection) {
       gameStage.getNavButtons.getMapButton.setChecked(false)
       gameStage.togglePanel(0)
       gameStage.gameScreen.beginTravel()

@@ -47,26 +47,6 @@ object PlayerData {
     */
   def establishTeam(team: Array[String]): Unit = {
     val proficiencies: List[String] = List("Engineer", "Pilot", "Physician", "Scientist", "Soldier")
-    // 5 core proficiencies with important roles
-    // Each proficiency has 5 ranks
-    // Rank increases as teammate spends time assigned to each area
-    // When current rank reaches 100%, next rank is attained
-    // Higher rank decreases time required for Active ability, increases Passive bonus
-    //   Engineer --
-    //           Active: fixes broken parts
-    //          Passive: ++Power part effectiveness
-    //  Physician --
-    //           Active: heals injured teammates
-    //          Passive: ++Defense part effectiveness
-    //    Soldier --
-    //           Active: fends off boarding invasions
-    //          Passive: ++Combat part effectiveness
-    //  Scientist --
-    //           Active: creates new parts
-    //          Passive: ++Research part effectiveness
-    //      Pilot --
-    //           Active:
-    //          Passive: ++Mobility part effectiveness
 
     for (teammate: String <- team) {
       for (proficiency: String <- proficiencies) {
