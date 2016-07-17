@@ -24,7 +24,9 @@ class MapPanel(stage: GameStage) extends Table {
     mapGroup.addActor(infoTable)
     mapTable.setPosition(0, 0)
     infoTable.setPosition(0, 0)
-    this.add(mapGroup).width(Constants.EXACT_X).height(Constants.EXACT_Y - (Constants.SECTORSIZE * 2)).padTop(Constants.SECTORSIZE * 2)
+    this.add(mapGroup).width(Constants.EXACT_X)
+      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 2))
+      .padTop(Constants.SYSTEMMARKER_SIZE * 2)
   }
 
   private def createMapTable: Table = {
@@ -36,13 +38,15 @@ class MapPanel(stage: GameStage) extends Table {
   }
 
   private def generateMap(container: Table): Unit =  {
-    // TODO: Each new map has randomized sector layout (depending on difficulty)
+    // TODO: Each new map has randomized SystemMarker layout (depending on difficulty)
     val mapGenerator: MapGenerator = new MapGenerator(16, 4)
-    val sectors: Array[Array[SystemMarker]] = mapGenerator.getSectors
+    val systemMarkers: Array[Array[SystemMarker]] = mapGenerator.getSystemMarkers
 
-    for (row <- sectors) {
-      for (sector <- row) {
-        container.add(sector).width(Constants.SECTORSIZE).height(Constants.SECTORSIZE)
+    for (row <- systemMarkers) {
+      for (systemMarker <- row) {
+        container.add(systemMarker)
+          .width(Constants.SYSTEMMARKER_SIZE)
+          .height(Constants.SYSTEMMARKER_SIZE)
       }
       container.row
     }
@@ -55,7 +59,7 @@ class MapPanel(stage: GameStage) extends Table {
     val travelButton: TextButton = new TextButton("Travel", ResourceManager.greenButtonStyle)
     travelButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
-        travelToLocation()
+        travelToSystem()
       }
     })
     this.distanceLabel = new Label("Distance: 0.0 AU", ResourceManager.labelMenuStyle)
@@ -64,7 +68,7 @@ class MapPanel(stage: GameStage) extends Table {
     infoTable
   }
 
-  private def travelToLocation(): Unit = {
+  private def travelToSystem(): Unit = {
     if (SystemRepo.travelToSelection) {
       gameStage.getNavButtons.getMapButton.setChecked(false)
       gameStage.togglePanel(0)

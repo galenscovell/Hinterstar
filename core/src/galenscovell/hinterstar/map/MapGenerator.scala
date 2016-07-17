@@ -6,51 +6,51 @@ import scala.collection.mutable.ArrayBuffer
 
 
 /**
-  * MapGenerator constructs Sector grid and places non-overlapping Locations.
+  * MapGenerator constructs SystemMarker grid and places non-overlapping Systems.
   */
-class MapGenerator(maxLocations: Int, padSize: Int) {
-  private val sectors: Array[Array[SystemMarker]] = Array.ofDim[SystemMarker](Constants.MAPHEIGHT, Constants.MAPWIDTH)
-  private val locations: ArrayBuffer[System] = ArrayBuffer()
+class MapGenerator(maxSystems: Int, padSize: Int) {
+  private val systemMarkers: Array[Array[SystemMarker]] = Array.ofDim[SystemMarker](Constants.MAP_HEIGHT, Constants.MAP_WIDTH)
+  private val systems: ArrayBuffer[System] = ArrayBuffer()
 
   build()
-  placeLocations()
-  SystemRepo.populateLocations(locations)
+  placeSystems()
+  SystemRepo.populateSystems(systems)
 
 
   /**
-    * Return 2D Array of Sectors.
+    * Return 2D Array of SystemMarkers.
     */
-  def getSectors: Array[Array[SystemMarker]] = {
-    sectors
+  def getSystemMarkers: Array[Array[SystemMarker]] = {
+    systemMarkers
   }
 
   /**
-    * Construct Sector[MAPHEIGHT][MAPWIDTH] sectors of all empty Sectors
+    * Construct SystemMarker[MAP_HEIGHT][MAP_WIDTH] of all empty SystemMarkers.
     */
   private def build(): Unit = {
-    for (x <- 0 until Constants.MAPWIDTH) {
-      for (y <- 0 until Constants.MAPHEIGHT) {
-        sectors(y)(x) = new SystemMarker(x, y)
+    for (x <- 0 until Constants.MAP_WIDTH) {
+      for (y <- 0 until Constants.MAP_HEIGHT) {
+        systemMarkers(y)(x) = new SystemMarker(x, y)
       }
     }
   }
 
   /**
-    * Place random Locations, ensuring that they are distanced apart.
+    * Place random Systems, ensuring that they are distanced apart.
     */
-  private def placeLocations(): Unit = {
+  private def placeSystems(): Unit = {
     var attempts: Int = 240
 
-    while (attempts > 0 && locations.length < maxLocations) {
-      val x: Int = getRandom(1, Constants.MAPWIDTH - padSize - 1)
-      val y: Int = getRandom(1, Constants.MAPHEIGHT - padSize - 1)
-      if (!(x == 0 || x == Constants.MAPWIDTH || y == 0 || y == Constants.MAPHEIGHT)) {
-        val location: System = new System(x, y, padSize)
-        if (!doesCollide(location, -1)) {
-          val centerX: Int = (location.size / 2) + location.x
-          val centerY: Int = (location.size / 2) + location.y
-          location.setSystemMarker(sectors(centerY)(centerX))
-          locations += location
+    while (attempts > 0 && systems.length < maxSystems) {
+      val x: Int = getRandom(1, Constants.MAP_WIDTH - padSize - 1)
+      val y: Int = getRandom(1, Constants.MAP_HEIGHT - padSize - 1)
+      if (!(x == 0 || x == Constants.MAP_WIDTH || y == 0 || y == Constants.MAP_HEIGHT)) {
+        val system: System = new System(x, y, padSize)
+        if (!doesCollide(system, -1)) {
+          val centerX: Int = (system.size / 2) + system.x
+          val centerY: Int = (system.size / 2) + system.y
+          system.setSystemMarker(systemMarkers(centerY)(centerX))
+          systems += system
         }
       }
       attempts -= 1
@@ -58,13 +58,16 @@ class MapGenerator(maxLocations: Int, padSize: Int) {
   }
 
   /**
-    * Return if target Location overlaps an already placed Location.
+    * Return if target System overlaps an already placed System.
     */
-  private def doesCollide(location: System, ignore: Int): Boolean = {
-    for (i <- locations.indices) {
+  private def doesCollide(system: System, ignore: Int): Boolean = {
+    for (i <- systems.indices) {
       if (i != ignore) {
-        val check: System = locations(i)
-        if (!((location.x + location.size < check.x - 2) || (location.x - 2 > check.x + check.size) || (location.y + location.size < check.y - 2) || (location.y - 2 > check.y + check.size))) {
+        val check: System = systems(i)
+        if (!((system.x + system.size < check.x - 2) ||
+              (system.x - 2 > check.x + check.size) ||
+              (system.y + system.size < check.y - 2) ||
+              (system.y - 2 > check.y + check.size))) {
           return true
         }
       }

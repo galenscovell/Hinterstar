@@ -14,6 +14,8 @@ class TeamPanel(stage: GameStage) extends Table {
     this.setFillParent(true)
     val mainTable: Table = new Table
     mainTable.setBackground(ResourceManager.npTest3)
-    this.add(mainTable).width(Constants.EXACT_X).height(Constants.EXACT_Y - (Constants.SECTORSIZE * 2)).padTop(Constants.SECTORSIZE * 2)
+    this.add(mainTable).width(Constants.EXACT_X)
+      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 2))
+      .padTop(Constants.SYSTEMMARKER_SIZE * 2)
   }
 }

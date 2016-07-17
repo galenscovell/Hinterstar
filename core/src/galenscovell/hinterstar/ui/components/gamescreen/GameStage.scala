@@ -50,7 +50,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     actionTable.add(eventButton).width(60).height(220).expand.fill.right
     this.detailTable = new DetailTable(this)
 
-    mainTable.add(navButtons).width(Constants.EXACT_X / 2).height(2 + Constants.SECTORSIZE * 2)
+    mainTable.add(navButtons).width(Constants.EXACT_X / 2).height(2 + Constants.SYSTEMMARKER_SIZE * 2)
     mainTable.row
     mainTable.add(actionTable).width(Constants.EXACT_X).height(340)
     mainTable.row
@@ -115,7 +115,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
   def hideNavButtons(): Unit = {
     navButtons.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
-      Actions.moveBy(0, 2 + Constants.SECTORSIZE * 2, 0.5f, Interpolation.sine)
+      Actions.moveBy(0, 2 + Constants.SYSTEMMARKER_SIZE * 2, 0.5f, Interpolation.sine)
     ))
     eventButton.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
@@ -129,7 +129,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
 
   def showNavButtons(): Unit = {
     navButtons.addAction(Actions.sequence(
-      Actions.moveBy(0, -(2 + Constants.SECTORSIZE * 2), 0.5f, Interpolation.sine),
+      Actions.moveBy(0, -(2 + Constants.SYSTEMMARKER_SIZE * 2), 0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
     eventButton.addAction(Actions.sequence(

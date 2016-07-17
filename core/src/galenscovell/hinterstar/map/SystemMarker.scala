@@ -9,7 +9,7 @@ import galenscovell.hinterstar.util._
 
 /**
   * A SystemMarker is a node on the map grid.
-  * SystemMarkers are the graphical components of Locations which have sprites and are rendered.
+  * SystemMarkers are the graphical components of Systems which have sprites and are rendered.
   * SystemMarker also carry state (eg EMPTY, CURRENT, EXPLORED, UNEXPLORED).
   */
 class SystemMarker(x: Int, y: Int) extends Actor {
@@ -17,7 +17,7 @@ class SystemMarker(x: Int, y: Int) extends Actor {
   val sy: Int = y
 
   private var frames: Int = 60
-  private var sectorType: Short = 0
+  private var markerType: Short = 0
   private var sprite: Sprite = _
   private var glowing: Boolean = true
 
@@ -41,28 +41,28 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     * Return true if this SystemMarker is currently EMPTY (no sprite).
     */
   def isEmpty: Boolean = {
-    sectorType == Constants.SECTOR_EMPTY
+    markerType == Constants.SYSTEMMARKER_EMPTY
   }
 
   /**
     * Return true if this SystemMarker is the CURRENT place the Player is.
     */
   def isCurrent: Boolean = {
-    sectorType == Constants.SECTOR_CURRENT
+    markerType == Constants.SYSTEMMARKER_CURRENT
   }
 
   /**
     * Return true if this SystemMarker has been EXPLORED by the Player.
     */
   def isExplored: Boolean = {
-    sectorType == Constants.SECTOR_EXPLORED
+    markerType == Constants.SYSTEMMARKER_EXPLORED
   }
 
   /**
     * Return true if this SystemMarker is UNEXPLORED by the Player.
     */
   def isUnexplored: Boolean = {
-    sectorType == Constants.SECTOR_UNEXPLORED
+    markerType == Constants.SYSTEMMARKER_UNEXPLORED
   }
 
 
@@ -71,25 +71,25 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     * Make this SystemMarker EMPTY (remove its sprite)
     */
   def becomeEmpty(): Unit = {
-    sectorType = Constants.SECTOR_EMPTY
+    markerType = Constants.SYSTEMMARKER_EMPTY
   }
 
   /**
-    * Make this SystemMarker the CURRENT Player location.
+    * Make this SystemMarker the CURRENT Player System.
     */
   def becomeCurrent(): Unit = {
     ResourceManager.currentMarker.setTarget(
-      sx * Constants.SECTORSIZE - Constants.SECTORSIZE,
-      Gdx.graphics.getHeight - (sy * Constants.SECTORSIZE) - (4 * Constants.SECTORSIZE)
+      sx * Constants.SYSTEMMARKER_SIZE - Constants.SYSTEMMARKER_SIZE,
+      Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) - (4 * Constants.SYSTEMMARKER_SIZE)
     )
-    sectorType = Constants.SECTOR_CURRENT
+    markerType = Constants.SYSTEMMARKER_CURRENT
   }
 
   /**
     * Mark this SystemMarker as EXPLORED by the Player.
     */
   def becomeExplored(): Unit = {
-    sectorType = Constants.SECTOR_EXPLORED
+    markerType = Constants.SYSTEMMARKER_EXPLORED
   }
 
   /**
@@ -97,7 +97,7 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     */
   def becomeUnexplored(): Unit = {
     sprite = ResourceManager.spTest0
-    sectorType = Constants.SECTOR_UNEXPLORED
+    markerType = Constants.SYSTEMMARKER_UNEXPLORED
   }
 
 
@@ -109,10 +109,10 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     if (!isEmpty) {
       glow(batch)
       batch.draw(
-        sprite, sx * Constants.SECTORSIZE,
-        Gdx.graphics.getHeight - (sy * Constants.SECTORSIZE) - (3 * Constants.SECTORSIZE),
-        Constants.SECTORSIZE,
-        Constants.SECTORSIZE
+        sprite, sx * Constants.SYSTEMMARKER_SIZE,
+        Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) - (3 * Constants.SYSTEMMARKER_SIZE),
+        Constants.SYSTEMMARKER_SIZE,
+        Constants.SYSTEMMARKER_SIZE
       )
       if (isCurrent) {
         ResourceManager.currentMarker.render(batch)
@@ -145,10 +145,10 @@ class SystemMarker(x: Int, y: Int) extends Actor {
 
     batch.draw(
       ResourceManager.mapGlow,
-      sx * Constants.SECTORSIZE - Constants.SECTORSIZE,
-      Gdx.graphics.getHeight - (sy * Constants.SECTORSIZE) - (4 * Constants.SECTORSIZE),
-      Constants.SECTORSIZE * 3,
-      Constants.SECTORSIZE * 3
+      sx * Constants.SYSTEMMARKER_SIZE - Constants.SYSTEMMARKER_SIZE,
+      Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) - (4 * Constants.SYSTEMMARKER_SIZE),
+      Constants.SYSTEMMARKER_SIZE * 3,
+      Constants.SYSTEMMARKER_SIZE * 3
     )
     batch.setColor(1, 1, 1, 1)
   }

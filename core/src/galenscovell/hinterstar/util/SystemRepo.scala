@@ -11,8 +11,8 @@ import scala.collection.mutable.ArrayBuffer
 
 
 /**
-  * LocationRepo houses Location data and methods that are called throughout application.
-  * Currently, Location data is needed in some areas that aren't created with it.
+  * SystemRepo houses System data and methods that are called throughout application.
+  * Currently, System data is needed in some areas that aren't created with it.
   * Ideally, this will be able to be eradicated through redesign in architecture.
   */
 object SystemRepo {
@@ -59,9 +59,9 @@ object SystemRepo {
     * WORKAROUND IDEAS:
     */
   def drawShapes(): Unit = {
-    val radius: Float = playerRange * Constants.SECTORSIZE
-    val centerX: Float = currentSystem.getSystemMarker.sx * Constants.SECTORSIZE + (Constants.SECTORSIZE / 2)
-    val centerY: Float = Gdx.graphics.getHeight - (currentSystem.getSystemMarker.sy * Constants.SECTORSIZE) - (2 * Constants.SECTORSIZE) - (Constants.SECTORSIZE / 2)
+    val radius: Float = playerRange * Constants.SYSTEMMARKER_SIZE
+    val centerX: Float = currentSystem.getSystemMarker.sx * Constants.SYSTEMMARKER_SIZE + (Constants.SYSTEMMARKER_SIZE / 2)
+    val centerY: Float = Gdx.graphics.getHeight - (currentSystem.getSystemMarker.sy * Constants.SYSTEMMARKER_SIZE) - (2 * Constants.SYSTEMMARKER_SIZE) - (Constants.SYSTEMMARKER_SIZE / 2)
 
     shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
     shapeRenderer.setColor(0.95f, 0.61f, 0.07f, 0.6f)
@@ -73,17 +73,17 @@ object SystemRepo {
 
       for (system <- systemsInRange) {
         shapeRenderer.line(
-          (currentSystem.getSystemMarker.sx * Constants.SECTORSIZE) + (Constants.SECTORSIZE / 2),
-          Gdx.graphics.getHeight - (currentSystem.getSystemMarker.sy * Constants.SECTORSIZE) - (2 * Constants.SECTORSIZE) - (Constants.SECTORSIZE / 2),
-          (system.getSystemMarker.sx * Constants.SECTORSIZE) + (Constants.SECTORSIZE / 2),
-          Gdx.graphics.getHeight - (system.getSystemMarker.sy * Constants.SECTORSIZE) - (2 * Constants.SECTORSIZE) - (Constants.SECTORSIZE / 2)
+          (currentSystem.getSystemMarker.sx * Constants.SYSTEMMARKER_SIZE) + (Constants.SYSTEMMARKER_SIZE / 2),
+          Gdx.graphics.getHeight - (currentSystem.getSystemMarker.sy * Constants.SYSTEMMARKER_SIZE) - (2 * Constants.SYSTEMMARKER_SIZE) - (Constants.SYSTEMMARKER_SIZE / 2),
+          (system.getSystemMarker.sx * Constants.SYSTEMMARKER_SIZE) + (Constants.SYSTEMMARKER_SIZE / 2),
+          Gdx.graphics.getHeight - (system.getSystemMarker.sy * Constants.SYSTEMMARKER_SIZE) - (2 * Constants.SYSTEMMARKER_SIZE) - (Constants.SYSTEMMARKER_SIZE / 2)
         )
       }
     }
     if (currentSelection != null) {
       shapeRenderer.setColor(0.18f, 0.8f, 0.44f, 0.6f)
-      val selectionX: Float = currentSelection.getSystemMarker.sx * Constants.SECTORSIZE + (Constants.SECTORSIZE / 2)
-      val selectionY: Float = Gdx.graphics.getHeight - (currentSelection.getSystemMarker.sy * Constants.SECTORSIZE) - (2 * Constants.SECTORSIZE) - (Constants.SECTORSIZE / 2)
+      val selectionX: Float = currentSelection.getSystemMarker.sx * Constants.SYSTEMMARKER_SIZE + (Constants.SYSTEMMARKER_SIZE / 2)
+      val selectionY: Float = Gdx.graphics.getHeight - (currentSelection.getSystemMarker.sy * Constants.SYSTEMMARKER_SIZE) - (2 * Constants.SYSTEMMARKER_SIZE) - (Constants.SYSTEMMARKER_SIZE / 2)
       shapeRenderer.circle(selectionX, selectionY, 20)
     }
 
@@ -128,7 +128,7 @@ object SystemRepo {
 // Called from SystemMarker //
   /**
     * When a non-EMPTY SystemMarker is clicked on, locates its associated System.
-    * If associated System is not the currentLocation, sets this System as the currentSelection,
+    * If associated System is not the currentSystem, sets this System as the currentSelection,
     *     then calculates 4 * euclidean distance to it and updateDistanceLabel().
     * WHY IT'S HERE: Each SystemMarker has no access to its containing System, GameStage has no access to System data.
     * WORKAROUND IDEAS:
@@ -156,13 +156,13 @@ object SystemRepo {
 
 // Called from MapGenerator //
   /**
-    * Establishes System data for LocationRepo.
-    * Sets the furthest to the left Location as the Player's currentSystem.
-    * Sets this first System as the Tutorial Location.
+    * Establishes System data for SystemRepo.
+    * Sets the furthest to the left System as the Player's currentSystem.
+    * Sets this first System as the Tutorial System.
     * WHY IT'S HERE: SystemRepo needs System data for everything else.
     * WORKAROUND IDEAS:
     */
-  def populateLocations(systemsToSet: ArrayBuffer[System]): Unit = {
+  def populateSystems(systemsToSet: ArrayBuffer[System]): Unit = {
     systems = systemsToSet
     for (system <- systems) {
       if (currentSystem == null || system.x < currentSystem.x) {

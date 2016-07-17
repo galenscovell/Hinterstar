@@ -8,15 +8,11 @@ import com.badlogic.gdx.graphics.Color
   */
 object Constants {
 
-  // Sector Types
-  val SECTOR_EMPTY: Short = 0
-  val SECTOR_CURRENT: Short = 1
-  val SECTOR_EXPLORED: Short = 2
-  val SECTOR_UNEXPLORED: Short = 3
-
-  // State Types
-  val ACTION_STATE: Short = 0
-  val EVENT_STATE: Short = 1
+  // SystemMarker Types
+  val SYSTEMMARKER_EMPTY: Short = 0
+  val SYSTEMMARKER_CURRENT: Short = 1
+  val SYSTEMMARKER_EXPLORED: Short = 2
+  val SYSTEMMARKER_UNEXPLORED: Short = 3
 
   // Lighting masks
   val BIT_LIGHT: Short = 1
@@ -33,9 +29,9 @@ object Constants {
   val PROGRESS_PANEL_WIDTH: Int = EXACT_X - 16
 
   // Map dimensions (1 Tile = 1 AU)
-  val MAPWIDTH: Int = 50
-  val MAPHEIGHT: Int = 28
-  val SECTORSIZE: Int = 16
+  val MAP_WIDTH: Int = 50
+  val MAP_HEIGHT: Int = 28
+  val SYSTEMMARKER_SIZE: Int = 16
 
   // Distance Units
   // ~8min to travel one AU at speed of light
@@ -47,6 +43,6 @@ object Constants {
   val ASTRONOMICAL_UNIT: Double = 9.29 * Math.pow(10, 7)  // in miles
 
   // UI Colors
-  val normalColor: Color = new Color(0.5f, 0.5f, 0.5f, 1.0f)
-  val flashColor: Color = new Color(1.0f, 1.0f, 1.0f, 1.0f)
+  val NORMAL_UI_COLOR: Color = new Color(0.5f, 0.5f, 0.5f, 1.0f)
+  val FLASH_UI_COLOR: Color = new Color(1.0f, 1.0f, 1.0f, 1.0f)
 }

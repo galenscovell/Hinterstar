@@ -27,7 +27,7 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
 
 
   /**
-    * Return the SystemMarker for this Location.
+    * Return the SystemMarker for this System.
     */
   def getSystemMarker: SystemMarker = {
     systemMarker
@@ -68,7 +68,7 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
 
 
   /**
-    * Set the SystemMarker for this Location and initialize it is as being unexplored.
+    * Set the SystemMarker for this System and initialize it is as being unexplored.
     */
   def setSystemMarker(newSystemMarker: SystemMarker): Unit = {
     this.systemMarker = newSystemMarker

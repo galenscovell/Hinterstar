@@ -33,9 +33,9 @@ class TeamSelectionPanel extends Table {
 
   private def construct(): Unit = {
     leftTable.setBackground(ResourceManager.npTest1)
-    leftTable.setColor(Constants.normalColor)
+    leftTable.setColor(Constants.NORMAL_UI_COLOR)
     rightTable.setBackground(ResourceManager.npTest1)
-    rightTable.setColor(Constants.normalColor)
+    rightTable.setColor(Constants.NORMAL_UI_COLOR)
 
     updateLeftTable()
     updateRightTable()
@@ -72,7 +72,7 @@ class TeamSelectionPanel extends Table {
     modifyTeammateButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         leftTable.addAction(Actions.sequence(
-          Actions.color(Constants.flashColor, 0.25f, Interpolation.sine),
+          Actions.color(Constants.FLASH_UI_COLOR, 0.25f, Interpolation.sine),
           updateLeftTableAction
         ))
       }
@@ -101,8 +101,8 @@ class TeamSelectionPanel extends Table {
       memberButton.addListener(new ClickListener() {
         override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
           rightTable.addAction(Actions.sequence(
-            Actions.color(Constants.flashColor, 0.25f, Interpolation.sine),
-            Actions.color(Constants.normalColor, 0.25f, Interpolation.sine)
+            Actions.color(Constants.FLASH_UI_COLOR, 0.25f, Interpolation.sine),
+            Actions.color(Constants.NORMAL_UI_COLOR, 0.25f, Interpolation.sine)
           ))
 
           currentTeammate = teammate
@@ -159,7 +159,7 @@ class TeamSelectionPanel extends Table {
   private[startscreen] var updateLeftTableAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       updateLeftTable()
-      leftTable.addAction(Actions.color(Constants.normalColor, 0.25f, Interpolation.sine))
+      leftTable.addAction(Actions.color(Constants.NORMAL_UI_COLOR, 0.25f, Interpolation.sine))
       true
     }
   }

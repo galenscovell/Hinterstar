@@ -26,7 +26,7 @@ class ShipSelectionPanel extends Table {
 
   shipImage.setScaling(Scaling.fillY)
   shipDetail.setBackground(ResourceManager.npTest1)
-  shipDetail.setColor(Constants.normalColor)
+  shipDetail.setColor(Constants.NORMAL_UI_COLOR)
 
   construct()
 
@@ -169,8 +169,8 @@ class ShipSelectionPanel extends Table {
     shipDetail.add(shipDetailBottom).expand.fill.height(95).top.pad(5)
 
     shipDetail.addAction(Actions.sequence(
-      Actions.color(Constants.flashColor, 0.25f, Interpolation.sine),
-      Actions.color(Constants.normalColor, 0.25f, Interpolation.sine)
+      Actions.color(Constants.FLASH_UI_COLOR, 0.25f, Interpolation.sine),
+      Actions.color(Constants.NORMAL_UI_COLOR, 0.25f, Interpolation.sine)
     ))
   }
 
