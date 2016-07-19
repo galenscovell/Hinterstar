@@ -17,7 +17,7 @@ import galenscovell.hinterstar.graphics.CurrentSystemAnimation
 /**
   * ResourceManager handles loading of resources and assets used throughout application.
   */
-object ResourceManager {
+object Resources {
   val assetManager: AssetManager = new AssetManager
 
   var uiAtlas, shipAtlas: TextureAtlas = _

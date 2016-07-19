@@ -3,7 +3,7 @@ package galenscovell.hinterstar
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.{Game, Gdx}
 import galenscovell.hinterstar.ui.screens._
-import galenscovell.hinterstar.util.{PlayerData, ResourceManager}
+import galenscovell.hinterstar.util._
 
 
 /**
@@ -44,7 +44,7 @@ class Hinterstar extends Game {
     if (gameScreen != null) {
       gameScreen.dispose()
     }
-    ResourceManager.dispose()
+    Resources.dispose()
   }
 
 

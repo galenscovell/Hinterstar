@@ -127,17 +127,17 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     if (!(bg0 == "")) {
       val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](3)
       parallaxLayers(0) = new ParallaxLayer(
-        ResourceManager.uiAtlas.findRegion(bg0),
+        Resources.uiAtlas.findRegion(bg0),
         new Vector2(0.02f, 0.02f),
         new Vector2(0, 0)
       )
       parallaxLayers(1) = new ParallaxLayer(
-        ResourceManager.uiAtlas.findRegion(bg1),
+        Resources.uiAtlas.findRegion(bg1),
         new Vector2(0.5f, 0.5f),
         new Vector2(0, 0)
       )
       parallaxLayers(2) = new ParallaxLayer(
-        ResourceManager.uiAtlas.findRegion(bg2),
+        Resources.uiAtlas.findRegion(bg2),
         new Vector2(0.75f, 0.75f),
         new Vector2(0, 0)
       )
@@ -151,12 +151,12 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     } else {
       val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](2)
       parallaxLayers(0) = new ParallaxLayer(
-        ResourceManager.uiAtlas.findRegion(bg1),
+        Resources.uiAtlas.findRegion(bg1),
         new Vector2(0.5f, 0.5f),
         new Vector2(0, 0)
       )
       parallaxLayers(1) = new ParallaxLayer(
-        ResourceManager.uiAtlas.findRegion(bg2),
+        Resources.uiAtlas.findRegion(bg2),
         new Vector2(0.75f, 0.75f),
         new Vector2(0, 0)
       )

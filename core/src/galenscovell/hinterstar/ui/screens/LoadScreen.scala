@@ -32,15 +32,15 @@ class LoadScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     stage.act(delta)
     stage.draw()
-    if (ResourceManager.assetManager.update) {
-      ResourceManager.done()
+    if (Resources.assetManager.update) {
+      Resources.done()
       stage.getRoot.addAction(Actions.sequence(Actions.fadeOut(0.4f), toMainMenuScreen))
     }
-    loadingBar.setValue(ResourceManager.assetManager.getLoadedAssets)
+    loadingBar.setValue(Resources.assetManager.getLoadedAssets)
   }
 
   override def show(): Unit = {
-    ResourceManager.load()
+    Resources.load()
     create()
     stage.getRoot.getColor.a = 0
     stage.getRoot.addAction(Actions.sequence(Actions.fadeIn(0.4f)))

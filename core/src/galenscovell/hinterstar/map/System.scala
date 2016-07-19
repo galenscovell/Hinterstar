@@ -3,7 +3,7 @@ package galenscovell.hinterstar.map
 import java.util._
 
 import galenscovell.hinterstar.processing.Event
-import galenscovell.hinterstar.util.{Constants, SystemRepo}
+import galenscovell.hinterstar.util._
 
 import scala.collection.mutable.ArrayBuffer
 

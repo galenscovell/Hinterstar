@@ -13,7 +13,7 @@ class ShipPanel(stage: GameStage) extends Table {
   private def construct(): Unit = {
     this.setFillParent(true)
     val mainTable: Table = new Table
-    mainTable.setBackground(ResourceManager.npTest2)
+    mainTable.setBackground(Resources.npTest2)
     this.add(mainTable).width(Constants.EXACT_X)
       .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 4))
       .padTop(Constants.SYSTEMMARKER_SIZE * 2)

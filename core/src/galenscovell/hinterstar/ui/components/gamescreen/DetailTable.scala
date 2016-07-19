@@ -2,7 +2,7 @@ package galenscovell.hinterstar.ui.components.gamescreen
 
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.utils.Align
-import galenscovell.hinterstar.util.{Constants, ResourceManager}
+import galenscovell.hinterstar.util._
 
 
 class DetailTable(stage: GameStage) extends Table {
@@ -18,21 +18,21 @@ class DetailTable(stage: GameStage) extends Table {
 
 
   private def construct(): Unit = {
-    this.setBackground(ResourceManager.npTest4)
+    this.setBackground(Resources.npTest4)
     val mainTable: Table = new Table
 
     val labelTable: Table = new Table
-    labelTable.setBackground(ResourceManager.npTest1)
-    this.dateLabel = new Label(dateAsString, ResourceManager.labelMediumStyle)
+    labelTable.setBackground(Resources.npTest1)
+    this.dateLabel = new Label(dateAsString, Resources.labelMediumStyle)
     dateLabel.setAlignment(Align.center, Align.left)
-    this.locationLabel = new Label("Sol System", ResourceManager.labelMediumStyle)
+    this.locationLabel = new Label("Sol System", Resources.labelMediumStyle)
     locationLabel.setAlignment(Align.center, Align.right)
 
     labelTable.add(dateLabel).width(Constants.EXACT_X / 2.2f).left
     labelTable.add(locationLabel).width(Constants.EXACT_X / 2.2f).right
 
     this.infoTable = new Table
-    infoTable.setBackground(ResourceManager.npTest1)
+    infoTable.setBackground(Resources.npTest1)
 
     mainTable.add(infoTable).expand.fill
     mainTable.row

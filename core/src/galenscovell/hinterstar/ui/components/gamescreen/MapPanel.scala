@@ -32,7 +32,7 @@ class MapPanel(stage: GameStage) extends Table {
 
   private def createMapTable: Table = {
     val mapTable: Table = new Table
-    mapTable.setBackground(ResourceManager.npTest4)
+    mapTable.setBackground(Resources.npTest4)
     generateMap(mapTable)
     mapTable.setFillParent(true)
     mapTable
@@ -57,13 +57,13 @@ class MapPanel(stage: GameStage) extends Table {
     val infoTable: Table = new Table
     infoTable.setSize(Constants.EXACT_X, 50)
     infoTable.align(Align.center)
-    val travelButton: TextButton = new TextButton("Travel", ResourceManager.greenButtonStyle)
+    val travelButton: TextButton = new TextButton("Travel", Resources.greenButtonStyle)
     travelButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
         travelToSystem()
       }
     })
-    this.distanceLabel = new Label("Distance: 0.0 AU", ResourceManager.labelMenuStyle)
+    this.distanceLabel = new Label("Distance: 0.0 AU", Resources.labelMenuStyle)
     infoTable.add(distanceLabel).expand.fill.left.padLeft(20)
     infoTable.add(travelButton).width(150).height(50).expand.fill.right.padRight(8).padBottom(12)
     infoTable

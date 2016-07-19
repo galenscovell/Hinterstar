@@ -8,7 +8,7 @@ import galenscovell.hinterstar.util._
   * CurrentSystemAnimation is an animation signifying the current Player System.
   */
 class CurrentSystemAnimation {
-  private val sprite: TextureRegion = ResourceManager.uiAtlas.createSprite("current_marker")
+  private val sprite: TextureRegion = Resources.uiAtlas.createSprite("current_marker")
   private val size: Float = Constants.SYSTEMMARKER_SIZE * 3
   private var frame: Float = 0.0f
   private var lx: Int = 0

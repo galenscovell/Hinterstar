@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.things.ships.Ship
 import galenscovell.hinterstar.ui.components.startscreen.{ShipSelectPanel, TeamSelectPanel}
-import galenscovell.hinterstar.util.{Constants, PlayerData, ResourceManager}
+import galenscovell.hinterstar.util._
 
 import scala.collection.mutable.Map
 
@@ -16,8 +16,8 @@ import scala.collection.mutable.Map
 class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   private val teamPanel: TeamSelectPanel = new TeamSelectPanel
   private val shipPanel: ShipSelectPanel = new ShipSelectPanel
-  private val teamPanelButton: TextButton = new TextButton("Team", ResourceManager.toggleButtonStyle)
-  private val shipPanelButton: TextButton = new TextButton("Ship", ResourceManager.toggleButtonStyle)
+  private val teamPanelButton: TextButton = new TextButton("Team", Resources.toggleButtonStyle)
+  private val shipPanelButton: TextButton = new TextButton("Ship", Resources.toggleButtonStyle)
   private var currentPanelButton: TextButton = teamPanelButton
   private val contentPanel: Table = new Table
 
@@ -75,7 +75,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     noticeTable.add(teamPanelButton).width(90).height(50).left
     noticeTable.add(shipPanelButton).width(90).height(50).right
 
-    val returnButton: TextButton = new TextButton("Return", ResourceManager.greenButtonStyle)
+    val returnButton: TextButton = new TextButton("Return", Resources.greenButtonStyle)
     returnButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         stage.getRoot.addAction(Actions.sequence(
@@ -85,7 +85,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       }
     })
 
-    val embarkButton: TextButton = new TextButton("Embark", ResourceManager.greenButtonStyle)
+    val embarkButton: TextButton = new TextButton("Embark", Resources.greenButtonStyle)
     embarkButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         PlayerData.clear()

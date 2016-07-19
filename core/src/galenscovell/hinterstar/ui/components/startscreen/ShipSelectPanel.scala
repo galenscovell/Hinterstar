@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.utils.{Align, Scaling}
 import galenscovell.hinterstar.things.parts.Part
 import galenscovell.hinterstar.things.ships.{Ship, ShipParser}
-import galenscovell.hinterstar.util.{Constants, ResourceManager}
+import galenscovell.hinterstar.util._
 
 import scala.collection.mutable.{ArrayBuffer, Map}
 
@@ -25,7 +25,7 @@ class ShipSelectPanel extends Table {
   private val shipDetail: Table = new Table
 
   shipImage.setScaling(Scaling.fillY)
-  shipDetail.setBackground(ResourceManager.npTest1)
+  shipDetail.setBackground(Resources.npTest1)
   shipDetail.setColor(Constants.NORMAL_UI_COLOR)
 
   construct()
@@ -49,7 +49,7 @@ class ShipSelectPanel extends Table {
   private def createTopTable: Table = {
     val topTable: Table = new Table
 
-    val scrollLeftButton: TextButton = new TextButton("<", ResourceManager.blueButtonStyle)
+    val scrollLeftButton: TextButton = new TextButton("<", Resources.blueButtonStyle)
     scrollLeftButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         currentShipIndex -= 1
@@ -60,7 +60,7 @@ class ShipSelectPanel extends Table {
         updateShipDetails()
       }
     })
-    val scrollRightButton: TextButton = new TextButton(">", ResourceManager.blueButtonStyle)
+    val scrollRightButton: TextButton = new TextButton(">", Resources.blueButtonStyle)
     scrollRightButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         currentShipIndex += 1
@@ -112,12 +112,12 @@ class ShipSelectPanel extends Table {
     shipDetail.clear()
 
     val shipDetailTop: Table = new Table
-    shipDetailTop.setBackground(ResourceManager.npTest1)
+    shipDetailTop.setBackground(Resources.npTest1)
     val shipName: String = allShips(currentShipIndex).getName
     val shipDesc: String = allShips(currentShipIndex).getDescription
-    val shipNameLabel: Label = new Label(shipName, ResourceManager.labelMenuStyle)
+    val shipNameLabel: Label = new Label(shipName, Resources.labelMenuStyle)
     shipNameLabel.setAlignment(Align.center, Align.center)
-    val shipDescLabel: Label = new Label(shipDesc, ResourceManager.labelMediumStyle)
+    val shipDescLabel: Label = new Label(shipDesc, Resources.labelMediumStyle)
     shipDescLabel.setAlignment(Align.top, Align.center)
     shipDescLabel.setWrap(true)
 
@@ -132,13 +132,13 @@ class ShipSelectPanel extends Table {
       val parts: Array[Part] = shipStartingParts.get(pt).get.toArray
       for (p: Part <- parts) {
         val partTable: Table = new Table
-        partTable.setBackground(ResourceManager.npTest4)
+        partTable.setBackground(Resources.npTest4)
 
         val topBarTable: Table = new Table
-        topBarTable.setBackground(ResourceManager.npTest3)
+        topBarTable.setBackground(Resources.npTest3)
         val iconTable = new Table
-        iconTable.setBackground(ResourceManager.npTest0)
-        val typeLabel: Label = new Label(pt, ResourceManager.labelDetailStyle)
+        iconTable.setBackground(Resources.npTest0)
+        val typeLabel: Label = new Label(pt, Resources.labelDetailStyle)
         typeLabel.setAlignment(Align.center)
 
         topBarTable.add(iconTable).expand.fill.width(20).height(20)
@@ -147,8 +147,8 @@ class ShipSelectPanel extends Table {
         val partImage: Table = new Table
 
         val bottomPartTable: Table = new Table
-        bottomPartTable.setBackground(ResourceManager.npTest1)
-        val partLabel: Label = new Label(p.getName, ResourceManager.labelDetailStyle)
+        bottomPartTable.setBackground(Resources.npTest1)
+        val partLabel: Label = new Label(p.getName, Resources.labelDetailStyle)
         partLabel.setAlignment(Align.center)
 
         bottomPartTable.add(partLabel).expand.fill
@@ -182,7 +182,7 @@ class ShipSelectPanel extends Table {
   private[startscreen] var updateShipDisplayAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       val shipName: String = allShips(currentShipIndex).getName
-      shipImage.setDrawable(new TextureRegionDrawable(ResourceManager.shipAtlas.findRegion(shipName)))
+      shipImage.setDrawable(new TextureRegionDrawable(Resources.shipAtlas.findRegion(shipName)))
 
       if (!shipImage.hasParent) {
         shipDisplay.add(shipImage).height(130)

@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, TextButton, TextField}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.utils.Align
-import galenscovell.hinterstar.util.{Constants, ResourceManager}
+import galenscovell.hinterstar.util._
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
@@ -17,7 +17,7 @@ class TeamSelectPanel extends Table {
 
   private var currentTeammate: String = _
   private var currentTeamButton: TextButton = _
-  private val nameInput: TextField = new TextField("", ResourceManager.textFieldStyle)
+  private val nameInput: TextField = new TextField("", Resources.textFieldStyle)
   nameInput.setAlignment(Align.left)
   nameInput.setMaxLength(20)
 
@@ -32,9 +32,9 @@ class TeamSelectPanel extends Table {
   }
 
   private def construct(): Unit = {
-    leftTable.setBackground(ResourceManager.npTest1)
+    leftTable.setBackground(Resources.npTest1)
     leftTable.setColor(Constants.NORMAL_UI_COLOR)
-    rightTable.setBackground(ResourceManager.npTest1)
+    rightTable.setBackground(Resources.npTest1)
     rightTable.setColor(Constants.NORMAL_UI_COLOR)
 
     updateLeftTable()
@@ -58,7 +58,7 @@ class TeamSelectPanel extends Table {
   private def updateRightTable(): Unit = {
     val optionTable: Table = new Table
     val nameTable: Table = new Table
-    val nameLabel: Label = new Label("Teammate", ResourceManager.labelMenuStyle)
+    val nameLabel: Label = new Label("Teammate", Resources.labelMenuStyle)
     nameLabel.setAlignment(Align.center)
 
     nameTable.add(nameLabel).expand.fill.height(40).padBottom(16)
@@ -68,7 +68,7 @@ class TeamSelectPanel extends Table {
     optionTable.add(nameTable).expand.fill.height(50).pad(4)
     optionTable.row
 
-    val modifyTeammateButton: TextButton = new TextButton("Update Teammate", ResourceManager.greenButtonStyle)
+    val modifyTeammateButton: TextButton = new TextButton("Update Teammate", Resources.greenButtonStyle)
     modifyTeammateButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         leftTable.addAction(Actions.sequence(
@@ -87,10 +87,10 @@ class TeamSelectPanel extends Table {
     val teamTable: Table = new Table
     for (teammate: String <- teamMates) {
       val memberTable: Table = new Table
-      val memberButton: TextButton = new TextButton("", ResourceManager.toggleButtonStyle)
+      val memberButton: TextButton = new TextButton("", Resources.toggleButtonStyle)
       memberButton.setText(teammate)
       val iconTable: Table = new Table  // Icon for profession
-      iconTable.setBackground(ResourceManager.greenButtonNp0)
+      iconTable.setBackground(Resources.greenButtonNp0)
 
       if (currentTeamButton == null) {
         currentTeamButton = memberButton

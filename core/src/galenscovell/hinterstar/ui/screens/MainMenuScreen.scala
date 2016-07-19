@@ -19,14 +19,14 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     mainTable.setFillParent(true)
 
     val titleTable: Table = new Table
-    val titleLabel: Label = new Label("Hinterstar", ResourceManager.labelTitleStyle)
+    val titleLabel: Label = new Label("Hinterstar", Resources.labelTitleStyle)
     titleLabel.setAlignment(Align.center, Align.left)
     titleTable.add(titleLabel).width(760).height(60)
 
     val buttonTable: Table = new Table
     val newGameTable: Table = new Table
-    newGameTable.setBackground(ResourceManager.npTest4)
-    val newGameButton: TextButton = new TextButton("New Game", ResourceManager.buttonMenuStyle)
+    newGameTable.setBackground(Resources.npTest4)
+    val newGameButton: TextButton = new TextButton("New Game", Resources.buttonMenuStyle)
     newGameButton.getLabel.setAlignment(Align.center, Align.center)
     newGameButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
@@ -38,8 +38,8 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       }
     })
     val continueGameTable: Table = new Table
-    continueGameTable.setBackground(ResourceManager.npTest4)
-    val continueGameButton: TextButton = new TextButton("Continue Game", ResourceManager.buttonMenuStyle)
+    continueGameTable.setBackground(Resources.npTest4)
+    val continueGameButton: TextButton = new TextButton("Continue Game", Resources.buttonMenuStyle)
     continueGameButton.getLabel.setAlignment(Align.center, Align.center)
     continueGameButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
@@ -47,8 +47,8 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       }
     })
     val settingTable: Table = new Table
-    settingTable.setBackground(ResourceManager.npTest4)
-    val settingButton: TextButton = new TextButton("Preferences", ResourceManager.buttonMenuStyle)
+    settingTable.setBackground(Resources.npTest4)
+    val settingButton: TextButton = new TextButton("Preferences", Resources.buttonMenuStyle)
     settingButton.getLabel.setAlignment(Align.center, Align.center)
     settingButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
@@ -56,8 +56,8 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       }
     })
     val quitTable: Table = new Table
-    quitTable.setBackground(ResourceManager.npTest4)
-    val quitButton: TextButton = new TextButton("Close", ResourceManager.buttonMenuStyle)
+    quitTable.setBackground(Resources.npTest4)
+    val quitButton: TextButton = new TextButton("Close", Resources.buttonMenuStyle)
     quitButton.getLabel.setAlignment(Align.center, Align.center)
     quitButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
@@ -69,7 +69,7 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     })
 
     val detailTable: Table = new Table
-    val detailLabel: Label = new Label(s"v0.1a 2016 Galen Scovell", ResourceManager.labelDetailStyle)
+    val detailLabel: Label = new Label(s"v0.1a 2016 Galen Scovell", Resources.labelDetailStyle)
     detailLabel.setAlignment(Align.center, Align.right)
     detailTable.add(detailLabel).width(760).height(40)
 

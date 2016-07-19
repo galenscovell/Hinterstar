@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
 import galenscovell.hinterstar.ui.components.gamescreen.GameStage
 import galenscovell.hinterstar.ui.screens.GameScreen
-import galenscovell.hinterstar.util.{PlayerData, ResourceManager}
+import galenscovell.hinterstar.util._
 
 
 /**
@@ -25,7 +25,7 @@ class Player(gameStage: GameStage) extends Actor {
     */
   private def initialize(): Unit = {
     val currentShip: String = PlayerData.prefs.getString("ship-chassis")
-    sprite = ResourceManager.shipAtlas.createSprite(currentShip)
+    sprite = Resources.shipAtlas.createSprite(currentShip)
     this.setSize(270, 90)
 
     this.addListener(new ActorGestureListener() {

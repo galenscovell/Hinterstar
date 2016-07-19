@@ -2,7 +2,7 @@ package galenscovell.hinterstar.ui.components.gamescreen
 
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.utils.Align
-import galenscovell.hinterstar.util.{Constants, ResourceManager}
+import galenscovell.hinterstar.util._
 
 
 class SystemPanel(title: String, detail: String) extends Table {
@@ -12,9 +12,9 @@ class SystemPanel(title: String, detail: String) extends Table {
   private def construct(title: String, detail: String) {
     this.setFillParent(true)
     val labelTable: Table = new Table
-    val titleLabel: Label = new Label(title, ResourceManager.labelTitleStyle)
+    val titleLabel: Label = new Label(title, Resources.labelTitleStyle)
     titleLabel.setAlignment(Align.center, Align.right)
-    val detailLabel: Label = new Label(detail, ResourceManager.labelMenuStyle)
+    val detailLabel: Label = new Label(detail, Resources.labelMenuStyle)
     detailLabel.setAlignment(Align.center, Align.right)
     labelTable.add(titleLabel).height(60).expand.fill.bottom
     labelTable.row

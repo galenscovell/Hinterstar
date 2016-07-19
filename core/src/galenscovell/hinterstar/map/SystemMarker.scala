@@ -78,7 +78,7 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     * Make this SystemMarker the CURRENT Player System.
     */
   def becomeCurrent(): Unit = {
-    ResourceManager.currentMarker.setTarget(
+    Resources.currentMarker.setTarget(
       sx * Constants.SYSTEMMARKER_SIZE - Constants.SYSTEMMARKER_SIZE,
       Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) - (6 * Constants.SYSTEMMARKER_SIZE)
     )
@@ -96,7 +96,7 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     * Mark this SystemMarker as UNEXPLORED by the Player.
     */
   def becomeUnexplored(): Unit = {
-    sprite = ResourceManager.spTest0
+    sprite = Resources.spTest0
     markerType = Constants.SYSTEMMARKER_UNEXPLORED
   }
 
@@ -115,7 +115,7 @@ class SystemMarker(x: Int, y: Int) extends Actor {
         Constants.SYSTEMMARKER_SIZE
       )
       if (isCurrent) {
-        ResourceManager.currentMarker.render(batch)
+        Resources.currentMarker.render(batch)
       }
     }
   }
@@ -144,7 +144,7 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     }
 
     batch.draw(
-      ResourceManager.mapGlow,
+      Resources.mapGlow,
       sx * Constants.SYSTEMMARKER_SIZE - Constants.SYSTEMMARKER_SIZE,
       Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) - (6 * Constants.SYSTEMMARKER_SIZE),
       Constants.SYSTEMMARKER_SIZE * 3,
