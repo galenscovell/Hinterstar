@@ -46,7 +46,7 @@ class MapGenerator(maxSystems: Int, padSize: Int) {
       val y: Int = getRandom(1, Constants.MAP_HEIGHT - padSize - 1)
       if (!(x == 0 || x == Constants.MAP_WIDTH || y == 0 || y == Constants.MAP_HEIGHT)) {
         val system: System = new System(x, y, padSize)
-        if (!doesCollide(system, -1)) {
+        if (!doesCollide(system)) {
           val centerX: Int = (system.size / 2) + system.x
           val centerY: Int = (system.size / 2) + system.y
           system.setSystemMarker(systemMarkers(centerY)(centerX))
@@ -60,16 +60,14 @@ class MapGenerator(maxSystems: Int, padSize: Int) {
   /**
     * Return if target System overlaps an already placed System.
     */
-  private def doesCollide(system: System, ignore: Int): Boolean = {
+  private def doesCollide(system: System): Boolean = {
     for (i <- systems.indices) {
-      if (i != ignore) {
-        val check: System = systems(i)
-        if (!((system.x + system.size < check.x - 2) ||
-              (system.x - 2 > check.x + check.size) ||
-              (system.y + system.size < check.y - 2) ||
-              (system.y - 2 > check.y + check.size))) {
-          return true
-        }
+      val check: System = systems(i)
+      if (!((system.x + system.size < check.x - 2) ||
+            (system.x - 2 > check.x + check.size) ||
+            (system.y + system.size < check.y - 2) ||
+            (system.y - 2 > check.y + check.size))) {
+        return true
       }
     }
     false

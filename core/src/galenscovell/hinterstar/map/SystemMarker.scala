@@ -80,7 +80,7 @@ class SystemMarker(x: Int, y: Int) extends Actor {
   def becomeCurrent(): Unit = {
     ResourceManager.currentMarker.setTarget(
       sx * Constants.SYSTEMMARKER_SIZE - Constants.SYSTEMMARKER_SIZE,
-      Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) - (4 * Constants.SYSTEMMARKER_SIZE)
+      Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) - (6 * Constants.SYSTEMMARKER_SIZE)
     )
     markerType = Constants.SYSTEMMARKER_CURRENT
   }
@@ -110,7 +110,7 @@ class SystemMarker(x: Int, y: Int) extends Actor {
       glow(batch)
       batch.draw(
         sprite, sx * Constants.SYSTEMMARKER_SIZE,
-        Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) - (3 * Constants.SYSTEMMARKER_SIZE),
+        Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) - (5 * Constants.SYSTEMMARKER_SIZE),
         Constants.SYSTEMMARKER_SIZE,
         Constants.SYSTEMMARKER_SIZE
       )
@@ -138,15 +138,15 @@ class SystemMarker(x: Int, y: Int) extends Actor {
 
     val frameAlpha: Float = frames / 120.0f
     if (isExplored) {
-      batch.setColor(0.4f, 0.4f, 1.0f, frameAlpha)
+      batch.setColor(0.2f, 0.2f, 0.75f, frameAlpha)
     } else {
-      batch.setColor(0.4f, 1.0f, 0.4f, frameAlpha)
+      batch.setColor(0.2f, 0.75f, 0.2f, frameAlpha)
     }
 
     batch.draw(
       ResourceManager.mapGlow,
       sx * Constants.SYSTEMMARKER_SIZE - Constants.SYSTEMMARKER_SIZE,
-      Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) - (4 * Constants.SYSTEMMARKER_SIZE),
+      Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) - (6 * Constants.SYSTEMMARKER_SIZE),
       Constants.SYSTEMMARKER_SIZE * 3,
       Constants.SYSTEMMARKER_SIZE * 3
     )

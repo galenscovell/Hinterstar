@@ -25,8 +25,9 @@ class MapPanel(stage: GameStage) extends Table {
     mapTable.setPosition(0, 0)
     infoTable.setPosition(0, 0)
     this.add(mapGroup).width(Constants.EXACT_X)
-      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 2))
+      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 4))
       .padTop(Constants.SYSTEMMARKER_SIZE * 2)
+      .padBottom(Constants.SYSTEMMARKER_SIZE * 2)
   }
 
   private def createMapTable: Table = {

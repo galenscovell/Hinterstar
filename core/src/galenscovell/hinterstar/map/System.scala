@@ -118,10 +118,10 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
   private def createEvents(random: Random): Unit =  {
     val distances: ArrayBuffer[Float] = new ArrayBuffer[Float]()
 
-    while (distances.sum < Constants.PROGRESS_PANEL_WIDTH) {
+    while (distances.sum < Constants.EXACT_X) {
       val newDistance: Float = random.nextInt(100) + 100 + 3f
-      if (distances.sum + newDistance > Constants.PROGRESS_PANEL_WIDTH) {
-        distances += (Constants.PROGRESS_PANEL_WIDTH - distances.sum)
+      if (distances.sum + newDistance > Constants.EXACT_X) {
+        distances += (Constants.EXACT_X - distances.sum)
       } else {
         distances += newDistance
       }

@@ -25,18 +25,20 @@ class DetailTable(stage: GameStage) extends Table {
     labelTable.setBackground(ResourceManager.npTest1)
     this.dateLabel = new Label(dateAsString, ResourceManager.labelMediumStyle)
     dateLabel.setAlignment(Align.center, Align.left)
-    this.locationLabel = new Label("Sol Sector", ResourceManager.labelMediumStyle)
+    this.locationLabel = new Label("Sol System", ResourceManager.labelMediumStyle)
     locationLabel.setAlignment(Align.center, Align.right)
 
-    labelTable.add(dateLabel).width(384).left
-    labelTable.add(locationLabel).width(384).right
+    labelTable.add(dateLabel).width(Constants.EXACT_X / 2.2f).left
+    labelTable.add(locationLabel).width(Constants.EXACT_X / 2.2f).right
 
     this.infoTable = new Table
     infoTable.setBackground(ResourceManager.npTest1)
 
-    mainTable.add(infoTable).expand.fill.pad(6)
+    mainTable.add(infoTable).expand.fill
     mainTable.row
-    mainTable.add(labelTable).height(20).width(Constants.PROGRESS_PANEL_WIDTH).padLeft(6).padRight(6).padBottom(6)
+    mainTable.add(labelTable)
+      .height(Constants.SYSTEMMARKER_SIZE * 2)
+      .width(Constants.EXACT_X)
 
     this.add(mainTable).expand.fill
   }

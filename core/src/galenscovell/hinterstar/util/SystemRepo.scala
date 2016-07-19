@@ -3,7 +3,7 @@ package galenscovell.hinterstar.util
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import galenscovell.hinterstar.map.{System, SystemMarker}
-import galenscovell.hinterstar.processing.{Event, EventParser}
+import galenscovell.hinterstar.processing.Event
 import galenscovell.hinterstar.ui.components.gamescreen.GameStage
 import galenscovell.hinterstar.ui.screens.GameScreen
 
@@ -17,14 +17,13 @@ import scala.collection.mutable.ArrayBuffer
   */
 object SystemRepo {
   val systemsInRange: ArrayBuffer[System] = ArrayBuffer()
-  val eventParser: EventParser = new EventParser()
 
   var gameScreen: GameScreen = _
   var systems: ArrayBuffer[System] = ArrayBuffer()
   var currentSystem: System = _
   var currentSelection: System = _
   var shapeRenderer: ShapeRenderer = new ShapeRenderer
-  var playerRange: Int = 10  // playerRange should be based on equipped Engine Parts
+  var playerRange: Int = 12  // playerRange should be based on equipped Engine Parts
 
 
 // Called from GameScreen //
@@ -65,7 +64,7 @@ object SystemRepo {
 
     shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
     shapeRenderer.setColor(0.95f, 0.61f, 0.07f, 0.6f)
-    shapeRenderer.circle(centerX, centerY, radius)
+//    shapeRenderer.circle(centerX, centerY, radius)
     shapeRenderer.circle(centerX, centerY, 20)
 
     if (systemsInRange != null && systemsInRange.nonEmpty) {

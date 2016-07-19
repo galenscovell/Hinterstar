@@ -26,11 +26,10 @@ object Constants {
   // Custom screen dimension units
   val SCREEN_X: Int = 200
   val SCREEN_Y: Int = 120
-  val PROGRESS_PANEL_WIDTH: Int = EXACT_X - 16
 
   // Map dimensions (1 Tile = 1 AU)
   val MAP_WIDTH: Int = 50
-  val MAP_HEIGHT: Int = 28
+  val MAP_HEIGHT: Int = 26
   val SYSTEMMARKER_SIZE: Int = 16
 
   // Distance Units
