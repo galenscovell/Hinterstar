@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.ui.components.gamescreen.nav
+package galenscovell.hinterstar.ui.components.gamescreen.views
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui._
@@ -8,7 +8,7 @@ import galenscovell.hinterstar.ui.components.gamescreen.GameStage
 import galenscovell.hinterstar.util._
 
 
-class NavButtons(stage: GameStage) extends Table {
+class ViewButtons(stage: GameStage) extends Table {
   private val gameStage: GameStage = stage
   private var mapButton: TextButton = _
   private var teamButton: TextButton = _
@@ -24,21 +24,21 @@ class NavButtons(stage: GameStage) extends Table {
     this.shipButton = new TextButton("Ship", Resources.buttonMapStyle2)
     mapButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
-        gameStage.togglePanel(0)
+        gameStage.toggleView(0)
         teamButton.setChecked(false)
         shipButton.setChecked(false)
       }
     })
     teamButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
-        gameStage.togglePanel(1)
+        gameStage.toggleView(1)
         mapButton.setChecked(false)
         shipButton.setChecked(false)
       }
     })
     shipButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
-        gameStage.togglePanel(2)
+        gameStage.toggleView(2)
         mapButton.setChecked(false)
         teamButton.setChecked(false)
       }

@@ -15,19 +15,15 @@ import galenscovell.hinterstar.util._
 class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   private val input: InputMultiplexer = new InputMultiplexer
   private var travelFrames: Int = 0
-  private var mapOpen: Boolean = false
+  private var sectorViewOpen: Boolean = false
 
-  var normalBg: ParallaxBackground = createBackground("purple_bg", "bg1", "bg2")
-  var blurBg: ParallaxBackground = createBackground("purple_bg", "bg1_blur", "bg2_blur")
+  private var normalBg: ParallaxBackground = createBackground("purple_bg", "bg1", "bg2")
+  private var blurBg: ParallaxBackground = createBackground("purple_bg", "bg1_blur", "bg2_blur")
+  private var locationPanel: SystemPanel = _
   var currentBackground: ParallaxBackground = normalBg
-  var locationPanel: SystemPanel = _
 
-  var bg0: String = _
-  var bg1: String = _
-  var bg2: String = _
-  var bg0Blur: String = _
-  var bg1Blur: String = _
-  var bg2Blur: String = _
+  private var bg0, bg1, bg2: String = _
+  private var bg0Blur, bg1Blur, bg2Blur: String = _
 
   create()
 
@@ -44,6 +40,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     // Clear screen
     Gdx.gl.glClearColor(0, 0, 0, 1)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+
     // Handle travel and background animations
     if (travelFrames > 0) {
       travel()
@@ -51,14 +48,16 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     if (currentBackground != null) {
       currentBackground.render(delta)
     }
+
     // Update and render game stage
     stage.act()
     if (stage.asInstanceOf[GameStage].getNextAnimationFrames > 0) {
       stage.asInstanceOf[GameStage].nextEventAnimation()
     }
     stage.draw()
+
     // Draw map panel shapes
-    if (mapOpen) {
+    if (sectorViewOpen) {
       SystemRepo.drawShapes()
     }
   }
@@ -75,13 +74,13 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     root.setScreen(root.mainMenuScreen)
   }
 
-  def beginTravel(): Unit = {
+  def beginWarp(): Unit = {
     travelFrames = 600
   }
 
-  def toggleMap(): Unit = {
-    mapOpen = !mapOpen
-    if (mapOpen) {
+  def toggleSectorView(): Unit = {
+    sectorViewOpen = !sectorViewOpen
+    if (sectorViewOpen) {
       SystemRepo.setTargetsInRange()
     }
   }
@@ -93,13 +92,15 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     this.bg0Blur = bg0Blur
     this.bg1Blur = bg1Blur
     this.bg2Blur = bg2Blur
+
     val systemDetail: Array[String] = SystemRepo.currentSystem.getDetails
     this.locationPanel = new SystemPanel(systemDetail(0), systemDetail(1))
     stage.asInstanceOf[GameStage].updateDetailTable(systemDetail(0))
+
     stage.getRoot.addAction(Actions.sequence(
       Actions.delay(3),
       Actions.fadeOut(1.0f),
-      travelTransitionAction,
+      warpTransitionAction,
       Actions.fadeIn(1.0f),
       Actions.delay(5.2f),
       Actions.removeActor(locationPanel)
@@ -118,6 +119,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       currentBackground.modifySpeed(new Vector2(-(70 - travelFrames), 0))
     }
     travelFrames -= 1
+
     if (travelFrames == 0) {
       currentBackground.setSpeed(new Vector2(40, 0))
     }
@@ -175,7 +177,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   /**
     * Custom Scene2D Actions
     */
-  private[screens] var travelTransitionAction: Action = new Action() {
+  private[screens] var warpTransitionAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       normalBg = createBackground(bg0, bg1, bg2)
       normalBg.setSpeed(new Vector2(2500, 0))
@@ -186,15 +188,15 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       locationPanel.addAction(Actions.sequence(
         Actions.delay(3.5f),
         Actions.fadeOut(1.25f),
-        showUIElements
+        showViewButtonsAction
       ))
       true
     }
   }
 
-  private[screens] var showUIElements: Action = new Action() {
+  private[screens] var showViewButtonsAction: Action = new Action() {
     def act(delta: Float): Boolean = {
-      stage.asInstanceOf[GameStage].showNavButtons()
+      stage.asInstanceOf[GameStage].showViewButtons()
       true
     }
   }

@@ -7,14 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent, Stage}
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.things.ships.Ship
-import galenscovell.hinterstar.ui.components.startscreen.{ShipSelectPanel, TeamSelectPanel}
+import galenscovell.hinterstar.ui.components.startscreen.{ShipSelectPanel, CrewSelectPanel}
 import galenscovell.hinterstar.util._
 
 import scala.collection.mutable.Map
 
 
 class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
-  private val teamPanel: TeamSelectPanel = new TeamSelectPanel
+  private val teamPanel: CrewSelectPanel = new CrewSelectPanel
   private val shipPanel: ShipSelectPanel = new ShipSelectPanel
   private val teamPanelButton: TextButton = new TextButton("Team", Resources.toggleButtonStyle)
   private val shipPanelButton: TextButton = new TextButton("Ship", Resources.toggleButtonStyle)
