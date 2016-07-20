@@ -7,13 +7,11 @@ import galenscovell.hinterstar.Hinterstar
 
 
 class AbstractScreen(val gameRoot: Hinterstar) extends Screen {
-  protected final val root: Hinterstar = gameRoot
+  protected val root: Hinterstar = gameRoot
   protected var stage: Stage = _
 
 
-  protected def create(): Unit = {
-
-  }
+  protected def create(): Unit = {}
 
   override def render(delta: Float): Unit = {
     Gdx.gl.glClearColor(0, 0, 0, 1)
@@ -37,13 +35,9 @@ class AbstractScreen(val gameRoot: Hinterstar) extends Screen {
     Gdx.input.setInputProcessor(null)
   }
 
-  override def pause(): Unit =  {
+  override def pause(): Unit =  {}
 
-  }
-
-  override def resume(): Unit =  {
-
-  }
+  override def resume(): Unit =  {}
 
   override def dispose(): Unit = {
     if (stage != null) {

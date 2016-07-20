@@ -131,11 +131,11 @@ object Resources {
   private def loadButtonStyles(): Unit = {
     buttonMenuStyle = new TextButtonStyle(npTest4, npTest3, npTest4, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
     buttonMenuStyle.pressedOffsetY = -2
-    buttonMapStyle0 = new TextButtonStyle(npTest1, npTest4, npTest4, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
+    buttonMapStyle0 = new TextButtonStyle(npTest1, npTest4, npTest4, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
     buttonMapStyle0.pressedOffsetY = -2
-    buttonMapStyle1 = new TextButtonStyle(npTest1, npTest3, npTest3, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
+    buttonMapStyle1 = new TextButtonStyle(npTest1, npTest3, npTest3, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
     buttonMapStyle1.pressedOffsetY = -2
-    buttonMapStyle2 = new TextButtonStyle(npTest1, npTest2, npTest2, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
+    buttonMapStyle2 = new TextButtonStyle(npTest1, npTest2, npTest2, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
     buttonMapStyle2.pressedOffsetY = -2
     buttonEventStyle = new TextButtonStyle(npTest1, npTest2, npTest2, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
     buttonEventStyle.pressedOffsetY = -2

@@ -1,9 +1,10 @@
-package galenscovell.hinterstar.ui.components.gamescreen
+package galenscovell.hinterstar.ui.components.gamescreen.nav
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
+import galenscovell.hinterstar.ui.components.gamescreen.GameStage
 import galenscovell.hinterstar.util._
 
 
@@ -18,8 +19,8 @@ class NavButtons(stage: GameStage) extends Table {
 
   private def construct(): Unit = {
     this.align(Align.center)
-    this.mapButton = new TextButton("Map", Resources.buttonMapStyle0)
-    this.teamButton = new TextButton("Team", Resources.buttonMapStyle1)
+    this.mapButton = new TextButton("Sector", Resources.buttonMapStyle0)
+    this.teamButton = new TextButton("Crew", Resources.buttonMapStyle1)
     this.shipButton = new TextButton("Ship", Resources.buttonMapStyle2)
     mapButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {

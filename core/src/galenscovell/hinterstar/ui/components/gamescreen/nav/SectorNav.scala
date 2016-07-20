@@ -1,14 +1,15 @@
-package galenscovell.hinterstar.ui.components.gamescreen
+package galenscovell.hinterstar.ui.components.gamescreen.nav
 
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.map._
+import galenscovell.hinterstar.ui.components.gamescreen.GameStage
 import galenscovell.hinterstar.util._
 
 
-class MapPanel(stage: GameStage) extends Table {
+class SectorNav(stage: GameStage) extends Table {
   private val gameStage: GameStage = stage
   private var distanceLabel: Label = _
 
@@ -24,7 +25,8 @@ class MapPanel(stage: GameStage) extends Table {
     mapGroup.addActor(infoTable)
     mapTable.setPosition(0, 0)
     infoTable.setPosition(0, 0)
-    this.add(mapGroup).width(Constants.EXACT_X)
+    this.add(mapGroup)
+      .width(Constants.EXACT_X)
       .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 4))
       .padTop(Constants.SYSTEMMARKER_SIZE * 2)
       .padBottom(Constants.SYSTEMMARKER_SIZE * 2)
@@ -43,8 +45,8 @@ class MapPanel(stage: GameStage) extends Table {
     val mapGenerator: MapGenerator = new MapGenerator(16, 4)
     val systemMarkers: Array[Array[SystemMarker]] = mapGenerator.getSystemMarkers
 
-    for (row <- systemMarkers) {
-      for (systemMarker <- row) {
+    for (row: Array[SystemMarker] <- systemMarkers) {
+      for (systemMarker: SystemMarker <- row) {
         container.add(systemMarker)
           .width(Constants.SYSTEMMARKER_SIZE)
           .height(Constants.SYSTEMMARKER_SIZE)
@@ -57,7 +59,7 @@ class MapPanel(stage: GameStage) extends Table {
     val infoTable: Table = new Table
     infoTable.setSize(Constants.EXACT_X, 50)
     infoTable.align(Align.center)
-    val travelButton: TextButton = new TextButton("Travel", Resources.greenButtonStyle)
+    val travelButton: TextButton = new TextButton("Warp", Resources.greenButtonStyle)
     travelButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
         travelToSystem()

@@ -8,18 +8,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.{Table, TextButton}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.things.entities.Player
+import galenscovell.hinterstar.ui.components.gamescreen.nav._
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 
 
 class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), spriteBatch) {
   val gameScreen: GameScreen = game
-  private val player: Player = new Player(this)
-  private val mapPanel: MapPanel = new MapPanel(this)
-  private val teamPanel: TeamPanel = new TeamPanel(this)
-  private val shipPanel: ShipPanel = new ShipPanel(this)
 
-  private var eventButton: TextButton = _
+  private val player: Player = new Player(this)
+  private val sectorNav: SectorNav = new SectorNav(this)
+  private val teamNav: TeamNav = new TeamNav(this)
+  private val shipNav: ShipNav = new ShipNav(this)
+
+  private var nextEventButton: TextButton = _
   private var eventPanel: EventPanel = _
   private var navButtons: NavButtons = _
   private var actionTable: Table = _
@@ -33,10 +35,10 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
-    this.eventButton = new TextButton(">", Resources.buttonMapStyle0)
-    eventButton.getLabelCell.width(80)
-    eventButton.invalidate()
-    eventButton.addListener(new ClickListener() {
+    this.nextEventButton = new TextButton(">", Resources.buttonMapStyle0)
+    nextEventButton.getLabelCell.width(60)
+    nextEventButton.invalidate()
+    nextEventButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         if (nextAnimationFrames == 0) {
           startNextEventAnimation()
@@ -47,7 +49,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     this.navButtons = new NavButtons(this)
     this.actionTable = new Table
     actionTable.add(player).expand.fill.left.padLeft(60)
-    actionTable.add(eventButton).width(60).height(220).expand.fill.right
+    actionTable.add(nextEventButton).width(60).height(260).expand.fill.right
     this.detailTable = new DetailTable(this)
 
     mainTable.add(navButtons).width(Constants.EXACT_X / 2).height(2 + Constants.SYSTEMMARKER_SIZE * 2)
@@ -59,51 +61,51 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
   }
 
   def togglePanel(num: Int): Unit = {
-    if (!mapPanel.hasActions) {
-      if (mapPanel.hasParent) {
-        mapPanel.addAction(Actions.sequence(
+    if (!sectorNav.hasActions) {
+      if (sectorNav.hasParent) {
+        sectorNav.addAction(Actions.sequence(
           mapButtonAction,
           Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
           Actions.removeActor()
         ))
       }
       else if (num == 0) {
-        this.addActor(mapPanel)
-        mapPanel.addAction(Actions.sequence(
+        this.addActor(sectorNav)
+        sectorNav.addAction(Actions.sequence(
           Actions.moveTo(-800, 0),
           Actions.moveTo(0, 0, 0.3f, Interpolation.sine),
           mapButtonAction
         ))
       }
     }
-    if (!teamPanel.hasActions) {
-      if (teamPanel.hasParent) {
-        teamPanel.addAction(Actions.sequence(
+    if (!teamNav.hasActions) {
+      if (teamNav.hasParent) {
+        teamNav.addAction(Actions.sequence(
           teamButtonAction,
           Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
           Actions.removeActor()
         ))
       }
       else if (num == 1) {
-        this.addActor(teamPanel)
-        teamPanel.addAction(Actions.sequence(
+        this.addActor(teamNav)
+        teamNav.addAction(Actions.sequence(
           Actions.moveTo(-800, 0),
           Actions.moveTo(0, 0, 0.3f, Interpolation.sine),
           teamButtonAction
         ))
       }
     }
-    if (!shipPanel.hasActions) {
-      if (shipPanel.hasParent) {
-        shipPanel.addAction(Actions.sequence(
+    if (!shipNav.hasActions) {
+      if (shipNav.hasParent) {
+        shipNav.addAction(Actions.sequence(
           shipButtonAction,
           Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
           Actions.removeActor()
         ))
       }
       else if (num == 2) {
-        this.addActor(shipPanel)
-        shipPanel.addAction(Actions.sequence(
+        this.addActor(shipNav)
+        shipNav.addAction(Actions.sequence(
           Actions.moveTo(-800, 0),
           Actions.moveTo(0, 0, 0.3f, Interpolation.sine),
           shipButtonAction
@@ -117,7 +119,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
       Actions.touchable(Touchable.disabled),
       Actions.moveBy(0, 2 + Constants.SYSTEMMARKER_SIZE * 2, 0.5f, Interpolation.sine)
     ))
-    eventButton.addAction(Actions.sequence(
+    nextEventButton.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
       Actions.moveBy(100, 0, 0.5f, Interpolation.sine)
     ))
@@ -132,7 +134,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
       Actions.moveBy(0, -(2 + Constants.SYSTEMMARKER_SIZE * 2), 0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
-    eventButton.addAction(Actions.sequence(
+    nextEventButton.addAction(Actions.sequence(
       Actions.moveBy(-100, 0, 0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
@@ -143,7 +145,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
   }
 
   def updateDistanceLabel(d: String): Unit = {
-    mapPanel.updateDistanceLabel(d)
+    sectorNav.updateDistanceLabel(d)
   }
 
   def getNavButtons: NavButtons = {
