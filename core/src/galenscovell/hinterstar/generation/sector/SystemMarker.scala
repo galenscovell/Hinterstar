@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.map
+package galenscovell.hinterstar.generation.sector
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d._

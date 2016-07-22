@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.map
+package galenscovell.hinterstar.generation.sector
 
 import galenscovell.hinterstar.util._
 
@@ -8,7 +8,7 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * MapGenerator constructs SystemMarker grid and places non-overlapping Systems.
   */
-class MapGenerator(maxSystems: Int, padSize: Int) {
+class SectorGenerator(maxSystems: Int, padSize: Int) {
   private val systemMarkers: Array[Array[SystemMarker]] = Array.ofDim[SystemMarker](Constants.MAP_HEIGHT, Constants.MAP_WIDTH)
   private val systems: ArrayBuffer[System] = ArrayBuffer()
 

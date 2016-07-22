@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.map
+package galenscovell.hinterstar.generation.sector
 
 import java.util._
 

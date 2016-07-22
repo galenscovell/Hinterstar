@@ -2,7 +2,7 @@ package galenscovell.hinterstar.util
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
-import galenscovell.hinterstar.map.{System, SystemMarker}
+import galenscovell.hinterstar.generation.{sector, _}
 import galenscovell.hinterstar.processing.Event
 import galenscovell.hinterstar.ui.components.gamescreen.GameStage
 import galenscovell.hinterstar.ui.screens.GameScreen
@@ -16,12 +16,12 @@ import scala.collection.mutable.ArrayBuffer
   * Ideally, this will be able to be eradicated through redesign in architecture.
   */
 object SystemRepo {
-  val systemsInRange: ArrayBuffer[System] = ArrayBuffer()
+  val systemsInRange: ArrayBuffer[sector.System] = ArrayBuffer()
 
   var gameScreen: GameScreen = _
-  var systems: ArrayBuffer[System] = ArrayBuffer()
-  var currentSystem: System = _
-  var currentSelection: System = _
+  var systems: ArrayBuffer[sector.System] = ArrayBuffer()
+  var currentSystem: sector.System = _
+  var currentSelection: sector.System = _
   var shapeRenderer: ShapeRenderer = new ShapeRenderer
   var playerRange: Int = 12  // playerRange should be based on equipped Engine Parts
 
@@ -132,7 +132,7 @@ object SystemRepo {
     * WHY IT'S HERE: Each SystemMarker has no access to its containing System, GameStage has no access to System data.
     * WORKAROUND IDEAS:
     */
-  def setSelection(selection: SystemMarker): Unit = {
+  def setSelection(selection: sector.SystemMarker): Unit = {
     var distance: Double = 0.0
 
     if (selection != null) {
@@ -161,7 +161,7 @@ object SystemRepo {
     * WHY IT'S HERE: SystemRepo needs System data for everything else.
     * WORKAROUND IDEAS:
     */
-  def populateSystems(systemsToSet: ArrayBuffer[System]): Unit = {
+  def populateSystems(systemsToSet: ArrayBuffer[sector.System]): Unit = {
     systems = systemsToSet
     for (system <- systems) {
       if (currentSystem == null || system.x < currentSystem.x) {

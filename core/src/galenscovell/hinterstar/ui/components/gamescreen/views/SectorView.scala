@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
-import galenscovell.hinterstar.map._
+import galenscovell.hinterstar.generation.sector._
 import galenscovell.hinterstar.ui.components.gamescreen.GameStage
 import galenscovell.hinterstar.util._
 
@@ -42,8 +42,8 @@ class SectorView(stage: GameStage) extends Table {
 
   private def generateMap(container: Table): Unit =  {
     // TODO: Each new map has randomized SystemMarker layout (depending on difficulty)
-    val mapGenerator: MapGenerator = new MapGenerator(16, 4)
-    val systemMarkers: Array[Array[SystemMarker]] = mapGenerator.getSystemMarkers
+    val sectorGenerator: SectorGenerator = new SectorGenerator(16, 4)
+    val systemMarkers: Array[Array[SystemMarker]] = sectorGenerator.getSystemMarkers
 
     for (row: Array[SystemMarker] <- systemMarkers) {
       for (systemMarker: SystemMarker <- row) {
