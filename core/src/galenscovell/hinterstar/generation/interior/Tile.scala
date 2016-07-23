@@ -40,9 +40,9 @@ class Tile(gridX: Int, gridY: Int) {
 
   def draw(): String = {
     tileType match {
-      case TileType.EMPTY => "`"
-      case TileType.FLOOR => "-"
-      case TileType.WALL => "+"
+      case TileType.EMPTY => "~"
+      case TileType.FLOOR => " "
+      case TileType.WALL => "#"
       case _ => "!"
     }
   }
