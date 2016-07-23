@@ -3,13 +3,13 @@ package galenscovell.hinterstar.generation.interior
 import scala.util.Random
 
 
-class Room(topLeftX: Int, topLeftY: Int, w: Int, h: Int, p: Room) {
-  val x: Int = topLeftX
-  val y: Int = topLeftY
+class Room(x: Int, y: Int, w: Int, h: Int, p: Room) {
+  val topLeftX: Int = x
+  val topLeftY: Int = y
   val width: Int = w
   val height: Int = h
-  val centerX: Int = topLeftX + (width / 2)
-  val centerY: Int = topLeftY + (height / 2)
+  val centerX: Int = x + (width / 2)
+  val centerY: Int = y + (height / 2)
 
   val parent: Room = p
   var sister, leftChild, rightChild: Room = _
@@ -44,9 +44,8 @@ class Room(topLeftX: Int, topLeftY: Int, w: Int, h: Int, p: Room) {
   }
 
 
-  def split(): Boolean = {
-    val random: Random = new Random()
-    val minSize: Int = 9
+  def split(random: Random): Boolean = {
+    val minSize: Int = 5
 
     // Already split
     if (leftChild != null || rightChild != null) {
@@ -83,14 +82,14 @@ class Room(topLeftX: Int, topLeftY: Int, w: Int, h: Int, p: Room) {
 
     if (horizontal) {
       // Top horizontal child
-      leftChild = new Room(x, y, width, split, this)
+      leftChild = new Room(topLeftX, topLeftY, width, split, this)
       // Bottom horizontal child
-      rightChild = new Room(x, y + split, width, height - split, this)
+      rightChild = new Room(topLeftX, topLeftY + split, width, height - split, this)
     } else {
       // Left vertical child
-      leftChild = new Room(x, y, split, height, this)
+      leftChild = new Room(topLeftX, topLeftY, split, height, this)
       // Right vertical child
-      rightChild = new Room(x + split, y, width - split, height, this)
+      rightChild = new Room(topLeftX + split, topLeftY, width - split, height, this)
     }
 
     leftChild.setSister(rightChild)

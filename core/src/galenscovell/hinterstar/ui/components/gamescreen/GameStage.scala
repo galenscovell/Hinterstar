@@ -19,6 +19,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
   private val sectorView: SectorView = new SectorView(this)
   private val crewView: CrewView = new CrewView(this)
   private val shipView: ShipView = new ShipView(this)
+  private val interiorView: InteriorView = new InteriorView(this)
   private val viewButtons: ViewButtons = new ViewButtons(this)
 
   private val player: Player = new Player(this)
@@ -56,6 +57,9 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     mainTable.row
     mainTable.add(detailTable).width(Constants.EXACT_X).height(110)
     this.addActor(mainTable)
+
+
+    this.addActor(interiorView)
   }
 
   def toggleView(num: Int): Unit = {

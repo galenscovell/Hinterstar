@@ -13,25 +13,29 @@ class InteriorGenerator(width: Int, height: Int, numberOfSplits: Int) {
   val partitions: ArrayBuffer[Room] = ArrayBuffer()
   val rooms: ArrayBuffer[Room] = ArrayBuffer()
 
+  val random: Random = new Random()
+
   build()
   partition(numberOfSplits)
-  debugPrint()
   connectRooms(partitions(0))
   debugPrint()
 
 
+  def getTiles(): Array[Array[Tile]] = {
+    tiles
+  }
+
   private def build(): Unit = {
-    // Construct Tile[ROWS][COLUMNS] grid of all TileType.EMPTY
-    for (row <- 0 until rows) {
-      for (col <- 0 until columns) {
-        tiles(col)(row) = new Tile(col, row)
+    // Construct Tile[COLUMNS][ROWS] grid of all TileType.EMPTY
+    for (x <- 0 until rows) {
+      for (y <- 0 until columns) {
+        tiles(y)(x) = new Tile(x, y)
       }
     }
   }
 
   private def partition(splits: Int): Unit = {
     // Binary space partitioning
-    val random: Random = new Random()
     val rootRoom: Room = new Room(0, 0, columns, rows, null)
     partitions.append(rootRoom)
 
@@ -40,7 +44,7 @@ class InteriorGenerator(width: Int, height: Int, numberOfSplits: Int) {
     while (splitAmount < desiredSplits && attempts > 0) {
       val chosenPartition: Int = random.nextInt(partitions.size)
       val toSplit: Room = partitions(chosenPartition)
-      if (toSplit.split()) {
+      if (toSplit.split(random)) {
         partitions.append(toSplit.leftChild)
         partitions.append(toSplit.rightChild)
         splitAmount += 1
@@ -64,16 +68,40 @@ class InteriorGenerator(width: Int, height: Int, numberOfSplits: Int) {
   private def createRoom(room: Room): Unit = {
     // Create floor tiled room filling room dimensions
     val roomTiles: ArrayBuffer[Tile] = ArrayBuffer()
-    for (row <- room.y until (room.y + room.height)) {
-      for (col <- room.x until (room.x + room.width)) {
-        if (row == room.y || col == room.x ||
-            row == (room.y + room.height - 1) ||
-            col == (room.x + room.width - 1)) {
-          tiles(col)(row).becomeWall()
+
+    val bottomRightX: Int = room.topLeftY + room.height
+    val bottomRightY: Int = room.topLeftX + room.width
+
+    for (x <- room.topLeftY until bottomRightX) {
+      for (y <- room.topLeftX until bottomRightY) {
+        // Check if x and y are top left perimeter of room
+        if (x == room.topLeftY || y == room.topLeftX) {
+          tiles(y)(x).becomeWall()
+          // Check if x and y are bottom right perimeter of room
+        } else if (x == (bottomRightX - 1) && y == (bottomRightY - 1)) {
+          if (isOutOfBounds(bottomRightX, bottomRightY)) {
+            tiles(y)(x).becomeWall()
+          } else {
+            tiles(y)(x).becomeFloor()
+          }
+          // Check if x is right perimeter of room
+        } else if (x == (bottomRightX - 1)) {
+          if (isOutOfBounds(bottomRightX, 0)) {
+            tiles(y)(x).becomeWall()
+          } else {
+            tiles(y)(x).becomeFloor()
+          }
+          // Check if y is bottom perimeter of room
+        } else if (y == (bottomRightY - 1)) {
+          if (isOutOfBounds(0, bottomRightY)) {
+            tiles(y)(x).becomeWall()
+          } else {
+            tiles(y)(x).becomeFloor()
+          }
         } else {
-          tiles(col)(row).becomeFloor()
+          tiles(y)(x).becomeFloor()
         }
-        roomTiles.append(tiles(col)(row))
+        roomTiles.append(tiles(y)(x))
       }
     }
     room.setTiles(roomTiles.toArray)
@@ -115,15 +143,15 @@ class InteriorGenerator(width: Int, height: Int, numberOfSplits: Int) {
   }
 
   private def isOutOfBounds(x: Int, y: Int): Boolean = {
-    x < 0 || y < 0 || x >= columns || y >= rows
+    x < 0 || y < 0 || x >= rows || y >= columns
   }
 
   private def debugPrint(): Unit = {
-    println()
+    println(tiles.length, tiles(0).length)
     for (row: Array[Tile] <- tiles) {
       println()
       for (tile: Tile <- row) {
-        print(tile.draw())
+        print(tile.debugDraw())
       }
     }
   }
