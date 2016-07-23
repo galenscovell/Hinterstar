@@ -16,6 +16,8 @@ class InteriorGenerator(width: Int, height: Int, numberOfSplits: Int) {
   build()
   partition(numberOfSplits)
   debugPrint()
+  connectRooms(partitions(0))
+  debugPrint()
 
 
   private def build(): Unit = {
@@ -30,11 +32,12 @@ class InteriorGenerator(width: Int, height: Int, numberOfSplits: Int) {
   private def partition(splits: Int): Unit = {
     // Binary space partitioning
     val random: Random = new Random()
-    val rootRoom: Room = new Room(0, 0, columns, rows)
+    val rootRoom: Room = new Room(0, 0, columns, rows, null)
     partitions.append(rootRoom)
 
+    var attempts: Int = 300
     var splitAmount: Int = 0
-    while (splitAmount < desiredSplits) {
+    while (splitAmount < desiredSplits && attempts > 0) {
       val chosenPartition: Int = random.nextInt(partitions.size)
       val toSplit: Room = partitions(chosenPartition)
       if (toSplit.split()) {
@@ -42,6 +45,7 @@ class InteriorGenerator(width: Int, height: Int, numberOfSplits: Int) {
         partitions.append(toSplit.rightChild)
         splitAmount += 1
       }
+      attempts -= 1
     }
     generateInterior(rootRoom)
   }
@@ -75,11 +79,47 @@ class InteriorGenerator(width: Int, height: Int, numberOfSplits: Int) {
     room.setTiles(roomTiles.toArray)
   }
 
+  private def connectRooms(rootRoom: Room): Unit = {
+    // Recursively connect each rooms children to each other with hallways
+    if (rootRoom != null) {
+      if (rootRoom.leftChild != null) {
+        connectRooms(rootRoom.leftChild)
+      }
+      if (rootRoom.rightChild != null) {
+        connectRooms(rootRoom.rightChild)
+      }
+    }
+
+    if (rootRoom.sister != null && !rootRoom.isConnected()) {
+      createHall(rootRoom, rootRoom.sister)
+    }
+  }
+
+  private def createHall(r1: Room, r2: Room): Unit = {
+    // Create hall between centerpoints of a pair of rooms
+    val xDelta: Int = r1.centerX - r2.centerX
+    val yDelta: Int = r1.centerY - r2.centerY
+
+    if (xDelta == 0) {
+      for (y <- r1.centerY to r2.centerY) {
+        tiles(r1.centerX)(y).becomeFloor()
+      }
+    } else if (yDelta == 0) {
+      for (x <- r1.centerX to r2.centerX) {
+        tiles(x)(r1.centerY).becomeFloor()
+      }
+    }
+
+    r1.setConnected()
+    r2.setConnected()
+  }
+
   private def isOutOfBounds(x: Int, y: Int): Boolean = {
     x < 0 || y < 0 || x >= columns || y >= rows
   }
 
   private def debugPrint(): Unit = {
+    println()
     for (row: Array[Tile] <- tiles) {
       println()
       for (tile: Tile <- row) {
