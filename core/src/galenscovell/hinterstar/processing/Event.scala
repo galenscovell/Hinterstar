@@ -6,14 +6,12 @@ import scala.collection.mutable.{ArrayBuffer, Map}
 /**
   * Events are the primary points of interaction for the Player.
   * Events have:
-  *     a distance (Player must travel this far in the Location to reach it)
   *     an eventType (eg. Base, Enemy, Planet, Ship, Space, Team)
   *     a name (displayed as the title in the interaction dialogue)
   *     a description (displayed in the interaction dialogue)
   *     multiple choices (options for Player in interaction dialogue)
   */
-class Event(d: Float) {
-  val distance: Float = d
+class Event() {
   val choices: ArrayBuffer[Map[String, String]] = ArrayBuffer()
 
   var eventType: String = ""
@@ -21,12 +19,6 @@ class Event(d: Float) {
   var description: String = ""
 
 
-  /**
-    * Return the distance required to reach this Event.
-    */
-  def getDistance: Float = {
-    distance
-  }
 
   /**
     * Return this Event's eventType.
@@ -34,8 +26,6 @@ class Event(d: Float) {
   def getType: String = {
     eventType
   }
-
-
 
   /**
     * Set this Event as the very first Event in the game (the tutorial Event).

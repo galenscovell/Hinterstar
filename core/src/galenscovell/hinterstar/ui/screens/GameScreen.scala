@@ -51,9 +51,6 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
     // Update and render game stage
     stage.act()
-    if (stage.asInstanceOf[GameStage].getNextAnimationFrames > 0) {
-      stage.asInstanceOf[GameStage].nextEventAnimation()
-    }
     stage.draw()
 
     // Draw map panel shapes

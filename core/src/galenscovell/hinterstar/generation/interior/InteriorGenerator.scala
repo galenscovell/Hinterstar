@@ -14,11 +14,9 @@ class InteriorGenerator(width: Int, height: Int, numberOfSplits: Int) {
   val rooms: ArrayBuffer[Room] = ArrayBuffer()
 
   val random: Random = new Random()
+  var valid: Boolean = false
 
   build()
-  partition(numberOfSplits)
-  connectRooms(partitions(0))
-  debugPrint()
 
 
   def getTiles(): Array[Array[Tile]] = {
@@ -26,12 +24,48 @@ class InteriorGenerator(width: Int, height: Int, numberOfSplits: Int) {
   }
 
   private def build(): Unit = {
-    // Construct Tile[COLUMNS][ROWS] grid of all TileType.EMPTY
-    for (x <- 0 until rows) {
-      for (y <- 0 until columns) {
-        tiles(y)(x) = new Tile(x, y)
+    while (!valid) {
+      partitions.clear()
+      rooms.clear()
+
+      // Construct Tile[COLUMNS][ROWS] grid of all TileType.EMPTY
+      for (x <- 0 until rows) {
+        for (y <- 0 until columns) {
+          tiles(y)(x) = new Tile(x, y)
+        }
+      }
+      setNeighbors()
+      partition(numberOfSplits)
+      connectRooms(partitions(0))
+      valid = check()
+    }
+
+    // debugPrint()
+
+    val bitmasker: Bitmasker = new Bitmasker
+    for (row: Array[Tile] <- tiles) {
+      for (tile: Tile <- row) {
+        tile.setBitmask(bitmasker.find(tile))
+        tile.setSprite()
       }
     }
+  }
+
+  private def check(): Boolean = {
+    // Ensures that generated interior is valid
+    // (Has doors placed in valid locations)
+    var valid: Boolean = true
+    for (row: Array[Tile] <- tiles) {
+      for (tile: Tile <- row) {
+        if (tile.isDoor()) {
+          val doorNeighbors: Int = tile.getDoorNeighbors()
+          if (doorNeighbors > 0) {
+            valid = false
+          }
+        }
+      }
+    }
+    valid
   }
 
   private def partition(splits: Int): Unit = {
@@ -68,40 +102,43 @@ class InteriorGenerator(width: Int, height: Int, numberOfSplits: Int) {
   private def createRoom(room: Room): Unit = {
     // Create floor tiled room filling room dimensions
     val roomTiles: ArrayBuffer[Tile] = ArrayBuffer()
-
     val bottomRightX: Int = room.topLeftY + room.height
     val bottomRightY: Int = room.topLeftX + room.width
 
     for (x <- room.topLeftY until bottomRightX) {
       for (y <- room.topLeftX until bottomRightY) {
-        // Check if x and y are top left perimeter of room
+        val tile: Tile = tiles(y)(x)
+
         if (x == room.topLeftY || y == room.topLeftX) {
-          tiles(y)(x).becomeWall()
-          // Check if x and y are bottom right perimeter of room
+          // Check if x and y are top left perimeter of room
+          tile.becomeWall()
         } else if (x == (bottomRightX - 1) && y == (bottomRightY - 1)) {
+          // Check if x and y are bottom right perimeter of room
           if (isOutOfBounds(bottomRightX, bottomRightY)) {
-            tiles(y)(x).becomeWall()
+            tile.becomeWall()
           } else {
-            tiles(y)(x).becomeFloor()
+            tile.becomeFloor()
           }
-          // Check if x is right perimeter of room
         } else if (x == (bottomRightX - 1)) {
+          // Check if x is right perimeter of room
           if (isOutOfBounds(bottomRightX, 0)) {
-            tiles(y)(x).becomeWall()
+            tile.becomeWall()
           } else {
-            tiles(y)(x).becomeFloor()
+            tile.becomeFloor()
           }
-          // Check if y is bottom perimeter of room
         } else if (y == (bottomRightY - 1)) {
+          // Check if y is bottom perimeter of room
           if (isOutOfBounds(0, bottomRightY)) {
-            tiles(y)(x).becomeWall()
+            tile.becomeWall()
           } else {
-            tiles(y)(x).becomeFloor()
+            tile.becomeFloor()
           }
         } else {
-          tiles(y)(x).becomeFloor()
+          // Otherwise just make it a floor tile
+          tile.becomeFloor()
         }
-        roomTiles.append(tiles(y)(x))
+
+        roomTiles.append(tile)
       }
     }
     room.setTiles(roomTiles.toArray)
@@ -130,11 +167,19 @@ class InteriorGenerator(width: Int, height: Int, numberOfSplits: Int) {
 
     if (xDelta == 0) {
       for (y <- r1.centerY to r2.centerY) {
-        tiles(r1.centerX)(y).becomeFloor()
+        val tile: Tile = tiles(r1.centerX)(y)
+
+        if (tile.isWall()) {
+          tile.becomeDoor()
+        }
       }
     } else if (yDelta == 0) {
       for (x <- r1.centerX to r2.centerX) {
-        tiles(x)(r1.centerY).becomeFloor()
+        val tile: Tile = tiles(x)(r1.centerY)
+
+        if (tile.isWall()) {
+          tile.becomeDoor()
+        }
       }
     }
 
@@ -142,12 +187,32 @@ class InteriorGenerator(width: Int, height: Int, numberOfSplits: Int) {
     r2.setConnected()
   }
 
+  private def setNeighbors(): Unit = {
+    // Set each tiles neighboring points
+    for (row: Array[Tile] <- tiles) {
+      for (tile: Tile <- row) {
+        val neighbors: ArrayBuffer[Tile] = ArrayBuffer()
+
+        for (dx <- -1 to 1) {
+          for (dy <- -1 to 1) {
+            val testX: Int = tile.sx + dx
+            val testY: Int = tile.sy + dy
+
+            if (!(testX == tile.sx && testY == tile.sy) && !isOutOfBounds(testX, testY)) {
+              neighbors.append(tiles(testY)(testX))
+            }
+          }
+        }
+        tile.setNeighbors(neighbors.toArray)
+      }
+    }
+  }
+
   private def isOutOfBounds(x: Int, y: Int): Boolean = {
     x < 0 || y < 0 || x >= rows || y >= columns
   }
 
   private def debugPrint(): Unit = {
-    println(tiles.length, tiles(0).length)
     for (row: Array[Tile] <- tiles) {
       println()
       for (tile: Tile <- row) {

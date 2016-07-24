@@ -5,25 +5,22 @@ import java.util._
 import galenscovell.hinterstar.processing.Event
 import galenscovell.hinterstar.util._
 
-import scala.collection.mutable.ArrayBuffer
-
 
 /**
-  * A System contains various planets and other events.
+  * A System contains is a container for an event.
   * Systems have:
-  *     an associated SystemMarker (aka a node on the map grid)
-  *     randomized Events
-  *     randomized background
+  *     an associated SystemMarker (aka a node on the sector grid)
+  *     random Event
+  *     random background
   */
 class System(gridX: Int, gridY: Int, gridSize: Int) {
   val x: Int = gridX
   val y: Int = gridY
   val size: Int = gridSize
 
-  private val events: ArrayBuffer[Event] = new ArrayBuffer[Event]()
+  private var event: Event = new Event()
   private var details: Array[String] = Array[String]("Location Title", "Location Detail")
   private var systemMarker: SystemMarker = _
-  private var currentEvent: Int = 0
 
 
   /**
@@ -41,28 +38,10 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
   }
 
   /**
-    * Return array of Events for this System.
+    * Return the Event for this System.
     */
-  def getEvents: ArrayBuffer[Event] = {
-    events
-  }
-
-  /**
-    * Return the current Event for this System.
-    */
-  def getCurrentEvent: Event = {
-    events(currentEvent)
-  }
-
-  /**
-    * Return the distance to the next Event in this System.
-    */
-  def getDistanceToNextEvent: Float = {
-    if (currentEvent == 0) {
-      events(currentEvent).getDistance
-    } else {
-      events(currentEvent + 1).getDistance
-    }
+  def getEvent: Event = {
+    event
   }
 
 
@@ -87,10 +66,9 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
     */
   def setAsTutorial(): Unit = {
     this.details = Array("Sol System", "Humanities Last Stand")
-    this.events.clear()
-    val startingEvent: Event = new Event(0)
+    val startingEvent: Event = new Event()
     startingEvent.setStartEvent()
-    this.events.append(startingEvent)
+    event = startingEvent
   }
 
 
@@ -102,34 +80,6 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
   def enter(): Unit = {
     val random = new Random()
     createBackground(random)
-    createEvents(random)
-  }
-
-  /**
-    * Increment the current Event for this System.
-    */
-  def nextEvent(): Unit = {
-    currentEvent += 1
-  }
-
-  /**
-    * Create random Events for this System.
-    */
-  private def createEvents(random: Random): Unit =  {
-    val distances: ArrayBuffer[Float] = new ArrayBuffer[Float]()
-
-    while (distances.sum < Constants.EXACT_X) {
-      val newDistance: Float = random.nextInt(100) + 100 + 3f
-      if (distances.sum + newDistance > Constants.EXACT_X) {
-        distances += (Constants.EXACT_X - distances.sum)
-      } else {
-        distances += newDistance
-      }
-    }
-
-    for (x <- distances.indices) {
-      events += new Event(distances(x))
-    }
   }
 
   /**

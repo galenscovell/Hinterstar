@@ -7,10 +7,6 @@ import galenscovell.hinterstar.util._
 
 class DetailTable(stage: GameStage) extends Table {
   private val gameStage: GameStage = stage
-  private var day: Int = 1
-  private var month: Int = 1
-  private var year: Int = 2500
-  private var dateLabel: Label = _
   private var locationLabel: Label = _
   private var infoTable: Table = _
 
@@ -23,12 +19,9 @@ class DetailTable(stage: GameStage) extends Table {
 
     val labelTable: Table = new Table
     labelTable.setBackground(Resources.npTest1)
-    this.dateLabel = new Label(dateAsString, Resources.labelMediumStyle)
-    dateLabel.setAlignment(Align.center, Align.left)
     this.locationLabel = new Label("Sol System", Resources.labelMediumStyle)
     locationLabel.setAlignment(Align.center, Align.right)
 
-    labelTable.add(dateLabel).width(Constants.EXACT_X / 2.2f).left
     labelTable.add(locationLabel).width(Constants.EXACT_X / 2.2f).right
 
     this.infoTable = new Table
@@ -49,26 +42,7 @@ class DetailTable(stage: GameStage) extends Table {
     infoTable.add(infoPanel).expand.fill
   }
 
-  def updateDate(): Unit = {
-    if (day < 12) {
-      day += 1
-    } else {
-      day = 1
-      if (month < 12) {
-        month += 1
-      } else {
-        month = 1
-        year += 1
-      }
-    }
-    dateLabel.setText(dateAsString)
-  }
-
   def updateLocation(loc: String): Unit = {
     locationLabel.setText(loc)
-  }
-
-  private def dateAsString: String = {
-    String.valueOf(day) + "." + String.valueOf(month) + "." + String.valueOf(year)
   }
 }

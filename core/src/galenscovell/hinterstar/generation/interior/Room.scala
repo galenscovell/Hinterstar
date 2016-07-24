@@ -45,7 +45,7 @@ class Room(x: Int, y: Int, w: Int, h: Int, p: Room) {
 
 
   def split(random: Random): Boolean = {
-    val minSize: Int = 5
+    val minSize: Int = 4
 
     // Already split
     if (leftChild != null || rightChild != null) {

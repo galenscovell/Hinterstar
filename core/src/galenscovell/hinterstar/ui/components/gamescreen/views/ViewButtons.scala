@@ -10,9 +10,7 @@ import galenscovell.hinterstar.util._
 
 class ViewButtons(stage: GameStage) extends Table {
   private val gameStage: GameStage = stage
-  private var mapButton: TextButton = _
-  private var teamButton: TextButton = _
-  private var shipButton: TextButton = _
+  private var mapButton, teamButton, shipButton: TextButton = _
 
   construct()
 

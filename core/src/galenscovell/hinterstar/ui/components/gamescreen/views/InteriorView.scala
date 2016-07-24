@@ -7,7 +7,7 @@ import galenscovell.hinterstar.util._
 
 
 class InteriorView(stage: GameStage) extends Table {
-  val gen: InteriorGenerator = new InteriorGenerator(30, 16, 16)
+  val gen: InteriorGenerator = new InteriorGenerator(22, 12, 12)
   private val gameStage: GameStage = stage
 
   construct()

@@ -33,7 +33,7 @@ class EventParser {
     */
   def parse(targetEventType: String): Event = {
     val randomChoice: Int = random.nextInt(6)
-    val parsedEvent: Event = new Event(0)
+    val parsedEvent: Event = new Event()
 
     val eventSource: String = "data/events/" + targetEventType + "_events.json"
     val json: JsonValue = new JsonReader().parse(Gdx.files.internal(eventSource))

@@ -20,7 +20,7 @@ import galenscovell.hinterstar.graphics.CurrentSystemAnimation
 object Resources {
   val assetManager: AssetManager = new AssetManager
 
-  var uiAtlas, shipAtlas: TextureAtlas = _
+  var uiAtlas, shipAtlas, crewAtlas, tileAtlas: TextureAtlas = _
 
   var textFieldStyle: TextFieldStyle = _
 
@@ -45,6 +45,8 @@ object Resources {
   def load(): Unit = {
     assetManager.load("atlas/uiAtlas.pack", classOf[TextureAtlas])
     assetManager.load("atlas/shipAtlas.pack", classOf[TextureAtlas])
+    assetManager.load("atlas/crewAtlas.pack", classOf[TextureAtlas])
+    assetManager.load("atlas/tileAtlas.pack", classOf[TextureAtlas])
     val resolver: FileHandleResolver = new InternalFileHandleResolver
     assetManager.setLoader(classOf[FreeTypeFontGenerator], new FreeTypeFontGeneratorLoader(resolver))
     assetManager.setLoader(classOf[BitmapFont], ".ttf", new FreetypeFontLoader(resolver))
@@ -62,6 +64,8 @@ object Resources {
   def done(): Unit = {
     uiAtlas = assetManager.get("atlas/uiAtlas.pack", classOf[TextureAtlas])
     shipAtlas = assetManager.get("atlas/shipAtlas.pack", classOf[TextureAtlas])
+    crewAtlas = assetManager.get("atlas/crewAtlas.pack", classOf[TextureAtlas])
+    tileAtlas = assetManager.get("atlas/tileAtlas.pack", classOf[TextureAtlas])
     loadNinepatches()
     loadLabelStyles()
     loadButtonStyles()
@@ -77,6 +81,8 @@ object Resources {
     assetManager.dispose()
     uiAtlas.dispose()
     shipAtlas.dispose()
+    crewAtlas.dispose()
+    tileAtlas.dispose()
   }
 
 

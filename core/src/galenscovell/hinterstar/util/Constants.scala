@@ -24,7 +24,7 @@ object Constants {
   val EXACT_Y: Int = 480
 
   // Ship interior dimensions
-  val TILE_SIZE: Int = 24
+  val TILE_SIZE: Int = 32
 
   // Custom screen dimension units
   val SCREEN_X: Int = 200

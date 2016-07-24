@@ -2,7 +2,7 @@ package galenscovell.hinterstar.util
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
-import galenscovell.hinterstar.generation.{sector, _}
+import galenscovell.hinterstar.generation.sector
 import galenscovell.hinterstar.processing.Event
 import galenscovell.hinterstar.ui.components.gamescreen.GameStage
 import galenscovell.hinterstar.ui.screens.GameScreen
@@ -93,12 +93,12 @@ object SystemRepo {
 
 // Called from GameStage //
   /**
-    * Increments the current System's current Event.
-    * WHY IT'S HERE: GameStage houses 'Next Event' button, but has no access to System data.
+    * Gets the Event for the current System.
+    * WHY IT'S HERE: GameStage must display the Event for each System, but has no access to System data.
     * WORKAROUND IDEAS:
     */
   def parseNextEvent: Event = {
-    currentSystem.getCurrentEvent
+    currentSystem.getEvent
   }
 
 
