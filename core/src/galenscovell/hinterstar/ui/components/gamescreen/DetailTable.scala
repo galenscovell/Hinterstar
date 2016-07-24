@@ -19,10 +19,10 @@ class DetailTable(stage: GameStage) extends Table {
 
     val labelTable: Table = new Table
     labelTable.setBackground(Resources.npTest1)
-    this.locationLabel = new Label("Sol System", Resources.labelMediumStyle)
+    this.locationLabel = new Label("Tutorial System", Resources.labelMediumStyle)
     locationLabel.setAlignment(Align.center, Align.right)
 
-    labelTable.add(locationLabel).width(Constants.EXACT_X / 2.2f).right
+    labelTable.add(locationLabel).expand.fill.right.padRight(10)
 
     this.infoTable = new Table
     infoTable.setBackground(Resources.npTest1)

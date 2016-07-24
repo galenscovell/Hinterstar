@@ -15,6 +15,7 @@ class SectorGenerator(maxSystems: Int, padSize: Int) {
   build()
   placeSystems()
   SystemRepo.populateSystems(systems)
+  // debugPrint()
 
 
   /**
@@ -78,6 +79,18 @@ class SectorGenerator(maxSystems: Int, padSize: Int) {
     */
   private def getRandom(low: Int, high: Int): Int = {
     (Math.random * (high - low)).toInt + low
+  }
+
+
+  def debugPrint(): Unit = {
+    println()
+    for (row: Array[SystemMarker] <- systemMarkers) {
+      for (sm: SystemMarker <- row) {
+        print(sm.debugDraw())
+      }
+      println()
+    }
+    println()
   }
 }
 

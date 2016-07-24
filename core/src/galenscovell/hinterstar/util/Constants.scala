@@ -31,9 +31,13 @@ object Constants {
   val SCREEN_Y: Int = 120
 
   // Map dimensions (1 Tile = 1 AU)
-  val MAP_WIDTH: Int = 50
-  val MAP_HEIGHT: Int = 26
+  val MAP_WIDTH: Int = 44
+  val MAP_HEIGHT: Int = 23
   val SYSTEMMARKER_SIZE: Int = 16
+  val SYSTEM_MARKER_X: Int = SYSTEMMARKER_SIZE
+  val SYSTEM_MARKER_Y: Int = -SYSTEMMARKER_SIZE * 7
+  val SYSTEM_MARKER_CENTER_X: Int = (SYSTEMMARKER_SIZE / 2) + SYSTEMMARKER_SIZE * 3
+  val SYSTEM_MARKER_CENTER_Y: Int = -SYSTEMMARKER_SIZE * 4
 
   // Distance Units
   // ~8min to travel one AU at speed of light

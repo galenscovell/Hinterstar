@@ -146,8 +146,8 @@ class Tile(x: Int, y: Int) extends Actor {
 
     batch.draw(
       sprite,
-      sx * Constants.TILE_SIZE + (1.5f * Constants.TILE_SIZE),
-      Gdx.graphics.getHeight - (sy * Constants.TILE_SIZE) - (3.5f * Constants.TILE_SIZE),
+      sx * Constants.TILE_SIZE + (2f * Constants.TILE_SIZE),
+      Gdx.graphics.getHeight - (sy * Constants.TILE_SIZE) - (4.5f * Constants.TILE_SIZE),
       Constants.TILE_SIZE, Constants.TILE_SIZE
     )
 

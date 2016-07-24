@@ -2,7 +2,7 @@ package galenscovell.hinterstar.util
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
-import galenscovell.hinterstar.generation.sector
+import galenscovell.hinterstar.generation.sector._
 import galenscovell.hinterstar.processing.Event
 import galenscovell.hinterstar.ui.components.gamescreen.GameStage
 import galenscovell.hinterstar.ui.screens.GameScreen
@@ -16,12 +16,12 @@ import scala.collection.mutable.ArrayBuffer
   * Ideally, this will be able to be eradicated through redesign in architecture.
   */
 object SystemRepo {
-  val systemsInRange: ArrayBuffer[sector.System] = ArrayBuffer()
+  val systemsInRange: ArrayBuffer[System] = ArrayBuffer()
 
   var gameScreen: GameScreen = _
-  var systems: ArrayBuffer[sector.System] = ArrayBuffer()
-  var currentSystem: sector.System = _
-  var currentSelection: sector.System = _
+  var systems: ArrayBuffer[System] = ArrayBuffer()
+  var currentSystem: System = _
+  var currentSelection: System = _
   var shapeRenderer: ShapeRenderer = new ShapeRenderer
   var playerRange: Int = 12  // playerRange should be based on equipped Engine Parts
 
@@ -44,10 +44,12 @@ object SystemRepo {
   def setTargetsInRange(): Unit = {
     systemsInRange.clear()
 
+    // println("C", currentSystem.getSystemMarker.sx, currentSystem.getSystemMarker.sy)
     for (system <- systems) {
       val squareDist: Double = Math.pow(currentSystem.getSystemMarker.sx - system.getSystemMarker.sx, 2) + Math.pow(currentSystem.getSystemMarker.sy - system.getSystemMarker.sy, 2)
       if (squareDist <= Math.pow(playerRange, 2)) {
         systemsInRange += system
+        // println("U", system.getSystemMarker.sx, system.getSystemMarker.sy)
       }
     }
   }
@@ -59,12 +61,12 @@ object SystemRepo {
     */
   def drawShapes(): Unit = {
     val radius: Float = playerRange * Constants.SYSTEMMARKER_SIZE
-    val centerX: Float = currentSystem.getSystemMarker.sx * Constants.SYSTEMMARKER_SIZE + (Constants.SYSTEMMARKER_SIZE / 2)
-    val centerY: Float = Gdx.graphics.getHeight - (currentSystem.getSystemMarker.sy * Constants.SYSTEMMARKER_SIZE) - (2 * Constants.SYSTEMMARKER_SIZE) - (Constants.SYSTEMMARKER_SIZE / 2)
+    val centerX: Float = currentSystem.getSystemMarker.sx * Constants.SYSTEMMARKER_SIZE + Constants.SYSTEM_MARKER_CENTER_X
+    val centerY: Float = Gdx.graphics.getHeight - (currentSystem.getSystemMarker.sy * Constants.SYSTEMMARKER_SIZE) + Constants.SYSTEM_MARKER_CENTER_Y
 
     shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
     shapeRenderer.setColor(0.95f, 0.61f, 0.07f, 0.6f)
-//    shapeRenderer.circle(centerX, centerY, radius)
+    // shapeRenderer.circle(centerX, centerY, radius)
     shapeRenderer.circle(centerX, centerY, 20)
 
     if (systemsInRange != null && systemsInRange.nonEmpty) {
@@ -72,17 +74,17 @@ object SystemRepo {
 
       for (system <- systemsInRange) {
         shapeRenderer.line(
-          (currentSystem.getSystemMarker.sx * Constants.SYSTEMMARKER_SIZE) + (Constants.SYSTEMMARKER_SIZE / 2),
-          Gdx.graphics.getHeight - (currentSystem.getSystemMarker.sy * Constants.SYSTEMMARKER_SIZE) - (2 * Constants.SYSTEMMARKER_SIZE) - (Constants.SYSTEMMARKER_SIZE / 2),
-          (system.getSystemMarker.sx * Constants.SYSTEMMARKER_SIZE) + (Constants.SYSTEMMARKER_SIZE / 2),
-          Gdx.graphics.getHeight - (system.getSystemMarker.sy * Constants.SYSTEMMARKER_SIZE) - (2 * Constants.SYSTEMMARKER_SIZE) - (Constants.SYSTEMMARKER_SIZE / 2)
+          centerX,
+          centerY,
+          system.getSystemMarker.sx * Constants.SYSTEMMARKER_SIZE + Constants.SYSTEM_MARKER_CENTER_X,
+          Gdx.graphics.getHeight - (system.getSystemMarker.sy * Constants.SYSTEMMARKER_SIZE) + Constants.SYSTEM_MARKER_CENTER_Y
         )
       }
     }
     if (currentSelection != null) {
       shapeRenderer.setColor(0.18f, 0.8f, 0.44f, 0.6f)
-      val selectionX: Float = currentSelection.getSystemMarker.sx * Constants.SYSTEMMARKER_SIZE + (Constants.SYSTEMMARKER_SIZE / 2)
-      val selectionY: Float = Gdx.graphics.getHeight - (currentSelection.getSystemMarker.sy * Constants.SYSTEMMARKER_SIZE) - (2 * Constants.SYSTEMMARKER_SIZE) - (Constants.SYSTEMMARKER_SIZE / 2)
+      val selectionX: Float = currentSelection.getSystemMarker.sx * Constants.SYSTEMMARKER_SIZE + Constants.SYSTEM_MARKER_CENTER_X
+      val selectionY: Float = Gdx.graphics.getHeight - (currentSelection.getSystemMarker.sy * Constants.SYSTEMMARKER_SIZE) + Constants.SYSTEM_MARKER_CENTER_Y
       shapeRenderer.circle(selectionX, selectionY, 20)
     }
 
@@ -103,10 +105,10 @@ object SystemRepo {
 
 
 
-// Called from MapPanel //
+// Called from SectorView //
   /**
     * If currently selected System is within range of Player, travel to it (set is as Current and enter()).
-    * WHY IT'S HERE: Travel is called from MapPanel, but it has no access to System data.
+    * WHY IT'S HERE: Travel is called from SectorView, but it has no access to System data.
     * WORKAROUND IDEAS:
     */
   def travelToSelection: Boolean = {
@@ -132,7 +134,7 @@ object SystemRepo {
     * WHY IT'S HERE: Each SystemMarker has no access to its containing System, GameStage has no access to System data.
     * WORKAROUND IDEAS:
     */
-  def setSelection(selection: sector.SystemMarker): Unit = {
+  def setSelection(selection: SystemMarker): Unit = {
     var distance: Double = 0.0
 
     if (selection != null) {
@@ -153,7 +155,7 @@ object SystemRepo {
 
 
 
-// Called from MapGenerator //
+// Called from SectorGenerator //
   /**
     * Establishes System data for SystemRepo.
     * Sets the furthest to the left System as the Player's currentSystem.
@@ -161,7 +163,7 @@ object SystemRepo {
     * WHY IT'S HERE: SystemRepo needs System data for everything else.
     * WORKAROUND IDEAS:
     */
-  def populateSystems(systemsToSet: ArrayBuffer[sector.System]): Unit = {
+  def populateSystems(systemsToSet: ArrayBuffer[System]): Unit = {
     systems = systemsToSet
     for (system <- systems) {
       if (currentSystem == null || system.x < currentSystem.x) {

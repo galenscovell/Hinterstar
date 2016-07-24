@@ -79,8 +79,8 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     */
   def becomeCurrent(): Unit = {
     Resources.currentMarker.setTarget(
-      sx * Constants.SYSTEMMARKER_SIZE - Constants.SYSTEMMARKER_SIZE,
-      Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) - (6 * Constants.SYSTEMMARKER_SIZE)
+      sx * Constants.SYSTEMMARKER_SIZE + Constants.SYSTEM_MARKER_X - Constants.SYSTEMMARKER_SIZE,
+      Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) + Constants.SYSTEM_MARKER_Y - Constants.SYSTEMMARKER_SIZE
     )
     markerType = Constants.SYSTEMMARKER_CURRENT
   }
@@ -109,8 +109,8 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     if (!isEmpty) {
       glow(batch)
       batch.draw(
-        sprite, sx * Constants.SYSTEMMARKER_SIZE,
-        Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) - (5 * Constants.SYSTEMMARKER_SIZE),
+        sprite, sx * Constants.SYSTEMMARKER_SIZE + Constants.SYSTEM_MARKER_X,
+        Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) + Constants.SYSTEM_MARKER_Y,
         Constants.SYSTEMMARKER_SIZE,
         Constants.SYSTEMMARKER_SIZE
       )
@@ -145,11 +145,21 @@ class SystemMarker(x: Int, y: Int) extends Actor {
 
     batch.draw(
       Resources.mapGlow,
-      sx * Constants.SYSTEMMARKER_SIZE - Constants.SYSTEMMARKER_SIZE,
-      Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) - (6 * Constants.SYSTEMMARKER_SIZE),
+      sx * Constants.SYSTEMMARKER_SIZE + Constants.SYSTEM_MARKER_X - Constants.SYSTEMMARKER_SIZE,
+      Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) + Constants.SYSTEM_MARKER_Y - Constants.SYSTEMMARKER_SIZE,
       Constants.SYSTEMMARKER_SIZE * 3,
       Constants.SYSTEMMARKER_SIZE * 3
     )
     batch.setColor(1, 1, 1, 1)
+  }
+
+  def debugDraw(): String = {
+    markerType match {
+      case Constants.SYSTEMMARKER_EMPTY => "~"
+      case Constants.SYSTEMMARKER_UNEXPLORED => "U"
+      case Constants.SYSTEMMARKER_EXPLORED => "E"
+      case Constants.SYSTEMMARKER_CURRENT => "C"
+      case _ => "!"
+    }
   }
 }

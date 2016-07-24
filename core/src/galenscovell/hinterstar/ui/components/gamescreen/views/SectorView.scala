@@ -26,25 +26,26 @@ class SectorView(stage: GameStage) extends Table {
     mapTable.setPosition(0, 0)
     infoTable.setPosition(0, 0)
     this.add(mapGroup)
-      .width(Constants.EXACT_X)
-      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 4))
+      .width(Constants.EXACT_X - (Constants.SYSTEMMARKER_SIZE * 4))
+      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 5))
       .padTop(Constants.SYSTEMMARKER_SIZE * 2)
       .padBottom(Constants.SYSTEMMARKER_SIZE * 2)
   }
 
   private def createMapTable: Table = {
     val mapTable: Table = new Table
-    mapTable.setBackground(Resources.npTest4)
     generateMap(mapTable)
     mapTable.setFillParent(true)
+    mapTable.setBackground(Resources.npTest4)
     mapTable
   }
 
   private def generateMap(container: Table): Unit =  {
     // TODO: Each new map has randomized SystemMarker layout (depending on difficulty)
-    val sectorGenerator: SectorGenerator = new SectorGenerator(16, 4)
+    val sectorGenerator: SectorGenerator = new SectorGenerator(16, 3)
     val systemMarkers: Array[Array[SystemMarker]] = sectorGenerator.getSystemMarkers
 
+    // container.setDebug(true)
     for (row: Array[SystemMarker] <- systemMarkers) {
       for (systemMarker: SystemMarker <- row) {
         container.add(systemMarker)
@@ -67,7 +68,7 @@ class SectorView(stage: GameStage) extends Table {
     })
     this.distanceLabel = new Label("Distance: 0.0 AU", Resources.labelMenuStyle)
     infoTable.add(distanceLabel).expand.fill.left.padLeft(20)
-    infoTable.add(travelButton).width(150).height(50).expand.fill.right.padRight(8).padBottom(12)
+    infoTable.add(travelButton).width(150).height(50).expand.fill.right.padRight(75).padBottom(20)
     infoTable
   }
 

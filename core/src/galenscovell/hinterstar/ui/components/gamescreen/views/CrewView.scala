@@ -1,8 +1,7 @@
 package galenscovell.hinterstar.ui.components.gamescreen.views
 
-import com.badlogic.gdx.scenes.scene2d.{Group, InputEvent}
-import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, TextButton}
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.scenes.scene2d.Group
+import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.generation.interior.{InteriorGenerator, Tile}
 import galenscovell.hinterstar.ui.components.gamescreen.GameStage
@@ -11,7 +10,7 @@ import galenscovell.hinterstar.util._
 
 class CrewView(stage: GameStage) extends Table {
   private val gameStage: GameStage = stage
-  val gen: InteriorGenerator = new InteriorGenerator(22, 12, 12)
+  val gen: InteriorGenerator = new InteriorGenerator(21, 10, 12)
 
   construct()
 
@@ -36,7 +35,7 @@ class CrewView(stage: GameStage) extends Table {
     val interiorTable: Table = new Table
     generateInterior(interiorTable)
     interiorTable.setFillParent(true)
-    interiorTable.setBackground(Resources.npTest3)
+    // interiorTable.setBackground(Resources.npTest3)
     interiorTable
   }
 

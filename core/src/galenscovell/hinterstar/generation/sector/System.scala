@@ -50,7 +50,7 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
     * Set the SystemMarker for this System and initialize it is as being unexplored.
     */
   def setSystemMarker(newSystemMarker: SystemMarker): Unit = {
-    this.systemMarker = newSystemMarker
+    systemMarker = newSystemMarker
     systemMarker.becomeUnexplored()
   }
 
@@ -65,7 +65,7 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
     * Set this System as the starting System for the game (the tutorial System).
     */
   def setAsTutorial(): Unit = {
-    this.details = Array("Sol System", "Humanities Last Stand")
+    details = Array("Tutorial System", "Learn You a Thing")
     val startingEvent: Event = new Event()
     startingEvent.setStartEvent()
     event = startingEvent
@@ -90,7 +90,7 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
     */
   private def createBackground(random: Random): Unit = {
     val num: Int = random.nextInt(4)
-    var layerName: String = null
+    var layerName: String = ""
 
     num match {
       case 0 => layerName = "blue_bg"
