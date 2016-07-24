@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d._
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
+import galenscovell.hinterstar.generation.sector.MarkerType.MarkerType
 import galenscovell.hinterstar.util._
 
 
@@ -17,7 +18,7 @@ class SystemMarker(x: Int, y: Int) extends Actor {
   val sy: Int = y
 
   private var frames: Int = 60
-  private var markerType: Short = 0
+  private var markerType: MarkerType = MarkerType.EMPTY
   private var sprite: Sprite = _
   private var glowing: Boolean = true
 
@@ -41,28 +42,28 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     * Return true if this SystemMarker is currently EMPTY (no sprite).
     */
   def isEmpty: Boolean = {
-    markerType == Constants.SYSTEMMARKER_EMPTY
+    markerType == MarkerType.EMPTY
   }
 
   /**
     * Return true if this SystemMarker is the CURRENT place the Player is.
     */
   def isCurrent: Boolean = {
-    markerType == Constants.SYSTEMMARKER_CURRENT
+    markerType == MarkerType.CURRENT
   }
 
   /**
     * Return true if this SystemMarker has been EXPLORED by the Player.
     */
   def isExplored: Boolean = {
-    markerType == Constants.SYSTEMMARKER_EXPLORED
+    markerType == MarkerType.EXPLORED
   }
 
   /**
     * Return true if this SystemMarker is UNEXPLORED by the Player.
     */
   def isUnexplored: Boolean = {
-    markerType == Constants.SYSTEMMARKER_UNEXPLORED
+    markerType == MarkerType.UNEXPLORED
   }
 
 
@@ -71,7 +72,7 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     * Make this SystemMarker EMPTY (remove its sprite)
     */
   def becomeEmpty(): Unit = {
-    markerType = Constants.SYSTEMMARKER_EMPTY
+    markerType = MarkerType.EMPTY
   }
 
   /**
@@ -82,14 +83,14 @@ class SystemMarker(x: Int, y: Int) extends Actor {
       sx * Constants.SYSTEMMARKER_SIZE + Constants.SYSTEM_MARKER_X - Constants.SYSTEMMARKER_SIZE,
       Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) + Constants.SYSTEM_MARKER_Y - Constants.SYSTEMMARKER_SIZE
     )
-    markerType = Constants.SYSTEMMARKER_CURRENT
+    markerType = MarkerType.CURRENT
   }
 
   /**
     * Mark this SystemMarker as EXPLORED by the Player.
     */
   def becomeExplored(): Unit = {
-    markerType = Constants.SYSTEMMARKER_EXPLORED
+    markerType = MarkerType.EXPLORED
   }
 
   /**
@@ -97,7 +98,7 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     */
   def becomeUnexplored(): Unit = {
     sprite = Resources.spTest0
-    markerType = Constants.SYSTEMMARKER_UNEXPLORED
+    markerType = MarkerType.UNEXPLORED
   }
 
 
@@ -155,10 +156,10 @@ class SystemMarker(x: Int, y: Int) extends Actor {
 
   def debugDraw(): String = {
     markerType match {
-      case Constants.SYSTEMMARKER_EMPTY => "~"
-      case Constants.SYSTEMMARKER_UNEXPLORED => "U"
-      case Constants.SYSTEMMARKER_EXPLORED => "E"
-      case Constants.SYSTEMMARKER_CURRENT => "C"
+      case MarkerType.EMPTY => "~"
+      case MarkerType.UNEXPLORED => "U"
+      case MarkerType.EXPLORED => "E"
+      case MarkerType.CURRENT => "C"
       case _ => "!"
     }
   }

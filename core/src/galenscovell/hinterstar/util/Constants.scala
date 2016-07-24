@@ -8,12 +8,6 @@ import com.badlogic.gdx.graphics.Color
   */
 object Constants {
 
-  // SystemMarker Types
-  val SYSTEMMARKER_EMPTY: Short = 0
-  val SYSTEMMARKER_CURRENT: Short = 1
-  val SYSTEMMARKER_EXPLORED: Short = 2
-  val SYSTEMMARKER_UNEXPLORED: Short = 3
-
   // Lighting masks
   val BIT_LIGHT: Short = 1
   val BIT_WALL: Short = 2
