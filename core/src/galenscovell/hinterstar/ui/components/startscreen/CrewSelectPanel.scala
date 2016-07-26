@@ -14,6 +14,8 @@ import scala.util.Random
 
 class CrewSelectPanel extends Table {
   private val teamMates: Array[String] = randomizeStartingTeamNames
+  private val proficiencies: List[String] =
+    List("Piloting", "Engines", "Shields", "Weapons", "Combat", "Repair")
 
   private var currentTeammate: String = _
   private var currentTeamButton: TextButton = _
@@ -58,7 +60,7 @@ class CrewSelectPanel extends Table {
   private def updateRightTable(): Unit = {
     val optionTable: Table = new Table
     val nameTable: Table = new Table
-    val nameLabel: Label = new Label("Teammate", Resources.labelMenuStyle)
+    val nameLabel: Label = new Label("Crewmate", Resources.labelMenuStyle)
     nameLabel.setAlignment(Align.center)
 
     nameTable.add(nameLabel).expand.fill.height(40).padBottom(16)
@@ -68,7 +70,7 @@ class CrewSelectPanel extends Table {
     optionTable.add(nameTable).expand.fill.height(50).pad(4)
     optionTable.row
 
-    val modifyTeammateButton: TextButton = new TextButton("Update Teammate", Resources.greenButtonStyle)
+    val modifyTeammateButton: TextButton = new TextButton("Update Crewmate", Resources.greenButtonStyle)
     modifyTeammateButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         leftTable.addAction(Actions.sequence(
@@ -89,7 +91,7 @@ class CrewSelectPanel extends Table {
       val memberTable: Table = new Table
       val memberButton: TextButton = new TextButton("", Resources.toggleButtonStyle)
       memberButton.setText(teammate)
-      val iconTable: Table = new Table  // Icon for profession
+      val iconTable: Table = new Table  // Crewmate icon
       iconTable.setBackground(Resources.greenButtonNp0)
 
       if (currentTeamButton == null) {

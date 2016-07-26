@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.util._
 
 
-class DetailTable(stage: GameStage) extends Table {
+class ShipStatsPanel(stage: GameStage) extends Table {
   private val gameStage: GameStage = stage
   private var locationLabel: Label = _
   private var infoTable: Table = _

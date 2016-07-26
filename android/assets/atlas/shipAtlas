@@ -1,6 +1,6 @@
-name=tileAtlas
+name=shipAtlas
 filename=
-input=..\working\tiles
+input=..\atlas-ship-working
 output=
 
 alias=true

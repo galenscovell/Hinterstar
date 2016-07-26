@@ -18,13 +18,13 @@ object Constants {
   val EXACT_Y: Int = 480
 
   // Ship interior dimensions
-  val TILE_SIZE: Int = 32
+  val TILE_SIZE: Int = 16
 
   // Custom screen dimension units
   val SCREEN_X: Int = 200
   val SCREEN_Y: Int = 120
 
-  // Map dimensions (1 Tile = 1 AU)
+  // Map dimensions
   val MAP_WIDTH: Int = 44
   val MAP_HEIGHT: Int = 23
   val SYSTEMMARKER_SIZE: Int = 16
@@ -32,15 +32,6 @@ object Constants {
   val SYSTEM_MARKER_Y: Int = -SYSTEMMARKER_SIZE * 7
   val SYSTEM_MARKER_CENTER_X: Int = (SYSTEMMARKER_SIZE / 2) + SYSTEMMARKER_SIZE * 3
   val SYSTEM_MARKER_CENTER_Y: Int = -SYSTEMMARKER_SIZE * 4
-
-  // Distance Units
-  // ~8min to travel one AU at speed of light
-  // From Sun to Uranus: 19.2 AU
-  // From Sun to Neptune: 30 AU
-  // From Sun to Pluto: 39.4 AU
-  // To nearest star (Proxima Centauri): 271,000 AU
-  val SPEED_OF_LIGHT: Double = 1.86 * Math.pow(10, 3)     // miles per second
-  val ASTRONOMICAL_UNIT: Double = 9.29 * Math.pow(10, 7)  // in miles
 
   // UI Colors
   val NORMAL_UI_COLOR: Color = new Color(0.5f, 0.5f, 0.5f, 1.0f)

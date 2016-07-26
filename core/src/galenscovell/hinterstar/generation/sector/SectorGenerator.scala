@@ -50,7 +50,9 @@ class SectorGenerator(maxSystems: Int, padSize: Int) {
         if (!doesCollide(system)) {
           val centerX: Int = (system.size / 2) + system.x
           val centerY: Int = (system.size / 2) + system.y
-          system.setSystemMarker(systemMarkers(centerY)(centerX))
+          val systemMarker: SystemMarker = systemMarkers(centerY)(centerX)
+          system.setSystemMarker(systemMarker)
+          systemMarker.setSystem(system)
           systems += system
         }
       }

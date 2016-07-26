@@ -26,7 +26,7 @@ class Player(gameStage: GameStage) extends Actor {
   private def initialize(): Unit = {
     val currentShip: String = PlayerData.prefs.getString("ship-chassis")
     sprite = Resources.shipAtlas.createSprite(currentShip)
-    this.setSize(660, 220)
+    this.setSize(300, 100)
 
     this.addListener(new ActorGestureListener() {
       override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {

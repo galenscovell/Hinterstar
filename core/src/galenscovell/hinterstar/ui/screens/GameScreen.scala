@@ -91,7 +91,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     this.bg2Blur = bg2Blur
 
     val systemDetail: Array[String] = SystemRepo.currentSystem.getDetails
-    this.locationPanel = new SystemPanel(systemDetail(0), systemDetail(1))
+    locationPanel = new SystemPanel(systemDetail(0), systemDetail(1))
     stage.asInstanceOf[GameStage].updateDetailTable(systemDetail(0))
 
     stage.getRoot.addAction(Actions.sequence(

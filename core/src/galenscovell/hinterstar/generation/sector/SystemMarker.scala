@@ -21,11 +21,12 @@ class SystemMarker(x: Int, y: Int) extends Actor {
   private var markerType: MarkerType = MarkerType.EMPTY
   private var sprite: Sprite = _
   private var glowing: Boolean = true
+  private var system: System = _
 
   this.addListener(new ActorGestureListener() {
     override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
       if (!isEmpty) {
-        SystemRepo.setSelection(getThisSystemMarker)
+        SystemRepo.setSelection(getSystem)
       }
     }
   })
@@ -36,6 +37,20 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     */
   def getThisSystemMarker: SystemMarker = {
     this
+  }
+
+  /**
+    * Return this SystemMarker's associated System.
+    */
+  def getSystem: System = {
+    system
+  }
+
+  /**
+    * Associate a System with this SystemMarker.
+    */
+  def setSystem(s: System): Unit = {
+    system = s
   }
 
   /**

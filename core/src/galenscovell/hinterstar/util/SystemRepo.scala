@@ -17,20 +17,19 @@ import scala.collection.mutable.ArrayBuffer
   */
 object SystemRepo {
   val systemsInRange: ArrayBuffer[System] = ArrayBuffer()
+  val shapeRenderer: ShapeRenderer = new ShapeRenderer
+  val playerRange: Int = 12
 
   var gameScreen: GameScreen = _
-  var systems: ArrayBuffer[System] = ArrayBuffer()
-  var currentSystem: System = _
-  var currentSelection: System = _
-  var shapeRenderer: ShapeRenderer = new ShapeRenderer
-  var playerRange: Int = 12  // playerRange should be based on equipped Engine Parts
+  var systems: ArrayBuffer[System] = _
+  var currentSystem, currentSelection: System = _
 
 
 // Called from GameScreen //
   /**
     * Sets the gameScreen for SystemRepo.
     * WHY IT'S HERE: Repository has to have gameScreen set but object has no constructor.
-    * WORKAROUND IDEAS:
+    * WORKAROUND IDEAS: Potential for moving all of the GameScreen operations into GameScreen itself?
     */
   def setup(game: GameScreen): Unit = {
     gameScreen = game
@@ -38,7 +37,7 @@ object SystemRepo {
 
   /**
     * Finds all of the Systems in range of the Player's current System.
-    * WHY IT'S HERE: Navmap has to display Systems in range of player but it has no access to System data.
+    * WHY IT'S HERE: SectorView has to display Systems in range of player but it has no access to System data.
     * WORKAROUND IDEAS:
     */
   def setTargetsInRange(): Unit = {
@@ -56,7 +55,7 @@ object SystemRepo {
 
   /**
     * Use ShapeRenderer to render circles and pathing on navmap.
-    * WHY IT'S HERE: Navmap has to display these shapes but has no access to System data.
+    * WHY IT'S HERE: SectorView has to display these shapes but has no access to System data.
     * WORKAROUND IDEAS:
     */
   def drawShapes(): Unit = {
@@ -97,7 +96,7 @@ object SystemRepo {
   /**
     * Gets the Event for the current System.
     * WHY IT'S HERE: GameStage must display the Event for each System, but has no access to System data.
-    * WORKAROUND IDEAS:
+    * WORKAROUND IDEAS: GameStage has access to GameScreen and vice versa
     */
   def parseNextEvent: Event = {
     currentSystem.getEvent
@@ -107,9 +106,9 @@ object SystemRepo {
 
 // Called from SectorView //
   /**
-    * If currently selected System is within range of Player, travel to it (set is as Current and enter()).
+    * If currently selected System is within range of Player, travel to it (set is as CurrentSystem and enter()).
     * WHY IT'S HERE: Travel is called from SectorView, but it has no access to System data.
-    * WORKAROUND IDEAS:
+    * WORKAROUND IDEAS: SectorView has access to GameStage, which has access to GameScreen
     */
   def travelToSelection: Boolean = {
     if (currentSelection != null && systemsInRange.contains(currentSelection)) {
@@ -128,29 +127,23 @@ object SystemRepo {
 
 // Called from SystemMarker //
   /**
-    * When a non-EMPTY SystemMarker is clicked on, locates its associated System.
-    * If associated System is not the currentSystem, sets this System as the currentSelection,
+    * When a non-EMPTY SystemMarker is selected, set its System as the currentSelection,
     *     then calculates 4 * euclidean distance to it and updateDistanceLabel().
-    * WHY IT'S HERE: Each SystemMarker has no access to its containing System, GameStage has no access to System data.
-    * WORKAROUND IDEAS:
+    * WHY IT'S HERE: GameStage has no access to System data.
+    * WORKAROUND IDEAS: GameStage has access to GameScreen
     */
-  def setSelection(selection: SystemMarker): Unit = {
+  def setSelection(selection: System): Unit = {
     var distance: Double = 0.0
 
     if (selection != null) {
-      for (system <- systems) {
-        if ((system.getSystemMarker == selection) && !(system == currentSystem)) {
-          currentSelection = system
-          distance = 4 * Math.sqrt(
-            Math.pow(currentSystem.getSystemMarker.sx - selection.sx, 2) +
-              Math.pow(currentSystem.getSystemMarker.sy - selection.sy, 2)
-          )
-        }
-      }
+      currentSelection = selection
+      distance = 4 * Math.sqrt(
+        Math.pow(currentSystem.getSystemMarker.sx - selection.getSystemMarker.sx, 2) +
+          Math.pow(currentSystem.getSystemMarker.sy - selection.getSystemMarker.sy, 2)
+      )
     }
 
-    val gameStage: GameStage = gameScreen.getGameStage.asInstanceOf[GameStage]
-    gameStage.updateDistanceLabel(f"Distance: $distance%1.1f AU")
+    gameScreen.getGameStage.asInstanceOf[GameStage].updateDistanceLabel(f"Distance: $distance%1.1f AU")
   }
 
 
@@ -161,7 +154,7 @@ object SystemRepo {
     * Sets the furthest to the left System as the Player's currentSystem.
     * Sets this first System as the Tutorial System.
     * WHY IT'S HERE: SystemRepo needs System data for everything else.
-    * WORKAROUND IDEAS:
+    * WORKAROUND IDEAS: SectorGenerator can be established within GameScreen, created anew for each SectorView init in GameStage
     */
   def populateSystems(systemsToSet: ArrayBuffer[System]): Unit = {
     systems = systemsToSet

@@ -1,19 +1,23 @@
 package galenscovell.hinterstar.util
 
 import com.badlogic.gdx.{Gdx, Preferences}
+import galenscovell.hinterstar.things.entities.Crewmate
 import galenscovell.hinterstar.things.ships.Ship
+
+import scala.collection.mutable.ArrayBuffer
 
 
 /**
   * PlayerData persists game data across instances of game (for continuing).
-  * Ingame data usage is maintained elsewhere (ie in the player object).
+  * Ingame data usage is also maintained here.
   *
   * Windows: %UserProfile%/.prefs/My Preferences
   * Linux and OSX: ~/.prefs/My Preferences
   * Android: System SharedPreferences, survives app updates, deleted when uninstalled
   */
 object PlayerData {
-  var prefs: Preferences = _
+  private var prefs: Preferences = _
+  private val crew: ArrayBuffer[Crewmate] = ArrayBuffer()
 
 
   /**
@@ -28,9 +32,8 @@ object PlayerData {
     */
   def clear(): Unit = {
     prefs.clear()
+    crew.clear()
   }
-
-
 
   /**
     * Instantiate preferences file and add default SFX/Music settings.
@@ -42,20 +45,44 @@ object PlayerData {
     update()
   }
 
-  /**
-    * Add each teammate to preferences along with their proficiencies.
-    */
-  def establishTeam(team: Array[String]): Unit = {
-    val proficiencies: List[String] = List("Engineer", "Pilot", "Physician", "Scientist", "Soldier")
 
-    for (teammate: String <- team) {
-      for (proficiency: String <- proficiencies) {
-        prefs.putString(s"$teammate-$proficiency", "0, 0")
+
+  // CREW OPERATIONS
+  /*
+   * Load crew data from prefs, iterate over values for each name and
+   * construct current crew data with Crew objects
+   */
+  def loadCrew(): Unit = {
+
+  }
+
+  /*
+   * Update crew data in prefs pulling current crewData info.
+   * Saves name, assignment, health and proficiency ranks from each Crew in crewData.
+   */
+  def saveCrew(cData: Array[Crewmate]): Unit = {
+    for (c: Crewmate <- cData) {
+      val name: String = c.getName()
+      prefs.putString(s"$name-assignment", c.getAssignment())
+      prefs.putInteger(s"$name-health", c.getHealth())
+
+      for ((k, v) <- c.getProficiency()) {
+        prefs.putInteger(s"$name-$k", v)
       }
     }
     update()
   }
 
+  /*
+   * Get current crew data.
+   */
+  def getCrew(): ArrayBuffer[Crewmate] = {
+    crew
+  }
+
+
+
+  // SHIP OPERATIONS
   /**
     * Add ship chassis to preferences along with all parts and their activity status.
     */
@@ -63,35 +90,5 @@ object PlayerData {
     val shipName: String = selectedShip.getName
     prefs.putString("ship-chassis", shipName)
     update()
-  }
-
-  /**
-    * Add resource types to preferences along with their current amounts.
-    */
-  def establishResources(): Unit = {
-    // TODO: Not yet implemented
-  }
-
-
-
-  /**
-    *
-    */
-  def updateTeam(): Unit = {
-
-  }
-
-  /**
-    *
-    */
-  def updateShip(): Unit = {
-
-  }
-
-  /**
-    *
-    */
-  def updateResources(): Unit = {
-
   }
 }

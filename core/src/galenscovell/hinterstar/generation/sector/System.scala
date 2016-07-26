@@ -1,7 +1,5 @@
 package galenscovell.hinterstar.generation.sector
 
-import java.util._
-
 import galenscovell.hinterstar.processing.Event
 import galenscovell.hinterstar.util._
 
@@ -47,7 +45,7 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
 
 
   /**
-    * Set the SystemMarker for this System and initialize it is as being unexplored.
+    * Set the SystemMarker for this System and set it as unexplored.
     */
   def setSystemMarker(newSystemMarker: SystemMarker): Unit = {
     systemMarker = newSystemMarker
@@ -57,8 +55,8 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
   /**
     * Set the System title and subtitle detail strings.
     */
-  def setDetails(details: Array[String]): Unit = {
-    this.details = details
+  def setDetails(newDetails: Array[String]): Unit = {
+    details = newDetails
   }
 
   /**
@@ -74,12 +72,11 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
 
 
   /**
-    * Enter this System, causing System Events and background to be generated.
-    * Events and background should be consistent with the type/atmosphere of this System.
+    * Enter this System, causing System Event and background to be generated.
+    * Event and background should be consistent with the type/atmosphere of this System.
     */
   def enter(): Unit = {
-    val random = new Random()
-    createBackground(random)
+    createBackground()
   }
 
   /**
@@ -88,8 +85,8 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
     * eg many planet events = background has planets
     * eg no planet events = background has no planets
     */
-  private def createBackground(random: Random): Unit = {
-    val num: Int = random.nextInt(4)
+  private def createBackground(): Unit = {
+    val num: Int = (Math.random * 4).toInt
     var layerName: String = ""
 
     num match {
