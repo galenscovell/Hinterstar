@@ -16,8 +16,6 @@ import scala.util.Random
 
 class CrewSelectPanel extends Table {
   private val crewmates: Array[Crewmate] = randomizeStartingTeamNames
-  private val proficiencies: List[String] =
-    List("Piloting", "Engines", "Shields", "Weapons", "Combat", "Repair")
 
   private var currentCrewmate: Crewmate = _
   private var currentCrewButton: TextButton = _
@@ -25,8 +23,7 @@ class CrewSelectPanel extends Table {
   nameInput.setAlignment(Align.left)
   nameInput.setMaxLength(20)
 
-  private val leftTable: Table = new Table
-  private val rightTable: Table = new Table
+  private val leftTable, rightTable: Table = new Table
 
   construct()
 
@@ -50,12 +47,8 @@ class CrewSelectPanel extends Table {
 
   private def updateLeftTable(): Unit = {
     leftTable.clear()
-
     var teamTable: Table = constructCrewTable
-    val inputName: String = nameInput.getText
-
     teamTable = constructCrewTable
-
     leftTable.add(teamTable).expand.fill
   }
 
@@ -72,9 +65,10 @@ class CrewSelectPanel extends Table {
     optionTable.add(nameTable).expand.fill.height(50).pad(4)
     optionTable.row
 
-    val modifyTeammateButton: TextButton = new TextButton("Update Crewmate", Resources.greenButtonStyle)
-    modifyTeammateButton.addListener(new ClickListener() {
+    val modifyCrewmateButton: TextButton = new TextButton("Update Crewmate", Resources.greenButtonStyle)
+    modifyCrewmateButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        currentCrewmate.setName(nameInput.getText)
         leftTable.addAction(Actions.sequence(
           Actions.color(Constants.FLASH_UI_COLOR, 0.25f, Interpolation.sine),
           updateLeftTableAction
@@ -84,16 +78,17 @@ class CrewSelectPanel extends Table {
 
     rightTable.add(optionTable).expand.fill.height(350)
     rightTable.row
-    rightTable.add(modifyTeammateButton).expand.fill.height(50).pad(10)
+    rightTable.add(modifyCrewmateButton).expand.fill.height(50).pad(10)
   }
 
   private def constructCrewTable: Table = {
     val crewTable: Table = new Table
+
     for (crewmate: Crewmate <- crewmates) {
       val memberTable: Table = new Table
       val button: TextButton = new TextButton("", Resources.toggleButtonStyle)
       button.setText(crewmate.getName)
-      val iconTable: Table = new Table  // Crewmate icon
+      val iconTable: Table = new Table  // Crewmate icon/sprite?
       iconTable.setBackground(Resources.greenButtonNp0)
 
       if (currentCrewButton == null) {
@@ -119,10 +114,10 @@ class CrewSelectPanel extends Table {
         }
       })
 
-      memberTable.add(button).width(252).height(58).pad(4)
-      memberTable.add(iconTable).width(70).height(58).pad(4)
+      memberTable.add(button).width(252).height(70).pad(4)
+      memberTable.add(iconTable).width(70).height(70).pad(4)
 
-      crewTable.add(memberTable).expand.fill.height(64).pad(1)
+      crewTable.add(memberTable).expand.fill.height(75).pad(1)
       crewTable.row
     }
     crewTable
