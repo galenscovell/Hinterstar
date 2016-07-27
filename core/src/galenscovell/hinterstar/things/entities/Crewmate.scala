@@ -1,26 +1,50 @@
 package galenscovell.hinterstar.things.entities
 
-
-class Crewmate(n: String, p: Map[String, Int]) {
-  val name: String = n
-  val proficiency: Map[String, Int] = p
-  val assignment: String = _
-  val health: Int = 100
+import scala.collection.mutable
 
 
-  def getName(): String = {
+class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
+  private var name: String = n
+  private val proficiencies: mutable.Map[String, Int] = p
+  private var assignment: String = a
+  private var health: Int = h
+
+
+  def getName: String = {
     name
   }
 
-  def getProficiency(): Map[String, Int] = {
-    proficiency
+  def getAllProficiencies: mutable.Map[String, Int] = {
+    proficiencies
   }
 
-  def getAssignment(): String = {
+  def getAProficiency(proficiency: String): Int = {
+    proficiencies(proficiency)
+  }
+
+  def getAssignment: String = {
     assignment
   }
 
-  def getHealth(): Int = {
+  def getHealth: Int = {
     health
+  }
+
+
+
+  def setName(n: String): Unit = {
+    name = n
+  }
+
+  def updateProficiency(proficiency: String, value: Int): Unit = {
+    proficiencies.updated(proficiency, proficiencies(proficiency) + value)
+  }
+
+  def setAssignment(a: String): Unit = {
+    assignment = a
+  }
+
+  def updateHealth(value: Int): Unit = {
+    health += value
   }
 }

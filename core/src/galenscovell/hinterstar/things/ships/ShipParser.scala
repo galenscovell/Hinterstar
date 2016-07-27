@@ -4,7 +4,8 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.utils.{JsonReader, JsonValue}
 import galenscovell.hinterstar.things.parts.{Part, PartParser}
 
-import scala.collection.mutable.{ArrayBuffer, Map}
+import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 
 
 /**
@@ -49,7 +50,7 @@ class ShipParser {
   def constructShip(entry: JsonValue): Ship = {
     val name: String = entry.name
     val desc: String = entry.getString("description")
-    val startingParts: Map[String, ArrayBuffer[Part]] = Map()
+    val startingParts: mutable.Map[String, ArrayBuffer[Part]] = mutable.Map()
 
     // For each partType, assemble ArrayBuffer of Parts to be stored in a map
     val startingPartsEntry: JsonValue = entry.get("starting-parts")

@@ -4,8 +4,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import galenscovell.hinterstar.things.entities.Crewmate
 import galenscovell.hinterstar.util.{PlayerData, Resources}
 
-import scala.collection.mutable.ArrayBuffer
-
 
 class CrewPanel(stage: GameStage) extends Table {
   private val gameStage: GameStage = stage
@@ -22,7 +20,7 @@ class CrewPanel(stage: GameStage) extends Table {
   }
 
   private def update(): Unit = {
-    val crewData: ArrayBuffer[Crewmate] = PlayerData.getCrew()
+    val crewData: Array[Crewmate] = PlayerData.getCrew
 
   }
 

@@ -6,19 +6,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, TextButton, TextField}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.utils.Align
+import galenscovell.hinterstar.things.entities.Crewmate
 import galenscovell.hinterstar.util._
 
+import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 
 class CrewSelectPanel extends Table {
-  private val teamMates: Array[String] = randomizeStartingTeamNames
+  private val crewmates: Array[Crewmate] = randomizeStartingTeamNames
   private val proficiencies: List[String] =
     List("Piloting", "Engines", "Shields", "Weapons", "Combat", "Repair")
 
-  private var currentTeammate: String = _
-  private var currentTeamButton: TextButton = _
+  private var currentCrewmate: Crewmate = _
+  private var currentCrewButton: TextButton = _
   private val nameInput: TextField = new TextField("", Resources.textFieldStyle)
   nameInput.setAlignment(Align.left)
   nameInput.setMaxLength(20)
@@ -29,8 +31,8 @@ class CrewSelectPanel extends Table {
   construct()
 
 
-  def getTeammates: Array[String] = {
-    teamMates
+  def getCrewmates: Array[Crewmate] = {
+    crewmates
   }
 
   private def construct(): Unit = {
@@ -49,10 +51,10 @@ class CrewSelectPanel extends Table {
   private def updateLeftTable(): Unit = {
     leftTable.clear()
 
-    var teamTable: Table = constructTeamTable
+    var teamTable: Table = constructCrewTable
     val inputName: String = nameInput.getText
 
-    teamTable = constructTeamTable
+    teamTable = constructCrewTable
 
     leftTable.add(teamTable).expand.fill
   }
@@ -85,49 +87,49 @@ class CrewSelectPanel extends Table {
     rightTable.add(modifyTeammateButton).expand.fill.height(50).pad(10)
   }
 
-  private def constructTeamTable: Table = {
-    val teamTable: Table = new Table
-    for (teammate: String <- teamMates) {
+  private def constructCrewTable: Table = {
+    val crewTable: Table = new Table
+    for (crewmate: Crewmate <- crewmates) {
       val memberTable: Table = new Table
-      val memberButton: TextButton = new TextButton("", Resources.toggleButtonStyle)
-      memberButton.setText(teammate)
+      val button: TextButton = new TextButton("", Resources.toggleButtonStyle)
+      button.setText(crewmate.getName)
       val iconTable: Table = new Table  // Crewmate icon
       iconTable.setBackground(Resources.greenButtonNp0)
 
-      if (currentTeamButton == null) {
-        currentTeamButton = memberButton
-        currentTeamButton.setChecked(true)
-        nameInput.setText(teammate)
+      if (currentCrewButton == null) {
+        currentCrewButton = button
+        currentCrewButton.setChecked(true)
+        nameInput.setText(crewmate.getName)
       }
 
-      memberButton.addListener(new ClickListener() {
+      button.addListener(new ClickListener() {
         override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
           rightTable.addAction(Actions.sequence(
             Actions.color(Constants.FLASH_UI_COLOR, 0.25f, Interpolation.sine),
             Actions.color(Constants.NORMAL_UI_COLOR, 0.25f, Interpolation.sine)
           ))
 
-          currentTeammate = teammate
-          currentTeamButton.setChecked(false)
-          if (currentTeamButton != memberButton) {
-            currentTeamButton = memberButton
-            nameInput.setText(teammate)
+          currentCrewmate = crewmate
+          currentCrewButton.setChecked(false)
+          if (currentCrewButton != button) {
+            currentCrewButton = button
+            nameInput.setText(crewmate.getName)
           }
-          currentTeamButton.setChecked(true)
+          currentCrewButton.setChecked(true)
         }
       })
 
-      memberTable.add(memberButton).width(252).height(58).pad(4)
+      memberTable.add(button).width(252).height(58).pad(4)
       memberTable.add(iconTable).width(70).height(58).pad(4)
 
-      teamTable.add(memberTable).expand.fill.height(64).pad(1)
-      teamTable.row
+      crewTable.add(memberTable).expand.fill.height(64).pad(1)
+      crewTable.row
     }
-    teamTable
+    crewTable
   }
 
-  private def randomizeStartingTeamNames: Array[String] = {
-    val tempTeammates: ArrayBuffer[String] = ArrayBuffer()
+  private def randomizeStartingTeamNames: Array[Crewmate] = {
+    val randomNames: ArrayBuffer[String] = ArrayBuffer()
 
     val names: List[String] = List(
       "Jack", "James", "Benjamin", "Joshua", "Ryan", "Patrick", "Samuel",
@@ -141,16 +143,30 @@ class CrewSelectPanel extends Table {
     )
 
     val random: Random = new Random
-    while (tempTeammates.length < 6) {
+    while (randomNames.length < 3) {
       val randomNameIndex: Int = random.nextInt(names.length - 1)
       val randomName: String = names(randomNameIndex)
 
-      if (!tempTeammates.contains(randomName)) {
-        tempTeammates.append(randomName)
+      if (!randomNames.contains(randomName)) {
+        randomNames.append(randomName)
       }
     }
 
-    tempTeammates.toArray
+    val startingProficiencies: mutable.Map[String, Int] = mutable.Map(
+      "Piloting" -> 0,
+      "Engines" -> 0,
+      "Shields" -> 0,
+      "Weapons" -> 0,
+      "Combat" -> 0,
+      "Repair" -> 0
+    )
+    val startCrew: ArrayBuffer[Crewmate] = ArrayBuffer()
+    for (name: String <- randomNames) {
+      val newCrewmate: Crewmate = new Crewmate(name, startingProficiencies, "", 100)
+      startCrew.append(newCrewmate)
+    }
+
+    startCrew.toArray
   }
 
 

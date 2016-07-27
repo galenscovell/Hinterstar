@@ -10,7 +10,8 @@ import galenscovell.hinterstar.things.parts.Part
 import galenscovell.hinterstar.things.ships.{Ship, ShipParser}
 import galenscovell.hinterstar.util._
 
-import scala.collection.mutable.{ArrayBuffer, Map}
+import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 
 
 class ShipSelectPanel extends Table {
@@ -127,9 +128,9 @@ class ShipSelectPanel extends Table {
 
     val shipDetailBottom: Table = new Table
     val startingPartsTable: Table = new Table
-    val shipStartingParts: Map[String, ArrayBuffer[Part]] = allShips(currentShipIndex).getParts
+    val shipStartingParts: mutable.Map[String, ArrayBuffer[Part]] = allShips(currentShipIndex).getParts
     for (pt: String <- partTypes) {
-      val parts: Array[Part] = shipStartingParts.get(pt).get.toArray
+      val parts: Array[Part] = shipStartingParts(pt).toArray
       for (p: Part <- parts) {
         val partTable: Table = new Table
         partTable.setBackground(Resources.npTest4)

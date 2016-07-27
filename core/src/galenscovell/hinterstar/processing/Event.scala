@@ -1,6 +1,7 @@
 package galenscovell.hinterstar.processing
 
-import scala.collection.mutable.{ArrayBuffer, Map}
+import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 
 
 /**
@@ -12,7 +13,7 @@ import scala.collection.mutable.{ArrayBuffer, Map}
   *     multiple choices (options for Player in interaction dialogue)
   */
 class Event() {
-  val choices: ArrayBuffer[Map[String, String]] = ArrayBuffer()
+  val choices: ArrayBuffer[mutable.Map[String, String]] = ArrayBuffer()
 
   var eventType: String = ""
   var name: String = ""

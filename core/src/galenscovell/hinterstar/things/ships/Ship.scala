@@ -2,7 +2,8 @@ package galenscovell.hinterstar.things.ships
 
 import galenscovell.hinterstar.things.parts.Part
 
-import scala.collection.mutable.{ArrayBuffer, Map}
+import scala.collection.mutable
+import scala.collection.mutable.ArrayBuffer
 
 
 /**
@@ -12,10 +13,10 @@ import scala.collection.mutable.{ArrayBuffer, Map}
   *     a description
   *     a Map of part ArrayBuffers
   */
-class Ship(n: String, desc: String, sp: Map[String, ArrayBuffer[Part]]) {
+class Ship(n: String, desc: String, sp: mutable.Map[String, ArrayBuffer[Part]]) {
   private val name: String = n
   private val description: String = desc
-  private val parts: Map[String, ArrayBuffer[Part]] = sp
+  private val parts: mutable.Map[String, ArrayBuffer[Part]] = sp
 
 
   /**
@@ -35,7 +36,7 @@ class Ship(n: String, desc: String, sp: Map[String, ArrayBuffer[Part]]) {
   /**
     * Return the Ship's current Parts.
     */
-  def getParts: Map[String, ArrayBuffer[Part]] = {
+  def getParts: mutable.Map[String, ArrayBuffer[Part]] = {
     parts
   }
 
@@ -44,7 +45,7 @@ class Ship(n: String, desc: String, sp: Map[String, ArrayBuffer[Part]]) {
     */
   def getStat(stat: String): Int = {
     var value: Int = 0
-    val partArray: ArrayBuffer[Part] = parts.get(stat).get
+    val partArray: ArrayBuffer[Part] = parts(stat)
 
     for (p: Part <- partArray) {
       value += p.getStat

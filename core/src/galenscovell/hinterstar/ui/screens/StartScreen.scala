@@ -6,19 +6,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent, Stage}
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
-import galenscovell.hinterstar.things.ships.Ship
-import galenscovell.hinterstar.ui.components.startscreen.{ShipSelectPanel, CrewSelectPanel}
+import galenscovell.hinterstar.ui.components.startscreen.{CrewSelectPanel, ShipSelectPanel}
 import galenscovell.hinterstar.util._
-
-import scala.collection.mutable.Map
 
 
 class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
-  private val teamPanel: CrewSelectPanel = new CrewSelectPanel
+  private val crewPanel: CrewSelectPanel = new CrewSelectPanel
   private val shipPanel: ShipSelectPanel = new ShipSelectPanel
-  private val teamPanelButton: TextButton = new TextButton("Team", Resources.toggleButtonStyle)
+  private val crewPanelButton: TextButton = new TextButton("Crew", Resources.toggleButtonStyle)
   private val shipPanelButton: TextButton = new TextButton("Ship", Resources.toggleButtonStyle)
-  private var currentPanelButton: TextButton = teamPanelButton
+  private var currentPanelButton: TextButton = crewPanelButton
   private val contentPanel: Table = new Table
 
 
@@ -52,11 +49,11 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     val titleTable: Table = new Table
 
     val noticeTable: Table = new Table
-    teamPanelButton.addListener(new ClickListener() {
+    crewPanelButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        if (currentPanelButton != teamPanelButton) {
+        if (currentPanelButton != crewPanelButton) {
           currentPanelButton.setChecked(false)
-          currentPanelButton = teamPanelButton
+          currentPanelButton = crewPanelButton
           updateContent(false)
         }
         currentPanelButton.setChecked(true)
@@ -72,7 +69,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
         currentPanelButton.setChecked(true)
       }
     })
-    noticeTable.add(teamPanelButton).width(90).height(50).left
+    noticeTable.add(crewPanelButton).width(90).height(50).left
     noticeTable.add(shipPanelButton).width(90).height(50).right
 
     val returnButton: TextButton = new TextButton("Return", Resources.greenButtonStyle)
@@ -89,10 +86,8 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     embarkButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         PlayerData.clear()
-        val team: Array[String] = teamPanel.getTeammates
-        val selectedShip: Ship = shipPanel.getShip
-        establishTeam(team)
-        establishShip(selectedShip)
+        PlayerData.saveCrew(crewPanel.getCrewmates)
+        PlayerData.saveShip(shipPanel.getShip)
 
         root.createGameScreen()
         stage.getRoot.addAction(Actions.sequence(
@@ -135,21 +130,6 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     }
   }
 
-  private def establishTeam(team: Array[String]): Unit = {
-    PlayerData.establishTeam(team)
-  }
-
-  private def establishShip(selectedShip: Ship): Unit = {
-    PlayerData.establishShip(selectedShip)
-  }
-
-  private def establishParts(): Unit = {
-    // Each ship has specific starting parts, grab the parts for the chosen ship and save them
-  }
-
-  private def establishResources(resources: Map[String, Int]): Unit = {
-
-  }
 
 
 
@@ -173,14 +153,14 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   private[screens] var contentTransitionRightAction: Action = new Action {
     def act(delta: Float): Boolean = {
       var newContent: Table = null
-      if (teamPanel.hasParent) {
-        teamPanel.remove()
+      if (crewPanel.hasParent) {
+        crewPanel.remove()
         newContent = shipPanel
       } else if (shipPanel.hasParent) {
         shipPanel.remove()
-        newContent = teamPanel
+        newContent = crewPanel
       } else {
-        newContent = teamPanel
+        newContent = crewPanel
       }
       contentPanel.add(newContent).expand.fill.center
       true
@@ -190,14 +170,14 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   private[screens] var contentTransitionLeftAction: Action = new Action {
     def act(delta: Float): Boolean = {
       var newContent: Table = null
-      if (teamPanel.hasParent) {
-        teamPanel.remove()
+      if (crewPanel.hasParent) {
+        crewPanel.remove()
         newContent = shipPanel
       } else if (shipPanel.hasParent) {
         shipPanel.remove()
-        newContent = teamPanel
+        newContent = crewPanel
       } else {
-        newContent = teamPanel
+        newContent = crewPanel
       }
       contentPanel.add(newContent).expand.fill.center
       true

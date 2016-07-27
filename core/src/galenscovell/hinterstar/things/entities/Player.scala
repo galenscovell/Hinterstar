@@ -24,7 +24,7 @@ class Player(gameStage: GameStage) extends Actor {
     * Set the Player Ship sprite, clickListener and ship movement animation.
     */
   private def initialize(): Unit = {
-    val currentShip: String = PlayerData.prefs.getString("ship-chassis")
+    val currentShip: String = PlayerData.getPrefs.getString("ship-chassis")
     sprite = Resources.shipAtlas.createSprite(currentShip)
     this.setSize(300, 100)
 

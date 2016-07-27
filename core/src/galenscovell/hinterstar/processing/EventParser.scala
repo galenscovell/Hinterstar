@@ -3,7 +3,7 @@ package galenscovell.hinterstar.processing
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.utils.{JsonReader, JsonValue}
 
-import scala.collection.mutable.Map
+import scala.collection.mutable
 import scala.util.Random
 
 
@@ -45,7 +45,7 @@ class EventParser {
     val choices: JsonValue = targetEvent.get("choices")
     for (i <- 0 until choices.size) {
       val currentChoice: JsonValue = choices.get(i)
-      val choiceDetails: Map[String, String] = Map()
+      val choiceDetails: mutable.Map[String, String] = mutable.Map()
       for (item: String <- choiceJsonItems) {
         choiceDetails.put(item, currentChoice.getString(item))
       }
