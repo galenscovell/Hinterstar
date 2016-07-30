@@ -1,93 +1,30 @@
 {
   "Ship-0": {
-    "description": "A generic ship that comes equipped with a basic weapon, engine, generator and storage unit.",
-    "starting-parts": {
-      "Combat": [
-        {
-          "Rank": "rank-1",
-          "Name": "Machinegun"
-        }
-      ],
-      "Defense": [],
-      "Mobility": [
-        {
-          "Rank": "rank-1",
-          "Name": "Thruster"
-        }
-      ],
-      "Power": [
-        {
-          "Rank": "rank-1",
-          "Name": "Generator"
-        }
-      ],
-      "Research": [],
-      "Storage": [
-        {
-          "Rank": "rank-1",
-          "Name": "Container"
-        }
-      ]
-    }
+    "description": "A generic ship that comes equipped with basic weapons and subsystems.",
+    "weapons": [
+      {
+        "Rank": "rank-1",
+        "Name": "Machinegun"
+      }
+    ]
   },
   "Ship-1": {
-    "description": "A ship with additional storage space, but lacks any weapon.",
-    "starting-parts": {
-      "Combat": [],
-      "Defense": [],
-      "Mobility": [
-        {
-          "Rank": "rank-1",
-          "Name": "Thruster"
-        }
-      ],
-      "Power": [
-        {
-          "Rank": "rank-1",
-          "Name": "Generator"
-        }
-      ],
-      "Research": [],
-      "Storage": [
-        {
-          "Rank": "rank-1",
-          "Name": "Container"
-        },
-        {
-          "Rank": "rank-1",
-          "Name": "Container"
-        }
-      ]
-    }
+    "description": "A ship with additional subsystems, but lacks any weapon.",
+    "weapons": [
+
+    ]
   },
   "Ship-2": {
-    "description": "A ship with improved combat potential. Extra storage space is used up by ammunition reserves.",
-    "starting-parts": {
-      "Combat": [
-        {
-          "Rank": "rank-1",
-          "Name": "Machinegun"
-        },
-        {
-          "Rank": "rank-1",
-          "Name": "Machinegun"
-        }
-      ],
-      "Defense": [],
-      "Mobility": [
-        {
-          "Rank": "rank-1",
-          "Name": "Thruster"
-        }
-      ],
-      "Power": [
-        {
-          "Rank": "rank-1",
-          "Name": "Generator"
-        }
-      ],
-      "Research": [],
-      "Storage": []
-    }
+    "description": "A ship with many starting weapons.",
+    "weapons": [
+      {
+        "Rank": "rank-1",
+        "Name": "Machinegun"
+      },
+      {
+        "Rank": "rank-1",
+        "Name": "Railgun"
+      }
+    ]
   }
 }

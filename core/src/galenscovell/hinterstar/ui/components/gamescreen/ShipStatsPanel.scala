@@ -1,48 +1,41 @@
 package galenscovell.hinterstar.ui.components.gamescreen
 
 import com.badlogic.gdx.scenes.scene2d.ui._
-import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.util._
+
+import scala.collection.mutable
 
 
 class ShipStatsPanel(stage: GameStage) extends Table {
   private val gameStage: GameStage = stage
-  private var locationLabel: Label = _
-  private var infoTable: Table = _
+  private val shipStatsTable: Table = new Table
 
   construct()
+  refreshStats()
 
 
   private def construct(): Unit = {
-    this.setBackground(Resources.npTest4)
     val mainTable: Table = new Table
 
-    val labelTable: Table = new Table
-    labelTable.setBackground(Resources.npTest1)
-    this.locationLabel = new Label("Tutorial System", Resources.labelMediumStyle)
-    locationLabel.setAlignment(Align.center, Align.right)
-
-    labelTable.add(locationLabel).expand.fill.right.padRight(10)
-
-    this.infoTable = new Table
-    infoTable.setBackground(Resources.npTest1)
-
-    mainTable.add(infoTable).expand.fill
-    mainTable.row
-    mainTable.add(labelTable)
-      .height(Constants.SYSTEMMARKER_SIZE * 2)
-      .width(Constants.EXACT_X)
-
+    val shipStatsRoot: Table = new Table
+    shipStatsRoot.add(shipStatsTable).expand.fill
+    mainTable.add(shipStatsRoot).expand.bottom
     this.add(mainTable).expand.fill
   }
 
-  def establishInfoPanel(): Unit = {
-    infoTable.clear()
-    val infoPanel: InfoPanel = new InfoPanel(this)
-    infoTable.add(infoPanel).expand.fill
-  }
+  def refreshStats(): Unit = {
+    shipStatsTable.clear()
 
-  def updateLocation(loc: String): Unit = {
-    locationLabel.setText(loc)
+    val stats: mutable.Map[String, Int] = PlayerData.getShipStats
+
+    for ((k, v) <- stats) {
+      val statTable: Table = new Table
+      statTable.setBackground(Resources.npTest4)
+      shipStatsTable.add(statTable)
+          .width(Constants.SYSTEMMARKER_SIZE * 3)
+          .height(Constants.SYSTEMMARKER_SIZE * 4)
+        .center.pad(6)
+      shipStatsTable.row
+    }
   }
 }

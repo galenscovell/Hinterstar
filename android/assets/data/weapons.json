@@ -1,0 +1,22 @@
+{
+  "rank-1": {
+    "Machinegun": {
+      "description": "A basic combat part.",
+      "damage": 2,
+      "firerate": 10,
+      "effect": ""
+    },
+    "Railgun": {
+      "description": "A basic combat part.",
+      "damage": 3,
+      "firerate": 15,
+      "effect": ""
+    }
+  },
+  "rank-2": {
+    
+  },
+  "rank-3": {
+    
+  }
+}

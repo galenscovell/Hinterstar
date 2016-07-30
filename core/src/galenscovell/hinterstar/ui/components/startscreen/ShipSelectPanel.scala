@@ -6,18 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.{Image, Label, Table, TextButton}
 import com.badlogic.gdx.scenes.scene2d.utils.{ClickListener, TextureRegionDrawable}
 import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
 import com.badlogic.gdx.utils.{Align, Scaling}
-import galenscovell.hinterstar.things.parts.Part
+import galenscovell.hinterstar.things.parts.Weapon
 import galenscovell.hinterstar.things.ships.{Ship, ShipParser}
 import galenscovell.hinterstar.util._
 
-import scala.collection.mutable
-import scala.collection.mutable.ArrayBuffer
-
 
 class ShipSelectPanel extends Table {
-  private val partTypes: List[String] = List(
-    "Combat", "Defense", "Mobility", "Power", "Storage"
-  )
   private val allShips: Array[Ship] = new ShipParser().parseAll.toArray
   private var currentShipIndex: Int = 0
 
@@ -127,43 +121,42 @@ class ShipSelectPanel extends Table {
     shipDetailTop.add(shipDescLabel).expand.fill.height(60).pad(5)
 
     val shipDetailBottom: Table = new Table
-    val startingPartsTable: Table = new Table
-    val shipStartingParts: mutable.Map[String, ArrayBuffer[Part]] = allShips(currentShipIndex).getParts
-    for (pt: String <- partTypes) {
-      val parts: Array[Part] = shipStartingParts(pt).toArray
-      for (p: Part <- parts) {
-        val partTable: Table = new Table
-        partTable.setBackground(Resources.npTest4)
+    val startingWeaponTable: Table = new Table
+    val shipStartingWeapons: Array[Weapon] = allShips(currentShipIndex).getParts
 
-        val topBarTable: Table = new Table
-        topBarTable.setBackground(Resources.npTest3)
-        val iconTable = new Table
-        iconTable.setBackground(Resources.npTest0)
-        val typeLabel: Label = new Label(pt, Resources.labelDetailStyle)
-        typeLabel.setAlignment(Align.center)
+    for (weapon: Weapon <- shipStartingWeapons) {
+      val weaponTable: Table = new Table
+      weaponTable.setBackground(Resources.npTest4)
 
-        topBarTable.add(iconTable).expand.fill.width(20).height(20)
-        topBarTable.add(typeLabel).expand.fill.width(80).height(20)
+      val topBarTable: Table = new Table
+      topBarTable.setBackground(Resources.npTest3)
+      val iconTable = new Table
+      iconTable.setBackground(Resources.npTest0)
+      val damageLabel: Label = new Label(weapon.getDamage.toString, Resources.labelDetailStyle)
+      damageLabel.setAlignment(Align.center)
 
-        val partImage: Table = new Table
+      topBarTable.add(iconTable).expand.fill.width(20).height(20)
+      topBarTable.add(damageLabel).expand.fill.width(80).height(20)
 
-        val bottomPartTable: Table = new Table
-        bottomPartTable.setBackground(Resources.npTest1)
-        val partLabel: Label = new Label(p.getName, Resources.labelDetailStyle)
-        partLabel.setAlignment(Align.center)
+      val weaponImage: Table = new Table
 
-        bottomPartTable.add(partLabel).expand.fill
+      val bottomWeaponTable: Table = new Table
+      bottomWeaponTable.setBackground(Resources.npTest1)
+      val weaponLabel: Label = new Label(weapon.getName, Resources.labelDetailStyle)
+      weaponLabel.setAlignment(Align.center)
 
-        partTable.add(topBarTable).expand.fill.height(20)
-        partTable.row
-        partTable.add(partImage).expand.fill.height(50)
-        partTable.row
-        partTable.add(bottomPartTable).expand.fill.height(20)
+      bottomWeaponTable.add(weaponLabel).expand.fill
 
-        startingPartsTable.add(partTable).width(100).pad(5)
-      }
+      weaponTable.add(topBarTable).expand.fill.height(20)
+      weaponTable.row
+      weaponTable.add(weaponImage).expand.fill.height(50)
+      weaponTable.row
+      weaponTable.add(bottomWeaponTable).expand.fill.height(20)
+
+      startingWeaponTable.add(weaponTable).width(100).pad(5)
     }
-    shipDetailBottom.add(startingPartsTable).expand.fill.pad(4)
+
+    shipDetailBottom.add(startingWeaponTable).expand.fill.pad(4)
 
     shipDetail.add(shipDetailTop).expand.fill.height(95).top.pad(5)
     shipDetail.row

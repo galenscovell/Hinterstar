@@ -2,9 +2,8 @@ package galenscovell.hinterstar.things.ships
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.utils.{JsonReader, JsonValue}
-import galenscovell.hinterstar.things.parts.{Part, PartParser}
+import galenscovell.hinterstar.things.parts.{Weapon, WeaponParser}
 
-import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 
@@ -12,11 +11,8 @@ import scala.collection.mutable.ArrayBuffer
   * ShipParser handles the parsing of Ships from JSON.
   */
 class ShipParser {
-  private val partParser: PartParser = new PartParser
+  private val weaponParser: WeaponParser = new WeaponParser
   private val source: String = "data/ships.json"
-  private val partTypes: List[String] = List(
-    "Combat", "Defense", "Mobility", "Power", "Research", "Storage"
-  )
 
 
   /**
@@ -45,31 +41,22 @@ class ShipParser {
   }
 
   /**
-    * Create new Ship with name, desc and starting parts in ships.json.
+    * Create new Ship with name, desc and starting weapons in ships.json.
     */
   def constructShip(entry: JsonValue): Ship = {
     val name: String = entry.name
     val desc: String = entry.getString("description")
-    val startingParts: mutable.Map[String, ArrayBuffer[Part]] = mutable.Map()
+    val startingWeapons: ArrayBuffer[Weapon] = ArrayBuffer()
 
-    // For each partType, assemble ArrayBuffer of Parts to be stored in a map
-    val startingPartsEntry: JsonValue = entry.get("starting-parts")
-    for (pt: String <- partTypes) {
-      val foundParts: ArrayBuffer[Part] = ArrayBuffer()
-      val partArray: JsonValue = startingPartsEntry.get(pt)
-
-      // Use PartParser to create each Part using Name/Rank in ships.json
-      for (i <- 0 until partArray.size) {
-        val currentPart: JsonValue = partArray.get(i)
-        val partName: String = currentPart.getString("Name")
-        val partRank: String = currentPart.getString("Rank")
-        val parsedPart: Part = partParser.parseSingle(pt, partName, partRank)
-        foundParts.append(parsedPart)
-      }
-
-      startingParts.put(pt, foundParts)
+    val weaponsEntry: JsonValue = entry.get("weapons")
+    for (i <- 0 until weaponsEntry.size) {
+      val weaponJson: JsonValue = weaponsEntry.get(i)
+      val name: String = weaponJson.getString("Name")
+      val rank: String = weaponJson.getString("Rank")
+      val parsedWeapon: Weapon = weaponParser.parseSingle(name, rank)
+      startingWeapons.append(parsedWeapon)
     }
 
-    new Ship(name, desc, startingParts)
+    new Ship(name, desc, startingWeapons.toArray)
   }
 }

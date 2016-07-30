@@ -87,6 +87,7 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         PlayerData.clear()
         PlayerData.saveCrew(crewPanel.getCrewmates)
+        PlayerData.loadCrew()
         PlayerData.saveShip(shipPanel.getShip)
 
         root.createGameScreen()

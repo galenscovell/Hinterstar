@@ -19,9 +19,12 @@ import scala.collection.mutable.ArrayBuffer
 object PlayerData {
   private var prefs: Preferences = _
   private val crew: ArrayBuffer[Crewmate] = ArrayBuffer()
+  private var hullHealth: Int = 100
 
   private val proficiencies: List[String] =
-    List("Piloting", "Engines", "Shields", "Weapons", "Combat", "Repair")
+    List("Artillery", "Engines", "Piloting", "Melee", "Repair", "Shields")
+  private val subsystems: List[String] =
+    List("Artillery", "Clinic", "Engines", "Helm", "Shields")
 
 
   /**
@@ -54,6 +57,7 @@ object PlayerData {
   }
 
 
+
   // CREW OPERATIONS
   /*
    * Load crew data from prefs, iterate over values for each name and
@@ -64,7 +68,6 @@ object PlayerData {
 
     val crewNamesStr: String = prefs.getString("crew")
     val crewNameList: List[String] = crewNamesStr.split(',').toList
-    println(crewNameList)
 
     for (name: String <- crewNameList) {
       val assignment: String = prefs.getString(s"$name-assignment")
@@ -121,5 +124,54 @@ object PlayerData {
     val shipName: String = selectedShip.getName
     prefs.putString("ship-chassis", shipName)
     update()
+  }
+
+  def getShipStats: mutable.Map[String, Int] = {
+    val stats: mutable.Map[String, Int] = mutable.Map(
+      "Evasion" -> 0,
+      "Shield" -> 0,
+      "Weapons" -> 0
+    )
+    var helmManned: Boolean = false
+
+    for (crewmate: Crewmate <- crew) {
+      val assignment: String = crewmate.getAssignment
+
+      assignment match {
+        case "Artillery" =>
+          val bonus: Float = 1 + (0.5f * (crewmate.getAProficiency(assignment) / 100))
+          stats("Weapons") = stats("Weapons") + bonus.toInt
+        case "Clinic" =>
+          println("Crewmate in clinic")
+        case "Engines" =>
+          val bonus: Float = 1 + (0.5f * (crewmate.getAProficiency(assignment) / 100))
+          stats("Evasion") = stats("Evasion") + bonus.toInt
+        case "Helm" =>
+          helmManned = true
+        case "Shields" =>
+          val bonus: Float = 1 + (0.5f * (crewmate.getAProficiency(assignment) / 100))
+          stats("Shield") = stats("Shield") + bonus.toInt
+        case _ =>
+          println("Nothin' here!")
+      }
+    }
+
+    if (!helmManned) {
+      stats("Evasion") = 0
+    }
+
+    stats
+  }
+
+
+
+  // HULL HEALTH OPERATIONS
+  def saveHullHealth(health: Int): Unit = {
+    prefs.putInteger("hull-health", health)
+    update()
+  }
+
+  def getHullHealth(): Int = {
+    prefs.getInteger("hull-health")
   }
 }

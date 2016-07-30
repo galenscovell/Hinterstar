@@ -148,12 +148,12 @@ class CrewSelectPanel extends Table {
     }
 
     val startingProficiencies: mutable.Map[String, Int] = mutable.Map(
-      "Piloting" -> 0,
+      "Artillery" -> 0,
       "Engines" -> 0,
-      "Shields" -> 0,
-      "Weapons" -> 0,
-      "Combat" -> 0,
-      "Repair" -> 0
+      "Piloting" -> 0,
+      "Melee" -> 0,
+      "Repair" -> 0,
+      "Shields" -> 0
     )
     val startCrew: ArrayBuffer[Crewmate] = ArrayBuffer()
     for (name: String <- randomNames) {
