@@ -16,13 +16,12 @@ class WeaponParser {
   /**
     * Parse out all Weapons from weapons.json to an Array.
     */
-  def parseAll(rank: String): Array[Weapon] = {
+  def parseAll(): Array[Weapon] = {
     val weapons: ArrayBuffer[Weapon] = ArrayBuffer()
     val mainJson: JsonValue = new JsonReader().parse(Gdx.files.internal(source))
-    val rankJson: JsonValue = mainJson.get(rank)
 
-    for (i <- 0 until rankJson.size) {
-      val currentEntry: JsonValue = rankJson.get(i)
+    for (i <- 0 until mainJson.size) {
+      val currentEntry: JsonValue = mainJson.get(i)
       val weapon: Weapon = constructWeapon(currentEntry)
       weapons.append(weapon)
     }
@@ -33,10 +32,9 @@ class WeaponParser {
   /**
     * Parse out single Weapon from weapons.json.
     */
-  def parseSingle(name: String, rank: String): Weapon = {
+  def parseSingle(name: String): Weapon = {
     val mainJson: JsonValue = new JsonReader().parse(Gdx.files.internal(source))
-    val rankJson: JsonValue = mainJson.get(rank)
-    val entry: JsonValue = rankJson.get(name)
+    val entry: JsonValue = mainJson.get(name)
     constructWeapon(entry)
   }
 

@@ -2,7 +2,8 @@ package galenscovell.hinterstar.util
 
 import com.badlogic.gdx.{Gdx, Preferences}
 import galenscovell.hinterstar.things.entities.Crewmate
-import galenscovell.hinterstar.things.ships.Ship
+import galenscovell.hinterstar.things.parts.{Weapon, WeaponParser}
+import galenscovell.hinterstar.things.ships.{Ship, ShipParser}
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
@@ -19,28 +20,15 @@ import scala.collection.mutable.ArrayBuffer
 object PlayerData {
   private var prefs: Preferences = _
   private val crew: ArrayBuffer[Crewmate] = ArrayBuffer()
+  private var ship: Ship = _
   private var hullHealth: Int = 100
 
   private val proficiencies: List[String] =
-    List("Artillery", "Engines", "Piloting", "Melee", "Repair", "Shields")
+    List("Weapons", "Engines", "Piloting", "Shields")
   private val subsystems: List[String] =
-    List("Artillery", "Clinic", "Engines", "Helm", "Shields")
+    List("Weapon Control", "Engine Room", "Helm", "Shield Control")
 
 
-  /**
-    * Flush in the new data to Player prefs.
-    */
-  def update(): Unit = {
-    prefs.flush()
-  }
-
-  /**
-    * Completely clear the current data saved in Player prefs.
-    */
-  def clear(): Unit = {
-    prefs.clear()
-    crew.clear()
-  }
 
   /**
     * Instantiate preferences file and add default SFX/Music settings.
@@ -49,7 +37,11 @@ object PlayerData {
     prefs = Gdx.app.getPreferences("hinterstar_player_data")
     prefs.putBoolean("sfx", true)
     prefs.putBoolean("music", true)
-    update()
+    prefs.flush()
+  }
+
+  def clear(): Unit = {
+    prefs.clear()
   }
 
   def getPrefs: Preferences = {
@@ -59,10 +51,6 @@ object PlayerData {
 
 
   // CREW OPERATIONS
-  /*
-   * Load crew data from prefs, iterate over values for each name and
-   * populate crew data with constructed Crew objects
-   */
   def loadCrew(): Unit = {
     crew.clear()
     val crewNames: Array[String] = prefs.getString("crew").split(",")
@@ -82,10 +70,6 @@ object PlayerData {
     }
   }
 
-  /*
-   * Update crew data in prefs pulling current crewData info.
-   * Saves name, assignment, health and proficiency ranks from each Crew in crewData.
-   */
   def saveCrew(cData: Array[Crewmate]): Unit = {
     val crewNames: ArrayBuffer[String] = ArrayBuffer()
 
@@ -102,12 +86,9 @@ object PlayerData {
     }
 
     prefs.putString("crew", crewNames.mkString(","))
-    update()
+    prefs.flush()
   }
 
-  /*
-   * Get current crew data.
-   */
   def getCrew: Array[Crewmate] = {
     crew.toArray
   }
@@ -115,13 +96,41 @@ object PlayerData {
 
 
   // SHIP OPERATIONS
-  /**
-    * Add ship chassis to preferences along with all parts and their activity status.
-    */
-  def saveShip(selectedShip: Ship): Unit = {
-    val shipName: String = selectedShip.getName
-    prefs.putString("ship-chassis", shipName)
-    update()
+  def saveShip(currentShip: Ship): Unit = {
+    val shipName: String = currentShip.getName
+    prefs.putString("ship", shipName)
+    prefs.flush()
+  }
+
+  def loadShip(): Unit = {
+    val shipName: String = prefs.getString("ship")
+    ship = new ShipParser().parseSingle(shipName)
+  }
+
+  def saveWeapons(): Unit = {
+    val currentWeapons: Array[Weapon] = ship.getWeapons
+    val currentWeaponNames: Array[String] = Array.ofDim(currentWeapons.length)
+
+    for (i <- currentWeapons.indices) {
+      currentWeaponNames(i) = currentWeapons(i).getName
+    }
+
+    prefs.putString("weapons", currentWeaponNames.mkString(","))
+    prefs.flush()
+  }
+
+  def loadWeapons(): Unit = {
+    val weaponsString: String = prefs.getString("weapons")
+    val weaponNames: Array[String] = weaponsString.split(",")
+    val weaponArray: ArrayBuffer[Weapon] = ArrayBuffer()
+    val weaponParser: WeaponParser = new WeaponParser
+
+    for (name: String <- weaponNames) {
+      val weapon: Weapon = weaponParser.parseSingle(name)
+      weaponArray.append(weapon)
+    }
+
+    ship.setWeapons(weaponArray.toArray)
   }
 
   def getShipStats: Array[Int] = {
@@ -133,21 +142,20 @@ object PlayerData {
       val assignment: String = crewmate.getAssignment
 
       assignment match {
-        case "Artillery" =>
-          val bonus: Float = 1 + (0.5f * (crewmate.getAProficiency(assignment) / 100))
-          stats(2) += bonus.toInt
-        case "Clinic" =>
-          println("Crewmate in clinic")
-        case "Engines" =>
-          val bonus: Float = 1 + (0.5f * (crewmate.getAProficiency(assignment) / 100))
+        case "Weapon Control" =>
+          val bonus: Int = 1
+          stats(2) += bonus
+        case "Engine Room" =>
+          val bonus: Float = 2.5f + (2.5f * (crewmate.getAProficiency("Engines") / 100))
           stats(1) += bonus.toInt
         case "Helm" =>
+          val bonus: Float = 5 + (crewmate.getAProficiency("Piloting") / 100)
+          stats(1) += bonus.toInt
           helmManned = true
-        case "Shields" =>
-          val bonus: Float = 1 + (0.5f * (crewmate.getAProficiency(assignment) / 100))
+        case "Shield Control" =>
+          val bonus: Float = 1 + (0.5f * (crewmate.getAProficiency("Shields") / 100))
           stats(0) += bonus.toInt
-        case _ =>
-          println("Nothin' here!")
+        case _ => Unit
       }
     }
 
@@ -163,10 +171,18 @@ object PlayerData {
   // HULL HEALTH OPERATIONS
   def saveHullHealth(health: Int): Unit = {
     prefs.putInteger("hull-health", health)
-    update()
+    prefs.flush()
   }
 
   def getHullHealth(): Int = {
     prefs.getInteger("hull-health")
   }
+
+
+
+  // LOCATION OPERATIONS
+  // TODO: Save current Sector (and map layout)
+  // TODO: Save current System
+  // TODO: Load saved Sector (and map layout)
+  // TODO: Load saved System
 }

@@ -62,17 +62,17 @@ object SystemRepo {
     * WORKAROUND IDEAS:
     */
   def drawShapes(): Unit = {
-    shapeRenderer.setProjectionMatrix(gameScreen.getGameStage.getCamera.combined)
-    
     val centerX: Float = currentSystem.getSystemMarker.sx + Constants.SYSTEM_MARKER_CENTER_X
     val centerY: Float = Constants.EXACT_Y - currentSystem.getSystemMarker.sy + Constants.SYSTEM_MARKER_CENTER_Y
 
+    shapeRenderer.setProjectionMatrix(gameScreen.getGameStage.getCamera.combined)
     shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
+
     shapeRenderer.setColor(0.95f, 0.61f, 0.07f, 0.6f)
     // shapeRenderer.circle(centerX, centerY, playerRangeRadius)
     shapeRenderer.circle(centerX, centerY, 26)
 
-    if (systemsInRange != null && systemsInRange.nonEmpty) {
+    if (systemsInRange.nonEmpty) {
       shapeRenderer.setColor(0.93f, 0.94f, 0.95f, 0.6f)
 
       for (system <- systemsInRange) {

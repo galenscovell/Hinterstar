@@ -2,29 +2,38 @@
   "Ship-0": {
     "description": "A generic ship that comes equipped with basic weapons and subsystems.",
     "weapons": [
-      {
-        "Rank": "rank-1",
-        "Name": "Machinegun"
-      }
+      "Machinegun"
+    ],
+    "subsystems": [
+       "Engine Room",
+       "Helm",
+       "Shield Control",
+       "Weapon Control"
     ]
   },
   "Ship-1": {
     "description": "A ship with additional subsystems, but lacks any weapon.",
     "weapons": [
 
+    ],
+    "subsystems": [
+      "Engine Room",
+      "Helm",
+      "Shield Control",
+      "Weapon Control"
     ]
   },
   "Ship-2": {
     "description": "A ship with many starting weapons.",
     "weapons": [
-      {
-        "Rank": "rank-1",
-        "Name": "Machinegun"
-      },
-      {
-        "Rank": "rank-1",
-        "Name": "Railgun"
-      }
+      "Machinegun",
+      "Railgun"
+    ],
+    "subsystems": [
+      "Engine Room",
+      "Helm",
+      "Shield Control",
+      "Weapon Control"
     ]
   }
 }

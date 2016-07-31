@@ -41,22 +41,27 @@ class ShipParser {
   }
 
   /**
-    * Create new Ship with name, desc and starting weapons in ships.json.
+    * Create new Ship with name, desc, weapons and subsystems from ships.json.
     */
   def constructShip(entry: JsonValue): Ship = {
     val name: String = entry.name
     val desc: String = entry.getString("description")
-    val startingWeapons: ArrayBuffer[Weapon] = ArrayBuffer()
+    val weapons: ArrayBuffer[Weapon] = ArrayBuffer()
+    val subsystems: ArrayBuffer[String] = ArrayBuffer()
 
     val weaponsEntry: JsonValue = entry.get("weapons")
     for (i <- 0 until weaponsEntry.size) {
-      val weaponJson: JsonValue = weaponsEntry.get(i)
-      val name: String = weaponJson.getString("Name")
-      val rank: String = weaponJson.getString("Rank")
-      val parsedWeapon: Weapon = weaponParser.parseSingle(name, rank)
-      startingWeapons.append(parsedWeapon)
+      val weapon: String = weaponsEntry.getString(i)
+      val parsedWeapon: Weapon = weaponParser.parseSingle(weapon)
+      weapons.append(parsedWeapon)
     }
 
-    new Ship(name, desc, startingWeapons.toArray)
+    val subsystemsEntry: JsonValue = entry.get("subsystems")
+    for (i <- 0 until subsystemsEntry.size) {
+      val subsystemString: String = subsystemsEntry.getString(i)
+      subsystems.append(subsystemString)
+    }
+
+    new Ship(name, desc, weapons.toArray, subsystems.toArray)
   }
 }

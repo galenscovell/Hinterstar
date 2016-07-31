@@ -90,6 +90,9 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
         PlayerData.saveCrew(crewPanel.getCrewmates)
         PlayerData.loadCrew()
         PlayerData.saveShip(shipPanel.getShip)
+        PlayerData.loadShip()
+        PlayerData.saveWeapons()
+        PlayerData.loadWeapons()
 
         root.createGameScreen()
         stage.getRoot.addAction(Actions.sequence(

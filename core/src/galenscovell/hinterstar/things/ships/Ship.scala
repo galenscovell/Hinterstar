@@ -3,37 +3,30 @@ package galenscovell.hinterstar.things.ships
 import galenscovell.hinterstar.things.parts.Weapon
 
 
-/**
-  * A Ship is the container for the Player's current loadout.
-  * Ship's have:
-  *     a name
-  *     a description
-  *     a Map of part ArrayBuffers
-  */
-class Ship(n: String, desc: String, sp: Array[Weapon]) {
+class Ship(n: String, desc: String, w: Array[Weapon], s: Array[String]) {
   private val name: String = n
   private val description: String = desc
-  private val parts: Array[Weapon] = sp
+  private val subsystems: Array[String] = s
+  private var weapons: Array[Weapon] = w
 
 
-  /**
-    * Return the Ship's name.
-    */
   def getName: String = {
     name
   }
 
-  /**
-    * Return the Ship's description.
-    */
   def getDescription: String = {
     description
   }
 
-  /**
-    * Return the Ship's current Parts.
-    */
-  def getParts: Array[Weapon] = {
-    parts
+  def getWeapons: Array[Weapon] = {
+    weapons
+  }
+
+  def setWeapons(w: Array[Weapon]): Unit = {
+    weapons = w
+  }
+
+  def getSubsystems: Array[String] = {
+    subsystems
   }
 }

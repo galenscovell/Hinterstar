@@ -24,7 +24,7 @@ class Player(gameStage: GameStage) extends Actor {
     * Set the Player Ship sprite, clickListener and ship movement animation.
     */
   private def initialize(): Unit = {
-    val currentShip: String = PlayerData.getPrefs.getString("ship-chassis")
+    val currentShip: String = PlayerData.getPrefs.getString("ship")
     sprite = Resources.shipAtlas.createSprite(currentShip)
     this.setSize(300, 100)
 
@@ -36,8 +36,8 @@ class Player(gameStage: GameStage) extends Actor {
 
     this.addAction(Actions.forever(
       Actions.sequence(
-        Actions.moveBy(0, 8, 4.0f),
-        Actions.moveBy(0, -8, 4.0f)
+        Actions.moveBy(0, 8, 5.0f),
+        Actions.moveBy(0, -8, 5.0f)
       )
     ))
   }
