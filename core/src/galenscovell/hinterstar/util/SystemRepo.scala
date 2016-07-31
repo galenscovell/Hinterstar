@@ -42,7 +42,7 @@ object SystemRepo {
   def setTargetsInRange(): Unit = {
     systemsInRange.clear()
 
-    println("C", currentSystem.getSystemMarker.sx, currentSystem.getSystemMarker.sy)
+    // println("C", currentSystem.getSystemMarker.sx, currentSystem.getSystemMarker.sy)
     for (system <- systems) {
       if (system != currentSystem) {
         val squareDist: Double = Math.pow(
@@ -50,7 +50,7 @@ object SystemRepo {
           Math.pow(currentSystem.getSystemMarker.sy - system.getSystemMarker.sy, 2)
         if (squareDist <= Math.pow(playerRangeRadius, 2)) {
           systemsInRange += system
-          println("U", system.getSystemMarker.sx, system.getSystemMarker.sy)
+          // println("U", system.getSystemMarker.sx, system.getSystemMarker.sy)
         }
       }
     }

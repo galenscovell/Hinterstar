@@ -21,6 +21,7 @@ class GameStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatc
   private val viewButtons: ViewButtons = new ViewButtons(this)
 
   private val player: Player = new Player(this)
+  private val hullHealthPanel: HullHealthPanel = new HullHealthPanel(this)
   private val shipStatsPanel: ShipStatsPanel = new ShipStatsPanel(this)
   private val crewPanel: CrewPanel = new CrewPanel(this)
 
@@ -33,18 +34,19 @@ class GameStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatc
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
-    val centerTable: Table = new Table
     val topTable: Table = new Table
+    val centerTable: Table = new Table
 
     val actionTable = new Table
     actionTable.add(player).expand.fill.left.padLeft(30)
 
-    topTable.add(shipStatsPanel)
-      .expand.left
+    topTable.add(hullHealthPanel)
+      .width((Constants.EXACT_X / 2) - 20)
+      .left.padLeft(10).padRight(10)
     topTable.add(viewButtons)
       .width(Constants.EXACT_X / 2)
       .height(Constants.SYSTEMMARKER_SIZE * 2)
-      .center
+      .right
 
     centerTable.add(actionTable)
       .width(Constants.EXACT_X)
@@ -52,6 +54,11 @@ class GameStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatc
 
     mainTable.add(topTable)
       .width(Constants.EXACT_X)
+    mainTable.row
+    mainTable.add(shipStatsPanel)
+      .width(Constants.EXACT_X / 2)
+      .height(36)
+      .left
     mainTable.row
     mainTable.add(centerTable)
       .width(Constants.EXACT_X)
@@ -122,29 +129,37 @@ class GameStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatc
   def hideViewButtons(): Unit = {
     viewButtons.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
-      Actions.moveBy(0, 2 + Constants.SYSTEMMARKER_SIZE * 2, 0.5f, Interpolation.sine)
+      Actions.moveBy(0, Constants.SYSTEMMARKER_SIZE * 2, 0.5f, Interpolation.sine)
     ))
     crewPanel.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
       Actions.moveBy(0, -110, 0.5f, Interpolation.sine)
     ))
+    hullHealthPanel.addAction(Actions.sequence(
+      Actions.touchable(Touchable.disabled),
+      Actions.moveBy(0, Constants.SYSTEMMARKER_SIZE * 2, 0.5f, Interpolation.sine)
+    ))
     shipStatsPanel.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
-      Actions.moveBy(0, 2 + Constants.SYSTEMMARKER_SIZE * 2, 0.5f, Interpolation.sine)
+      Actions.moveBy(0, Constants.SYSTEMMARKER_SIZE * 4, 0.75f, Interpolation.sine)
     ))
   }
 
   def showViewButtons(): Unit = {
     viewButtons.addAction(Actions.sequence(
-      Actions.moveBy(0, -(2 + Constants.SYSTEMMARKER_SIZE * 2), 0.5f, Interpolation.sine),
+      Actions.moveBy(0, -(Constants.SYSTEMMARKER_SIZE * 2), 0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
     crewPanel.addAction(Actions.sequence(
       Actions.moveBy(0, 110, 0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
+    hullHealthPanel.addAction(Actions.sequence(
+      Actions.moveBy(0, -(Constants.SYSTEMMARKER_SIZE * 2), 0.5f, Interpolation.sine),
+      Actions.touchable(Touchable.enabled)
+    ))
     shipStatsPanel.addAction(Actions.sequence(
-      Actions.moveBy(0, -(2 + Constants.SYSTEMMARKER_SIZE * 2), 0.5f, Interpolation.sine),
+      Actions.moveBy(0, -(Constants.SYSTEMMARKER_SIZE * 4), 0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
   }

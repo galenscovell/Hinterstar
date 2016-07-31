@@ -169,13 +169,21 @@ object PlayerData {
 
 
   // HULL HEALTH OPERATIONS
-  def saveHullHealth(health: Int): Unit = {
-    prefs.putInteger("hull-health", health)
+  def saveHullHealth(): Unit = {
+    prefs.putInteger("hull-health", hullHealth)
     prefs.flush()
   }
 
-  def getHullHealth(): Int = {
+  def loadHullHealth(): Int = {
     prefs.getInteger("hull-health")
+  }
+
+  def getHullHealth(): Int = {
+    hullHealth
+  }
+
+  def updateHullHealth(health: Int): Unit = {
+    hullHealth = health
   }
 
 

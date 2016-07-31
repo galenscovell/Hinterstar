@@ -7,7 +7,7 @@ import galenscovell.hinterstar.util._
 class ShipStatsPanel(stage: GameStage) extends Table {
   private val gameStage: GameStage = stage
   private val shipStatsTable: Table = new Table
-  private val statLabels: Array[String] = Array("Shield", "Evasion", "Weapons")
+  private val statLabels: Array[String] = Array("Shields", "Evasion", "Weapons")
 
   construct()
   refreshStats()
@@ -16,9 +16,7 @@ class ShipStatsPanel(stage: GameStage) extends Table {
   private def construct(): Unit = {
     val mainTable: Table = new Table
 
-    val shipStatsRoot: Table = new Table
-    shipStatsRoot.add(shipStatsTable).expand.fill
-    mainTable.add(shipStatsRoot).expand.bottom
+    mainTable.add(shipStatsTable).expand.left.padLeft(4)
     this.add(mainTable).expand.fill
   }
 
@@ -46,7 +44,7 @@ class ShipStatsPanel(stage: GameStage) extends Table {
         .width(80)
         .height(32)
         .center
-        .pad(2)
+        .pad(4)
     }
   }
 }
