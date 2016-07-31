@@ -1,5 +1,6 @@
 package galenscovell.hinterstar
 
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.{Game, Gdx}
 import galenscovell.hinterstar.ui.screens._
@@ -13,6 +14,7 @@ import galenscovell.hinterstar.util._
   */
 class Hinterstar extends Game {
   var spriteBatch: SpriteBatch = _
+  var camera: OrthographicCamera = _
   var loadingScreen: AbstractScreen = _
   var mainMenuScreen: AbstractScreen = _
   var startScreen: AbstractScreen = _
@@ -26,11 +28,11 @@ class Hinterstar extends Game {
   def create(): Unit =  {
     PlayerData.init()
     spriteBatch = new SpriteBatch
+    camera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
     loadingScreen = new LoadScreen(this)
     mainMenuScreen = new MainMenuScreen(this)
     setScreen(loadingScreen)
   }
-
 
   /**
     * Dispose of resources used in all Screens.
@@ -47,7 +49,6 @@ class Hinterstar extends Game {
     Resources.dispose()
   }
 
-
   /**
     * Construct StartScreen, disposing of previous if present.
     */
@@ -57,7 +58,6 @@ class Hinterstar extends Game {
     }
     startScreen = new StartScreen(this)
   }
-
 
   /**
     * Construct GameScreen, disposing of previous if present.
@@ -69,7 +69,6 @@ class Hinterstar extends Game {
     gameScreen = new GameScreen(this)
   }
 
-
   /**
     *
     */
@@ -78,7 +77,6 @@ class Hinterstar extends Game {
 
   }
 
-
   /**
     *
     */
@@ -86,7 +84,6 @@ class Hinterstar extends Game {
     // TODO: Not yet implemented
 
   }
-
 
   /**
     * Call exit(), activating dispose() and closing application.

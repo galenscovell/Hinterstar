@@ -45,7 +45,7 @@ class SectorView(stage: GameStage) extends Table {
     val sectorGenerator: SectorGenerator = new SectorGenerator(16, 3)
     val systemMarkers: Array[Array[SystemMarker]] = sectorGenerator.getSystemMarkers
 
-    container.setDebug(true)
+    // container.setDebug(true)
     for (row: Array[SystemMarker] <- systemMarkers) {
       for (systemMarker: SystemMarker <- row) {
         container.add(systemMarker)
@@ -66,7 +66,7 @@ class SectorView(stage: GameStage) extends Table {
         travelToSystem()
       }
     })
-    this.distanceLabel = new Label("Distance: 0.0 AU", Resources.labelMenuStyle)
+    distanceLabel = new Label("Distance: 0 AU", Resources.labelMenuStyle)
     infoTable.add(distanceLabel).expand.fill.left.padLeft(20)
     infoTable.add(travelButton).width(150).height(50).expand.fill.right.padRight(75).padBottom(20)
     infoTable

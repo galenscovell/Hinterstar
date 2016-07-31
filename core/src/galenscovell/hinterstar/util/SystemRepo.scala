@@ -1,6 +1,5 @@
 package galenscovell.hinterstar.util
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import galenscovell.hinterstar.generation.sector._
 import galenscovell.hinterstar.processing.Event
@@ -18,7 +17,7 @@ import scala.collection.mutable.ArrayBuffer
 object SystemRepo {
   val systemsInRange: ArrayBuffer[System] = ArrayBuffer()
   val shapeRenderer: ShapeRenderer = new ShapeRenderer()
-  val playerRange: Int = 12
+  val playerRangeRadius: Int = 10 * Constants.SYSTEMMARKER_SIZE
 
   var gameScreen: GameScreen = _
   var systems: ArrayBuffer[System] = _
@@ -43,12 +42,16 @@ object SystemRepo {
   def setTargetsInRange(): Unit = {
     systemsInRange.clear()
 
-    // println("C", currentSystem.getSystemMarker.sx, currentSystem.getSystemMarker.sy)
+    println("C", currentSystem.getSystemMarker.sx, currentSystem.getSystemMarker.sy)
     for (system <- systems) {
-      val squareDist: Double = Math.pow(currentSystem.getSystemMarker.sx - system.getSystemMarker.sx, 2) + Math.pow(currentSystem.getSystemMarker.sy - system.getSystemMarker.sy, 2)
-      if (squareDist <= Math.pow(playerRange, 2)) {
-        systemsInRange += system
-        // println("U", system.getSystemMarker.sx, system.getSystemMarker.sy)
+      if (system != currentSystem) {
+        val squareDist: Double = Math.pow(
+          currentSystem.getSystemMarker.sx - system.getSystemMarker.sx, 2) +
+          Math.pow(currentSystem.getSystemMarker.sy - system.getSystemMarker.sy, 2)
+        if (squareDist <= Math.pow(playerRangeRadius, 2)) {
+          systemsInRange += system
+          println("U", system.getSystemMarker.sx, system.getSystemMarker.sy)
+        }
       }
     }
   }
@@ -59,32 +62,32 @@ object SystemRepo {
     * WORKAROUND IDEAS:
     */
   def drawShapes(): Unit = {
-    val radius: Float = playerRange * Constants.SYSTEMMARKER_SIZE
-    val centerX: Float = currentSystem.getSystemMarker.sx * Constants.SYSTEMMARKER_SIZE + Constants.SYSTEM_MARKER_CENTER_X
-    val centerY: Float = Gdx.graphics.getHeight - (currentSystem.getSystemMarker.sy * Constants.SYSTEMMARKER_SIZE) + Constants.SYSTEM_MARKER_CENTER_Y
+    shapeRenderer.setProjectionMatrix(gameScreen.getGameStage.getCamera.combined)
+    
+    val centerX: Float = currentSystem.getSystemMarker.sx + Constants.SYSTEM_MARKER_CENTER_X
+    val centerY: Float = Constants.EXACT_Y - currentSystem.getSystemMarker.sy + Constants.SYSTEM_MARKER_CENTER_Y
 
     shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
     shapeRenderer.setColor(0.95f, 0.61f, 0.07f, 0.6f)
-    shapeRenderer.circle(centerX, centerY, radius)
-    shapeRenderer.circle(centerX, centerY, 30)
+    // shapeRenderer.circle(centerX, centerY, playerRangeRadius)
+    shapeRenderer.circle(centerX, centerY, 26)
 
     if (systemsInRange != null && systemsInRange.nonEmpty) {
       shapeRenderer.setColor(0.93f, 0.94f, 0.95f, 0.6f)
 
       for (system <- systemsInRange) {
         shapeRenderer.line(
-          centerX,
-          centerY,
-          system.getSystemMarker.sx * Constants.SYSTEMMARKER_SIZE + Constants.SYSTEM_MARKER_CENTER_X,
-          Gdx.graphics.getHeight - (system.getSystemMarker.sy * Constants.SYSTEMMARKER_SIZE) + Constants.SYSTEM_MARKER_CENTER_Y
+          centerX, centerY,
+          system.getSystemMarker.sx + Constants.SYSTEM_MARKER_CENTER_X,
+          Constants.EXACT_Y - system.getSystemMarker.sy + Constants.SYSTEM_MARKER_CENTER_Y
         )
       }
     }
     if (currentSelection != null) {
       shapeRenderer.setColor(0.18f, 0.8f, 0.44f, 0.6f)
-      val selectionX: Float = currentSelection.getSystemMarker.sx * Constants.SYSTEMMARKER_SIZE + Constants.SYSTEM_MARKER_CENTER_X
-      val selectionY: Float = Gdx.graphics.getHeight - (currentSelection.getSystemMarker.sy * Constants.SYSTEMMARKER_SIZE) + Constants.SYSTEM_MARKER_CENTER_Y
-      shapeRenderer.circle(selectionX, selectionY, 30)
+      val selectionX: Float = currentSelection.getSystemMarker.sx + Constants.SYSTEM_MARKER_CENTER_X
+      val selectionY: Float = Constants.EXACT_Y - currentSelection.getSystemMarker.sy + Constants.SYSTEM_MARKER_CENTER_Y
+      shapeRenderer.circle(selectionX, selectionY, 26)
     }
 
     shapeRenderer.end()
@@ -133,17 +136,17 @@ object SystemRepo {
     * WORKAROUND IDEAS: GameStage has access to GameScreen
     */
   def setSelection(selection: System): Unit = {
-    var distance: Double = 0.0
+    var distance: Int = 0
 
     if (selection != null) {
       currentSelection = selection
-      distance = 4 * Math.sqrt(
-        Math.pow(currentSystem.getSystemMarker.sx - selection.getSystemMarker.sx, 2) +
-          Math.pow(currentSystem.getSystemMarker.sy - selection.getSystemMarker.sy, 2)
-      )
+      distance = (4 * Math.ceil(
+        Math.sqrt(Math.pow(currentSystem.getSystemMarker.sx - selection.getSystemMarker.sx, 2) +
+          Math.pow(currentSystem.getSystemMarker.sy - selection.getSystemMarker.sy, 2))
+      ) / Constants.SYSTEMMARKER_SIZE).toInt
     }
 
-    gameScreen.getGameStage.asInstanceOf[GameStage].updateDistanceLabel(f"Distance: $distance%1.1f AU")
+    gameScreen.getGameStage.asInstanceOf[GameStage].updateDistanceLabel(s"Distance: $distance AU")
   }
 
 

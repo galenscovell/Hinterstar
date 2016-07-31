@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
 import galenscovell.hinterstar.processing.controls.InputHandler
@@ -30,16 +31,17 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
   protected override def create(): Unit = {
     SystemRepo.setup(this)
-    this.stage = new GameStage(this, root.spriteBatch)
+    val viewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, camera)
+    stage = new GameStage(this, viewport, root.spriteBatch)
+
     input.addProcessor(stage)
     input.addProcessor(new InputHandler(this))
     Gdx.input.setInputProcessor(input)
   }
 
   override def render(delta: Float): Unit = {
-    // Clear screen
-    Gdx.gl.glClearColor(0, 0, 0, 1)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+    Gdx.gl.glClearColor(0, 0, 0, 1)
 
     // Handle travel and background animations
     if (travelFrames > 0) {
@@ -50,7 +52,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     }
 
     // Update and render game stage
-    stage.act()
+    stage.act(delta)
     stage.draw()
 
     // Draw map panel shapes

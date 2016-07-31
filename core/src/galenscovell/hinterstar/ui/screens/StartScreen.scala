@@ -23,7 +23,8 @@ class StartScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     shipPanel.updateShipDetails()
     shipPanel.updateShipDisplay(true)
 
-    stage = new Stage(new FitViewport(Constants.EXACT_X, Constants.EXACT_Y), root.spriteBatch)
+    val viewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, camera)
+    stage = new Stage(viewport, root.spriteBatch)
 
     val mainTable: Table = new Table
     mainTable.setFillParent(true)

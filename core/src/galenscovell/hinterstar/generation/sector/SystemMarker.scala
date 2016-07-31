@@ -1,6 +1,5 @@
 package galenscovell.hinterstar.generation.sector
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d._
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
@@ -14,8 +13,8 @@ import galenscovell.hinterstar.util._
   * SystemMarker also carry state (eg EMPTY, CURRENT, EXPLORED, UNEXPLORED).
   */
 class SystemMarker(x: Int, y: Int) extends Actor {
-  val sx: Int = x
-  val sy: Int = y
+  val sx: Int = x * Constants.SYSTEMMARKER_SIZE
+  val sy: Int = y * Constants.SYSTEMMARKER_SIZE
 
   private var frames: Int = 60
   private var markerType: MarkerType = MarkerType.EMPTY
@@ -95,8 +94,8 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     */
   def becomeCurrent(): Unit = {
     Resources.currentMarker.setTarget(
-      sx * Constants.SYSTEMMARKER_SIZE + Constants.SYSTEM_MARKER_X - Constants.SYSTEMMARKER_SIZE,
-      Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) + Constants.SYSTEM_MARKER_Y - Constants.SYSTEMMARKER_SIZE
+      sx + Constants.SYSTEM_MARKER_X - Constants.SYSTEMMARKER_SIZE,
+      Constants.EXACT_Y - sy + Constants.SYSTEM_MARKER_Y - Constants.SYSTEMMARKER_SIZE
     )
     markerType = MarkerType.CURRENT
   }
@@ -125,8 +124,9 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     if (!isEmpty) {
       glow(batch)
       batch.draw(
-        sprite, sx * Constants.SYSTEMMARKER_SIZE + Constants.SYSTEM_MARKER_X,
-        Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) + Constants.SYSTEM_MARKER_Y,
+        sprite,
+        sx + Constants.SYSTEM_MARKER_X,
+        Constants.EXACT_Y - sy + Constants.SYSTEM_MARKER_Y,
         Constants.SYSTEMMARKER_SIZE,
         Constants.SYSTEMMARKER_SIZE
       )
@@ -161,8 +161,8 @@ class SystemMarker(x: Int, y: Int) extends Actor {
 
     batch.draw(
       Resources.mapGlow,
-      sx * Constants.SYSTEMMARKER_SIZE + Constants.SYSTEM_MARKER_X - Constants.SYSTEMMARKER_SIZE,
-      Gdx.graphics.getHeight - (sy * Constants.SYSTEMMARKER_SIZE) + Constants.SYSTEM_MARKER_Y - Constants.SYSTEMMARKER_SIZE,
+      sx + Constants.SYSTEM_MARKER_X - Constants.SYSTEMMARKER_SIZE,
+      Constants.EXACT_Y - sy + Constants.SYSTEM_MARKER_Y - Constants.SYSTEMMARKER_SIZE,
       Constants.SYSTEMMARKER_SIZE * 3,
       Constants.SYSTEMMARKER_SIZE * 3
     )

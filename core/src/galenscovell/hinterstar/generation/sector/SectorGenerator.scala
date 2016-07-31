@@ -15,7 +15,6 @@ class SectorGenerator(maxSystems: Int, padSize: Int) {
   build()
   placeSystems()
   SystemRepo.populateSystems(systems)
-  // debugPrint()
 
 
   /**
