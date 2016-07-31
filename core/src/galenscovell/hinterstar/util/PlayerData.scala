@@ -65,15 +65,13 @@ object PlayerData {
    */
   def loadCrew(): Unit = {
     crew.clear()
+    val crewNames: Array[String] = prefs.getString("crew").split(",")
 
-    val crewNamesStr: String = prefs.getString("crew")
-    val crewNameList: List[String] = crewNamesStr.split(',').toList
-
-    for (name: String <- crewNameList) {
+    for (name: String <- crewNames) {
       val assignment: String = prefs.getString(s"$name-assignment")
       val health: Int = prefs.getInteger(s"$name-health")
-
       val crewProficiencies: mutable.Map[String, Int] = mutable.Map()
+
       for (p: String <- proficiencies) {
         val proficiency: Int = prefs.getInteger(s"$name-$p")
         crewProficiencies += (p -> proficiency)
@@ -126,12 +124,9 @@ object PlayerData {
     update()
   }
 
-  def getShipStats: mutable.Map[String, Int] = {
-    val stats: mutable.Map[String, Int] = mutable.Map(
-      "Evasion" -> 0,
-      "Shield" -> 0,
-      "Weapons" -> 0
-    )
+  def getShipStats: Array[Int] = {
+    // Stats Array = (Shield, Evasion, Hardpoints)
+    val stats: Array[Int] = Array(0, 0, 0)
     var helmManned: Boolean = false
 
     for (crewmate: Crewmate <- crew) {
@@ -140,24 +135,24 @@ object PlayerData {
       assignment match {
         case "Artillery" =>
           val bonus: Float = 1 + (0.5f * (crewmate.getAProficiency(assignment) / 100))
-          stats("Weapons") = stats("Weapons") + bonus.toInt
+          stats(2) += bonus.toInt
         case "Clinic" =>
           println("Crewmate in clinic")
         case "Engines" =>
           val bonus: Float = 1 + (0.5f * (crewmate.getAProficiency(assignment) / 100))
-          stats("Evasion") = stats("Evasion") + bonus.toInt
+          stats(1) += bonus.toInt
         case "Helm" =>
           helmManned = true
         case "Shields" =>
           val bonus: Float = 1 + (0.5f * (crewmate.getAProficiency(assignment) / 100))
-          stats("Shield") = stats("Shield") + bonus.toInt
+          stats(0) += bonus.toInt
         case _ =>
           println("Nothin' here!")
       }
     }
 
     if (!helmManned) {
-      stats("Evasion") = 0
+      stats(1) = 0
     }
 
     stats

@@ -16,9 +16,10 @@ class CrewView(stage: GameStage) extends Table {
     this.setFillParent(true)
     val mainTable: Table = new Table
     mainTable.setBackground(Resources.npTest3)
-    this.add(mainTable).width(Constants.EXACT_X)
-      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 4))
+    this.add(mainTable)
+      .width(Constants.EXACT_X - (Constants.SYSTEMMARKER_SIZE * 3))
+      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 3))
       .padTop(Constants.SYSTEMMARKER_SIZE * 2)
-      .padBottom(Constants.SYSTEMMARKER_SIZE * 2)
+      .padBottom(Constants.SYSTEMMARKER_SIZE)
   }
 }

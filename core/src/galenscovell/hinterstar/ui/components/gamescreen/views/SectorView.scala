@@ -26,10 +26,10 @@ class SectorView(stage: GameStage) extends Table {
     mapTable.setPosition(0, 0)
     infoTable.setPosition(0, 0)
     this.add(mapGroup)
-      .width(Constants.EXACT_X - (Constants.SYSTEMMARKER_SIZE * 4))
-      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 5))
+      .width(Constants.EXACT_X - (Constants.SYSTEMMARKER_SIZE * 3))
+      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 3))
       .padTop(Constants.SYSTEMMARKER_SIZE * 2)
-      .padBottom(Constants.SYSTEMMARKER_SIZE * 2)
+      .padBottom(Constants.SYSTEMMARKER_SIZE)
   }
 
   private def createMapTable: Table = {
@@ -45,7 +45,7 @@ class SectorView(stage: GameStage) extends Table {
     val sectorGenerator: SectorGenerator = new SectorGenerator(16, 3)
     val systemMarkers: Array[Array[SystemMarker]] = sectorGenerator.getSystemMarkers
 
-    // container.setDebug(true)
+    container.setDebug(true)
     for (row: Array[SystemMarker] <- systemMarkers) {
       for (systemMarker: SystemMarker <- row) {
         container.add(systemMarker)

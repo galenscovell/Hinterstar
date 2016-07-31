@@ -34,23 +34,28 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     mainTable.setFillParent(true)
 
     val centerTable: Table = new Table
+    val topTable: Table = new Table
+
     val actionTable = new Table
-    actionTable.add(player).expand.fill.left.padLeft(60)
+    actionTable.add(player).expand.fill.left.padLeft(30)
 
-    centerTable.add(shipStatsPanel)
-      .width(Constants.SYSTEMMARKER_SIZE * 4)
-      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 6))
+    topTable.add(shipStatsPanel)
       .expand.left
-    centerTable.add(actionTable)
-      .width(Constants.EXACT_X - (Constants.SYSTEMMARKER_SIZE * 4))
-      .expand.fill.right
-
-    mainTable.add(viewButtons)
+    topTable.add(viewButtons)
       .width(Constants.EXACT_X / 2)
       .height(Constants.SYSTEMMARKER_SIZE * 2)
+      .center
+
+    centerTable.add(actionTable)
+      .width(Constants.EXACT_X)
+      .expand.fill.center
+
+    mainTable.add(topTable)
+      .width(Constants.EXACT_X)
     mainTable.row
     mainTable.add(centerTable)
       .width(Constants.EXACT_X)
+      .expand.fill
     mainTable.row
     mainTable.add(crewPanel)
       .width(Constants.EXACT_X)
@@ -125,7 +130,7 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
     ))
     shipStatsPanel.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
-      Actions.moveBy(-110, 0, 0.5f, Interpolation.sine)
+      Actions.moveBy(0, 2 + Constants.SYSTEMMARKER_SIZE * 2, 0.5f, Interpolation.sine)
     ))
   }
 
@@ -139,8 +144,8 @@ class GameStage(game: GameScreen, spriteBatch: SpriteBatch) extends Stage(new Fi
       Actions.touchable(Touchable.enabled)
     ))
     shipStatsPanel.addAction(Actions.sequence(
-      Actions.touchable(Touchable.disabled),
-      Actions.moveBy(110, 0, 0.5f, Interpolation.sine)
+      Actions.moveBy(0, -(2 + Constants.SYSTEMMARKER_SIZE * 2), 0.5f, Interpolation.sine),
+      Actions.touchable(Touchable.enabled)
     ))
   }
 

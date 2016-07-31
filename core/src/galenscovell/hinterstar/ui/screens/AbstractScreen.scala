@@ -14,8 +14,8 @@ class AbstractScreen(val gameRoot: Hinterstar) extends Screen {
   protected def create(): Unit = {}
 
   override def render(delta: Float): Unit = {
-    Gdx.gl.glClearColor(0, 0, 0, 1)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+    Gdx.gl.glClearColor(0, 0, 0, 1)
     stage.act(delta)
     stage.draw()
   }

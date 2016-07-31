@@ -154,6 +154,14 @@ font-cursor-np
   orig: 3, 24
   offset: 0, 0
   index: -1
+health-bar-np
+  rotate: false
+  xy: 1, 1
+  size: 3, 8
+  split: 0, 0, 0, 0
+  orig: 3, 8
+  offset: 0, 0
+  index: -1
 
 uiAtlas2.png
 format: RGBA8888

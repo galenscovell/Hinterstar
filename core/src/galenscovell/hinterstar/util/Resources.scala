@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter
 import com.badlogic.gdx.graphics.g2d._
 import com.badlogic.gdx.graphics.g2d.freetype._
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable
@@ -29,12 +30,15 @@ object Resources {
 
   var npTest0, npTest1, npTest2, npTest3, npTest4, greenButtonNp0,
       greenButtonNp1, blueButtonNp0, blueButtonNp1, npFontCursor,
-      npTextFieldBg: NinePatchDrawable = _
+      npTextFieldBg, npHealthFill: NinePatchDrawable = _
 
   var buttonMenuStyle, buttonMapStyle0, buttonMapStyle1, buttonMapStyle2,
       buttonEventStyle, toggleButtonStyle, greenButtonStyle, blueButtonStyle: TextButtonStyle = _
 
-  var mapGlow, spTest0, spTest1, spTest2, spTest3, spTest4: Sprite = _
+  var mapGlow, spTest0, spTest1, spTest2, spTest3, spTest4,
+      spCrewmate: Sprite = _
+
+  var healthBarStyle: ProgressBarStyle = _
 
   var currentMarker: CurrentSystemAnimation = _
 
@@ -70,6 +74,7 @@ object Resources {
     loadSprites()
     loadAnimations()
     loadTextField()
+    loadProgressBars()
   }
 
   /**
@@ -115,6 +120,7 @@ object Resources {
     blueButtonNp1 = new NinePatchDrawable(uiAtlas.createPatch("blue_button1_np"))
     npFontCursor = new NinePatchDrawable(uiAtlas.createPatch("font-cursor-np"))
     npTextFieldBg = new NinePatchDrawable(uiAtlas.createPatch("text-field-bg-np"))
+    npHealthFill = new NinePatchDrawable(uiAtlas.createPatch("health-bar-np"))
   }
 
   /**
@@ -164,6 +170,7 @@ object Resources {
     spTest2 = new Sprite(uiAtlas.createSprite("test-box-2"))
     spTest3 = new Sprite(uiAtlas.createSprite("test-box-3"))
     spTest4 = new Sprite(uiAtlas.createSprite("test-box-4"))
+    spCrewmate = new Sprite(crewAtlas.createSprite("test-crewmate"))
   }
 
   /**
@@ -186,6 +193,13 @@ object Resources {
     )
     // This line is a workaround for inner padding in the TextField (10px padding, inner left)
     textFieldStyle.background.setLeftWidth(textFieldStyle.background.getLeftWidth + 10)
+  }
+
+  private def loadProgressBars(): Unit = {
+    healthBarStyle = new ProgressBarStyle(
+      npHealthFill,
+      npHealthFill
+    )
   }
 }
 
