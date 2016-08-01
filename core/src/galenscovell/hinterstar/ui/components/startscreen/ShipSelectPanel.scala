@@ -96,8 +96,8 @@ class ShipSelectPanel extends Table {
       ),
       Actions.forever(
         Actions.sequence(
-          Actions.moveBy(0, 8, 4.0f),
-          Actions.moveBy(0, -8, 4.0f)
+          Actions.moveBy(0, 6, 5.0f),
+          Actions.moveBy(0, -6, 5.0f)
         )
       )
     ))

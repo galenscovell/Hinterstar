@@ -21,12 +21,11 @@ object PlayerData {
   private var prefs: Preferences = _
   private val crew: ArrayBuffer[Crewmate] = ArrayBuffer()
   private var ship: Ship = _
+  private var subsystems: mutable.Map[String, Int] = _
   private var hullHealth: Int = 100
 
   private val proficiencies: List[String] =
     List("Weapons", "Engines", "Piloting", "Shields")
-  private val subsystems: List[String] =
-    List("Weapon Control", "Engine Room", "Helm", "Shield Control")
 
 
 
@@ -96,6 +95,28 @@ object PlayerData {
 
 
   // SHIP OPERATIONS
+  def getShip: Ship = {
+    ship
+  }
+
+  def getOccupiedSubsystems: mutable.Map[String, Int] = {
+    subsystems
+  }
+
+  def updateOccupiedSubsystems(): Unit = {
+    subsystems = mutable.Map()
+    for (subsystem: String <- ship.getSubsystems) {
+      subsystems(subsystem) = 0
+    }
+
+    for (crewmate: Crewmate <- crew) {
+      val assignment: String = crewmate.getAssignment
+      if (subsystems.contains(assignment)) {
+        subsystems(assignment) += 1
+      }
+    }
+  }
+
   def saveShip(currentShip: Ship): Unit = {
     val shipName: String = currentShip.getName
     prefs.putString("ship", shipName)

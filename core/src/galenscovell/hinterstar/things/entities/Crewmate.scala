@@ -1,5 +1,9 @@
 package galenscovell.hinterstar.things.entities
 
+import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar
+import galenscovell.hinterstar.util.Resources
+
 import scala.collection.mutable
 
 
@@ -8,6 +12,10 @@ class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
   private val proficiencies: mutable.Map[String, Int] = p
   private var assignment: String = a
   private var health: Int = h
+
+  private val sprite: Sprite = Resources.spCrewmate
+  private val healthBar: ProgressBar = new ProgressBar(0, 100, 1, false, Resources.healthBarStyle)
+  healthBar.setValue(100)
 
 
   def getName: String = {
@@ -30,6 +38,14 @@ class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
     health
   }
 
+  def getSprite: Sprite = {
+    sprite
+  }
+
+  def getHealthBar: ProgressBar = {
+    healthBar
+  }
+
 
 
   def setName(n: String): Unit = {
@@ -46,5 +62,11 @@ class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
 
   def updateHealth(value: Int): Unit = {
     health += value
+    if (health > 100) {
+      health = 100
+    } else if (health < 0) {
+      health = 0
+    }
+    healthBar.setValue(health)
   }
 }

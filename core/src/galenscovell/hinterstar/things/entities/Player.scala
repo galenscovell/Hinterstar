@@ -36,8 +36,8 @@ class Player(gameStage: GameStage) extends Actor {
 
     this.addAction(Actions.forever(
       Actions.sequence(
-        Actions.moveBy(0, 8, 5.0f),
-        Actions.moveBy(0, -8, 5.0f)
+        Actions.moveBy(0, 6, 5.0f),
+        Actions.moveBy(0, -6, 5.0f)
       )
     ))
   }

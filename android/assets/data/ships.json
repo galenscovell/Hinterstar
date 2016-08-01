@@ -5,10 +5,10 @@
       "Machinegun"
     ],
     "subsystems": [
-       "Engine Room",
-       "Helm",
-       "Shield Control",
-       "Weapon Control"
+      "Helm",
+      "Engine Room",
+      "Shield Control",
+      "Weapon Control"
     ]
   },
   "Ship-1": {
@@ -17,8 +17,8 @@
 
     ],
     "subsystems": [
-      "Engine Room",
       "Helm",
+      "Engine Room",
       "Shield Control",
       "Weapon Control"
     ]
@@ -30,8 +30,8 @@
       "Railgun"
     ],
     "subsystems": [
-      "Engine Room",
       "Helm",
+      "Engine Room",
       "Shield Control",
       "Weapon Control"
     ]
