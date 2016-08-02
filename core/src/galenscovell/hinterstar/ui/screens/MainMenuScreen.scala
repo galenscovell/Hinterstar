@@ -1,19 +1,24 @@
 package galenscovell.hinterstar.ui.screens
 
+import com.badlogic.gdx.graphics.{GL20, OrthographicCamera}
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.viewport.FitViewport
+import com.badlogic.gdx.{Gdx, Screen}
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.util._
 
 
-class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
+class MainMenuScreen(gameRoot: Hinterstar) extends Screen {
+  private val root: Hinterstar = gameRoot
+  private val camera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
+  private var stage: Stage = _
 
 
-  protected override def create(): Unit = {
+  private def create(): Unit = {
     val viewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, camera)
     stage = new Stage(viewport, root.spriteBatch)
 
@@ -98,6 +103,42 @@ class MainMenuScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       Actions.fadeOut(0),
       Actions.fadeIn(0.3f))
     )
+  }
+
+  override def render(delta: Float): Unit = {
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+    Gdx.gl.glClearColor(0, 0, 0, 1)
+    stage.act(delta)
+    stage.draw()
+  }
+
+  override def resize(width: Int, height: Int): Unit = {
+    if (stage != null) {
+      stage.getViewport.update(width, height, true)
+    }
+  }
+
+  override def show(): Unit = {
+    create()
+    Gdx.input.setInputProcessor(stage)
+  }
+
+  override def hide(): Unit = {
+    Gdx.input.setInputProcessor(null)
+  }
+
+  override def pause(): Unit =  {
+
+  }
+
+  override def resume(): Unit =  {
+
+  }
+
+  override def dispose(): Unit = {
+    if (stage != null) {
+      stage.dispose()
+    }
   }
 
 

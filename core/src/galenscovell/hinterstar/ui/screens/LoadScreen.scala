@@ -1,6 +1,5 @@
 package galenscovell.hinterstar.ui.screens
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics._
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.scenes.scene2d._
@@ -8,15 +7,19 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.viewport.FitViewport
+import com.badlogic.gdx.{Gdx, Screen}
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.util._
 
 
-class LoadScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
+class LoadScreen(gameRoot: Hinterstar) extends Screen {
+  private val root: Hinterstar = gameRoot
+  private val camera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
+  private var stage: Stage = _
   private var loadingBar: ProgressBar = _
 
 
-  protected override def create(): Unit = {
+  private def create(): Unit = {
     val viewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, camera)
     stage = new Stage(viewport, root.spriteBatch)
 
@@ -46,6 +49,30 @@ class LoadScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     create()
     stage.getRoot.getColor.a = 0
     stage.getRoot.addAction(Actions.sequence(Actions.fadeIn(0.4f)))
+  }
+
+  override def resize(width: Int, height: Int): Unit = {
+    if (stage != null) {
+      stage.getViewport.update(width, height, true)
+    }
+  }
+
+  override def hide(): Unit = {
+    Gdx.input.setInputProcessor(null)
+  }
+
+  override def pause(): Unit =  {
+
+  }
+
+  override def resume(): Unit =  {
+
+  }
+
+  override def dispose(): Unit = {
+    if (stage != null) {
+      stage.dispose()
+    }
   }
 
   private def createBar: ProgressBar = {

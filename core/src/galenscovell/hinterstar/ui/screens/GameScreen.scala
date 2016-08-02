@@ -1,19 +1,26 @@
 package galenscovell.hinterstar.ui.screens
 
 import com.badlogic.gdx._
-import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.graphics.{GL20, OrthographicCamera}
+import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
-import galenscovell.hinterstar.processing.controls.InputHandler
-import galenscovell.hinterstar.ui.components.gamescreen.{GameStage, SystemPanel}
+import galenscovell.hinterstar.processing.controls.GestureHandler
+import galenscovell.hinterstar.ui.components.gamescreen.hud.SystemPanel
+import galenscovell.hinterstar.ui.components.gamescreen.stages._
 import galenscovell.hinterstar.util._
 
 
-class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
+class GameScreen(gameRoot: Hinterstar) extends Screen {
+  private val root: Hinterstar = gameRoot
+  private val camera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
+  private var actionStage: ActionStage = _
+  private var hudStage: HudStage = _
+
   private val input: InputMultiplexer = new InputMultiplexer
   private var travelFrames: Int = 0
   private var sectorViewOpen: Boolean = false
@@ -29,13 +36,16 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   create()
 
 
-  protected override def create(): Unit = {
+  private def create(): Unit = {
     SystemRepo.setup(this)
-    val viewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, camera)
-    stage = new GameStage(this, viewport, root.spriteBatch)
+    val actionViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, camera)
+    val hudViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, camera)
+    actionStage = new ActionStage(this, actionViewport, root.spriteBatch)
+    hudStage = new HudStage(this, hudViewport, root.spriteBatch)
 
-    input.addProcessor(stage)
-    input.addProcessor(new InputHandler(this))
+    input.addProcessor(actionStage)
+    // input.addProcessor(new InputHandler(this))
+    input.addProcessor(new GestureDetector(new GestureHandler(this)))
     Gdx.input.setInputProcessor(input)
   }
 
@@ -52,8 +62,8 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     }
 
     // Update and render game stage
-    stage.act(delta)
-    stage.draw()
+    actionStage.act(delta)
+    actionStage.draw()
 
     // Draw map panel shapes
     if (sectorViewOpen) {
@@ -65,8 +75,40 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
     Gdx.input.setInputProcessor(input)
   }
 
-  def getGameStage: Stage = {
-    stage
+  override def resize(width: Int, height: Int): Unit = {
+    if (actionStage != null) {
+      actionStage.getViewport.update(width, height, true)
+    }
+    if (hudStage != null) {
+      hudStage.getViewport.update(width, height, true)
+    }
+  }
+
+  override def hide(): Unit = {
+    Gdx.input.setInputProcessor(null)
+  }
+
+  override def pause(): Unit =  {}
+
+  override def resume(): Unit =  {}
+
+  override def dispose(): Unit = {
+    if (actionStage != null) {
+      actionStage.dispose()
+    }
+    if (hudStage != null) {
+      hudStage.dispose()
+    }
+  }
+
+
+
+  def getActionStage: ActionStage = {
+    actionStage
+  }
+
+  def getHudStage: HudStage = {
+    hudStage
   }
 
   def toMainMenu(): Unit = {
@@ -94,9 +136,9 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
     val systemDetail: Array[String] = SystemRepo.currentSystem.getDetails
     locationPanel = new SystemPanel(systemDetail(0), systemDetail(1))
-    stage.asInstanceOf[GameStage].updateDetailTable(systemDetail(0))
+    actionStage.updateDetailTable(systemDetail(0))
 
-    stage.getRoot.addAction(Actions.sequence(
+    actionStage.getRoot.addAction(Actions.sequence(
       Actions.delay(3),
       Actions.fadeOut(1.0f),
       warpTransitionAction,
@@ -172,6 +214,22 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
   }
 
 
+  /**
+    * Screen gesture operations
+    */
+  def actionPan(dx: Float, dy: Float): Unit = {
+    getActionStage.getCamera.translate(-dx, -dy, 0)
+  }
+
+  def actionZoom(zoom: Float): Unit = {
+    val initialZoom: Float = getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom
+
+    if (!(initialZoom + zoom > 1.5) && !(initialZoom + zoom < 0.5)) {
+      getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom += zoom
+    }
+  }
+
+
 
   /**
     * Custom Scene2D Actions
@@ -183,7 +241,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
       blurBg = createBackground(bg0Blur, bg1Blur, bg2Blur)
       blurBg.setSpeed(new Vector2(2500, 0))
       currentBackground = blurBg
-      stage.addActor(locationPanel)
+      actionStage.addActor(locationPanel)
       locationPanel.addAction(Actions.sequence(
         Actions.delay(3.5f),
         Actions.fadeOut(1.25f),
@@ -195,7 +253,7 @@ class GameScreen(gameRoot: Hinterstar) extends AbstractScreen(gameRoot) {
 
   private[screens] var showViewButtonsAction: Action = new Action() {
     def act(delta: Float): Boolean = {
-      stage.asInstanceOf[GameStage].showViewButtons()
+      actionStage.showViewButtons()
       true
     }
   }

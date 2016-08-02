@@ -1,6 +1,5 @@
 package galenscovell.hinterstar
 
-import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.{Game, Gdx}
 import galenscovell.hinterstar.ui.screens._
@@ -14,11 +13,10 @@ import galenscovell.hinterstar.util._
   */
 class Hinterstar extends Game {
   var spriteBatch: SpriteBatch = _
-  var camera: OrthographicCamera = _
-  var loadingScreen: AbstractScreen = _
-  var mainMenuScreen: AbstractScreen = _
-  var startScreen: AbstractScreen = _
-  var gameScreen: AbstractScreen = _
+  var loadScreen: LoadScreen = _
+  var mainMenuScreen: MainMenuScreen = _
+  var startScreen: StartScreen = _
+  var gameScreen: GameScreen = _
 
 
   /**
@@ -28,17 +26,16 @@ class Hinterstar extends Game {
   def create(): Unit =  {
     PlayerData.init()
     spriteBatch = new SpriteBatch
-    camera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
-    loadingScreen = new LoadScreen(this)
+    loadScreen = new LoadScreen(this)
     mainMenuScreen = new MainMenuScreen(this)
-    setScreen(loadingScreen)
+    setScreen(loadScreen)
   }
 
   /**
     * Dispose of resources used in all Screens.
     */
   override def dispose(): Unit =  {
-    loadingScreen.dispose()
+    loadScreen.dispose()
     mainMenuScreen.dispose()
     if (startScreen != null) {
       startScreen.dispose()

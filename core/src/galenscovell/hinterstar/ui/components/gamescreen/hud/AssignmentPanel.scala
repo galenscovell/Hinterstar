@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.ui.components.gamescreen
+package galenscovell.hinterstar.ui.components.gamescreen.hud
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table}

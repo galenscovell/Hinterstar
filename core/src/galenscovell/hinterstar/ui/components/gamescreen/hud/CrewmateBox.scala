@@ -1,15 +1,16 @@
-package galenscovell.hinterstar.ui.components.gamescreen
+package galenscovell.hinterstar.ui.components.gamescreen.hud
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.{Image, Label, Table}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.things.entities.Crewmate
+import galenscovell.hinterstar.ui.components.gamescreen.{hud, stages}
 import galenscovell.hinterstar.util.{Constants, Resources}
 
 
-class CrewmateBox(stage: GameStage, c: Crewmate) extends Table {
-  private val gameStage: GameStage = stage
+class CrewmateBox(stage: stages.ActionStage, c: Crewmate) extends Table {
+  private val gameStage: stages.ActionStage = stage
   private val crewmate: Crewmate = c
 
   construct()
@@ -57,7 +58,7 @@ class CrewmateBox(stage: GameStage, c: Crewmate) extends Table {
   }
 
   private def displayOptions(): Unit = {
-    val assignmentPanel: AssignmentPanel = new AssignmentPanel(this, crewmate)
+    val assignmentPanel: hud.AssignmentPanel = new hud.AssignmentPanel(this, crewmate)
     gameStage.addActor(assignmentPanel)
   }
 }

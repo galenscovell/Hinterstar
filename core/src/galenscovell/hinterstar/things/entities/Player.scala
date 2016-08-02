@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d._
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
-import galenscovell.hinterstar.ui.components.gamescreen.GameStage
+import galenscovell.hinterstar.ui.components.gamescreen.stages.ActionStage
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 
@@ -12,7 +12,7 @@ import galenscovell.hinterstar.util._
 /**
   * The Player class simply holds the Ship sprite, clickListener and movement animation.
   */
-class Player(gameStage: GameStage) extends Actor {
+class Player(gameStage: ActionStage) extends Actor {
   private val gameScreen: GameScreen = gameStage.gameScreen
   private var sprite: Sprite = _
   private var selected: Boolean = false

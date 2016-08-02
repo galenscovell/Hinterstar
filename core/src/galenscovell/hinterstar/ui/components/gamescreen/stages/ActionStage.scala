@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.ui.components.gamescreen
+package galenscovell.hinterstar.ui.components.gamescreen.stages
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.math.Interpolation
@@ -7,12 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.things.entities.Player
+import galenscovell.hinterstar.ui.components.gamescreen.hud.{CrewPanel, EventPanel, HullHealthPanel, ShipStatsPanel}
 import galenscovell.hinterstar.ui.components.gamescreen.views._
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 
 
-class GameStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
+class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
   val gameScreen: GameScreen = game
 
   private val sectorView: SectorView = new SectorView(this)
