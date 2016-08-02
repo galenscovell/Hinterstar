@@ -3,7 +3,6 @@ package galenscovell.hinterstar.util
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import galenscovell.hinterstar.generation.sector._
 import galenscovell.hinterstar.processing.Event
-import galenscovell.hinterstar.ui.components.gamescreen.stages.ActionStage
 import galenscovell.hinterstar.ui.screens.GameScreen
 
 import scala.collection.mutable.ArrayBuffer
@@ -65,7 +64,7 @@ object SystemRepo {
     val centerX: Float = currentSystem.getSystemMarker.sx + Constants.SYSTEM_MARKER_CENTER_X
     val centerY: Float = Constants.EXACT_Y - currentSystem.getSystemMarker.sy + Constants.SYSTEM_MARKER_CENTER_Y
 
-    shapeRenderer.setProjectionMatrix(gameScreen.getActionStage.getCamera.combined)
+    shapeRenderer.setProjectionMatrix(gameScreen.getHudStage.getCamera.combined)
     shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
 
     shapeRenderer.setColor(0.95f, 0.61f, 0.07f, 0.6f)
@@ -146,7 +145,7 @@ object SystemRepo {
       ) / Constants.SYSTEMMARKER_SIZE).toInt
     }
 
-    gameScreen.getActionStage.updateDistanceLabel(s"Distance: $distance AU")
+    gameScreen.getHudStage.updateDistanceLabel(s"Distance: $distance AU")
   }
 
 

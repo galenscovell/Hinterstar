@@ -1,12 +1,12 @@
 package galenscovell.hinterstar.ui.components.gamescreen.views
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
-import galenscovell.hinterstar.ui.components.gamescreen.stages.ActionStage
+import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
 
 
-class ShipView(stage: ActionStage) extends Table {
-  private val gameStage: ActionStage = stage
+class ShipView(stage: HudStage) extends Table {
+  private val hudStage: HudStage = stage
 
   construct()
 

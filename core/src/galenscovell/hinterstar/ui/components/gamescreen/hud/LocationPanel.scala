@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.util._
 
 
-class SystemPanel(title: String, detail: String) extends Table {
+class LocationPanel(title: String, detail: String) extends Table {
   construct(title, detail)
 
 

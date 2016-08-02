@@ -1,12 +1,12 @@
 package galenscovell.hinterstar.ui.components.gamescreen.hud
 
 import com.badlogic.gdx.scenes.scene2d.ui._
-import galenscovell.hinterstar.ui.components.gamescreen.stages
+import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
 
 
-class ShipStatsPanel(stage: stages.ActionStage) extends Table {
-  private val gameStage: stages.ActionStage = stage
+class ShipStatsPanel(stage: HudStage) extends Table {
+  private val hudStage: HudStage = stage
   private val shipStatsTable: Table = new Table
   private val statLabels: Array[String] = Array("Shields", "Evasion", "Weapons")
 

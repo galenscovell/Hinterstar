@@ -4,12 +4,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
-import galenscovell.hinterstar.ui.components.gamescreen.stages.ActionStage
+import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
 
 
-class ViewButtons(stage: ActionStage) extends Table {
-  private val gameStage: ActionStage = stage
+class ViewButtons(stage: HudStage) extends Table {
+  private val hudStage: HudStage = stage
   private var mapButton, teamButton, shipButton: TextButton = _
 
   construct()
@@ -22,21 +22,21 @@ class ViewButtons(stage: ActionStage) extends Table {
     this.shipButton = new TextButton("Ship", Resources.buttonMapStyle2)
     mapButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
-        gameStage.toggleView(0)
+        hudStage.toggleView(0)
         teamButton.setChecked(false)
         shipButton.setChecked(false)
       }
     })
     teamButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
-        gameStage.toggleView(1)
+        hudStage.toggleView(1)
         mapButton.setChecked(false)
         shipButton.setChecked(false)
       }
     })
     shipButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
-        gameStage.toggleView(2)
+        hudStage.toggleView(2)
         mapButton.setChecked(false)
         teamButton.setChecked(false)
       }

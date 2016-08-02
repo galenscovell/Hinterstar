@@ -1,14 +1,14 @@
 package galenscovell.hinterstar.ui.components.gamescreen.hud
 
-import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, TextButton}
+import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.processing.Event
-import galenscovell.hinterstar.ui.components.gamescreen.stages
+import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
 
 
-class EventPanel(stage: stages.ActionStage, eventContainer: Event) extends Table {
-  private val gameStage: stages.ActionStage = stage
+class EventPanel(stage: HudStage, eventContainer: Event) extends Table {
+  private val hudStage: HudStage = stage
   private val container: Event = eventContainer
 
   construct()

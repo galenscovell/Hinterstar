@@ -5,12 +5,12 @@ import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.generation.sector._
-import galenscovell.hinterstar.ui.components.gamescreen.stages.ActionStage
+import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
 
 
-class SectorView(stage: ActionStage) extends Table {
-  private val gameStage: ActionStage = stage
+class SectorView(stage: HudStage) extends Table {
+  private val hudStage: HudStage = stage
   private var distanceLabel: Label = _
 
   construct()
@@ -74,10 +74,10 @@ class SectorView(stage: ActionStage) extends Table {
 
   private def travelToSystem(): Unit = {
     if (SystemRepo.travelToSelection) {
-      gameStage.getViewButtons.getMapButton.setChecked(false)
-      gameStage.toggleView(0)
-      gameStage.gameScreen.beginWarp()
-      gameStage.hideViewButtons()
+      hudStage.getViewButtons.getMapButton.setChecked(false)
+      hudStage.toggleView(0)
+      hudStage.getGameScreen.beginWarp()
+      hudStage.hideViewButtons()
     }
   }
   

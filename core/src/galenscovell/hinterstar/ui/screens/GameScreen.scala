@@ -3,50 +3,51 @@ package galenscovell.hinterstar.ui.screens
 import com.badlogic.gdx._
 import com.badlogic.gdx.graphics.{GL20, OrthographicCamera}
 import com.badlogic.gdx.input.GestureDetector
-import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.math.{Vector2, Vector3}
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
 import galenscovell.hinterstar.processing.controls.GestureHandler
-import galenscovell.hinterstar.ui.components.gamescreen.hud.SystemPanel
+import galenscovell.hinterstar.ui.components.gamescreen.hud.LocationPanel
 import galenscovell.hinterstar.ui.components.gamescreen.stages._
 import galenscovell.hinterstar.util._
 
 
 class GameScreen(gameRoot: Hinterstar) extends Screen {
   private val root: Hinterstar = gameRoot
-  private val camera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
+  private val actionCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
+  private val hudCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
   private var actionStage: ActionStage = _
   private var hudStage: HudStage = _
 
   private val input: InputMultiplexer = new InputMultiplexer
+  private val gestureHandler: GestureDetector = new GestureDetector(new GestureHandler(this))
   private var travelFrames: Int = 0
   private var sectorViewOpen: Boolean = false
 
   private var normalBg: ParallaxBackground = createBackground("purple_bg", "bg1", "bg2")
   private var blurBg: ParallaxBackground = createBackground("purple_bg", "bg1_blur", "bg2_blur")
-  private var locationPanel: SystemPanel = _
+  private var locationPanel: LocationPanel = _
   var currentBackground: ParallaxBackground = normalBg
 
   private var bg0, bg1, bg2: String = _
   private var bg0Blur, bg1Blur, bg2Blur: String = _
+  private val lerp: Float = 0.9f
+  private val originVector: Vector3 = new Vector3(Constants.EXACT_X / 2, Constants.EXACT_Y / 2, 0)
 
   create()
 
 
   private def create(): Unit = {
     SystemRepo.setup(this)
-    val actionViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, camera)
-    val hudViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, camera)
+    val actionViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, actionCamera)
+    val hudViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, hudCamera)
     actionStage = new ActionStage(this, actionViewport, root.spriteBatch)
     hudStage = new HudStage(this, hudViewport, root.spriteBatch)
 
-    input.addProcessor(actionStage)
-    // input.addProcessor(new InputHandler(this))
-    input.addProcessor(new GestureDetector(new GestureHandler(this)))
-    Gdx.input.setInputProcessor(input)
+    enableInput()
   }
 
   override def render(delta: Float): Unit = {
@@ -55,6 +56,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
     // Handle travel and background animations
     if (travelFrames > 0) {
+      centerCamera(delta)
       travel()
     }
     if (currentBackground != null) {
@@ -64,6 +66,8 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     // Update and render game stage
     actionStage.act(delta)
     actionStage.draw()
+    hudStage.act(delta)
+    hudStage.draw()
 
     // Draw map panel shapes
     if (sectorViewOpen) {
@@ -102,6 +106,13 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   }
 
 
+  private def enableInput(): Unit = {
+    input.addProcessor(hudStage)
+    input.addProcessor(gestureHandler)
+    input.addProcessor(actionStage)
+    // input.addProcessor(new InputHandler(this))
+    Gdx.input.setInputProcessor(input)
+  }
 
   def getActionStage: ActionStage = {
     actionStage
@@ -116,6 +127,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   }
 
   def beginWarp(): Unit = {
+    input.clear()
     travelFrames = 600
   }
 
@@ -135,10 +147,10 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     this.bg2Blur = bg2Blur
 
     val systemDetail: Array[String] = SystemRepo.currentSystem.getDetails
-    locationPanel = new SystemPanel(systemDetail(0), systemDetail(1))
-    actionStage.updateDetailTable(systemDetail(0))
+    locationPanel = new LocationPanel(systemDetail(0), systemDetail(1))
+    actionStage.updatePlayerAnimation()
 
-    actionStage.getRoot.addAction(Actions.sequence(
+    hudStage.getRoot.addAction(Actions.sequence(
       Actions.delay(3),
       Actions.fadeOut(1.0f),
       warpTransitionAction,
@@ -224,9 +236,19 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   def actionZoom(zoom: Float): Unit = {
     val initialZoom: Float = getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom
 
-    if (!(initialZoom + zoom > 1.5) && !(initialZoom + zoom < 0.5)) {
+    if (!(initialZoom + zoom > 1.25) && !(initialZoom + zoom < 0.5)) {
       getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom += zoom
     }
+  }
+
+  def centerCamera(delta: Float): Unit = {
+    getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom +=
+      (1 - getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom) * lerp * delta
+
+    getActionStage.getCamera.position.x +=
+      (originVector.x - getActionStage.getCamera.position.x) * lerp * delta
+    getActionStage.getCamera.position.y +=
+      (originVector.y - getActionStage.getCamera.position.y) * lerp * delta
   }
 
 
@@ -241,7 +263,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
       blurBg = createBackground(bg0Blur, bg1Blur, bg2Blur)
       blurBg.setSpeed(new Vector2(2500, 0))
       currentBackground = blurBg
-      actionStage.addActor(locationPanel)
+      hudStage.addActor(locationPanel)
       locationPanel.addAction(Actions.sequence(
         Actions.delay(3.5f),
         Actions.fadeOut(1.25f),
@@ -253,7 +275,8 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
   private[screens] var showViewButtonsAction: Action = new Action() {
     def act(delta: Float): Boolean = {
-      actionStage.showViewButtons()
+      hudStage.showViewButtons()
+      enableInput()
       true
     }
   }
