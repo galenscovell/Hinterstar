@@ -30,6 +30,13 @@ class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: F
   }
 
   /**
+    * Get current parallax movement speed as Vector2.
+    */
+  def getSpeed(): Vector2 = {
+    speed
+  }
+
+  /**
     * Modify the parallax movement speed by a Vector2.
     */
   def modifySpeed(dxSpeed: Vector2): Unit = {
