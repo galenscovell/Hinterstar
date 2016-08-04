@@ -24,7 +24,7 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
 
     // Make one table on the left for holding the player
     // Make one table on the right for holding other ships/bases/etc.
-    val actionTable = new Table
+    val actionTable: Table = new Table
     actionTable.add(player).expand.fill.left.padLeft(30)
 
     mainTable.add(actionTable)

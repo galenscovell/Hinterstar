@@ -1,0 +1,13 @@
+KEY
+~ = Empty
+W = Weapon subsystem
+E = Engine subsystem
+H = Helm subsystem
+S = Shield subsystem
+
+Ship-0
+8,3,40
+~~~S~~~~
+~E~~W~H~
+~~~~~~~~
+END

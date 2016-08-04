@@ -39,8 +39,8 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   private val originVector: Vector3 = new Vector3(Constants.EXACT_X / 2, Constants.EXACT_Y / 2, 0)
   private val cameraXmin: Float = Constants.EXACT_X * 0.375f
   private val cameraXmax: Float = Constants.EXACT_X * 0.625f
-//  private val cameraYmin: Float = Constants.EXACT_Y * 0.375f
-//  private val cameraYmax: Float = Constants.EXACT_Y * 0.625f
+  private val cameraYmin: Float = Constants.EXACT_Y * 0.375f
+  private val cameraYmax: Float = Constants.EXACT_Y * 0.625f
 
   create()
 
@@ -236,21 +236,21 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     */
   def actionPan(dx: Float, dy: Float): Unit = {
     val newCameraX: Float = getActionStage.getCamera.position.x - dx
-//    val newCameraY: Float = getActionStage.getCamera.position.y - dy
+    val newCameraY: Float = getActionStage.getCamera.position.y - dy
     val newSpeed: Vector2 = new Vector2(40, 0)
 
     if (newCameraX >= cameraXmin && newCameraX < cameraXmax) {
       getActionStage.getCamera.translate(-dx, 0, 0)
-//      newSpeed.x += dx * 20
+      newSpeed.x += dx * 10
     }
-//    if (newCameraY >= cameraYmin && newCameraY < cameraYmax) {
-//      getActionStage.getCamera.translate(0, -dy, 0)
-//      newSpeed.y = dy * 20
-//    }
+    if (newCameraY >= cameraYmin && newCameraY < cameraYmax) {
+      getActionStage.getCamera.translate(0, -dy, 0)
+      newSpeed.y = dy * 10
+    }
 
-//    if (!(newSpeed.x == 40 && newSpeed.y == 0)) {
-//      currentBackground.setSpeed(newSpeed)
-//    }
+    if (!(newSpeed.x == 40 && newSpeed.y == 0)) {
+      currentBackground.setSpeed(newSpeed)
+    }
   }
 
   def endActionPan(): Unit = {
@@ -271,8 +271,8 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
     getActionStage.getCamera.position.x +=
       (originVector.x - getActionStage.getCamera.position.x) * lerp * delta
-//    getActionStage.getCamera.position.y +=
-//      (originVector.y - getActionStage.getCamera.position.y) * lerp * delta
+    getActionStage.getCamera.position.y +=
+      (originVector.y - getActionStage.getCamera.position.y) * lerp * delta
   }
 
 
