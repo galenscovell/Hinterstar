@@ -113,8 +113,8 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
   private def enableInput(): Unit = {
     input.addProcessor(hudStage)
-    input.addProcessor(gestureHandler)
     input.addProcessor(actionStage)
+    input.addProcessor(gestureHandler)
     // input.addProcessor(new InputHandler(this))
     Gdx.input.setInputProcessor(input)
   }
@@ -132,6 +132,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   }
 
   def beginWarp(): Unit = {
+    getActionStage.disableSubsystemOverlay()
     input.clear()
     travelFrames = 600
   }
@@ -154,6 +155,12 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     val systemDetail: Array[String] = SystemRepo.currentSystem.getDetails
     locationPanel = new LocationPanel(systemDetail(0), systemDetail(1))
     actionStage.updatePlayerAnimation()
+
+    actionStage.getRoot.addAction(Actions.sequence(
+      Actions.delay(3),
+      Actions.fadeOut(1.0f),
+      Actions.fadeIn(1.0f)
+    ))
 
     hudStage.getRoot.addAction(Actions.sequence(
       Actions.delay(3),
@@ -291,7 +298,9 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
       locationPanel.addAction(Actions.sequence(
         Actions.delay(3.5f),
         Actions.fadeOut(1.25f),
-        showViewButtonsAction
+        showViewButtonsAction,
+        Actions.delay(1f),
+        enableInputAction
       ))
       true
     }
@@ -300,6 +309,12 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   private[screens] var showViewButtonsAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       hudStage.showViewButtons()
+      true
+    }
+  }
+
+  private[screens] var enableInputAction: Action = new Action {
+    override def act(delta: Float): Boolean = {
       enableInput()
       true
     }

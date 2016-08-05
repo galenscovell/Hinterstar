@@ -6,8 +6,8 @@ repeat: none
 Ship-0
   rotate: false
   xy: 1, 405
-  size: 600, 200
-  orig: 600, 200
+  size: 640, 240
+  orig: 640, 240
   offset: 0, 0
   index: -1
 Ship-1

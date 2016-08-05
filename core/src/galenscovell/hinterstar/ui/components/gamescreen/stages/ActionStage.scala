@@ -50,6 +50,20 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
     ))
   }
 
+  def toggleSubsystemOverlay(): Unit = {
+    if (player.overlayPresent) {
+      player.disableOverlay()
+    } else {
+      player.enableOverlay()
+    }
+  }
+
+  def disableSubsystemOverlay(): Unit = {
+    if (player.overlayPresent) {
+      player.disableOverlay()
+    }
+  }
+
   def getGameScreen: GameScreen = {
     gameScreen
   }

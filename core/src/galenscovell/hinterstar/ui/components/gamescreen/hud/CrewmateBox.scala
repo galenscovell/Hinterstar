@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.things.entities.Crewmate
-import galenscovell.hinterstar.ui.components.gamescreen.hud
 import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util.{Constants, Resources}
 
@@ -23,7 +22,7 @@ class CrewmateBox(stage: HudStage, c: Crewmate) extends Table {
 
     mainTable.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        displayOptions()
+        hudStage.getGameScreen.getActionStage.toggleSubsystemOverlay()
       }
     })
 
@@ -56,10 +55,5 @@ class CrewmateBox(stage: HudStage, c: Crewmate) extends Table {
     mainTable.add(assignmentLabel).expand.fill.height(32)
 
     this.add(mainTable)
-  }
-
-  private def displayOptions(): Unit = {
-    val assignmentPanel: hud.AssignmentPanel = new hud.AssignmentPanel(this, crewmate)
-    hudStage.addActor(assignmentPanel)
   }
 }

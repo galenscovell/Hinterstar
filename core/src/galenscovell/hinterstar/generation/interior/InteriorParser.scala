@@ -15,7 +15,7 @@ class InteriorParser(shipName: String) {
   var tileSize: Int = 0
 
   parse(shipName)
-  debugPrint()
+  // debugPrint()
 
 
   def getTiles: Array[Array[Tile]] = {
@@ -41,11 +41,11 @@ class InteriorParser(shipName: String) {
 
         for (x <- 0 until line.length) {
           line(x) match {
-            case 'W' => tileRow(x) = new Tile(x, y, "Weapon Control")
-            case 'E' => tileRow(x) = new Tile(x, y, "Engine Room")
-            case 'H' => tileRow(x) = new Tile(x, y, "Helm")
-            case 'S' => tileRow(x) = new Tile(x, y, "Shield Control")
-            case _ => tileRow(x) = new Tile(x, y, "None")
+            case 'W' => tileRow(x) = new Tile(x, y, tileSize, "Weapon Control")
+            case 'E' => tileRow(x) = new Tile(x, y, tileSize, "Engine Room")
+            case 'H' => tileRow(x) = new Tile(x, y, tileSize, "Helm")
+            case 'S' => tileRow(x) = new Tile(x, y, tileSize, "Shield Control")
+            case _ => tileRow(x) = new Tile(x, y, tileSize, "None")
           }
         }
 

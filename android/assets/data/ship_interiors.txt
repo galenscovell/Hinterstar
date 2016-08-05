@@ -6,7 +6,7 @@ H = Helm subsystem
 S = Shield subsystem
 
 Ship-0
-8,3,40
+8,3,60
 ~~~S~~~~
 ~E~~W~H~
 ~~~~~~~~

@@ -36,7 +36,7 @@ object Resources {
       buttonEventStyle, toggleButtonStyle, greenButtonStyle, blueButtonStyle: TextButtonStyle = _
 
   var mapGlow, spTest0, spTest1, spTest2, spTest3, spTest4,
-      spCrewmate: Sprite = _
+      spCrewmate, spSubsystemMarker: Sprite = _
 
   var healthBarStyle: ProgressBarStyle = _
 
@@ -171,6 +171,7 @@ object Resources {
     spTest3 = new Sprite(uiAtlas.createSprite("test-box-3"))
     spTest4 = new Sprite(uiAtlas.createSprite("test-box-4"))
     spCrewmate = new Sprite(crewAtlas.createSprite("test-crewmate"))
+    spSubsystemMarker = new Sprite(uiAtlas.createSprite("subsystem_marker"))
   }
 
   /**
