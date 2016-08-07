@@ -21,7 +21,6 @@ object PlayerData {
   private var prefs: Preferences = _
   private val crew: ArrayBuffer[Crewmate] = ArrayBuffer()
   private var ship: Ship = _
-  private var subsystems: mutable.Map[String, Int] = _
   private var hullHealth: Int = 100
 
   private val proficiencies: List[String] =
@@ -74,7 +73,7 @@ object PlayerData {
 
     for (c: Crewmate <- cData) {
       val name: String = c.getName
-      prefs.putString(s"$name-assignment", c.getAssignment)
+      prefs.putString(s"$name-assignment", c.getAssignedSubsystemName)
       prefs.putInteger(s"$name-health", c.getHealth)
 
       for ((k, v) <- c.getAllProficiencies) {
@@ -97,24 +96,6 @@ object PlayerData {
   // SHIP OPERATIONS
   def getShip: Ship = {
     ship
-  }
-
-  def getOccupiedSubsystems: mutable.Map[String, Int] = {
-    subsystems
-  }
-
-  def updateOccupiedSubsystems(): Unit = {
-    subsystems = mutable.Map()
-    for (subsystem: String <- ship.getSubsystems) {
-      subsystems(subsystem) = 0
-    }
-
-    for (crewmate: Crewmate <- crew) {
-      val assignment: String = crewmate.getAssignment
-      if (subsystems.contains(assignment)) {
-        subsystems(assignment) += 1
-      }
-    }
   }
 
   def saveShip(currentShip: Ship): Unit = {
@@ -154,13 +135,16 @@ object PlayerData {
     ship.setWeapons(weaponArray.toArray)
   }
 
+  // Should this be called every game update to ensure stats are always fresh?
+  // ie crewmate moved to turret, check will see it immediately (once updated) and set
+  //    the turret into firing mode
   def getShipStats: Array[Float] = {
     // Stats Array = (Shield, Evasion, Weapons)
     val stats: Array[Float] = Array(0, 0, 0)
     var helmManned: Boolean = false
 
     for (crewmate: Crewmate <- crew) {
-      val assignment: String = crewmate.getAssignment
+      val assignment: String = crewmate.getAssignedSubsystemName
 
       assignment match {
         case "Weapon Control" =>
@@ -209,8 +193,8 @@ object PlayerData {
 
 
   // LOCATION OPERATIONS
-  // TODO: Save current Sector (and map layout)
-  // TODO: Save current System
+  // TODO: Save current Sector (and map layout) to custom file format
+  // TODO: Save current System and explored Systems
   // TODO: Load saved Sector (and map layout)
   // TODO: Load saved System
 }

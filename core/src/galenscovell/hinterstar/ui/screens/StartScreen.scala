@@ -1,10 +1,10 @@
 package galenscovell.hinterstar.ui.screens
 
 import com.badlogic.gdx.graphics.{GL20, OrthographicCamera}
+import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
-import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.{Gdx, Screen}
 import galenscovell.hinterstar.Hinterstar
@@ -135,7 +135,6 @@ class StartScreen(gameRoot: Hinterstar) extends Screen {
         PlayerData.loadShip()
         PlayerData.saveWeapons()
         PlayerData.loadWeapons()
-        PlayerData.updateOccupiedSubsystems()
 
         root.createGameScreen()
         stage.getRoot.addAction(Actions.sequence(

@@ -48,7 +48,7 @@ class CrewmateBox(stage: HudStage, c: Crewmate) extends Table {
     crewmateDetail.add(spriteTable).expand.fill.width(32).height(32).left.top
     crewmateDetail.add(detailTop).expand.fill.width(80).height(32).top
 
-    val assignmentLabel: Label = new Label(crewmate.getAssignment, Resources.labelTinyStyle)
+    val assignmentLabel: Label = new Label(crewmate.getAssignedSubsystemName, Resources.labelTinyStyle)
     assignmentLabel.setAlignment(Align.center)
 
     mainTable.add(crewmateDetail).expand.fill

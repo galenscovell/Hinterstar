@@ -11,21 +11,63 @@ class Tile(x: Int, y: Int, size: Int, ss: String) extends Actor {
   val ty: Int = y
   val tileSize: Int = size
   val subsystem: String = ss
+
   private var frames: Int = 60
   private var glowing: Boolean = true
   private var sprite: Sprite = _
 
+  private val maxOccupancy: Int = setMaxOccupancy
+  private var assignedCrewmates: Int = 0
+
   this.addListener(new ActorGestureListener() {
     override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
-      if (subsystem != null) {
-        CrewOperations.assignCrewmate(subsystem)
+      if (hasSubsystem) {
+        if (!occupancyFull) {
+          CrewOperations.assignCrewmate(getThisTile)
+        }
       }
     }
   })
 
-  def hasSubsystem: Boolean = {
+
+  // Occupancy Operations
+  def occupancyFull: Boolean = {
+    assignedCrewmates == maxOccupancy
+  }
+
+  def assignCrewmate(): Unit = {
+    assignedCrewmates += 1
+  }
+
+  def removeCrewmate(): Unit = {
+    assignedCrewmates -= 1
+  }
+
+  private def setMaxOccupancy: Int = {
+    subsystem match {
+      case "Weapon Control" => 3
+      case "Shield Control" => 3
+      case "Engine Room" => 3
+      case "Helm" => 1
+      case _ => 0
+    }
+  }
+
+
+
+  def getSubsystemName: String = {
+    subsystem
+  }
+
+  private def getThisTile: Tile = {
+    this
+  }
+
+  private def hasSubsystem: Boolean = {
     subsystem != "None"
   }
+
+
 
   override def draw(batch: Batch, parentAlpha: Float): Unit = {
     if (glowing) {

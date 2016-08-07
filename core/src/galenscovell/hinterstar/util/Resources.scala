@@ -55,11 +55,12 @@ object Resources {
     assetManager.setLoader(classOf[FreeTypeFontGenerator], new FreeTypeFontGeneratorLoader(resolver))
     assetManager.setLoader(classOf[BitmapFont], ".ttf", new FreetypeFontLoader(resolver))
 
-    generateFont("ui/Golden Age.ttf", 12, 0, Color.WHITE, Color.BLACK, "tinyFont.ttf")
-    generateFont("ui/Golden Age.ttf", 14, 0, Color.WHITE, Color.BLACK, "smallFont.ttf")
-    generateFont("ui/Golden Age.ttf", 16, 0, Color.WHITE, Color.BLACK, "mediumFont.ttf")
-    generateFont("ui/Golden Age.ttf", 21, 0, Color.WHITE, Color.BLACK, "largeFont.ttf")
-    generateFont("ui/Golden Age.ttf", 36, 0, Color.TEAL, Color.BLACK, "extraLargeFont.ttf")
+    // TODO: Decide between Generic, battlenet, bitCasual
+    generateFont("ui/BitCasual.ttf", 16, 0, Color.WHITE, Color.BLACK, "tinyFont.ttf")
+    generateFont("ui/BitCasual.ttf", 16, 0, Color.WHITE, Color.BLACK, "smallFont.ttf")
+    generateFont("ui/BitCasual.ttf", 16, 0, Color.WHITE, Color.BLACK, "mediumFont.ttf")
+    generateFont("ui/BitCasual.ttf", 24, 0, Color.WHITE, Color.BLACK, "largeFont.ttf")
+    generateFont("ui/cubeOne.ttf", 48, 0, Color.TEAL, Color.BLACK, "titleFont.ttf")
   }
 
   /**
@@ -136,14 +137,14 @@ object Resources {
     labelDetailStyle = new LabelStyle(assetManager.get("smallFont.ttf", classOf[BitmapFont]), Color.WHITE)
     labelMediumStyle = new LabelStyle(assetManager.get("mediumFont.ttf", classOf[BitmapFont]), Color.WHITE)
     labelMenuStyle = new LabelStyle(assetManager.get("largeFont.ttf", classOf[BitmapFont]), Color.WHITE)
-    labelTitleStyle = new LabelStyle(assetManager.get("extraLargeFont.ttf", classOf[BitmapFont]), Color.WHITE)
+    labelTitleStyle = new LabelStyle(assetManager.get("titleFont.ttf", classOf[BitmapFont]), Color.WHITE)
   }
 
   /**
     * Create ButtonStyles.
     */
   private def loadButtonStyles(): Unit = {
-    buttonMenuStyle = new TextButtonStyle(npTest4, npTest3, npTest4, assetManager.get("largeFont.ttf", classOf[BitmapFont]))
+    buttonMenuStyle = new TextButtonStyle(npTest4, npTest3, npTest4, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
     buttonMenuStyle.pressedOffsetY = -2
     buttonMapStyle0 = new TextButtonStyle(npTest1, npTest4, npTest4, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
     buttonMapStyle0.pressedOffsetY = -2

@@ -2,6 +2,7 @@ package galenscovell.hinterstar.things.entities
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar
+import galenscovell.hinterstar.generation.interior.Tile
 import galenscovell.hinterstar.util.Resources
 
 import scala.collection.mutable
@@ -10,7 +11,7 @@ import scala.collection.mutable
 class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
   private var name: String = n
   private val proficiencies: mutable.Map[String, Int] = p
-  private var assignment: String = a
+  private var assignment: Tile = _
   private var health: Int = h
 
   private val sprite: Sprite = Resources.spCrewmate
@@ -30,8 +31,16 @@ class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
     proficiencies(proficiency)
   }
 
-  def getAssignment: String = {
+  def getAssignment: Tile = {
     assignment
+  }
+
+  def getAssignedSubsystemName: String = {
+    if (assignment == null) {
+      "None"
+    } else {
+      assignment.getSubsystemName
+    }
   }
 
   def getHealth: Int = {
@@ -56,8 +65,8 @@ class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
     proficiencies.updated(proficiency, proficiencies(proficiency) + value)
   }
 
-  def setAssignment(a: String): Unit = {
-    assignment = a
+  def setAssignment(ss: Tile): Unit = {
+    assignment = ss
   }
 
   def updateHealth(value: Int): Unit = {
