@@ -154,9 +154,9 @@ object PlayerData {
     ship.setWeapons(weaponArray.toArray)
   }
 
-  def getShipStats: Array[Int] = {
+  def getShipStats: Array[Float] = {
     // Stats Array = (Shield, Evasion, Weapons)
-    val stats: Array[Int] = Array(0, 0, 0)
+    val stats: Array[Float] = Array(0, 0, 0)
     var helmManned: Boolean = false
 
     for (crewmate: Crewmate <- crew) {
@@ -164,18 +164,17 @@ object PlayerData {
 
       assignment match {
         case "Weapon Control" =>
-          val bonus: Int = 1
-          stats(2) += bonus
+          stats(2) += 1
         case "Engine Room" =>
           val bonus: Float = 2.5f + (2.5f * (crewmate.getAProficiency("Engines") / 100))
-          stats(1) += bonus.toInt
+          stats(1) += bonus
         case "Helm" =>
           val bonus: Float = 5 + (crewmate.getAProficiency("Piloting") / 100)
-          stats(1) += bonus.toInt
+          stats(1) += bonus
           helmManned = true
         case "Shield Control" =>
           val bonus: Float = 1 + (0.5f * (crewmate.getAProficiency("Shields") / 100))
-          stats(0) += bonus.toInt
+          stats(0) += bonus
         case _ => Unit
       }
     }

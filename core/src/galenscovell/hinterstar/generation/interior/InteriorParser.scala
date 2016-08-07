@@ -1,14 +1,16 @@
 package galenscovell.hinterstar.generation.interior
 
+import java.io._
+
+import com.badlogic.gdx.Gdx
+
 import scala.collection.mutable.ArrayBuffer
-import scala.io.{BufferedSource, Source}
 
 
 /**
   * Contains a grid of tiles representing the subsystem actors for a given ship.
   */
 class InteriorParser(shipName: String) {
-  private val source: String = "data/ship_interiors.txt"
   private val tiles: ArrayBuffer[Array[Tile]] = ArrayBuffer()
   private var width: Int = 0
   private var height: Int = 0
@@ -23,17 +25,14 @@ class InteriorParser(shipName: String) {
   }
 
   private def parse(ship: String): Unit = {
-    val bufferedSource: BufferedSource = Source.fromFile(source)
+    val reader: BufferedReader = Gdx.files.internal("data/ship_interiors.txt").reader(1024)
 
     var shipFound: Boolean = false
     var searching: Boolean = true
-    val lines = bufferedSource.getLines.toArray
-    var i = 0
     var y = 0
 
-    while (i < lines.length && searching) {
-      val line = lines(i)
-
+    var line: String = reader.readLine()
+    while (line != null && searching) {
       if (line == "END") {
         searching = false
       } else if (shipFound) {
@@ -55,18 +54,17 @@ class InteriorParser(shipName: String) {
 
       if (line == ship) {
         shipFound = true
-        i += 1
-        val dimLine: String = lines(i)
+        val dimLine: String = reader.readLine()
         val splitLine: Array[String] = dimLine.split(",")
-        width = splitLine(0).toInt
-        height = splitLine(1).toInt
-        tileSize = splitLine(2).toInt
+        width = Integer.valueOf(splitLine(0))
+        height = Integer.valueOf(splitLine(1))
+        tileSize = Integer.valueOf(splitLine(2))
       }
 
-      i += 1
+      line = reader.readLine()
     }
 
-    bufferedSource.close()
+    reader.close()
   }
 
   private def debugPrint(): Unit = {

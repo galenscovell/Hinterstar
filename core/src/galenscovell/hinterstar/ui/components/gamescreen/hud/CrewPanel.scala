@@ -9,26 +9,25 @@ import galenscovell.hinterstar.util._
 
 class CrewPanel(stage: HudStage) extends Table {
   private val hudStage: HudStage = stage
+  private val contentTable: Table = new Table
 
   construct()
 
 
   private def construct(): Unit = {
-    val mainTable: Table = new Table
-    val contentTable: Table = new Table
+    this.setFillParent(true)
 
-    createCrewBoxes(contentTable)
+    refreshCrewBoxes()
 
-    mainTable.add(contentTable).expand.left.bottom
-    this.add(mainTable).expand.fill
+    this.add(contentTable).expand.left.bottom
   }
 
-  private def createCrewBoxes(container: Table): Unit = {
-    container.clear()
+  def refreshCrewBoxes(): Unit = {
+    contentTable.clear()
 
     for (crewmate: Crewmate <- PlayerData.getCrew) {
       val crewBox: hud.CrewmateBox = new hud.CrewmateBox(hudStage, crewmate)
-      container.add(crewBox).width(112).height(64).padRight(4)
+      contentTable.add(crewBox).width(112).height(64).padRight(4)
     }
   }
 }

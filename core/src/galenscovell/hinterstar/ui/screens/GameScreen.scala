@@ -37,8 +37,8 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
   private val lerp: Float = 0.9f
   private val originVector: Vector3 = new Vector3(Constants.EXACT_X / 2, Constants.EXACT_Y / 2, 0)
-  private val cameraXmin: Float = Constants.EXACT_X * 0.375f
-  private val cameraXmax: Float = Constants.EXACT_X * 0.625f
+  private val cameraXmin: Float = Constants.EXACT_X * 0.5f
+  private val cameraXmax: Float = Constants.EXACT_X
   private val cameraYmin: Float = Constants.EXACT_Y * 0.375f
   private val cameraYmax: Float = Constants.EXACT_Y * 0.625f
 

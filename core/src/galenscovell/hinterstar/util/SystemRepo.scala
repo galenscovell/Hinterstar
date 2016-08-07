@@ -16,7 +16,7 @@ import scala.collection.mutable.ArrayBuffer
 object SystemRepo {
   val systemsInRange: ArrayBuffer[System] = ArrayBuffer()
   val shapeRenderer: ShapeRenderer = new ShapeRenderer()
-  val playerRangeRadius: Int = 6 * Constants.SYSTEMMARKER_SIZE
+  val playerRangeRadius: Int = 8 * Constants.SYSTEMMARKER_SIZE
 
   var gameScreen: GameScreen = _
   var systems: ArrayBuffer[System] = _

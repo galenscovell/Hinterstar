@@ -15,16 +15,13 @@ class ShipStatsPanel(stage: HudStage) extends Table {
 
 
   private def construct(): Unit = {
-    val mainTable: Table = new Table
-
-    mainTable.add(shipStatsTable).expand.left.padLeft(4)
-    this.add(mainTable).expand.fill
+    this.add(shipStatsTable).expand.left.padLeft(4)
   }
 
   def refreshStats(): Unit = {
     shipStatsTable.clear()
 
-    val stats: Array[Int] = PlayerData.getShipStats
+    val stats: Array[Float] = PlayerData.getShipStats
 
     for (i <- stats.indices) {
       val statTable: Table = new Table
@@ -42,7 +39,7 @@ class ShipStatsPanel(stage: HudStage) extends Table {
       statTable.add(statValueTable).expand.fill.center
 
       shipStatsTable.add(statTable)
-        .width(80)
+        .width(100)
         .height(32)
         .center
         .pad(4)

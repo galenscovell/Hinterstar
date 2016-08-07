@@ -14,10 +14,7 @@ class HullHealthPanel(stage: HudStage) extends Table {
 
 
   private def construct(): Unit = {
-    val mainTable: Table = new Table
-
-    mainTable.add(hullHealthBar).expand.fill
-    this.add(mainTable).expand.fill
+    this.add(hullHealthBar).expand.fill
   }
 
   def updateHealth(): Unit = {

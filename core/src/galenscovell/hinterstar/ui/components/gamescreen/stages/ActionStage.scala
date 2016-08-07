@@ -14,6 +14,8 @@ import galenscovell.hinterstar.util._
 class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
   private val gameScreen: GameScreen = game
   private val player: Player = new Player(this)
+  private val leftTable: Table = new Table
+  private val rightTable: Table = new Table
 
   construct()
 
@@ -22,12 +24,15 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
-    // Make one table on the left for holding the player
-    // Make one table on the right for holding other ships/bases/etc.
     val actionTable: Table = new Table
-    actionTable.add(player).expand.fill.left.padLeft(30)
+    // actionTable.setDebug(true)
 
-    mainTable.add(actionTable).width(Constants.EXACT_X).expand.fill
+    leftTable.add(player).expand.fill.left
+
+    actionTable.add(leftTable).left.padLeft(20)
+    actionTable.add(rightTable).expand.right
+
+    mainTable.add(actionTable).width(Constants.EXACT_X * 2).expand.fill.padLeft(Constants.EXACT_X)
 
     this.addActor(mainTable)
   }
@@ -49,7 +54,7 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
   }
 
   def toggleSubsystemOverlay(): Unit = {
-    if (player.overlayPresent) {
+    if (player.overlayPresent()) {
       player.disableOverlay()
     } else {
       player.enableOverlay()
@@ -57,7 +62,7 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
   }
 
   def disableSubsystemOverlay(): Unit = {
-    if (player.overlayPresent) {
+    if (player.overlayPresent()) {
       player.disableOverlay()
     }
   }

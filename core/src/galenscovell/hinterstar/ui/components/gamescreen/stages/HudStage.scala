@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.ui.components.gamescreen.hud._
 import galenscovell.hinterstar.ui.components.gamescreen.views._
 import galenscovell.hinterstar.ui.screens.GameScreen
-import galenscovell.hinterstar.util.{Constants, SystemRepo}
+import galenscovell.hinterstar.util._
 
 
 class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
@@ -27,6 +27,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
   private var eventPanel: EventPanel = _
 
   construct()
+  CrewOperations.initialize(gameScreen)
 
 
   private def construct(): Unit = {
@@ -172,6 +173,11 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
 
   def getGameScreen: GameScreen = {
     gameScreen
+  }
+
+  def refreshCrewAndStats(): Unit = {
+    crewPanel.refreshCrewBoxes()
+    shipStatsPanel.refreshStats()
   }
 
   private def showEventPanel(): Unit = {

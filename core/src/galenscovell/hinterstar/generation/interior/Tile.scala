@@ -3,7 +3,7 @@ package galenscovell.hinterstar.generation.interior
 import com.badlogic.gdx.graphics.g2d.{Batch, Sprite}
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
 import com.badlogic.gdx.scenes.scene2d.{Actor, InputEvent}
-import galenscovell.hinterstar.util.Resources
+import galenscovell.hinterstar.util.{CrewOperations, Resources}
 
 
 class Tile(x: Int, y: Int, size: Int, ss: String) extends Actor {
@@ -18,7 +18,7 @@ class Tile(x: Int, y: Int, size: Int, ss: String) extends Actor {
   this.addListener(new ActorGestureListener() {
     override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
       if (subsystem != null) {
-        println(subsystem)
+        CrewOperations.assignCrewmate(subsystem)
       }
     }
   })

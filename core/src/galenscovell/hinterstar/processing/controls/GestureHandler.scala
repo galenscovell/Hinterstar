@@ -9,7 +9,7 @@ class GestureHandler(root: GameScreen) extends GestureDetector.GestureAdapter {
 
 
   override def pan(x: Float, y: Float, deltaX: Float, deltaY: Float): Boolean = {
-    gameScreen.actionPan(deltaX / 10, -deltaY / 10)
+    gameScreen.actionPan(deltaX / 5, -deltaY / 10)
     true
   }
 
