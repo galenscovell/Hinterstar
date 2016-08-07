@@ -16,7 +16,7 @@ import scala.collection.mutable.ArrayBuffer
 object SystemRepo {
   val systemsInRange: ArrayBuffer[System] = ArrayBuffer()
   val shapeRenderer: ShapeRenderer = new ShapeRenderer()
-  val playerRangeRadius: Int = 10 * Constants.SYSTEMMARKER_SIZE
+  val playerRangeRadius: Int = 6 * Constants.SYSTEMMARKER_SIZE
 
   var gameScreen: GameScreen = _
   var systems: ArrayBuffer[System] = _
@@ -69,7 +69,7 @@ object SystemRepo {
 
     shapeRenderer.setColor(0.95f, 0.61f, 0.07f, 0.6f)
     // shapeRenderer.circle(centerX, centerY, playerRangeRadius)
-    shapeRenderer.circle(centerX, centerY, 26)
+    shapeRenderer.circle(centerX, centerY, 30)
 
     if (systemsInRange.nonEmpty) {
       shapeRenderer.setColor(0.93f, 0.94f, 0.95f, 0.6f)
@@ -86,7 +86,7 @@ object SystemRepo {
       shapeRenderer.setColor(0.18f, 0.8f, 0.44f, 0.6f)
       val selectionX: Float = currentSelection.getSystemMarker.sx + Constants.SYSTEM_MARKER_CENTER_X
       val selectionY: Float = Constants.EXACT_Y - currentSelection.getSystemMarker.sy + Constants.SYSTEM_MARKER_CENTER_Y
-      shapeRenderer.circle(selectionX, selectionY, 26)
+      shapeRenderer.circle(selectionX, selectionY, 30)
     }
 
     shapeRenderer.end()

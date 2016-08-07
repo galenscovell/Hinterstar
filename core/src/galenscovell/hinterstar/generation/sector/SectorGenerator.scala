@@ -37,6 +37,7 @@ class SectorGenerator(maxSystems: Int, padSize: Int) {
 
   /**
     * Place random Systems, ensuring that they are distanced apart.
+    * TODO: Ensure that there is at least one full path from start to finish.
     */
   private def placeSystems(): Unit = {
     var attempts: Int = 240

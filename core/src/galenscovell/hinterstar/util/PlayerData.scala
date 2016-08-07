@@ -155,7 +155,7 @@ object PlayerData {
   }
 
   def getShipStats: Array[Int] = {
-    // Stats Array = (Shield, Evasion, Hardpoints)
+    // Stats Array = (Shield, Evasion, Weapons)
     val stats: Array[Int] = Array(0, 0, 0)
     var helmManned: Boolean = false
 

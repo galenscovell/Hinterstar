@@ -27,9 +27,7 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
     val actionTable: Table = new Table
     actionTable.add(player).expand.fill.left.padLeft(30)
 
-    mainTable.add(actionTable)
-      .width(Constants.EXACT_X)
-      .expand.fill
+    mainTable.add(actionTable).width(Constants.EXACT_X).expand.fill
 
     this.addActor(mainTable)
   }

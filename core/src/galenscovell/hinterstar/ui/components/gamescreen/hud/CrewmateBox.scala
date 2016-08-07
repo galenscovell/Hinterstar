@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.things.entities.Crewmate
 import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
-import galenscovell.hinterstar.util.{Constants, Resources}
+import galenscovell.hinterstar.util.Resources
 
 
 class CrewmateBox(stage: HudStage, c: Crewmate) extends Table {
@@ -40,7 +40,7 @@ class CrewmateBox(stage: HudStage, c: Crewmate) extends Table {
     val healthBarTable: Table = new Table
     healthBarTable.add(crewmate.getHealthBar).width(72).height(16)
 
-    detailTop.add(nameLabel).expand.fill.height(Constants.SYSTEMMARKER_SIZE)
+    detailTop.add(nameLabel).expand.fill.height(20)
     detailTop.row
     detailTop.add(healthBarTable).expand.fill.center
 

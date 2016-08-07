@@ -26,10 +26,9 @@ class SectorView(stage: HudStage) extends Table {
     mapTable.setPosition(0, 0)
     infoTable.setPosition(0, 0)
     this.add(mapGroup)
-      .width(Constants.EXACT_X - (Constants.SYSTEMMARKER_SIZE * 3))
-      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 3))
+      .width(Constants.EXACT_X)
+      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 2))
       .padTop(Constants.SYSTEMMARKER_SIZE * 2)
-      .padBottom(Constants.SYSTEMMARKER_SIZE)
   }
 
   private def createMapTable: Table = {
@@ -42,7 +41,7 @@ class SectorView(stage: HudStage) extends Table {
 
   private def generateMap(container: Table): Unit =  {
     // TODO: Each new map has randomized SystemMarker layout (depending on difficulty)
-    val sectorGenerator: SectorGenerator = new SectorGenerator(16, 3)
+    val sectorGenerator: SectorGenerator = new SectorGenerator(16, 2)
     val systemMarkers: Array[Array[SystemMarker]] = sectorGenerator.getSystemMarkers
 
     // container.setDebug(true)
@@ -68,7 +67,7 @@ class SectorView(stage: HudStage) extends Table {
     })
     distanceLabel = new Label("Distance: 0 AU", Resources.labelMenuStyle)
     infoTable.add(distanceLabel).expand.fill.left.padLeft(20)
-    infoTable.add(travelButton).width(150).height(50).expand.fill.right.padRight(75).padBottom(20)
+    infoTable.add(travelButton).width(150).height(50).expand.fill.right.padRight(20).padBottom(20)
     infoTable
   }
 

@@ -16,9 +16,8 @@ class ShipView(stage: HudStage) extends Table {
     val mainTable: Table = new Table
     mainTable.setBackground(Resources.npTest2)
     this.add(mainTable)
-      .width(Constants.EXACT_X - (Constants.SYSTEMMARKER_SIZE * 3))
-      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 3))
+      .width(Constants.EXACT_X)
+      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 2))
       .padTop(Constants.SYSTEMMARKER_SIZE * 2)
-      .padBottom(Constants.SYSTEMMARKER_SIZE)
   }
 }

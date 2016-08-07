@@ -29,8 +29,9 @@ object Resources {
       labelTitleStyle: LabelStyle = _
 
   var npTest0, npTest1, npTest2, npTest3, npTest4, greenButtonNp0,
-      greenButtonNp1, blueButtonNp0, blueButtonNp1, npFontCursor,
-      npTextFieldBg, npHealthFill: NinePatchDrawable = _
+      npTest1_border, npTest2_border, npTest3_border, npTest4_border,
+      greenButtonNp1, blueButtonNp0, blueButtonNp1,
+      npFontCursor, npTextFieldBg, npHealthFill: NinePatchDrawable = _
 
   var buttonMenuStyle, buttonMapStyle0, buttonMapStyle1, buttonMapStyle2,
       buttonEventStyle, toggleButtonStyle, greenButtonStyle, blueButtonStyle: TextButtonStyle = _
@@ -111,9 +112,13 @@ object Resources {
   private def loadNinepatches(): Unit = {
     npTest0 = new NinePatchDrawable(uiAtlas.createPatch("test-np-0"))
     npTest1 = new NinePatchDrawable(uiAtlas.createPatch("test-np-1"))
+    npTest1_border = new NinePatchDrawable(uiAtlas.createPatch("test-np-1_border"))
     npTest2 = new NinePatchDrawable(uiAtlas.createPatch("test-np-2"))
+    npTest2_border = new NinePatchDrawable(uiAtlas.createPatch("test-np-2_border"))
     npTest3 = new NinePatchDrawable(uiAtlas.createPatch("test-np-3"))
+    npTest3_border = new NinePatchDrawable(uiAtlas.createPatch("test-np-3_border"))
     npTest4 = new NinePatchDrawable(uiAtlas.createPatch("test-np-4"))
+    npTest4_border = new NinePatchDrawable(uiAtlas.createPatch("test-np-4_border"))
     greenButtonNp0 = new NinePatchDrawable(uiAtlas.createPatch("green_button0_np"))
     greenButtonNp1 = new NinePatchDrawable(uiAtlas.createPatch("green_button1_np"))
     blueButtonNp0 = new NinePatchDrawable(uiAtlas.createPatch("blue_button0_np"))
