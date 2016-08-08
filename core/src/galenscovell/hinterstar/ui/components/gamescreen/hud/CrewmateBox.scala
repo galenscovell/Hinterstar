@@ -17,10 +17,9 @@ class CrewmateBox(stage: HudStage, c: Crewmate) extends Table {
 
 
   private def construct(): Unit = {
-    val mainTable: Table = new Table
-    mainTable.setBackground(Resources.npTest4)
+    this.setBackground(Resources.npTest4)
 
-    mainTable.addListener(new ClickListener() {
+    this.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         hudStage.getGameScreen.getActionStage.toggleSubsystemOverlay()
         CrewOperations.selectCrewmate(crewmate)
@@ -51,10 +50,8 @@ class CrewmateBox(stage: HudStage, c: Crewmate) extends Table {
     val assignmentLabel: Label = new Label(crewmate.getAssignedSubsystemName, Resources.labelTinyStyle)
     assignmentLabel.setAlignment(Align.center)
 
-    mainTable.add(crewmateDetail).expand.fill
-    mainTable.row
-    mainTable.add(assignmentLabel).expand.fill.height(32)
-
-    this.add(mainTable)
+    this.add(crewmateDetail).expand.fill
+    this.row
+    this.add(assignmentLabel).expand.fill.height(32)
   }
 }

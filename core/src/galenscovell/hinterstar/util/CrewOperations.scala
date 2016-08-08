@@ -1,6 +1,6 @@
 package galenscovell.hinterstar.util
 
-import galenscovell.hinterstar.generation.interior.Tile
+import galenscovell.hinterstar.generation.interior.Subsystem
 import galenscovell.hinterstar.things.entities.Crewmate
 import galenscovell.hinterstar.ui.screens.GameScreen
 
@@ -18,10 +18,10 @@ object CrewOperations {
     selectedCrewmate = cm
   }
 
-  def assignCrewmate(subsystem: Tile): Unit = {
+  def assignCrewmate(subsystem: Subsystem): Unit = {
     if (selectedCrewmate != null) {
       if (!subsystem.occupancyFull) {
-        val currentAssignment: Tile = selectedCrewmate.getAssignment
+        val currentAssignment: Subsystem = selectedCrewmate.getAssignment
         if (currentAssignment != null) {
           currentAssignment.removeCrewmate()
         }

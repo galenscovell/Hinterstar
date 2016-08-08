@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
 import galenscovell.hinterstar.processing.controls.GestureHandler
-import galenscovell.hinterstar.ui.components.gamescreen.hud.LocationPanel
 import galenscovell.hinterstar.ui.components.gamescreen.stages._
 import galenscovell.hinterstar.util._
 
@@ -29,7 +28,6 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
   private var normalBg: ParallaxBackground = createBackground("purple_bg", "bg1", "bg2")
   private var blurBg: ParallaxBackground = createBackground("purple_bg", "bg1_blur", "bg2_blur")
-  private var locationPanel: LocationPanel = _
   var currentBackground: ParallaxBackground = normalBg
 
   private var bg0, bg1, bg2: String = _
@@ -42,10 +40,10 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   private val cameraYmin: Float = Constants.EXACT_Y * 0.375f
   private val cameraYmax: Float = Constants.EXACT_Y * 0.625f
 
-  create()
+  construct()
 
 
-  private def create(): Unit = {
+  private def construct(): Unit = {
     SystemRepo.setup(this)
     val actionViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, actionCamera)
     val hudViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, hudCamera)
@@ -81,7 +79,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   }
 
   override def show(): Unit = {
-    Gdx.input.setInputProcessor(input)
+    enableInput()
   }
 
   override def resize(width: Int, height: Int): Unit = {
@@ -115,7 +113,6 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     input.addProcessor(hudStage)
     input.addProcessor(actionStage)
     input.addProcessor(gestureHandler)
-    // input.addProcessor(new InputHandler(this))
     Gdx.input.setInputProcessor(input)
   }
 
@@ -152,10 +149,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     this.bg1Blur = bg1Blur
     this.bg2Blur = bg2Blur
 
-    val systemDetail: Array[String] = SystemRepo.currentSystem.getDetails
-    locationPanel = new LocationPanel(systemDetail(0), systemDetail(1))
     actionStage.updatePlayerAnimation()
-
     actionStage.getRoot.addAction(Actions.sequence(
       Actions.delay(3),
       Actions.fadeOut(1.0f),
@@ -167,8 +161,10 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
       Actions.fadeOut(1.0f),
       warpTransitionAction,
       Actions.fadeIn(1.0f),
-      Actions.delay(5.2f),
-      Actions.removeActor(locationPanel)
+      Actions.delay(4),
+      showViewButtonsAction,
+      Actions.delay(1f),
+      enableInputAction
     ))
   }
 
@@ -294,14 +290,6 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
       blurBg = createBackground(bg0Blur, bg1Blur, bg2Blur)
       blurBg.setSpeed(new Vector2(2500, 0))
       currentBackground = blurBg
-      hudStage.addActor(locationPanel)
-      locationPanel.addAction(Actions.sequence(
-        Actions.delay(3.5f),
-        Actions.fadeOut(1.25f),
-        showViewButtonsAction,
-        Actions.delay(1f),
-        enableInputAction
-      ))
       true
     }
   }
@@ -314,7 +302,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   }
 
   private[screens] var enableInputAction: Action = new Action {
-    override def act(delta: Float): Boolean = {
+    def act(delta: Float): Boolean = {
       enableInput()
       true
     }

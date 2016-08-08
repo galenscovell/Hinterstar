@@ -10,43 +10,44 @@ import galenscovell.hinterstar.util._
 
 class ViewButtons(stage: HudStage) extends Table {
   private val hudStage: HudStage = stage
-  private var mapButton, teamButton, shipButton: TextButton = _
+  private var sectorButton, crewButton, shipButton: TextButton = _
 
   construct()
 
 
   private def construct(): Unit = {
     this.align(Align.center)
-    this.mapButton = new TextButton("Sector", Resources.buttonMapStyle0)
-    this.teamButton = new TextButton("Crew", Resources.buttonMapStyle1)
+
+    this.sectorButton = new TextButton("Sector", Resources.buttonMapStyle0)
+    this.crewButton = new TextButton("Crew", Resources.buttonMapStyle1)
     this.shipButton = new TextButton("Ship", Resources.buttonMapStyle2)
-    mapButton.addListener(new ClickListener() {
+    sectorButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
         hudStage.toggleView(0)
-        teamButton.setChecked(false)
+        crewButton.setChecked(false)
         shipButton.setChecked(false)
       }
     })
-    teamButton.addListener(new ClickListener() {
+    crewButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
         hudStage.toggleView(1)
-        mapButton.setChecked(false)
+        sectorButton.setChecked(false)
         shipButton.setChecked(false)
       }
     })
     shipButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
         hudStage.toggleView(2)
-        mapButton.setChecked(false)
-        teamButton.setChecked(false)
+        sectorButton.setChecked(false)
+        crewButton.setChecked(false)
       }
     })
-    this.add(mapButton).width(134).expand.fill
-    this.add(teamButton).width(134).expand.fill
+    this.add(sectorButton).width(134).expand.fill
+    this.add(crewButton).width(134).expand.fill
     this.add(shipButton).width(134).expand.fill
   }
 
-  def getMapButton: TextButton = {
-    mapButton
+  def getSectorButton: TextButton = {
+    sectorButton
   }
 }

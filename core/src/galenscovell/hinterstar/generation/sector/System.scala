@@ -17,7 +17,6 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
   val size: Int = gridSize
 
   private var event: Event = new Event()
-  private var details: Array[String] = Array[String]("Location Title", "Location Detail")
   private var systemMarker: SystemMarker = _
 
 
@@ -26,13 +25,6 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
     */
   def getSystemMarker: SystemMarker = {
     systemMarker
-  }
-
-  /**
-    * Return the System title and subtitle detail strings.
-    */
-  def getDetails: Array[String] = {
-    details
   }
 
   /**
@@ -53,17 +45,9 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
   }
 
   /**
-    * Set the System title and subtitle detail strings.
-    */
-  def setDetails(newDetails: Array[String]): Unit = {
-    details = newDetails
-  }
-
-  /**
     * Set this System as the starting System for the game (the tutorial System).
     */
   def setAsTutorial(): Unit = {
-    details = Array("Tutorial System", "Learn You a Thing")
     val startingEvent: Event = new Event()
     startingEvent.setStartEvent()
     event = startingEvent

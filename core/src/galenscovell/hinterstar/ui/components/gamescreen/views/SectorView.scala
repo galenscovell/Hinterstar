@@ -73,7 +73,7 @@ class SectorView(stage: HudStage) extends Table {
 
   private def travelToSystem(): Unit = {
     if (SystemRepo.travelToSelection) {
-      hudStage.getViewButtons.getMapButton.setChecked(false)
+      hudStage.getViewButtons.getSectorButton.setChecked(false)
       hudStage.toggleView(0)
       hudStage.getGameScreen.beginWarp()
       hudStage.hideViewButtons()

@@ -2,7 +2,7 @@ package galenscovell.hinterstar.ui.components.gamescreen.hud
 
 import com.badlogic.gdx.scenes.scene2d.ui._
 import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
-import galenscovell.hinterstar.util.{PlayerData, Resources}
+import galenscovell.hinterstar.util._
 
 
 class HullHealthPanel(stage: HudStage) extends Table {

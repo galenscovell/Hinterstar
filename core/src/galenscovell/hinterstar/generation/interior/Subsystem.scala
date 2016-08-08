@@ -6,11 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.{Actor, InputEvent}
 import galenscovell.hinterstar.util.{CrewOperations, Resources}
 
 
-class Tile(x: Int, y: Int, size: Int, ss: String) extends Actor {
+class Subsystem(x: Int, y: Int, size: Int, ss: String) extends Actor {
   val tx: Int = x
   val ty: Int = y
-  val tileSize: Int = size
-  val subsystem: String = ss
+  val subsystemSize: Int = size
+  val name: String = ss
 
   private var frames: Int = 60
   private var glowing: Boolean = true
@@ -21,9 +21,9 @@ class Tile(x: Int, y: Int, size: Int, ss: String) extends Actor {
 
   this.addListener(new ActorGestureListener() {
     override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
-      if (hasSubsystem) {
+      if (isInUse) {
         if (!occupancyFull) {
-          CrewOperations.assignCrewmate(getThisTile)
+          CrewOperations.assignCrewmate(getThisSubsystem)
         }
       }
     }
@@ -44,7 +44,7 @@ class Tile(x: Int, y: Int, size: Int, ss: String) extends Actor {
   }
 
   private def setMaxOccupancy: Int = {
-    subsystem match {
+    name match {
       case "Weapon Control" => 3
       case "Shield Control" => 3
       case "Engine Room" => 3
@@ -55,16 +55,16 @@ class Tile(x: Int, y: Int, size: Int, ss: String) extends Actor {
 
 
 
-  def getSubsystemName: String = {
-    subsystem
+  override def getName: String = {
+    name
   }
 
-  private def getThisTile: Tile = {
+  private def getThisSubsystem: Subsystem = {
     this
   }
 
-  private def hasSubsystem: Boolean = {
-    subsystem != "None"
+  private def isInUse: Boolean = {
+    name != "None"
   }
 
 
@@ -83,21 +83,21 @@ class Tile(x: Int, y: Int, size: Int, ss: String) extends Actor {
     }
 
     val frameAlpha: Float = frames / 120.0f
-    if (hasSubsystem) {
+    if (isInUse) {
       batch.setColor(0.2f, 0.9f, 0.2f, frameAlpha)
       batch.draw(
         Resources.spSubsystemMarker,
-        tx * tileSize - (tileSize / 4),
-        (tileSize * 2) - (ty * tileSize) - (tileSize / 4),
-        tileSize * 1.5f,
-        tileSize * 1.5f
+        tx * subsystemSize - (subsystemSize / 4),
+        (subsystemSize * 2) - (ty * subsystemSize) - (subsystemSize / 4),
+        subsystemSize * 1.5f,
+        subsystemSize * 1.5f
       )
       batch.setColor(1, 1, 1, 1)
     }
   }
 
   def debugDraw: String = {
-    subsystem match {
+    name match {
       case "Weapon Control" => "W"
       case "Shield Control" => "S"
       case "Engine Room" => "E"

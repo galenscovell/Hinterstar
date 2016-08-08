@@ -15,10 +15,7 @@ class CrewPanel(stage: HudStage) extends Table {
 
 
   private def construct(): Unit = {
-    this.setFillParent(true)
-
     refreshCrewBoxes()
-
     this.add(contentTable).expand.left.bottom
   }
 
