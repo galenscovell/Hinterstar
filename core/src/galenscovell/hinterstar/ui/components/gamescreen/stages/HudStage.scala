@@ -126,14 +126,14 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
   }
 
   def hideViewButtons(): Unit = {
+    crewPanel.addAction(Actions.sequence(
+      Actions.touchable(Touchable.disabled),
+      Actions.fadeOut(0.5f, Interpolation.sine)
+    ))
     topTable.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
       Actions.fadeOut(0.5f, Interpolation.sine)
     ))
-//    crewPanel.addAction(Actions.sequence(
-//      Actions.touchable(Touchable.disabled),
-//      Actions.fadeOut(0.5f, Interpolation.sine)
-//    ))
     shipStatsPanel.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
       Actions.fadeOut(0.5f, Interpolation.sine)
@@ -141,14 +141,14 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
   }
 
   def showViewButtons(): Unit = {
+    crewPanel.addAction(Actions.sequence(
+      Actions.fadeIn(0.5f, Interpolation.sine),
+      Actions.touchable(Touchable.enabled)
+    ))
     topTable.addAction(Actions.sequence(
       Actions.fadeIn(0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
-//    crewPanel.addAction(Actions.sequence(
-//      Actions.fadeIn(0.5f, Interpolation.sine),
-//      Actions.touchable(Touchable.enabled)
-//    ))
     shipStatsPanel.addAction(Actions.sequence(
       Actions.fadeIn(0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)

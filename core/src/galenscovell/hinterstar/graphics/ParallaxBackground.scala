@@ -1,7 +1,7 @@
 package galenscovell.hinterstar.graphics
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.{Camera, OrthographicCamera}
+import com.badlogic.gdx.graphics._
 import com.badlogic.gdx.math.Vector2
 
 
@@ -68,6 +68,7 @@ class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: F
   def render(delta: Float): Unit = {
     camera.position.add(speed.x * delta, speed.y * delta, 0)
     batch.setProjectionMatrix(camera.projection)
+    batch.setColor(1, 1, 1, 1)
     batch.begin()
 
     for (layer <- layers) {

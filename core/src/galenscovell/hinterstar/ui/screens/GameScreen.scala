@@ -150,11 +150,11 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     this.bg2Blur = bg2Blur
 
     actionStage.updatePlayerAnimation()
-    actionStage.getRoot.addAction(Actions.sequence(
-      Actions.delay(3),
-      Actions.fadeOut(1.0f),
-      Actions.fadeIn(1.0f)
-    ))
+//    actionStage.getRoot.addAction(Actions.sequence(
+//      Actions.delay(3),
+//      Actions.fadeOut(1.0f),
+//      Actions.fadeIn(1.0f)
+//    ))
 
     hudStage.getRoot.addAction(Actions.sequence(
       Actions.delay(3),
