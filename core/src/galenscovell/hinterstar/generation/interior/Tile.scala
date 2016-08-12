@@ -6,24 +6,25 @@ import com.badlogic.gdx.scenes.scene2d.{Actor, InputEvent}
 import galenscovell.hinterstar.util.{CrewOperations, Resources}
 
 
-class Subsystem(x: Int, y: Int, size: Int, ss: String) extends Actor {
+class Tile(x: Int, y: Int, size: Int, ss: String) extends Actor {
   val tx: Int = x
   val ty: Int = y
-  val subsystemSize: Int = size
+  val tileSize: Int = size
   val name: String = ss
 
   private var frames: Int = 60
   private var glowing: Boolean = true
-  private var sprite: Sprite = _
 
   private val maxOccupancy: Int = setMaxOccupancy
+  private var sprite: Sprite = _  // findSprite
   private var assignedCrewmates: Int = 0
+
 
   this.addListener(new ActorGestureListener() {
     override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
-      if (isInUse) {
+      if (isSubsystem) {
         if (!occupancyFull) {
-          CrewOperations.assignCrewmate(getThisSubsystem)
+          CrewOperations.assignCrewmate(getThisTile)
         }
       }
     }
@@ -59,38 +60,47 @@ class Subsystem(x: Int, y: Int, size: Int, ss: String) extends Actor {
     name
   }
 
-  private def getThisSubsystem: Subsystem = {
+  private def getThisTile: Tile = {
     this
   }
 
-  private def isInUse: Boolean = {
-    name != "None"
+  private def isSubsystem: Boolean = {
+    name != "none"
+  }
+
+  private def findSprite: Sprite = {
+    if (isSubsystem) {
+      new Sprite(Resources.shipAtlas.createSprite(s"$name-icon"))
+    } else {
+      null
+    }
   }
 
 
 
   override def draw(batch: Batch, parentAlpha: Float): Unit = {
-    if (glowing) {
-      frames += 1
-    } else {
-      frames -= 2
-    }
+    if (isSubsystem) {
+      if (glowing) {
+        frames += 1
+      } else {
+        frames -= 2
+      }
 
-    if (frames == 120) {
-      glowing = false
-    } else if (frames == 40) {
-      glowing = true
-    }
+      if (frames == 120) {
+        glowing = false
+      } else if (frames == 40) {
+        glowing = true
+      }
 
-    val frameAlpha: Float = frames / 120.0f
-    if (isInUse) {
+      val frameAlpha: Float = frames / 120.0f
+
       batch.setColor(0.2f, 0.9f, 0.2f, frameAlpha)
       batch.draw(
         Resources.spSubsystemMarker,
-        tx * subsystemSize - (subsystemSize / 4),
-        (subsystemSize * 2) - (ty * subsystemSize) - (subsystemSize / 4),
-        subsystemSize * 1.5f,
-        subsystemSize * 1.5f
+        tx * tileSize - (tileSize / 4),
+        (tileSize * 2) - (ty * tileSize) - (tileSize / 4),
+        tileSize * 1.5f,
+        tileSize * 1.5f
       )
       batch.setColor(1, 1, 1, 1)
     }

@@ -8,20 +8,20 @@ import scala.collection.mutable.ArrayBuffer
 
 
 /**
-  * Contains a grid of subsystems representing the subsystem actors for a given ship.
+  * Contains a grid of Tiles representing the subsystem actors for a given ship.
   */
 class InteriorParser(shipName: String) {
-  private val subsystems: ArrayBuffer[Array[Subsystem]] = ArrayBuffer()
+  private val tiles: ArrayBuffer[Array[Tile]] = ArrayBuffer()
   private var width: Int = 0
   private var height: Int = 0
-  var subsystemSize: Int = 0
+  var tileSize: Int = 0
 
   parse(shipName)
   // debugPrint()
 
 
-  def getSubsystems: Array[Array[Subsystem]] = {
-    subsystems.toArray
+  def getTiles: Array[Array[Tile]] = {
+    tiles.toArray
   }
 
   private def parse(ship: String): Unit = {
@@ -36,19 +36,19 @@ class InteriorParser(shipName: String) {
       if (line == "END") {
         searching = false
       } else if (shipFound) {
-        val subsystemRow: Array[Subsystem] = Array.ofDim(width)
+        val subsystemRow: Array[Tile] = Array.ofDim(width)
 
         for (x <- 0 until line.length) {
           line(x) match {
-            case 'W' => subsystemRow(x) = new Subsystem(x, y, subsystemSize, "Weapon Control")
-            case 'E' => subsystemRow(x) = new Subsystem(x, y, subsystemSize, "Engine Room")
-            case 'H' => subsystemRow(x) = new Subsystem(x, y, subsystemSize, "Helm")
-            case 'S' => subsystemRow(x) = new Subsystem(x, y, subsystemSize, "Shield Control")
-            case _ => subsystemRow(x) = new Subsystem(x, y, subsystemSize, "None")
+            case 'W' => subsystemRow(x) = new Tile(x, y, tileSize, "Weapon Control")
+            case 'E' => subsystemRow(x) = new Tile(x, y, tileSize, "Engine Room")
+            case 'H' => subsystemRow(x) = new Tile(x, y, tileSize, "Helm")
+            case 'S' => subsystemRow(x) = new Tile(x, y, tileSize, "Shield Control")
+            case _ => subsystemRow(x) = new Tile(x, y, tileSize, "none")
           }
         }
 
-        subsystems.append(subsystemRow)
+        tiles.append(subsystemRow)
         y += 1
       }
 
@@ -58,7 +58,7 @@ class InteriorParser(shipName: String) {
         val splitLine: Array[String] = dimLine.split(",")
         width = Integer.valueOf(splitLine(0))
         height = Integer.valueOf(splitLine(1))
-        subsystemSize = Integer.valueOf(splitLine(2))
+        tileSize = Integer.valueOf(splitLine(2))
       }
 
       line = reader.readLine()
@@ -69,9 +69,9 @@ class InteriorParser(shipName: String) {
 
   private def debugPrint(): Unit = {
     println("Parsed interior")
-    for (row: Array[Subsystem] <- subsystems) {
+    for (row: Array[Tile] <- tiles) {
       println()
-      for (tile: Subsystem <- row) {
+      for (tile: Tile <- row) {
         print(tile.debugDraw)
       }
     }

@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.viewport.FitViewport
-import galenscovell.hinterstar.things.entities.Player
+import galenscovell.hinterstar.things.entities.{NpcShip, Player}
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 
@@ -14,6 +14,7 @@ import galenscovell.hinterstar.util._
 class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
   private val gameScreen: GameScreen = game
   private val player: Player = new Player(this)
+  private var npcShip: NpcShip = new NpcShip(this)
   private val leftTable: Table = new Table
   private val rightTable: Table = new Table
 
@@ -27,12 +28,13 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
     val actionTable: Table = new Table
     // actionTable.setDebug(true)
 
-    leftTable.add(player).expand.fill.left
+    leftTable.add(player).expand.fill.left.padTop(100)
+    rightTable.add(npcShip).expand.fill.right.padBottom(100)
 
-    actionTable.add(leftTable).left.padLeft(20)
-    actionTable.add(rightTable).expand.right
+    actionTable.add(leftTable).left.padLeft(10)
+    actionTable.add(rightTable).expand.right.padRight(10)
 
-    mainTable.add(actionTable).width(Constants.EXACT_X * 2).expand.fill.padLeft(Constants.EXACT_X)
+    mainTable.add(actionTable).width(Constants.EXACT_X * 1.125f).expand.fill.padLeft(Constants.EXACT_X / 8)
 
     this.addActor(mainTable)
   }

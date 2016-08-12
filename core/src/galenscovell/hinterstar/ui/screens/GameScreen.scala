@@ -36,9 +36,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   private val lerp: Float = 0.9f
   private val originVector: Vector3 = new Vector3(Constants.EXACT_X / 2, Constants.EXACT_Y / 2, 0)
   private val cameraXmin: Float = Constants.EXACT_X * 0.5f
-  private val cameraXmax: Float = Constants.EXACT_X
-  private val cameraYmin: Float = Constants.EXACT_Y * 0.375f
-  private val cameraYmax: Float = Constants.EXACT_Y * 0.625f
+  private val cameraXmax: Float = Constants.EXACT_X * 0.75f
 
   construct()
 
@@ -182,7 +180,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     travelFrames -= 1
 
     if (travelFrames == 0) {
-      currentBackground.setSpeed(new Vector2(40, 0))
+      currentBackground.setSpeed(new Vector2(10, 0))
     }
   }
 
@@ -209,7 +207,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
         parallaxLayers,
         Constants.EXACT_X,
         Constants.EXACT_Y,
-        new Vector2(40, 0)
+        new Vector2(10, 0)
       )
     } else {
       val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](2)
@@ -228,7 +226,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
         parallaxLayers,
         Constants.EXACT_X,
         Constants.EXACT_Y,
-        new Vector2(40, 0)
+        new Vector2(10, 0)
       )
     }
   }
@@ -237,27 +235,12 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   /**
     * Screen gesture operations
     */
-  def actionPan(dx: Float, dy: Float): Unit = {
+  def actionPan(dx: Float): Unit = {
     val newCameraX: Float = getActionStage.getCamera.position.x - dx
-    val newCameraY: Float = getActionStage.getCamera.position.y - dy
-    val newSpeed: Vector2 = new Vector2(40, 0)
 
     if (newCameraX >= cameraXmin && newCameraX < cameraXmax) {
       getActionStage.getCamera.translate(-dx, 0, 0)
-      newSpeed.x += dx * 10
     }
-    if (newCameraY >= cameraYmin && newCameraY < cameraYmax) {
-      getActionStage.getCamera.translate(0, -dy, 0)
-      newSpeed.y = dy * 10
-    }
-
-    if (!(newSpeed.x == 40 && newSpeed.y == 0)) {
-      currentBackground.setSpeed(newSpeed)
-    }
-  }
-
-  def endActionPan(): Unit = {
-    currentBackground.setSpeed(new Vector2(40, 0))
   }
 
   def actionZoom(zoom: Float): Unit = {
@@ -274,8 +257,6 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
     getActionStage.getCamera.position.x +=
       (originVector.x - getActionStage.getCamera.position.x) * lerp * delta
-    getActionStage.getCamera.position.y +=
-      (originVector.y - getActionStage.getCamera.position.y) * lerp * delta
   }
 
 

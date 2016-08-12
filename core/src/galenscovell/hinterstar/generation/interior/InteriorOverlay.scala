@@ -9,19 +9,19 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
   */
 class InteriorOverlay(shipName: String) extends Table {
   private val interiorParser: InteriorParser = new InteriorParser(shipName)
-  private val subsystems: Array[Array[Subsystem]] = interiorParser.getSubsystems
+  private val subsystems: Array[Array[Tile]] = interiorParser.getTiles
 
   construct()
 
 
   private def construct(): Unit = {
-    // this.setDebug(true)
+    this.setDebug(true)
 
-    for (row: Array[Subsystem] <- subsystems) {
-      for (subsystem: Subsystem <- row) {
+    for (row: Array[Tile] <- subsystems) {
+      for (subsystem: Tile <- row) {
         this.add(subsystem)
-          .width(interiorParser.subsystemSize)
-          .height(interiorParser.subsystemSize)
+          .width(interiorParser.tileSize)
+          .height(interiorParser.tileSize)
       }
       this.row
     }
