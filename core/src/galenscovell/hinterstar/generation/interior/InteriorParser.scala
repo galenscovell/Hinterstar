@@ -40,11 +40,11 @@ class InteriorParser(shipName: String) {
 
         for (x <- 0 until line.length) {
           line(x) match {
-            case 'W' => subsystemRow(x) = new Tile(x, y, tileSize, "Weapon Control")
-            case 'E' => subsystemRow(x) = new Tile(x, y, tileSize, "Engine Room")
-            case 'H' => subsystemRow(x) = new Tile(x, y, tileSize, "Helm")
-            case 'S' => subsystemRow(x) = new Tile(x, y, tileSize, "Shield Control")
-            case _ => subsystemRow(x) = new Tile(x, y, tileSize, "none")
+            case 'W' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Weapon Control")
+            case 'E' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Engine Room")
+            case 'H' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Helm")
+            case 'S' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Shield Control")
+            case _ => subsystemRow(x) = new Tile(x, y, tileSize, height, "none")
           }
         }
 

@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.ui.components.gamescreen.hud._
-import galenscovell.hinterstar.ui.components.gamescreen.views._
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 
@@ -15,10 +14,8 @@ import galenscovell.hinterstar.util._
 class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
   private val gameScreen: GameScreen = game
 
-  private val sectorView: SectorView = new SectorView(this)
-  private val crewView: CrewView = new CrewView(this)
-  private val shipView: ShipView = new ShipView(this)
-  private val viewButtons: ViewButtons = new ViewButtons(this)
+  private val travelPanel: TravelPanel = new TravelPanel(this)
+  private val travelButton: TravelButton = new TravelButton(this)
 
   private val hullHealthPanel: HullHealthPanel = new HullHealthPanel(this)
   private val shipStatsPanel: ShipStatsPanel = new ShipStatsPanel(this)
@@ -32,6 +29,8 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
   construct()
   CrewOperations.initialize(gameScreen)
 
+  enableTravelButton()
+
 
   private def construct(): Unit = {
     val mainTable: Table = new Table
@@ -40,20 +39,14 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
     val centerTable: Table = new Table
     val actionTable = new Table
 
-    topTable.add(hullHealthPanel)
-      .width((Constants.EXACT_X / 2) - 20)
-      .left.padLeft(10).padRight(10)
-    topTable.add(viewButtons)
-      .width(Constants.EXACT_X / 2)
-      .height(32)
-      .right
-
     centerTable.add(actionTable)
       .width(Constants.EXACT_X)
       .expand.fill.center
 
-    mainTable.add(topTable)
-      .width(Constants.EXACT_X)
+    mainTable.add(hullHealthPanel)
+      .width(Constants.EXACT_X / 3)
+      .height(32)
+      .left.padLeft(8)
     mainTable.row
     mainTable.add(shipStatsPanel)
       .width(Constants.EXACT_X / 2)
@@ -76,60 +69,34 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
     this.addActor(mainTable)
   }
 
-  def toggleView(num: Int): Unit = {
-    if (!sectorView.hasActions) {
-      if (sectorView.hasParent) {
-        sectorView.addAction(Actions.sequence(
-          sectorViewAction,
-          Actions.moveTo(800, 0, 0.2f, Interpolation.sine),
-          Actions.removeActor()
-        ))
-      }
-      else if (num == 0) {
-        this.addActor(sectorView)
-        sectorView.addAction(Actions.sequence(
-          Actions.moveTo(-800, 0),
-          Actions.moveTo(0, 0, 0.2f, Interpolation.sine),
-          sectorViewAction
-        ))
-      }
-    }
+  def enableTravelButton(): Unit = {
+    this.addActor(travelButton)
+    travelButton.addAction(Actions.sequence(
+      Actions.fadeIn(0.5f, Interpolation.sine)
+    ))
+  }
 
-    if (!crewView.hasActions) {
-      if (crewView.hasParent) {
-        crewView.addAction(Actions.sequence(
-          crewViewAction,
-          Actions.moveTo(800, 0, 0.2f, Interpolation.sine),
-          Actions.removeActor()
-        ))
-      }
-      else if (num == 1) {
-        this.addActor(crewView)
-        crewView.addAction(Actions.sequence(
-          Actions.moveTo(-800, 0),
-          Actions.moveTo(0, 0, 0.2f, Interpolation.sine),
-          crewViewAction
-        ))
-      }
-    }
+  def disableTravelButton(): Unit = {
+    travelButton.addAction(Actions.sequence(
+      Actions.fadeOut(0.5f, Interpolation.sine),
+      Actions.removeActor()
+    ))
+  }
 
-    if (!shipView.hasActions) {
-      if (shipView.hasParent) {
-        shipView.addAction(Actions.sequence(
-          shipViewAction,
-          Actions.moveTo(800, 0, 0.2f, Interpolation.sine),
-          Actions.removeActor()
-        ))
-      }
-      else if (num == 2) {
-        this.addActor(shipView)
-        shipView.addAction(Actions.sequence(
-          Actions.moveTo(-800, 0),
-          Actions.moveTo(0, 0, 0.2f, Interpolation.sine),
-          shipViewAction
-        ))
-      }
-    }
+  def openTravelPanel(): Unit = {
+    this.addActor(travelPanel)
+    travelPanel.addAction(Actions.sequence(
+      // Actions.fadeIn(0.5f, Interpolation.sine),
+      travelPanelOpenAction
+    ))
+  }
+
+  def closeTravelPanel(): Unit = {
+    travelPanel.addAction(Actions.sequence(
+      travelPanelCloseAction,
+      // Actions.fadeOut(0.5f, Interpolation.sine),
+      Actions.removeActor()
+    ))
   }
 
   def hideUI(): Unit = {
@@ -137,7 +104,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
       Actions.touchable(Touchable.disabled),
       Actions.fadeOut(0.5f, Interpolation.sine)
     ))
-    topTable.addAction(Actions.sequence(
+    hullHealthPanel.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
       Actions.fadeOut(0.5f, Interpolation.sine)
     ))
@@ -156,7 +123,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
       Actions.fadeIn(0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
-    topTable.addAction(Actions.sequence(
+    hullHealthPanel.addAction(Actions.sequence(
       Actions.fadeIn(0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
@@ -171,11 +138,11 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
   }
 
   def updateDistanceLabel(d: String): Unit = {
-    sectorView.updateDistanceLabel(d)
+    travelPanel.updateDistanceLabel(d)
   }
 
-  def getViewButtons: ViewButtons = {
-    viewButtons
+  def getTravelButton: TravelButton = {
+    travelButton
   }
 
   def getGameScreen: GameScreen = {
@@ -216,23 +183,16 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
   /**
     * Custom Scene2D Actions
     */
-  private[components] var sectorViewAction: Action = new Action() {
+  private[components] var travelPanelOpenAction: Action = new Action() {
     def act(delta: Float): Boolean = {
-      gameScreen.toggleSectorView()
+      gameScreen.openTravelPanel()
       true
     }
   }
-
-  private[components] var crewViewAction: Action = new Action() {
+  private[components] var travelPanelCloseAction: Action = new Action() {
     def act(delta: Float): Boolean = {
+      gameScreen.closeTravelPanel()
       true
     }
   }
-
-  private[components] var shipViewAction: Action = new Action() {
-    def act(delta: Float): Boolean = {
-      true
-    }
-  }
-
 }

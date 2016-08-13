@@ -25,7 +25,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   private val input: InputMultiplexer = new InputMultiplexer
   private val gestureHandler: GestureDetector = new GestureDetector(new GestureHandler(this))
   private var travelFrames: Int = 0
-  private var sectorViewOpen: Boolean = false
+  private var travelPanelOpen: Boolean = false
 
   private var normalBg: ParallaxBackground = createBackground("purple_bg", "bg1", "bg2")
   private var blurBg: ParallaxBackground = createBackground("purple_bg", "bg1_blur", "bg2_blur")
@@ -86,7 +86,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     hudStage.draw()
 
     // Draw map panel shapes
-    if (sectorViewOpen) {
+    if (travelPanelOpen) {
       SystemRepo.drawShapes()
     }
   }
@@ -141,7 +141,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     root.setScreen(root.mainMenuScreen)
   }
 
-  def beginWarp(): Unit = {
+  def beginTravel(): Unit = {
     if (!paused) {
       hudStage.togglePause()
     }
@@ -150,11 +150,13 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     travelFrames = 600
   }
 
-  def toggleSectorView(): Unit = {
-    sectorViewOpen = !sectorViewOpen
-    if (sectorViewOpen) {
-      SystemRepo.setTargetsInRange()
-    }
+  def openTravelPanel(): Unit = {
+    travelPanelOpen = true
+    SystemRepo.setTargetsInRange()
+  }
+
+  def closeTravelPanel(): Unit = {
+    travelPanelOpen = false
   }
 
   def setPause(setting: Boolean): Unit = {
@@ -299,7 +301,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
   private[screens] var showViewButtonsAction: Action = new Action() {
     def act(delta: Float): Boolean = {
-      hudStage.showViewButtons()
+      hudStage.showUI()
       true
     }
   }

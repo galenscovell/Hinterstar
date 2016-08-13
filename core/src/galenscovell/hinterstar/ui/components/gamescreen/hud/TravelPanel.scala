@@ -1,4 +1,4 @@
-package galenscovell.hinterstar.ui.components.gamescreen.views
+package galenscovell.hinterstar.ui.components.gamescreen.hud
 
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.ui._
@@ -9,7 +9,7 @@ import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
 
 
-class SectorView(stage: HudStage) extends Table {
+class TravelPanel(stage: HudStage) extends Table {
   private val hudStage: HudStage = stage
   private var distanceLabel: Label = _
 
@@ -18,23 +18,42 @@ class SectorView(stage: HudStage) extends Table {
 
   private def construct(): Unit = {
     this.setFillParent(true)
-    val mapGroup: Group = new Group
+
+    val topTable: Table = createTopTable
     val mapTable: Table = createMapTable
-    val infoTable: Table = createInfoTable
-    mapGroup.addActor(mapTable)
-    mapGroup.addActor(infoTable)
-    mapTable.setPosition(0, 0)
-    infoTable.setPosition(0, 0)
-    this.add(mapGroup)
+    val bottomTable: Table = createBottomTable
+
+    this.add(topTable)
       .width(Constants.EXACT_X)
-      .height(Constants.EXACT_Y - 32)
-      .padTop(32)
+      .height(48)
+    this.row
+    this.add(mapTable)
+      .width(Constants.EXACT_X)
+      .height(Constants.EXACT_Y - 96)
+    this.row
+    this.add(bottomTable)
+      .width(Constants.EXACT_X)
+      .height(48)
+  }
+
+  private def createTopTable: Table = {
+    val table: Table = new Table
+    table.setBackground(Resources.npTest1)
+
+    val closeButton: TextButton = new TextButton("Close", Resources.blueButtonStyle)
+    closeButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float) {
+        hudStage.closeTravelPanel()
+      }
+    })
+    table.add(closeButton).expand.width(96).height(40).right.padRight(10)
+
+    table
   }
 
   private def createMapTable: Table = {
     val mapTable: Table = new Table
     generateMap(mapTable)
-    mapTable.setFillParent(true)
     mapTable.setBackground(Resources.npTest4)
     mapTable
   }
@@ -55,27 +74,28 @@ class SectorView(stage: HudStage) extends Table {
     }
   }
 
-  private def createInfoTable: Table = {
-    val infoTable: Table = new Table
-    infoTable.setSize(Constants.EXACT_X, 50)
-    infoTable.align(Align.center)
-    val travelButton: TextButton = new TextButton("Warp", Resources.greenButtonStyle)
+  private def createBottomTable: Table = {
+    val table: Table = new Table
+    table.setBackground(Resources.npTest1)
+
+    val travelButton: TextButton = new TextButton("Warp", Resources.blueButtonStyle)
     travelButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
         travelToSystem()
       }
     })
     distanceLabel = new Label("Distance: 0 AU", Resources.labelMenuStyle)
-    infoTable.add(distanceLabel).expand.fill.left.padLeft(20)
-    infoTable.add(travelButton).width(150).height(50).expand.fill.right.padRight(20).padBottom(20)
-    infoTable
+    table.add(distanceLabel).expand.fill.left.padLeft(10)
+    table.add(travelButton).width(96).height(40).expand.fill.right.padRight(10)
+
+    table
   }
 
   private def travelToSystem(): Unit = {
     if (SystemRepo.travelToSelection) {
-      hudStage.getViewButtons.getSectorButton.setChecked(false)
-      hudStage.toggleView(0)
-      hudStage.getGameScreen.beginWarp()
+      hudStage.closeTravelPanel()
+      hudStage.disableTravelButton()
+      hudStage.getGameScreen.beginTravel()
       hudStage.hideUI()
     }
   }

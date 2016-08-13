@@ -6,10 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.{Actor, InputEvent}
 import galenscovell.hinterstar.util.{CrewOperations, Resources}
 
 
-class Tile(x: Int, y: Int, size: Int, ss: String) extends Actor {
+class Tile(x: Int, y: Int, size: Int, height: Int, ss: String) extends Actor {
   val tx: Int = x
   val ty: Int = y
   val tileSize: Int = size
+  val overlayHeight: Int = height
   val name: String = ss
 
   private var frames: Int = 60
@@ -98,7 +99,7 @@ class Tile(x: Int, y: Int, size: Int, ss: String) extends Actor {
       batch.draw(
         Resources.spSubsystemMarker,
         tx * tileSize - (tileSize / 4),
-        (tileSize * 2) - (ty * tileSize) - (tileSize / 4),
+        (tileSize * (overlayHeight - 1)) - (ty * tileSize) - (tileSize / 4),
         tileSize * 1.5f,
         tileSize * 1.5f
       )
