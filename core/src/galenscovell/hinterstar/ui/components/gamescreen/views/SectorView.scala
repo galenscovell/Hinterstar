@@ -27,8 +27,8 @@ class SectorView(stage: HudStage) extends Table {
     infoTable.setPosition(0, 0)
     this.add(mapGroup)
       .width(Constants.EXACT_X)
-      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 2))
-      .padTop(Constants.SYSTEMMARKER_SIZE * 2)
+      .height(Constants.EXACT_Y - 32)
+      .padTop(32)
   }
 
   private def createMapTable: Table = {
@@ -76,7 +76,7 @@ class SectorView(stage: HudStage) extends Table {
       hudStage.getViewButtons.getSectorButton.setChecked(false)
       hudStage.toggleView(0)
       hudStage.getGameScreen.beginWarp()
-      hudStage.hideViewButtons()
+      hudStage.hideUI()
     }
   }
   

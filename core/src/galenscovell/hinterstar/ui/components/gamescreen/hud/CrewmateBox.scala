@@ -50,13 +50,8 @@ class CrewmateBox(stage: HudStage, c: Crewmate) extends Table {
     val assignmentLabel: Label = new Label(crewmate.getAssignedSubsystemName, Resources.labelTinyStyle)
     assignmentLabel.setAlignment(Align.center)
 
-    val proficienciesLabel: Label = new Label("Proficiencies", Resources.labelTinyStyle)
-    proficienciesLabel.setAlignment(Align.center)
-
     this.add(crewmateDetail).expand.fill.height(40)
     this.row
     this.add(assignmentLabel).expand.fill.height(20)
-    this.row
-    this.add(proficienciesLabel).expand.fill.height(20)
   }
 }

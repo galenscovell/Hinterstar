@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
 import galenscovell.hinterstar.processing.controls.GestureHandler
+import galenscovell.hinterstar.things.parts.Weapon
 import galenscovell.hinterstar.ui.components.gamescreen.stages._
 import galenscovell.hinterstar.util._
 
@@ -36,7 +37,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   private val lerp: Float = 0.9f
   private val originVector: Vector3 = new Vector3(Constants.EXACT_X / 2, Constants.EXACT_Y / 2, 0)
   private val cameraXmin: Float = Constants.EXACT_X * 0.5f
-  private val cameraXmax: Float = Constants.EXACT_X * 0.75f
+  private val cameraXmax: Float = Constants.EXACT_X
 
   private val timestep: Int = 30
   private var accumulator: Int = 0
@@ -53,6 +54,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     hudStage = new HudStage(this, hudViewport, root.spriteBatch)
 
     enableInput()
+    hudStage.togglePause()
   }
 
   override def render(delta: Float): Unit = {
@@ -64,8 +66,17 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
       centerCamera(delta)
       travel()
     }
+
     if (currentBackground != null) {
       currentBackground.render(delta)
+    }
+
+    if (!paused) {
+      if (accumulator > timestep) {
+        accumulator = 0
+        val readyWeapons: Array[Weapon] = hudStage.getWeaponPanel.update()
+      }
+      accumulator += 1
     }
 
     // Update and render game stage
@@ -73,14 +84,6 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     actionStage.draw()
     hudStage.act(delta)
     hudStage.draw()
-
-    if (!paused) {
-      if (accumulator > timestep) {
-        accumulator = 0
-        hudStage.getWeaponPanel.update()
-      }
-      accumulator += 1
-    }
 
     // Draw map panel shapes
     if (sectorViewOpen) {
@@ -139,6 +142,9 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   }
 
   def beginWarp(): Unit = {
+    if (!paused) {
+      hudStage.togglePause()
+    }
     getActionStage.disableSubsystemOverlay()
     input.clear()
     travelFrames = 600
@@ -149,6 +155,10 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     if (sectorViewOpen) {
       SystemRepo.setTargetsInRange()
     }
+  }
+
+  def setPause(setting: Boolean): Unit = {
+    paused = setting
   }
 
   def transitionSector(bg0: String, bg1: String, bg2: String, bg0Blur: String, bg1Blur: String, bg2Blur: String): Unit = {
@@ -192,7 +202,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     travelFrames -= 1
 
     if (travelFrames == 0) {
-      currentBackground.setSpeed(new Vector2(10, 0))
+      currentBackground.setSpeed(new Vector2(2, 0))
     }
   }
 
@@ -219,7 +229,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
         parallaxLayers,
         Constants.EXACT_X,
         Constants.EXACT_Y,
-        new Vector2(10, 0)
+        new Vector2(2, 0)
       )
     } else {
       val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](2)
@@ -238,7 +248,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
         parallaxLayers,
         Constants.EXACT_X,
         Constants.EXACT_Y,
-        new Vector2(10, 0)
+        new Vector2(2, 0)
       )
     }
   }

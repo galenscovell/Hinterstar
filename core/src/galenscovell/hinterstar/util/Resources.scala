@@ -55,11 +55,10 @@ object Resources {
     assetManager.setLoader(classOf[FreeTypeFontGenerator], new FreeTypeFontGeneratorLoader(resolver))
     assetManager.setLoader(classOf[BitmapFont], ".ttf", new FreetypeFontLoader(resolver))
 
-    // TODO: Decide between Generic, battlenet, bitCasual
-    generateFont("ui/BitCasual.ttf", 16, 0, Color.WHITE, Color.BLACK, "tinyFont.ttf")
-    generateFont("ui/BitCasual.ttf", 16, 0, Color.WHITE, Color.BLACK, "smallFont.ttf")
-    generateFont("ui/BitCasual.ttf", 16, 0, Color.WHITE, Color.BLACK, "mediumFont.ttf")
-    generateFont("ui/BitCasual.ttf", 24, 0, Color.WHITE, Color.BLACK, "largeFont.ttf")
+    generateFont("ui/Terminus.ttf", 14, 0, Color.WHITE, Color.BLACK, "tinyFont.ttf")
+    generateFont("ui/Terminus.ttf", 16, 0, Color.WHITE, Color.BLACK, "smallFont.ttf")
+    generateFont("ui/Terminus.ttf", 18, 0, Color.WHITE, Color.BLACK, "mediumFont.ttf")
+    generateFont("ui/Terminus.ttf", 22, 0, Color.WHITE, Color.BLACK, "largeFont.ttf")
     generateFont("ui/cubeOne.ttf", 48, 0, Color.TEAL, Color.BLACK, "titleFont.ttf")
   }
 

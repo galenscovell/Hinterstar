@@ -18,7 +18,7 @@ class CrewView(stage: HudStage) extends Table {
     mainTable.setBackground(Resources.npTest3)
     this.add(mainTable)
       .width(Constants.EXACT_X)
-      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 2))
-      .padTop(Constants.SYSTEMMARKER_SIZE * 2)
+      .height(Constants.EXACT_Y - 32)
+      .padTop(32)
   }
 }

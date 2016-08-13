@@ -28,13 +28,13 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
     val actionTable: Table = new Table
     // actionTable.setDebug(true)
 
-    leftTable.add(player).expand.fill.left.padTop(40)
-    rightTable.add(npcShip).expand.fill.right.padBottom(160)
+    leftTable.add(player).expand.fill.left
+    rightTable.add(npcShip).expand.fill.right
 
     actionTable.add(leftTable).left.padLeft(10)
     actionTable.add(rightTable).expand.right.padRight(10)
 
-    mainTable.add(actionTable).width(Constants.EXACT_X * 1.125f).expand.fill.padLeft(Constants.EXACT_X / 8)
+    mainTable.add(actionTable).width(Constants.EXACT_X * 1.5f).expand.fill.padLeft(Constants.EXACT_X / 2)
 
     this.addActor(mainTable)
   }

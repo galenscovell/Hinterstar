@@ -5,6 +5,8 @@ import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
 
 
+// TODO: Display ship name, description, subsystems with explanation of their usage
+// TODO: Display every weapon in inventory with their details
 class ShipView(stage: HudStage) extends Table {
   private val hudStage: HudStage = stage
 
@@ -17,7 +19,7 @@ class ShipView(stage: HudStage) extends Table {
     mainTable.setBackground(Resources.npTest2)
     this.add(mainTable)
       .width(Constants.EXACT_X)
-      .height(Constants.EXACT_Y - (Constants.SYSTEMMARKER_SIZE * 2))
-      .padTop(Constants.SYSTEMMARKER_SIZE * 2)
+      .height(Constants.EXACT_Y - 32)
+      .padTop(32)
   }
 }

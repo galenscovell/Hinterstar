@@ -24,9 +24,9 @@ class NpcShip(actionStage: ActionStage) extends Group {
 
 
   private def construct(): Unit = {
-    this.setSize(320, 120)
-    shipActor.setSize(320, 120)
-    overlayActor.setSize(320, 120)
+    this.setSize(480, 180)
+    shipActor.setSize(480, 180)
+    overlayActor.setSize(480, 180)
 
     this.addActor(shipActor)
 

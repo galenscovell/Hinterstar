@@ -27,6 +27,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
   private val topTable: Table = new Table
 
   private var eventPanel: EventPanel = _
+  private val pausePanel: PausePanel = new PausePanel()
 
   construct()
   CrewOperations.initialize(gameScreen)
@@ -44,7 +45,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
       .left.padLeft(10).padRight(10)
     topTable.add(viewButtons)
       .width(Constants.EXACT_X / 2)
-      .height(Constants.SYSTEMMARKER_SIZE * 2)
+      .height(32)
       .right
 
     centerTable.add(actionTable)
@@ -56,7 +57,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
     mainTable.row
     mainTable.add(shipStatsPanel)
       .width(Constants.EXACT_X / 2)
-      .height(36)
+      .height(32)
       .left
     mainTable.row
     mainTable.add(centerTable)
@@ -70,7 +71,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
     mainTable.row
     mainTable.add(crewPanel)
       .width(Constants.EXACT_X)
-      .height(80)
+      .height(60)
       .bottom
     this.addActor(mainTable)
   }
@@ -80,7 +81,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
       if (sectorView.hasParent) {
         sectorView.addAction(Actions.sequence(
           sectorViewAction,
-          Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
+          Actions.moveTo(800, 0, 0.2f, Interpolation.sine),
           Actions.removeActor()
         ))
       }
@@ -88,7 +89,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
         this.addActor(sectorView)
         sectorView.addAction(Actions.sequence(
           Actions.moveTo(-800, 0),
-          Actions.moveTo(0, 0, 0.3f, Interpolation.sine),
+          Actions.moveTo(0, 0, 0.2f, Interpolation.sine),
           sectorViewAction
         ))
       }
@@ -98,7 +99,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
       if (crewView.hasParent) {
         crewView.addAction(Actions.sequence(
           crewViewAction,
-          Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
+          Actions.moveTo(800, 0, 0.2f, Interpolation.sine),
           Actions.removeActor()
         ))
       }
@@ -106,7 +107,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
         this.addActor(crewView)
         crewView.addAction(Actions.sequence(
           Actions.moveTo(-800, 0),
-          Actions.moveTo(0, 0, 0.3f, Interpolation.sine),
+          Actions.moveTo(0, 0, 0.2f, Interpolation.sine),
           crewViewAction
         ))
       }
@@ -116,7 +117,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
       if (shipView.hasParent) {
         shipView.addAction(Actions.sequence(
           shipViewAction,
-          Actions.moveTo(800, 0, 0.3f, Interpolation.sine),
+          Actions.moveTo(800, 0, 0.2f, Interpolation.sine),
           Actions.removeActor()
         ))
       }
@@ -124,38 +125,46 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
         this.addActor(shipView)
         shipView.addAction(Actions.sequence(
           Actions.moveTo(-800, 0),
-          Actions.moveTo(0, 0, 0.3f, Interpolation.sine),
+          Actions.moveTo(0, 0, 0.2f, Interpolation.sine),
           shipViewAction
         ))
       }
     }
   }
 
-  def hideViewButtons(): Unit = {
+  def hideUI(): Unit = {
     crewPanel.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
-      Actions.moveBy(0, -110, 0.5f, Interpolation.sine)
+      Actions.fadeOut(0.5f, Interpolation.sine)
     ))
     topTable.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
-      Actions.moveBy(0, Constants.SYSTEMMARKER_SIZE * 2, 0.5f, Interpolation.sine)
+      Actions.fadeOut(0.5f, Interpolation.sine)
     ))
     shipStatsPanel.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
       Actions.fadeOut(0.5f, Interpolation.sine)
     ))
+    weaponPanel.addAction(Actions.sequence(
+      Actions.touchable(Touchable.disabled),
+      Actions.fadeOut(0.5f, Interpolation.sine)
+    ))
   }
 
-  def showViewButtons(): Unit = {
+  def showUI(): Unit = {
     crewPanel.addAction(Actions.sequence(
-      Actions.moveBy(0, 110, 0.5f, Interpolation.sine),
+      Actions.fadeIn(0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
     topTable.addAction(Actions.sequence(
-      Actions.moveBy(0, -(Constants.SYSTEMMARKER_SIZE * 2), 0.5f, Interpolation.sine),
+      Actions.fadeIn(0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
     shipStatsPanel.addAction(Actions.sequence(
+      Actions.fadeIn(0.5f, Interpolation.sine),
+      Actions.touchable(Touchable.enabled)
+    ))
+    weaponPanel.addAction(Actions.sequence(
       Actions.fadeIn(0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
@@ -177,6 +186,16 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
     weaponPanel
   }
 
+  def togglePause(): Unit = {
+    if (pausePanel.hasParent) {
+      pausePanel.remove()
+      gameScreen.setPause(false)
+    } else {
+      this.addActor(pausePanel)
+      gameScreen.setPause(true)
+    }
+  }
+
   def refreshCrewAndStats(): Unit = {
     crewPanel.refreshCrewBoxes()
     shipStatsPanel.refreshStats()
@@ -189,7 +208,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
     }
     eventPanel = new EventPanel(this, SystemRepo.parseNextEvent)
     this.addActor(eventPanel)
-    hideViewButtons()
+    hideUI()
   }
 
 
