@@ -33,7 +33,7 @@ class InteriorParser(shipName: String) {
 
     var line: String = reader.readLine()
     while (line != null && searching) {
-      if (line == "END") {
+      if (shipFound && line == "END") {
         searching = false
       } else if (shipFound) {
         val subsystemRow: Array[Tile] = Array.ofDim(width)

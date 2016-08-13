@@ -31,7 +31,7 @@ object Resources {
   var npTest0, npTest1, npTest2, npTest3, npTest4, greenButtonNp0,
       npTest1_border, npTest2_border, npTest3_border, npTest4_border,
       greenButtonNp1, blueButtonNp0, blueButtonNp1,
-      npFontCursor, npTextFieldBg, npHealthFill: NinePatchDrawable = _
+      npFontCursor, npTextFieldBg, npHealthFill, npHealthEmpty: NinePatchDrawable = _
 
   var buttonMenuStyle, buttonMapStyle0, buttonMapStyle1, buttonMapStyle2,
       buttonEventStyle, toggleButtonStyle, greenButtonStyle, blueButtonStyle: TextButtonStyle = _
@@ -124,9 +124,12 @@ object Resources {
     greenButtonNp1 = new NinePatchDrawable(uiAtlas.createPatch("green_button1_np"))
     blueButtonNp0 = new NinePatchDrawable(uiAtlas.createPatch("blue_button0_np"))
     blueButtonNp1 = new NinePatchDrawable(uiAtlas.createPatch("blue_button1_np"))
+
     npFontCursor = new NinePatchDrawable(uiAtlas.createPatch("font-cursor-np"))
     npTextFieldBg = new NinePatchDrawable(uiAtlas.createPatch("text-field-bg-np"))
-    npHealthFill = new NinePatchDrawable(uiAtlas.createPatch("health-bar-np"))
+
+    npHealthFill = new NinePatchDrawable(uiAtlas.createPatch("health-bar-fill-np"))
+    npHealthEmpty = new NinePatchDrawable(uiAtlas.createPatch("health-bar-empty-np"))
   }
 
   /**
@@ -204,9 +207,10 @@ object Resources {
 
   private def loadProgressBars(): Unit = {
     healthBarStyle = new ProgressBarStyle(
-      npHealthFill,
+      npHealthEmpty,
       npHealthFill
     )
+    healthBarStyle.knobBefore = npHealthFill
   }
 }
 

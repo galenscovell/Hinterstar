@@ -24,7 +24,7 @@ class CrewPanel(stage: HudStage) extends Table {
 
     for (crewmate: Crewmate <- PlayerData.getCrew) {
       val crewBox: hud.CrewmateBox = new hud.CrewmateBox(hudStage, crewmate)
-      contentTable.add(crewBox).width(112).height(64).padRight(4)
+      contentTable.add(crewBox).width(128).height(80).padRight(4)
     }
   }
 }

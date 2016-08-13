@@ -38,6 +38,10 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   private val cameraXmin: Float = Constants.EXACT_X * 0.5f
   private val cameraXmax: Float = Constants.EXACT_X * 0.75f
 
+  private val timestep: Int = 30
+  private var accumulator: Int = 0
+  private var paused: Boolean = false
+
   construct()
 
 
@@ -69,6 +73,14 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     actionStage.draw()
     hudStage.act(delta)
     hudStage.draw()
+
+    if (!paused) {
+      if (accumulator > timestep) {
+        accumulator = 0
+        hudStage.getWeaponPanel.update()
+      }
+      accumulator += 1
+    }
 
     // Draw map panel shapes
     if (sectorViewOpen) {

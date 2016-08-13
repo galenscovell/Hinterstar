@@ -23,6 +23,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
   private val hullHealthPanel: HullHealthPanel = new HullHealthPanel(this)
   private val shipStatsPanel: ShipStatsPanel = new ShipStatsPanel(this)
   private val crewPanel: CrewPanel = new CrewPanel(this)
+  private val weaponPanel: WeaponPanel = new WeaponPanel(this)
   private val topTable: Table = new Table
 
   private var eventPanel: EventPanel = _
@@ -62,9 +63,14 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
       .width(Constants.EXACT_X)
       .expand.fill
     mainTable.row
+    mainTable.add(weaponPanel)
+      .width(Constants.EXACT_X)
+      .height(32)
+      .bottom
+    mainTable.row
     mainTable.add(crewPanel)
       .width(Constants.EXACT_X)
-      .height(Constants.SYSTEMMARKER_SIZE * 4)
+      .height(80)
       .bottom
     this.addActor(mainTable)
   }
@@ -165,6 +171,10 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
 
   def getGameScreen: GameScreen = {
     gameScreen
+  }
+
+  def getWeaponPanel: WeaponPanel = {
+    weaponPanel
   }
 
   def refreshCrewAndStats(): Unit = {

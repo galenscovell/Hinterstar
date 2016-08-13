@@ -38,20 +38,25 @@ class CrewmateBox(stage: HudStage, c: Crewmate) extends Table {
     nameLabel.setAlignment(Align.center)
 
     val healthBarTable: Table = new Table
-    healthBarTable.add(crewmate.getHealthBar).width(72).height(16)
+    healthBarTable.add(crewmate.getHealthBar).width(80).height(16)
 
-    detailTop.add(nameLabel).expand.fill.height(20)
+    detailTop.add(nameLabel).expand.fill.height(40)
     detailTop.row
     detailTop.add(healthBarTable).expand.fill.center
 
-    crewmateDetail.add(spriteTable).expand.fill.width(32).height(32).left.top
-    crewmateDetail.add(detailTop).expand.fill.width(80).height(32).top
+    crewmateDetail.add(spriteTable).expand.fill.width(40).height(40).left.top
+    crewmateDetail.add(detailTop).expand.fill.width(88).height(40).top
 
     val assignmentLabel: Label = new Label(crewmate.getAssignedSubsystemName, Resources.labelTinyStyle)
     assignmentLabel.setAlignment(Align.center)
 
-    this.add(crewmateDetail).expand.fill
+    val proficienciesLabel: Label = new Label("Proficiencies", Resources.labelTinyStyle)
+    proficienciesLabel.setAlignment(Align.center)
+
+    this.add(crewmateDetail).expand.fill.height(40)
     this.row
-    this.add(assignmentLabel).expand.fill.height(32)
+    this.add(assignmentLabel).expand.fill.height(20)
+    this.row
+    this.add(proficienciesLabel).expand.fill.height(20)
   }
 }

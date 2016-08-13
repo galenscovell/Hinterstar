@@ -193,9 +193,17 @@ font-cursor-np
   orig: 3, 24
   offset: 0, 0
   index: -1
-health-bar-np
+health-bar-empty-np
   rotate: false
   xy: 1, 1
+  size: 3, 8
+  split: 0, 0, 0, 0
+  orig: 3, 8
+  offset: 0, 0
+  index: -1
+health-bar-fill-np
+  rotate: false
+  xy: 6, 1
   size: 3, 8
   split: 0, 0, 0, 0
   orig: 3, 8
