@@ -127,19 +127,15 @@ class MainMenuScreen(gameRoot: Hinterstar) extends Screen {
     Gdx.input.setInputProcessor(null)
   }
 
-  override def pause(): Unit =  {
-
-  }
-
-  override def resume(): Unit =  {
-
-  }
-
   override def dispose(): Unit = {
     if (stage != null) {
       stage.dispose()
     }
   }
+
+  override def pause(): Unit =  {}
+
+  override def resume(): Unit =  {}
 
 
 
@@ -152,7 +148,6 @@ class MainMenuScreen(gameRoot: Hinterstar) extends Screen {
       true
     }
   }
-
   private[screens] var quitGameAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       root.quitGame()

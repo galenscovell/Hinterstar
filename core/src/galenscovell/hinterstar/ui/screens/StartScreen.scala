@@ -74,24 +74,22 @@ class StartScreen(gameRoot: Hinterstar) extends Screen {
     Gdx.input.setInputProcessor(null)
   }
 
-  override def pause(): Unit =  {
-
-  }
-
-  override def resume(): Unit =  {
-
-  }
-
   override def dispose(): Unit = {
     if (stage != null) {
       stage.dispose()
     }
   }
 
+  override def pause(): Unit =  {}
+
+  override def resume(): Unit =  {}
+
+
+
   private def createTitleTable: Table = {
     val titleTable: Table = new Table
-
     val noticeTable: Table = new Table
+
     crewPanelButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         if (currentPanelButton != crewPanelButton) {
@@ -189,14 +187,12 @@ class StartScreen(gameRoot: Hinterstar) extends Screen {
       true
     }
   }
-
   private[screens] var toGameScreenAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       root.setScreen(root.gameScreen)
       true
     }
   }
-
   private[screens] var contentTransitionRightAction: Action = new Action {
     def act(delta: Float): Boolean = {
       var newContent: Table = null
@@ -213,7 +209,6 @@ class StartScreen(gameRoot: Hinterstar) extends Screen {
       true
     }
   }
-
   private[screens] var contentTransitionLeftAction: Action = new Action {
     def act(delta: Float): Boolean = {
       var newContent: Table = null

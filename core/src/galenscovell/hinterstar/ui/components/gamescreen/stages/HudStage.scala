@@ -39,33 +39,18 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
     val centerTable: Table = new Table
     val actionTable = new Table
 
-    centerTable.add(actionTable)
-      .width(Constants.EXACT_X)
-      .expand.fill.center
+    centerTable.add(actionTable).width(Constants.EXACT_X).expand.fill.center
 
-    mainTable.add(hullHealthPanel)
-      .width(Constants.EXACT_X / 2)
-      .height(32)
-      .left.padLeft(8)
+    mainTable.add(hullHealthPanel).width(Constants.EXACT_X / 2).height(32).left.padLeft(8)
     mainTable.row
-    mainTable.add(shipStatsPanel)
-      .width(Constants.EXACT_X / 2)
-      .height(32)
-      .left.padLeft(8)
+    mainTable.add(shipStatsPanel).width(Constants.EXACT_X / 2).height(32).left.padLeft(8)
     mainTable.row
-    mainTable.add(centerTable)
-      .width(Constants.EXACT_X)
-      .expand.fill
+    mainTable.add(centerTable).width(Constants.EXACT_X).expand.fill
     mainTable.row
-    mainTable.add(weaponPanel)
-      .width(Constants.EXACT_X)
-      .height(32)
-      .bottom
+    mainTable.add(weaponPanel).width(Constants.EXACT_X).height(32).bottom
     mainTable.row
-    mainTable.add(crewPanel)
-      .width(Constants.EXACT_X)
-      .height(60)
-      .bottom
+    mainTable.add(crewPanel).width(Constants.EXACT_X).height(60).bottom
+
     this.addActor(mainTable)
   }
 

@@ -3,65 +3,72 @@ uiAtlas.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-bg1
-  rotate: false
-  xy: 1, 543
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
-bg1_blur
-  rotate: false
-  xy: 1, 61
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
 current_marker
   rotate: false
-  xy: 803, 943
+  xy: 1, 39
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 subsystem_marker
   rotate: false
-  xy: 803, 881
+  xy: 83, 59
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
+drone-icon
+  rotate: false
+  xy: 145, 71
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
 engine-icon
   rotate: false
-  xy: 1, 11
+  xy: 195, 71
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+helm-icon
+  rotate: false
+  xy: 245, 71
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 map_glow
   rotate: false
-  xy: 885, 975
+  xy: 295, 71
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+oxygen-icon
+  rotate: false
+  xy: 345, 71
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 shield-icon
   rotate: false
-  xy: 803, 831
+  xy: 395, 71
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-weapon-icon
+teleport-icon
   rotate: false
-  xy: 51, 11
+  xy: 445, 71
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blue_button0_np
   rotate: false
-  xy: 935, 987
+  xy: 1, 1
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -69,15 +76,22 @@ blue_button0_np
   index: -1
 blue_button1_np
   rotate: false
-  xy: 803, 793
+  xy: 39, 1
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
   offset: 0, 0
   index: -1
+weapon-icon
+  rotate: false
+  xy: 83, 9
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
 green_button0_np
   rotate: false
-  xy: 101, 23
+  xy: 145, 33
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -85,7 +99,7 @@ green_button0_np
   index: -1
 green_button1_np
   rotate: false
-  xy: 973, 987
+  xy: 183, 33
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -93,42 +107,42 @@ green_button1_np
   index: -1
 test-box-0
   rotate: false
-  xy: 803, 759
+  xy: 221, 37
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-1
   rotate: false
-  xy: 139, 27
+  xy: 255, 37
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-2
   rotate: false
-  xy: 803, 725
+  xy: 289, 37
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-3
   rotate: false
-  xy: 173, 27
+  xy: 323, 37
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-4
   rotate: false
-  xy: 803, 691
+  xy: 357, 37
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-np-0
   rotate: false
-  xy: 139, 1
+  xy: 391, 45
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -136,23 +150,7 @@ test-np-0
   index: -1
 test-np-1
   rotate: false
-  xy: 165, 1
-  size: 24, 24
-  split: 0, 0, 0, 0
-  orig: 24, 24
-  offset: 0, 0
-  index: -1
-test-np-1_border
-  rotate: false
-  xy: 191, 1
-  size: 24, 24
-  split: 0, 0, 0, 0
-  orig: 24, 24
-  offset: 0, 0
-  index: -1
-test-np-2_border
-  rotate: false
-  xy: 191, 1
+  xy: 417, 45
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -160,7 +158,7 @@ test-np-2_border
   index: -1
 test-np-2
   rotate: false
-  xy: 885, 949
+  xy: 443, 45
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -168,15 +166,7 @@ test-np-2
   index: -1
 test-np-3
   rotate: false
-  xy: 803, 665
-  size: 24, 24
-  split: 0, 0, 0, 0
-  orig: 24, 24
-  offset: 0, 0
-  index: -1
-test-np-3_border
-  rotate: false
-  xy: 207, 35
+  xy: 469, 45
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -184,7 +174,7 @@ test-np-3_border
   index: -1
 test-np-4
   rotate: false
-  xy: 803, 639
+  xy: 133, 7
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -192,15 +182,7 @@ test-np-4
   index: -1
 text-field-bg-np
   rotate: false
-  xy: 803, 639
-  size: 24, 24
-  split: 0, 0, 0, 0
-  orig: 24, 24
-  offset: 0, 0
-  index: -1
-test-np-4_border
-  rotate: false
-  xy: 233, 35
+  xy: 133, 7
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -208,7 +190,7 @@ test-np-4_border
   index: -1
 font-cursor-np
   rotate: false
-  xy: 865, 917
+  xy: 133, 33
   size: 3, 24
   split: 0, 0, 0, 0
   orig: 3, 24
@@ -216,7 +198,7 @@ font-cursor-np
   index: -1
 health-bar-empty-np
   rotate: false
-  xy: 1, 1
+  xy: 495, 111
   size: 3, 8
   split: 0, 0, 0, 0
   orig: 3, 8
@@ -224,78 +206,9 @@ health-bar-empty-np
   index: -1
 health-bar-fill-np
   rotate: false
-  xy: 6, 1
+  xy: 77, 29
   size: 3, 8
   split: 0, 0, 0, 0
   orig: 3, 8
-  offset: 0, 0
-  index: -1
-
-uiAtlas2.png
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-bg2
-  rotate: false
-  xy: 1, 483
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
-bg2_blur
-  rotate: false
-  xy: 1, 1
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
-
-uiAtlas3.png
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-blue_bg
-  rotate: false
-  xy: 1, 483
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
-green_bg
-  rotate: false
-  xy: 1, 1
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
-
-uiAtlas4.png
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-purple_bg
-  rotate: false
-  xy: 1, 483
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
-space-dust1
-  rotate: false
-  xy: 1, 1
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
-
-uiAtlas5.png
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-space-dust2
-  rotate: false
-  xy: 1, 1
-  size: 800, 480
-  orig: 800, 480
   offset: 0, 0
   index: -1

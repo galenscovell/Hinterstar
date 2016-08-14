@@ -21,7 +21,7 @@ import galenscovell.hinterstar.graphics.CurrentSystemAnimation
 object Resources {
   val assetManager: AssetManager = new AssetManager
 
-  var uiAtlas, shipAtlas, crewAtlas: TextureAtlas = _
+  var uiAtlas, environmentAtlas, shipAtlas, crewAtlas: TextureAtlas = _
 
   var textFieldStyle: TextFieldStyle = _
 
@@ -29,7 +29,6 @@ object Resources {
       labelTitleStyle: LabelStyle = _
 
   var npTest0, npTest1, npTest2, npTest3, npTest4, greenButtonNp0,
-      npTest1_border, npTest2_border, npTest3_border, npTest4_border,
       greenButtonNp1, blueButtonNp0, blueButtonNp1,
       npFontCursor, npTextFieldBg, npHealthFill, npHealthEmpty: NinePatchDrawable = _
 
@@ -49,6 +48,7 @@ object Resources {
     */
   def load(): Unit = {
     assetManager.load("atlas/uiAtlas.pack", classOf[TextureAtlas])
+    assetManager.load("atlas/environmentAtlas.pack", classOf[TextureAtlas])
     assetManager.load("atlas/shipAtlas.pack", classOf[TextureAtlas])
     assetManager.load("atlas/crewAtlas.pack", classOf[TextureAtlas])
     val resolver: FileHandleResolver = new InternalFileHandleResolver
@@ -67,6 +67,7 @@ object Resources {
     */
   def done(): Unit = {
     uiAtlas = assetManager.get("atlas/uiAtlas.pack", classOf[TextureAtlas])
+    environmentAtlas = assetManager.get("atlas/environmentAtlas.pack", classOf[TextureAtlas])
     shipAtlas = assetManager.get("atlas/shipAtlas.pack", classOf[TextureAtlas])
     crewAtlas = assetManager.get("atlas/crewAtlas.pack", classOf[TextureAtlas])
     loadNinepatches()
@@ -84,6 +85,7 @@ object Resources {
   def dispose(): Unit = {
     assetManager.dispose()
     uiAtlas.dispose()
+    environmentAtlas.dispose()
     shipAtlas.dispose()
     crewAtlas.dispose()
   }
@@ -112,13 +114,10 @@ object Resources {
   private def loadNinepatches(): Unit = {
     npTest0 = new NinePatchDrawable(uiAtlas.createPatch("test-np-0"))
     npTest1 = new NinePatchDrawable(uiAtlas.createPatch("test-np-1"))
-    npTest1_border = new NinePatchDrawable(uiAtlas.createPatch("test-np-1_border"))
     npTest2 = new NinePatchDrawable(uiAtlas.createPatch("test-np-2"))
-    npTest2_border = new NinePatchDrawable(uiAtlas.createPatch("test-np-2_border"))
     npTest3 = new NinePatchDrawable(uiAtlas.createPatch("test-np-3"))
-    npTest3_border = new NinePatchDrawable(uiAtlas.createPatch("test-np-3_border"))
     npTest4 = new NinePatchDrawable(uiAtlas.createPatch("test-np-4"))
-    npTest4_border = new NinePatchDrawable(uiAtlas.createPatch("test-np-4_border"))
+
     greenButtonNp0 = new NinePatchDrawable(uiAtlas.createPatch("green_button0_np"))
     greenButtonNp1 = new NinePatchDrawable(uiAtlas.createPatch("green_button1_np"))
     blueButtonNp0 = new NinePatchDrawable(uiAtlas.createPatch("blue_button0_np"))

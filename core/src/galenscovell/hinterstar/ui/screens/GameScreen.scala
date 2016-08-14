@@ -108,10 +108,6 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     Gdx.input.setInputProcessor(null)
   }
 
-  override def pause(): Unit =  {}
-
-  override def resume(): Unit =  {}
-
   override def dispose(): Unit = {
     if (actionStage != null) {
       actionStage.dispose()
@@ -120,6 +116,11 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
       hudStage.dispose()
     }
   }
+
+  override def pause(): Unit =  {}
+
+  override def resume(): Unit =  {}
+  
 
 
   private def enableInput(): Unit = {
@@ -212,22 +213,22 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     if (!(bg0 == "")) {
       val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](4)
       parallaxLayers(0) = new ParallaxLayer(
-        Resources.uiAtlas.findRegion("space-dust2"),
+        Resources.environmentAtlas.findRegion("space-dust"),
         new Vector2(0.0f, 0.0f),
         new Vector2(0, 0)
       )
       parallaxLayers(1) = new ParallaxLayer(
-        Resources.uiAtlas.findRegion(bg0),
+        Resources.environmentAtlas.findRegion(bg0),
         new Vector2(0.2f, 0.2f),
         new Vector2(0, 0)
       )
       parallaxLayers(2) = new ParallaxLayer(
-        Resources.uiAtlas.findRegion(bg1),
+        Resources.environmentAtlas.findRegion(bg1),
         new Vector2(0.4f, 0.4f),
         new Vector2(0, 0)
       )
       parallaxLayers(3) = new ParallaxLayer(
-        Resources.uiAtlas.findRegion(bg2),
+        Resources.environmentAtlas.findRegion(bg2),
         new Vector2(0.8f, 0.8f),
         new Vector2(0, 0)
       )
@@ -241,17 +242,17 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     } else {
       val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](3)
       parallaxLayers(0) = new ParallaxLayer(
-        Resources.uiAtlas.findRegion("space-dust2"),
+        Resources.environmentAtlas.findRegion("space-dust"),
         new Vector2(0.0f, 0.0f),
         new Vector2(0, 0)
       )
       parallaxLayers(1) = new ParallaxLayer(
-        Resources.uiAtlas.findRegion(bg1),
+        Resources.environmentAtlas.findRegion(bg1),
         new Vector2(0.4f, 0.4f),
         new Vector2(0, 0)
       )
       parallaxLayers(2) = new ParallaxLayer(
-        Resources.uiAtlas.findRegion(bg2),
+        Resources.environmentAtlas.findRegion(bg2),
         new Vector2(0.8f, 0.8f),
         new Vector2(0, 0)
       )

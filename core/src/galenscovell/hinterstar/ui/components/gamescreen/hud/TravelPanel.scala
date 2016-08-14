@@ -22,17 +22,11 @@ class TravelPanel(stage: HudStage) extends Table {
     val mapTable: Table = createMapTable
     val bottomTable: Table = createBottomTable
 
-    this.add(topTable)
-      .width(Constants.EXACT_X)
-      .height(48)
+    this.add(topTable).width(Constants.EXACT_X).height(48)
     this.row
-    this.add(mapTable)
-      .width(Constants.EXACT_X)
-      .height(Constants.EXACT_Y - 96)
+    this.add(mapTable).width(Constants.EXACT_X).height(Constants.EXACT_Y - 96)
     this.row
-    this.add(bottomTable)
-      .width(Constants.EXACT_X)
-      .height(48)
+    this.add(bottomTable).width(Constants.EXACT_X).height(48)
   }
 
   private def createTopTable: Table = {
@@ -65,9 +59,7 @@ class TravelPanel(stage: HudStage) extends Table {
     // container.setDebug(true)
     for (row: Array[SystemMarker] <- systemMarkers) {
       for (systemMarker: SystemMarker <- row) {
-        container.add(systemMarker)
-          .width(Constants.SYSTEMMARKER_SIZE)
-          .height(Constants.SYSTEMMARKER_SIZE)
+        container.add(systemMarker).width(Constants.SYSTEMMARKER_SIZE).height(Constants.SYSTEMMARKER_SIZE)
       }
       container.row
     }

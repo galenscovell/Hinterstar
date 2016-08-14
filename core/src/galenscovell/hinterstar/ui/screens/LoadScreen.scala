@@ -61,19 +61,15 @@ class LoadScreen(gameRoot: Hinterstar) extends Screen {
     Gdx.input.setInputProcessor(null)
   }
 
-  override def pause(): Unit =  {
-
-  }
-
-  override def resume(): Unit =  {
-
-  }
-
   override def dispose(): Unit = {
     if (stage != null) {
       stage.dispose()
     }
   }
+
+  override def pause(): Unit =  {}
+
+  override def resume(): Unit =  {}
 
   private def createBar: ProgressBar = {
     val fill: TextureRegionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/loadingFill.png"))))

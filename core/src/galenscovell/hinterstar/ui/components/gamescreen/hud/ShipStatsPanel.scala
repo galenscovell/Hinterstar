@@ -42,11 +42,7 @@ class ShipStatsPanel(stage: HudStage) extends Table {
       statTable.add(statKeyTable).expand.left
       statTable.add(statValueTable).expand.fill.center
 
-      shipStatsTable.add(statTable)
-        .width(64)
-        .height(32)
-        .center
-        .padRight(4)
+      shipStatsTable.add(statTable).width(64).height(32).center.padRight(4)
     }
   }
 }
