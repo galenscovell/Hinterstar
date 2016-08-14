@@ -53,7 +53,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     hudStage = new HudStage(this, hudViewport, root.spriteBatch)
 
     enableInput()
-    hudStage.togglePause()
+    hudStage.togglePause()  // TEMPORARY, should be called when events are concluded
   }
 
   private def enableInput(): Unit = {
@@ -81,7 +81,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     }
     getActionStage.disableSubsystemOverlay()
     input.clear()
-    travelFrames = 600
+    travelFrames = 500
   }
 
   def openTravelPanel(): Unit = {
@@ -107,17 +107,17 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
     actionStage.updatePlayerAnimation()
     actionStage.getRoot.addAction(Actions.sequence(
-      Actions.delay(3),
+      Actions.delay(3f),
       Actions.fadeOut(1.0f),
       Actions.fadeIn(1.0f)
     ))
 
     hudStage.getRoot.addAction(Actions.sequence(
-      Actions.delay(3),
+      Actions.delay(3f),
       Actions.fadeOut(1.0f),
       warpTransitionAction,
       Actions.fadeIn(1.0f),
-      Actions.delay(4),
+      Actions.delay(2.75f),
       showViewButtonsAction,
       Actions.delay(1f),
       enableInputAction
@@ -125,9 +125,9 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   }
 
   private def travel(): Unit = {
-    if (travelFrames > 500) {
-      currentBackground.modifySpeed(new Vector2(600 - travelFrames, 0))
-    } else if (travelFrames == 500) {
+    if (travelFrames > 400) {
+      currentBackground.modifySpeed(new Vector2(500 - travelFrames, 0))
+    } else if (travelFrames == 400) {
       currentBackground = blurBg
       currentBackground.setSpeed(new Vector2(2500, 0))
     } else if (travelFrames == 90) {
@@ -146,22 +146,22 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     if (!(bg0 == "")) {
       val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](4)
       parallaxLayers(0) = new ParallaxLayer(
-        Resources.environmentAtlas.findRegion("space-dust"),
+        Resources.atlas.findRegion("space-dust"),
         new Vector2(0.0f, 0.0f),
         new Vector2(0, 0)
       )
       parallaxLayers(1) = new ParallaxLayer(
-        Resources.environmentAtlas.findRegion(bg0),
+        Resources.atlas.findRegion(bg0),
         new Vector2(0.2f, 0.2f),
         new Vector2(0, 0)
       )
       parallaxLayers(2) = new ParallaxLayer(
-        Resources.environmentAtlas.findRegion(bg1),
+        Resources.atlas.findRegion(bg1),
         new Vector2(0.4f, 0.4f),
         new Vector2(0, 0)
       )
       parallaxLayers(3) = new ParallaxLayer(
-        Resources.environmentAtlas.findRegion(bg2),
+        Resources.atlas.findRegion(bg2),
         new Vector2(0.8f, 0.8f),
         new Vector2(0, 0)
       )
@@ -175,17 +175,17 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     } else {
       val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](3)
       parallaxLayers(0) = new ParallaxLayer(
-        Resources.environmentAtlas.findRegion("space-dust"),
+        Resources.atlas.findRegion("space-dust"),
         new Vector2(0.0f, 0.0f),
         new Vector2(0, 0)
       )
       parallaxLayers(1) = new ParallaxLayer(
-        Resources.environmentAtlas.findRegion(bg1),
+        Resources.atlas.findRegion(bg1),
         new Vector2(0.4f, 0.4f),
         new Vector2(0, 0)
       )
       parallaxLayers(2) = new ParallaxLayer(
-        Resources.environmentAtlas.findRegion(bg2),
+        Resources.atlas.findRegion(bg2),
         new Vector2(0.8f, 0.8f),
         new Vector2(0, 0)
       )

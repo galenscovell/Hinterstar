@@ -42,11 +42,11 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
   def updatePlayerAnimation(): Unit = {
     player.clearActions()
     player.addAction(Actions.sequence(
-      Actions.moveBy(80, 0, 1.7f, Interpolation.exp5In),
-      Actions.moveBy(0, 4, 1.5f, Interpolation.linear),
-      Actions.moveBy(0, -8, 2.0f, Interpolation.linear),
-      Actions.moveBy(0, 4, 1.5f, Interpolation.linear),
-      Actions.moveBy(-80, 0, 3.0f, Interpolation.exp5In),
+      Actions.moveBy(80, 0, 1.75f, Interpolation.exp5In),
+      Actions.moveBy(0, 4, 1.25f, Interpolation.linear),
+      Actions.moveBy(0, -8, 1.75f, Interpolation.linear),
+      Actions.moveBy(0, 4, 1.25f, Interpolation.linear),
+      Actions.moveBy(-80, 0, 2.0f, Interpolation.exp5In),
       Actions.forever(
         Actions.sequence(
           Actions.moveBy(0, 8, 4.0f),

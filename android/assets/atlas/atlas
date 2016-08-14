@@ -1,6 +1,6 @@
-name=shipAtlas
+name=atlas
 filename=
-input=..\atlas-ship-working
+input=..\atlas-working
 output=
 
 alias=true
@@ -14,8 +14,8 @@ filterMin=Nearest
 format=RGBA8888
 ignoreBlankImages=true
 jpegQuality=0.9
-maxHeight=1024
-maxWidth=1024
+maxHeight=2048
+maxWidth=2048
 minHeight=16
 minWidth=16
 outputFormat=png

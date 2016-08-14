@@ -15,7 +15,7 @@ class NpcShip(actionStage: ActionStage) extends Group {
   // They fire weapons automatically just like the player, with crew assignments determining stats
   private val gameScreen: GameScreen = actionStage.getGameScreen
 
-  private val sprite: Sprite =  Resources.shipAtlas.createSprite(PlayerData.getShip.getName)
+  private val sprite: Sprite =  Resources.atlas.createSprite(PlayerData.getShip.getName)
   sprite.flip(true, false)
   private val shipActor: Image = new Image(sprite)
   private val overlayActor: Actor = new InteriorOverlay(PlayerData.getShip.getName)

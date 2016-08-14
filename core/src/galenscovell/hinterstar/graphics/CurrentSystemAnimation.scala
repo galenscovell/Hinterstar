@@ -5,7 +5,7 @@ import galenscovell.hinterstar.util._
 
 
 class CurrentSystemAnimation {
-  private val sprite: TextureRegion = Resources.uiAtlas.createSprite("current_marker")
+  private val sprite: TextureRegion = Resources.atlas.createSprite("current_marker")
   private val size: Float = Constants.SYSTEMMARKER_SIZE * 3
   private var frame: Float = 0.0f
   private var lx: Int = 0

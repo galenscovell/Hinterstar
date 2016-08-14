@@ -71,7 +71,7 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String) extends Actor {
 
   private def findSprite: Sprite = {
     if (isSubsystem) {
-      new Sprite(Resources.shipAtlas.createSprite(s"$name-icon"))
+      new Sprite(Resources.atlas.createSprite(s"$name-icon"))
     } else {
       null
     }

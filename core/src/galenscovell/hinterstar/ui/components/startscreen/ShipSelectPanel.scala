@@ -189,7 +189,7 @@ class ShipSelectPanel extends Table {
   private[startscreen] var updateShipDisplayAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       val shipName: String = allShips(currentShipIndex).getName
-      shipImage.setDrawable(new TextureRegionDrawable(Resources.shipAtlas.findRegion(shipName)))
+      shipImage.setDrawable(new TextureRegionDrawable(Resources.atlas.findRegion(shipName)))
 
       if (!shipImage.hasParent) {
         shipDisplay.add(shipImage).height(130)

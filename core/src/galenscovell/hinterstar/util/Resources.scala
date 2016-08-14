@@ -17,8 +17,7 @@ import galenscovell.hinterstar.graphics.CurrentSystemAnimation
 
 object Resources {
   val assetManager: AssetManager = new AssetManager
-
-  var uiAtlas, environmentAtlas, shipAtlas, crewAtlas: TextureAtlas = _
+  var atlas: TextureAtlas = _
 
   var textFieldStyle: TextFieldStyle = _
 
@@ -41,10 +40,7 @@ object Resources {
 
 
   def load(): Unit = {
-    assetManager.load("atlas/uiAtlas.pack", classOf[TextureAtlas])
-    assetManager.load("atlas/environmentAtlas.pack", classOf[TextureAtlas])
-    assetManager.load("atlas/shipAtlas.pack", classOf[TextureAtlas])
-    assetManager.load("atlas/crewAtlas.pack", classOf[TextureAtlas])
+    assetManager.load("atlas/atlas.pack", classOf[TextureAtlas])
     val resolver: FileHandleResolver = new InternalFileHandleResolver
     assetManager.setLoader(classOf[FreeTypeFontGenerator], new FreeTypeFontGeneratorLoader(resolver))
     assetManager.setLoader(classOf[BitmapFont], ".ttf", new FreetypeFontLoader(resolver))
@@ -57,10 +53,7 @@ object Resources {
   }
 
   def done(): Unit = {
-    uiAtlas = assetManager.get("atlas/uiAtlas.pack", classOf[TextureAtlas])
-    environmentAtlas = assetManager.get("atlas/environmentAtlas.pack", classOf[TextureAtlas])
-    shipAtlas = assetManager.get("atlas/shipAtlas.pack", classOf[TextureAtlas])
-    crewAtlas = assetManager.get("atlas/crewAtlas.pack", classOf[TextureAtlas])
+    atlas = assetManager.get("atlas/atlas.pack", classOf[TextureAtlas])
     loadNinepatches()
     loadLabelStyles()
     loadButtonStyles()
@@ -72,10 +65,7 @@ object Resources {
 
   def dispose(): Unit = {
     assetManager.dispose()
-    uiAtlas.dispose()
-    environmentAtlas.dispose()
-    shipAtlas.dispose()
-    crewAtlas.dispose()
+    atlas.dispose()
   }
 
 
@@ -96,22 +86,22 @@ object Resources {
   }
 
   private def loadNinepatches(): Unit = {
-    npTest0 = new NinePatchDrawable(uiAtlas.createPatch("test-np-0"))
-    npTest1 = new NinePatchDrawable(uiAtlas.createPatch("test-np-1"))
-    npTest2 = new NinePatchDrawable(uiAtlas.createPatch("test-np-2"))
-    npTest3 = new NinePatchDrawable(uiAtlas.createPatch("test-np-3"))
-    npTest4 = new NinePatchDrawable(uiAtlas.createPatch("test-np-4"))
+    npTest0 = new NinePatchDrawable(atlas.createPatch("test-np-0"))
+    npTest1 = new NinePatchDrawable(atlas.createPatch("test-np-1"))
+    npTest2 = new NinePatchDrawable(atlas.createPatch("test-np-2"))
+    npTest3 = new NinePatchDrawable(atlas.createPatch("test-np-3"))
+    npTest4 = new NinePatchDrawable(atlas.createPatch("test-np-4"))
 
-    greenButtonNp0 = new NinePatchDrawable(uiAtlas.createPatch("green_button0_np"))
-    greenButtonNp1 = new NinePatchDrawable(uiAtlas.createPatch("green_button1_np"))
-    blueButtonNp0 = new NinePatchDrawable(uiAtlas.createPatch("blue_button0_np"))
-    blueButtonNp1 = new NinePatchDrawable(uiAtlas.createPatch("blue_button1_np"))
+    greenButtonNp0 = new NinePatchDrawable(atlas.createPatch("green_button0_np"))
+    greenButtonNp1 = new NinePatchDrawable(atlas.createPatch("green_button1_np"))
+    blueButtonNp0 = new NinePatchDrawable(atlas.createPatch("blue_button0_np"))
+    blueButtonNp1 = new NinePatchDrawable(atlas.createPatch("blue_button1_np"))
 
-    npFontCursor = new NinePatchDrawable(uiAtlas.createPatch("font-cursor-np"))
-    npTextFieldBg = new NinePatchDrawable(uiAtlas.createPatch("text-field-bg-np"))
+    npFontCursor = new NinePatchDrawable(atlas.createPatch("font-cursor-np"))
+    npTextFieldBg = new NinePatchDrawable(atlas.createPatch("text-field-bg-np"))
 
-    npHealthFill = new NinePatchDrawable(uiAtlas.createPatch("health-bar-fill-np"))
-    npHealthEmpty = new NinePatchDrawable(uiAtlas.createPatch("health-bar-empty-np"))
+    npHealthFill = new NinePatchDrawable(atlas.createPatch("health-bar-fill-np"))
+    npHealthEmpty = new NinePatchDrawable(atlas.createPatch("health-bar-empty-np"))
   }
 
   private def loadLabelStyles(): Unit = {
@@ -146,14 +136,14 @@ object Resources {
   }
 
   private def loadSprites(): Unit = {
-    mapGlow = new Sprite(uiAtlas.createSprite("map_glow"))
-    spTest0 = new Sprite(uiAtlas.createSprite("test-box-0"))
-    spTest1 = new Sprite(uiAtlas.createSprite("test-box-1"))
-    spTest2 = new Sprite(uiAtlas.createSprite("test-box-2"))
-    spTest3 = new Sprite(uiAtlas.createSprite("test-box-3"))
-    spTest4 = new Sprite(uiAtlas.createSprite("test-box-4"))
-    spCrewmate = new Sprite(crewAtlas.createSprite("test-crewmate"))
-    spSubsystemMarker = new Sprite(uiAtlas.createSprite("subsystem_marker"))
+    mapGlow = new Sprite(atlas.createSprite("map_glow"))
+    spTest0 = new Sprite(atlas.createSprite("test-box-0"))
+    spTest1 = new Sprite(atlas.createSprite("test-box-1"))
+    spTest2 = new Sprite(atlas.createSprite("test-box-2"))
+    spTest3 = new Sprite(atlas.createSprite("test-box-3"))
+    spTest4 = new Sprite(atlas.createSprite("test-box-4"))
+    spCrewmate = new Sprite(atlas.createSprite("test-crewmate"))
+    spSubsystemMarker = new Sprite(atlas.createSprite("subsystem_marker"))
   }
 
   private def loadAnimations(): Unit = {

@@ -10,9 +10,9 @@ class ShipStatsPanel(stage: HudStage) extends Table {
   private val hudStage: HudStage = stage
   private val shipStatsTable: Table = new Table
   private val statIcons: Array[Image] = Array(
-    new Image(new Sprite(Resources.uiAtlas.createSprite("shield-icon"))),
-    new Image(new Sprite(Resources.uiAtlas.createSprite("engine-icon"))),
-    new Image(new Sprite(Resources.uiAtlas.createSprite("weapon-icon")))
+    new Image(new Sprite(Resources.atlas.createSprite("shield-icon"))),
+    new Image(new Sprite(Resources.atlas.createSprite("engine-icon"))),
+    new Image(new Sprite(Resources.atlas.createSprite("weapon-icon")))
   )
 
   construct()
