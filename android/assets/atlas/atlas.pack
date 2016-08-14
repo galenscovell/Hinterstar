@@ -80,58 +80,107 @@ subsystem_marker
   orig: 60, 60
   offset: 0, 0
   index: -1
-drone-icon
+0 of 1
   rotate: false
   xy: 1687, 1991
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-engine-icon
+0 of 3
   rotate: false
   xy: 75, 63
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-helm-icon
+0 of 4
   rotate: false
   xy: 1605, 1847
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-map_glow
+1 of 1
   rotate: false
   xy: 1737, 1991
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-oxygen-icon
+1 of 3
   rotate: false
   xy: 125, 63
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-shield-icon
+2 of 3
   rotate: false
   xy: 1605, 1797
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-teleport-icon
+3 of 3
   rotate: false
   xy: 1787, 1991
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-weapon-icon
+drone-icon
   rotate: false
   xy: 175, 63
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+engine-icon
+  rotate: false
+  xy: 1605, 1747
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+helm-icon
+  rotate: false
+  xy: 1837, 1991
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+map_glow
+  rotate: false
+  xy: 225, 63
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+oxygen-icon
+  rotate: false
+  xy: 1605, 1697
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+shield-icon
+  rotate: false
+  xy: 1887, 1991
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+teleport-icon
+  rotate: false
+  xy: 275, 63
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+weapon-icon
+  rotate: false
+  xy: 1605, 1647
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
@@ -146,7 +195,7 @@ blue_button0_np
   index: -1
 blue_button1_np
   rotate: false
-  xy: 1605, 1759
+  xy: 1937, 2003
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -154,7 +203,7 @@ blue_button1_np
   index: -1
 green_button0_np
   rotate: false
-  xy: 1837, 2003
+  xy: 325, 75
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -162,7 +211,7 @@ green_button0_np
   index: -1
 green_button1_np
   rotate: false
-  xy: 225, 75
+  xy: 1605, 1609
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -177,28 +226,28 @@ test-box-0
   index: -1
 test-box-1
   rotate: false
-  xy: 1605, 1725
+  xy: 1975, 2007
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-2
   rotate: false
-  xy: 1875, 2007
+  xy: 363, 79
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-3
   rotate: false
-  xy: 263, 79
+  xy: 1605, 1575
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-4
   rotate: false
-  xy: 1605, 1691
+  xy: 2009, 2007
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -213,7 +262,7 @@ test-np-0
   index: -1
 test-np-1
   rotate: false
-  xy: 1909, 2015
+  xy: 397, 87
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -221,7 +270,7 @@ test-np-1
   index: -1
 test-np-2
   rotate: false
-  xy: 297, 87
+  xy: 1605, 1549
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -229,7 +278,7 @@ test-np-2
   index: -1
 test-np-3
   rotate: false
-  xy: 1605, 1665
+  xy: 1713, 1965
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -237,7 +286,7 @@ test-np-3
   index: -1
 test-np-4
   rotate: false
-  xy: 1713, 1965
+  xy: 423, 87
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -245,7 +294,7 @@ test-np-4
   index: -1
 text-field-bg-np
   rotate: false
-  xy: 1713, 1965
+  xy: 423, 87
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24

@@ -1,6 +1,6 @@
 package galenscovell.hinterstar.generation.interior
 
-import com.badlogic.gdx.graphics.g2d.{Batch, Sprite}
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
 import com.badlogic.gdx.scenes.scene2d.{Actor, InputEvent}
 import galenscovell.hinterstar.util.{CrewOperations, Resources}
@@ -17,8 +17,9 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String) extends Actor {
   private var glowing: Boolean = true
 
   private val maxOccupancy: Int = setMaxOccupancy
-  private var sprite: Sprite = _  // findSprite
   private var assignedCrewmates: Int = 0
+
+  private val infoDisplay: SubsystemInfo = constructInfo
 
 
   this.addListener(new ActorGestureListener() {
@@ -39,10 +40,12 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String) extends Actor {
 
   def assignCrewmate(): Unit = {
     assignedCrewmates += 1
+    infoDisplay.updateOccupancy(1)
   }
 
   def removeCrewmate(): Unit = {
     assignedCrewmates -= 1
+    infoDisplay.updateOccupancy(-1)
   }
 
   private def setMaxOccupancy: Int = {
@@ -69,9 +72,17 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String) extends Actor {
     name != "none"
   }
 
-  private def findSprite: Sprite = {
+  private def constructInfo: SubsystemInfo = {
     if (isSubsystem) {
-      new Sprite(Resources.atlas.createSprite(s"$name-icon"))
+      // Render above or below depending on relative position of subsystem
+      var infoY: Int = 0
+      if (height - ty > (height / 2)) {
+        infoY = (tileSize * (overlayHeight - 1)) - (ty * tileSize) + 48
+      } else {
+        infoY = (tileSize * (overlayHeight - 1)) - (ty * tileSize) - 48
+      }
+      val info: SubsystemInfo = new SubsystemInfo(name, maxOccupancy, tx * tileSize, infoY)
+      info
     } else {
       null
     }
@@ -103,6 +114,8 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String) extends Actor {
         tileSize * 1.5f,
         tileSize * 1.5f
       )
+
+      infoDisplay.draw(batch, parentAlpha)
       batch.setColor(1, 1, 1, 1)
     }
   }

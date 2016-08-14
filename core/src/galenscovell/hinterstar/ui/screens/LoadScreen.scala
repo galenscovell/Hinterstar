@@ -33,8 +33,8 @@ class LoadScreen(gameRoot: Hinterstar) extends Screen {
   }
 
   private def createBar: ProgressBar = {
-    val fill: TextureRegionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/loadingFill.png"))))
-    val empty: TextureRegionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/loadingEmpty.png"))))
+    val fill: TextureRegionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadingFill.png"))))
+    val empty: TextureRegionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("loadingEmpty.png"))))
     val barStyle: ProgressBar.ProgressBarStyle = new ProgressBar.ProgressBarStyle(empty, fill)
     val bar: ProgressBar = new ProgressBar(0, 10, 1, false, barStyle)
     barStyle.knobBefore = fill

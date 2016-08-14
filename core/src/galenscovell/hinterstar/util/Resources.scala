@@ -24,8 +24,8 @@ object Resources {
   var labelTinyStyle, labelMediumStyle, labelDetailStyle, labelMenuStyle,
       labelTitleStyle: LabelStyle = _
 
-  var npTest0, npTest1, npTest2, npTest3, npTest4, greenButtonNp0,
-      greenButtonNp1, blueButtonNp0, blueButtonNp1,
+  var npTest0, npTest1, npTest2, npTest3, npTest4,
+      greenButtonNp0, greenButtonNp1, blueButtonNp0, blueButtonNp1,
       npFontCursor, npTextFieldBg, npHealthFill, npHealthEmpty: NinePatchDrawable = _
 
   var buttonMenuStyle, buttonMapStyle0, buttonMapStyle1, buttonMapStyle2,
@@ -34,7 +34,7 @@ object Resources {
   var mapGlow, spTest0, spTest1, spTest2, spTest3, spTest4,
       spCrewmate, spSubsystemMarker: Sprite = _
 
-  var healthBarStyle: ProgressBarStyle = _
+  var hullBarStyle, healthBarStyle: ProgressBarStyle = _
 
   var currentMarker: CurrentSystemAnimation = _
 
