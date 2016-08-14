@@ -42,14 +42,13 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
   }
 
   private def createBackground(): Unit = {
-    val num: Int = (Math.random * 4).toInt
+    val num: Int = (Math.random * 3).toInt
     var layerName: String = ""
 
     num match {
       case 0 => layerName = "blue_bg"
       case 1 => layerName = "purple_bg"
       case 2 => layerName = "green_bg"
-      case _ => layerName = ""
     }
 
     SystemRepo.gameScreen.transitionSector(layerName, "bg1", "bg2", layerName, "bg1_blur", "bg2_blur")

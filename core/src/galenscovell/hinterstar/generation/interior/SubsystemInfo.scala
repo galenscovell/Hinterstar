@@ -7,10 +7,20 @@ import galenscovell.hinterstar.util.Resources
 class SubsystemInfo(name: String, occupancy: Int, rootX: Int, rootY: Int) {
   private val infoX: Int = rootX
   private val infoY: Int = rootY
-  private val subsystemName: String = name
+
+  private val subsystemType: String = name match {
+    case "Weapon Control" => "weapon"
+    case "Shield Control" => "shield"
+    case "Engine Room" => "engine"
+    case "Helm" => "helm"
+    case _ => ""
+  }
+
   private val maxOccupancy: Int = occupancy
   private var currentOccupancy: Int = 0
-  private var sprite: Sprite = _
+
+  private var occupancySprite: Sprite = _
+  private val subsystemSprite: Sprite = new Sprite(Resources.atlas.createSprite(subsystemType + "-icon"))
 
   updateOccupancy(0)
 
@@ -18,10 +28,11 @@ class SubsystemInfo(name: String, occupancy: Int, rootX: Int, rootY: Int) {
   def updateOccupancy(amount: Int): Unit = {
     currentOccupancy += amount
     val spriteName: String = s"$currentOccupancy of $maxOccupancy"
-    sprite = new Sprite(Resources.atlas.createSprite(spriteName))
+    occupancySprite = new Sprite(Resources.atlas.createSprite(spriteName))
   }
 
   def draw(batch: Batch, parentAlpha: Float): Unit = {
-    batch.draw(sprite, infoX, infoY, 48, 48)
+    batch.draw(subsystemSprite, infoX - 16, infoY + 8, 32, 32)
+    batch.draw(occupancySprite, infoX + 16, infoY, 48, 48)
   }
 }

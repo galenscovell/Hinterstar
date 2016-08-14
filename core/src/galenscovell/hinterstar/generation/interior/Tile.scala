@@ -13,7 +13,7 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String) extends Actor {
   val overlayHeight: Int = height
   val name: String = ss
 
-  private var frames: Int = 60
+  private var frames: Int = 100
   private var glowing: Boolean = true
 
   private val maxOccupancy: Int = setMaxOccupancy
@@ -98,21 +98,21 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String) extends Actor {
         frames -= 2
       }
 
-      if (frames == 120) {
+      if (frames == 240) {
         glowing = false
-      } else if (frames == 40) {
+      } else if (frames == 80) {
         glowing = true
       }
 
-      val frameAlpha: Float = frames / 120.0f
+      val frameAlpha: Float = frames / 240.0f
 
       batch.setColor(0.2f, 0.9f, 0.2f, frameAlpha)
       batch.draw(
         Resources.spSubsystemMarker,
-        tx * tileSize - (tileSize / 4),
-        (tileSize * (overlayHeight - 1)) - (ty * tileSize) - (tileSize / 4),
-        tileSize * 1.5f,
-        tileSize * 1.5f
+        tx * tileSize,
+        (tileSize * (overlayHeight - 1)) - (ty * tileSize),
+        tileSize,
+        tileSize
       )
 
       infoDisplay.draw(batch, parentAlpha)
