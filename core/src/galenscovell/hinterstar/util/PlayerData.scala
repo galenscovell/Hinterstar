@@ -22,10 +22,8 @@ object PlayerData {
   private val crew: ArrayBuffer[Crewmate] = ArrayBuffer()
   private var ship: Ship = _
   private var hullHealth: Int = 100
-
   private val proficiencies: List[String] =
     List("Weapons", "Engines", "Piloting", "Shields")
-
 
 
   /**
@@ -48,7 +46,9 @@ object PlayerData {
 
 
 
-  // CREW OPERATIONS
+  /********************
+    * Crew Operations *
+    ********************/
   def loadCrew(): Unit = {
     crew.clear()
     val crewNames: Array[String] = prefs.getString("crew").split(",")
@@ -93,7 +93,9 @@ object PlayerData {
 
 
 
-  // SHIP OPERATIONS
+  /********************
+    * Ship Operations *
+    ********************/
   def getShip: Ship = {
     ship
   }
@@ -172,7 +174,9 @@ object PlayerData {
 
 
 
-  // HULL HEALTH OPERATIONS
+  /********************
+    * Hull Operations *
+    ********************/
   def saveHullHealth(): Unit = {
     prefs.putInteger("hull-health", hullHealth)
     prefs.flush()
@@ -192,7 +196,9 @@ object PlayerData {
 
 
 
-  // LOCATION OPERATIONS
+  /************************
+    * Location Operations *
+    ************************/
   // TODO: Save current Sector (and map layout) to custom file format
   // TODO: Save current System and explored Systems
   // TODO: Load saved Sector (and map layout)

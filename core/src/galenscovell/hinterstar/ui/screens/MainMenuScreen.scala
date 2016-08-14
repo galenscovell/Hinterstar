@@ -105,6 +105,11 @@ class MainMenuScreen(gameRoot: Hinterstar) extends Screen {
     )
   }
 
+
+
+  /**********************
+    * Screen Operations *
+    **********************/
   override def render(delta: Float): Unit = {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     Gdx.gl.glClearColor(0, 0, 0, 1)
@@ -139,9 +144,9 @@ class MainMenuScreen(gameRoot: Hinterstar) extends Screen {
 
 
 
-  /**
-    * Custom Scene2D Actions
-    */
+  /***************************
+    * Custom Scene2D Actions *
+    ***************************/
   private[screens] var toStartScreenAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       root.setScreen(root.startScreen)

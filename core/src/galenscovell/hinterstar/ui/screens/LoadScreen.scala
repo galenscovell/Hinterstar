@@ -32,6 +32,22 @@ class LoadScreen(gameRoot: Hinterstar) extends Screen {
     stage.addActor(loadingMain)
   }
 
+  private def createBar: ProgressBar = {
+    val fill: TextureRegionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/loadingFill.png"))))
+    val empty: TextureRegionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/loadingEmpty.png"))))
+    val barStyle: ProgressBar.ProgressBarStyle = new ProgressBar.ProgressBarStyle(empty, fill)
+    val bar: ProgressBar = new ProgressBar(0, 6, 1, false, barStyle)
+    barStyle.knobBefore = fill
+    bar.setValue(0)
+    bar.setAnimateDuration(0.1f)
+    bar
+  }
+
+
+
+  /**********************
+    * Screen Operations *
+    **********************/
   override def render(delta: Float): Unit = {
     Gdx.gl.glClearColor(0, 0, 0, 1)
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
@@ -71,22 +87,11 @@ class LoadScreen(gameRoot: Hinterstar) extends Screen {
 
   override def resume(): Unit =  {}
 
-  private def createBar: ProgressBar = {
-    val fill: TextureRegionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/loadingFill.png"))))
-    val empty: TextureRegionDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("textures/loadingEmpty.png"))))
-    val barStyle: ProgressBar.ProgressBarStyle = new ProgressBar.ProgressBarStyle(empty, fill)
-    val bar: ProgressBar = new ProgressBar(0, 6, 1, false, barStyle)
-    barStyle.knobBefore = fill
-    bar.setValue(0)
-    bar.setAnimateDuration(0.1f)
-    bar
-  }
 
 
-
-  /**
-    * Custom Scene2D Actions
-    */
+  /***************************
+    * Custom Scene2D Actions *
+    ***************************/
   private[screens] var toMainMenuScreen: Action = new Action() {
     def act(delta: Float): Boolean = {
       root.setScreen(root.mainMenuScreen)

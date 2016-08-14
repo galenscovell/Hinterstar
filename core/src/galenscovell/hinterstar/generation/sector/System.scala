@@ -4,13 +4,7 @@ import galenscovell.hinterstar.processing.Event
 import galenscovell.hinterstar.util._
 
 
-/**
-  * A System contains is a container for an event.
-  * Systems have:
-  *     an associated SystemMarker (aka a node on the sector grid)
-  *     random Event
-  *     random background
-  */
+
 class System(gridX: Int, gridY: Int, gridSize: Int) {
   val x: Int = gridX
   val y: Int = gridY
@@ -20,33 +14,21 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
   private var systemMarker: SystemMarker = _
 
 
-  /**
-    * Return the SystemMarker for this System.
-    */
   def getSystemMarker: SystemMarker = {
     systemMarker
   }
 
-  /**
-    * Return the Event for this System.
-    */
   def getEvent: Event = {
     event
   }
 
 
 
-  /**
-    * Set the SystemMarker for this System and set it as unexplored.
-    */
   def setSystemMarker(newSystemMarker: SystemMarker): Unit = {
     systemMarker = newSystemMarker
     systemMarker.becomeUnexplored()
   }
 
-  /**
-    * Set this System as the starting System for the game (the tutorial System).
-    */
   def setAsTutorial(): Unit = {
     val startingEvent: Event = new Event()
     startingEvent.setStartEvent()
@@ -55,20 +37,10 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
 
 
 
-  /**
-    * Enter this System, causing System Event and background to be generated.
-    * Event and background should be consistent with the type/atmosphere of this System.
-    */
   def enter(): Unit = {
     createBackground()
   }
 
-  /**
-    * Create a random background for this System.
-    * Background depends on number and type of events generated
-    * eg many planet events = background has planets
-    * eg no planet events = background has no planets
-    */
   private def createBackground(): Unit = {
     val num: Int = (Math.random * 4).toInt
     var layerName: String = ""

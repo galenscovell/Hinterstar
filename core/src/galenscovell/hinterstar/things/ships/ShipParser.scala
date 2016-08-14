@@ -7,17 +7,11 @@ import galenscovell.hinterstar.things.parts.{Weapon, WeaponParser}
 import scala.collection.mutable.ArrayBuffer
 
 
-/**
-  * ShipParser handles the parsing of Ships from JSON.
-  */
 class ShipParser {
   private val weaponParser: WeaponParser = new WeaponParser
   private val source: String = "data/ships.json"
 
 
-  /**
-    * Parse out all Ships from ships.json as an ArrayBuffer.
-    */
   def parseAll: ArrayBuffer[Ship] = {
     val ships: ArrayBuffer[Ship] = ArrayBuffer()
     val json: JsonValue = new JsonReader().parse(Gdx.files.internal(source))
@@ -31,18 +25,12 @@ class ShipParser {
     ships
   }
 
-  /**
-    * Parse out a single Ship from ships.json.
-    */
   def parseSingle(name: String): Ship = {
     val json: JsonValue = new JsonReader().parse(Gdx.files.internal(source))
     val entry: JsonValue = json.get(name)
     constructShip(entry)
   }
 
-  /**
-    * Create new Ship with name, desc, weapons and subsystems from ships.json.
-    */
   def constructShip(entry: JsonValue): Ship = {
     val name: String = entry.name
     val desc: String = entry.getString("description")

@@ -164,9 +164,9 @@ class CrewSelectPanel extends Table {
 
 
 
-  /**
-    * Custom Scene2D Actions
-    */
+  /***************************
+    * Custom Scene2D Actions *
+    ***************************/
   private[startscreen] var updateLeftTableAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       updateLeftTable()

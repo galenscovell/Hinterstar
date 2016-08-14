@@ -20,17 +20,10 @@ class Event() {
   var description: String = ""
 
 
-
-  /**
-    * Return this Event's eventType.
-    */
   def getType: String = {
     eventType
   }
 
-  /**
-    * Set this Event as the very first Event in the game (the tutorial Event).
-    */
   def setStartEvent(): Unit = {
     name = "Starting Event"
     description = "This is the first event in the game. It describes the goal and basic controls."

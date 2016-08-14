@@ -29,12 +29,11 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
   private var normalBg: ParallaxBackground = createBackground("blue_bg", "bg1", "bg2")
   private var blurBg: ParallaxBackground = createBackground("blue_bg", "bg1_blur", "bg2_blur")
-  var currentBackground: ParallaxBackground = normalBg
+  private var currentBackground: ParallaxBackground = normalBg
 
   private var bg0, bg1, bg2: String = _
   private var bg0Blur, bg1Blur, bg2Blur: String = _
 
-  private val lerp: Float = 0.9f
   private val originVector: Vector3 = new Vector3(Constants.EXACT_X / 2, Constants.EXACT_Y / 2, 0)
   private val cameraXmin: Float = Constants.EXACT_X * 0.5f
   private val cameraXmax: Float = Constants.EXACT_X
@@ -56,72 +55,6 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     enableInput()
     hudStage.togglePause()
   }
-
-  override def render(delta: Float): Unit = {
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-    Gdx.gl.glClearColor(0, 0, 0, 1)
-
-    // Handle travel and background animations
-    if (travelFrames > 0) {
-      centerCamera(delta)
-      travel()
-    }
-
-    if (currentBackground != null) {
-      currentBackground.render(delta)
-    }
-
-    if (!paused) {
-      if (accumulator > timestep) {
-        accumulator = 0
-        val readyWeapons: Array[Weapon] = hudStage.getWeaponPanel.update()
-      }
-      accumulator += 1
-    }
-
-    // Update and render game stage
-    actionStage.act(delta)
-    actionStage.draw()
-    hudStage.act(delta)
-    hudStage.draw()
-
-    // Draw map panel shapes
-    if (travelPanelOpen) {
-      SystemRepo.drawShapes()
-    }
-  }
-
-  override def show(): Unit = {
-    enableInput()
-  }
-
-  override def resize(width: Int, height: Int): Unit = {
-    if (actionStage != null) {
-      actionStage.getViewport.update(width, height, true)
-    }
-    if (hudStage != null) {
-      hudStage.getViewport.update(width, height, true)
-    }
-  }
-
-  override def hide(): Unit = {
-    Gdx.input.setInputProcessor(null)
-  }
-
-  override def dispose(): Unit = {
-    if (actionStage != null) {
-      actionStage.dispose()
-    }
-    if (hudStage != null) {
-      hudStage.dispose()
-    }
-  }
-
-  override def pause(): Unit =  {}
-
-  override def resume(): Unit =  {}
-  
-
 
   private def enableInput(): Unit = {
     input.addProcessor(hudStage)
@@ -267,9 +200,79 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   }
 
 
-  /**
-    * Screen gesture operations
-    */
+
+  /**********************
+    * Screen Operations *
+    **********************/
+  override def render(delta: Float): Unit = {
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+    Gdx.gl.glClearColor(0, 0, 0, 1)
+
+    // Handle travel and background animations
+    if (travelFrames > 0) {
+      centerCamera(delta)
+      travel()
+    }
+
+    if (currentBackground != null) {
+      currentBackground.render(delta)
+    }
+
+    if (!paused) {
+      if (accumulator > timestep) {
+        accumulator = 0
+        val readyWeapons: Array[Weapon] = hudStage.getWeaponPanel.update()
+      }
+      accumulator += 1
+    }
+
+    // Update and render game stage
+    actionStage.act(delta)
+    actionStage.draw()
+    hudStage.act(delta)
+    hudStage.draw()
+
+    // Draw map panel shapes
+    if (travelPanelOpen) {
+      SystemRepo.drawShapes()
+    }
+  }
+
+  override def show(): Unit = {
+    enableInput()
+  }
+
+  override def resize(width: Int, height: Int): Unit = {
+    if (actionStage != null) {
+      actionStage.getViewport.update(width, height, true)
+    }
+    if (hudStage != null) {
+      hudStage.getViewport.update(width, height, true)
+    }
+  }
+
+  override def hide(): Unit = {
+    Gdx.input.setInputProcessor(null)
+  }
+
+  override def dispose(): Unit = {
+    if (actionStage != null) {
+      actionStage.dispose()
+    }
+    if (hudStage != null) {
+      hudStage.dispose()
+    }
+  }
+
+  override def pause(): Unit =  {}
+
+  override def resume(): Unit =  {}
+
+
+
+  /******************************
+    * Screen Gesture Operations *
+    ******************************/
   def actionPan(dx: Float): Unit = {
     val newCameraX: Float = getActionStage.getCamera.position.x - dx
 
@@ -288,17 +291,17 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
   def centerCamera(delta: Float): Unit = {
     getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom +=
-      (1 - getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom) * lerp * delta
+      (1 - getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom) * 0.9f * delta
 
     getActionStage.getCamera.position.x +=
-      (originVector.x - getActionStage.getCamera.position.x) * lerp * delta
+      (originVector.x - getActionStage.getCamera.position.x) * 0.9f * delta
   }
 
 
 
-  /**
-    * Custom Scene2D Actions
-    */
+  /***************************
+    * Custom Scene2D Actions *
+    ***************************/
   private[screens] var warpTransitionAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       normalBg = createBackground(bg0, bg1, bg2)
@@ -309,14 +312,12 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
       true
     }
   }
-
   private[screens] var showViewButtonsAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       hudStage.showUI()
       true
     }
   }
-
   private[screens] var enableInputAction: Action = new Action {
     def act(delta: Float): Boolean = {
       enableInput()

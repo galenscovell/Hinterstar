@@ -23,7 +23,9 @@ object SystemRepo {
   var currentSystem, currentSelection: System = _
 
 
-// Called from GameScreen //
+  /***************************
+    * Called from GameScreen *
+    ***************************/
   /**
     * Sets the gameScreen for SystemRepo.
     * WHY IT'S HERE: Repository has to have gameScreen set but object has no constructor.
@@ -41,7 +43,6 @@ object SystemRepo {
   def setTargetsInRange(): Unit = {
     systemsInRange.clear()
 
-    // println("C", currentSystem.getSystemMarker.sx, currentSystem.getSystemMarker.sy)
     for (system <- systems) {
       if (system != currentSystem) {
         val squareDist: Double = Math.pow(
@@ -49,7 +50,6 @@ object SystemRepo {
           Math.pow(currentSystem.getSystemMarker.sy - system.getSystemMarker.sy, 2)
         if (squareDist <= Math.pow(playerRangeRadius, 2)) {
           systemsInRange += system
-          // println("U", system.getSystemMarker.sx, system.getSystemMarker.sy)
         }
       }
     }
@@ -94,7 +94,9 @@ object SystemRepo {
 
 
 
-// Called from GameStage //
+  /**************************
+    * Called from GameStage *
+    **************************/
   /**
     * Gets the Event for the current System.
     * WHY IT'S HERE: GameStage must display the Event for each System, but has no access to System data.
@@ -106,11 +108,13 @@ object SystemRepo {
 
 
 
-// Called from SectorView //
+  /****************************
+    * Called from TravelPanel *
+    ****************************/
   /**
     * If currently selected System is within range of Player, travel to it (set is as CurrentSystem and enter()).
-    * WHY IT'S HERE: Travel is called from SectorView, but it has no access to System data.
-    * WORKAROUND IDEAS: SectorView has access to GameStage, which has access to GameScreen
+    * WHY IT'S HERE: Travel is called from TravelPanel, but it has no access to System data.
+    * WORKAROUND IDEAS: TravelPanel has access to GameStage, which has access to GameScreen
     */
   def travelToSelection: Boolean = {
     if (currentSelection != null && systemsInRange.contains(currentSelection)) {
@@ -127,10 +131,12 @@ object SystemRepo {
 
 
 
-// Called from SystemMarker //
+  /*****************************
+    * Called from SystemMarker *
+    *****************************/
   /**
     * When a non-EMPTY SystemMarker is selected, set its System as the currentSelection,
-    *     then calculates 4 * euclidean distance to it and updateDistanceLabel().
+    *     then calculate 4 * euclidean distance to it and updateDistanceLabel().
     * WHY IT'S HERE: GameStage has no access to System data.
     * WORKAROUND IDEAS: GameStage has access to GameScreen
     */
@@ -150,7 +156,9 @@ object SystemRepo {
 
 
 
-// Called from SectorGenerator //
+  /********************************
+    * Called from SectorGenerator *
+    ********************************/
   /**
     * Establishes System data for SystemRepo.
     * Sets the furthest to the left System as the Player's currentSystem.

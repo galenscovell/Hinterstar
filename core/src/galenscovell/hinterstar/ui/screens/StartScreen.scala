@@ -52,40 +52,6 @@ class StartScreen(gameRoot: Hinterstar) extends Screen {
     )
   }
 
-  override def render(delta: Float): Unit = {
-    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-    Gdx.gl.glClearColor(0, 0, 0, 1)
-    stage.act(delta)
-    stage.draw()
-  }
-
-  override def resize(width: Int, height: Int): Unit = {
-    if (stage != null) {
-      stage.getViewport.update(width, height, true)
-    }
-  }
-
-  override def show(): Unit = {
-    create()
-    Gdx.input.setInputProcessor(stage)
-  }
-
-  override def hide(): Unit = {
-    Gdx.input.setInputProcessor(null)
-  }
-
-  override def dispose(): Unit = {
-    if (stage != null) {
-      stage.dispose()
-    }
-  }
-
-  override def pause(): Unit =  {}
-
-  override def resume(): Unit =  {}
-
-
-
   private def createTitleTable: Table = {
     val titleTable: Table = new Table
     val noticeTable: Table = new Table
@@ -177,10 +143,46 @@ class StartScreen(gameRoot: Hinterstar) extends Screen {
 
 
 
+  /**********************
+    * Screen Operations *
+    **********************/
+  override def render(delta: Float): Unit = {
+    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+    Gdx.gl.glClearColor(0, 0, 0, 1)
+    stage.act(delta)
+    stage.draw()
+  }
 
-  /**
-    * Custom Scene2D Actions
-    */
+  override def resize(width: Int, height: Int): Unit = {
+    if (stage != null) {
+      stage.getViewport.update(width, height, true)
+    }
+  }
+
+  override def show(): Unit = {
+    create()
+    Gdx.input.setInputProcessor(stage)
+  }
+
+  override def hide(): Unit = {
+    Gdx.input.setInputProcessor(null)
+  }
+
+  override def dispose(): Unit = {
+    if (stage != null) {
+      stage.dispose()
+    }
+  }
+
+  override def pause(): Unit =  {}
+
+  override def resume(): Unit =  {}
+
+
+
+  /***************************
+    * Custom Scene2D Actions *
+    ***************************/
   private[screens] var toMainMenuAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       root.setScreen(root.mainMenuScreen)

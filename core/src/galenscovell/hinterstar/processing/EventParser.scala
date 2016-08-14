@@ -7,9 +7,6 @@ import scala.collection.mutable
 import scala.util.Random
 
 
-/**
-  * EventParser handles the parsing of Events from JSON.
-  */
 class EventParser {
   private val choiceJsonItems: List[String] = List(
     "choice-text",

@@ -165,9 +165,9 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
 
 
 
-  /**
-    * Custom Scene2D Actions
-    */
+  /***************************
+    * Custom Scene2D Actions *
+    ***************************/
   private[components] var travelPanelOpenAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       gameScreen.openTravelPanel()

@@ -183,9 +183,9 @@ class ShipSelectPanel extends Table {
 
 
 
-  /**
-    * Custom Scene2D Actions
-    */
+  /***************************
+    * Custom Scene2D Actions *
+    ***************************/
   private[startscreen] var updateShipDisplayAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       val shipName: String = allShips(currentShipIndex).getName

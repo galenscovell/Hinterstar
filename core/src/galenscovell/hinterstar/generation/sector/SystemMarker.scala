@@ -7,11 +7,6 @@ import galenscovell.hinterstar.generation.sector.MarkerType.MarkerType
 import galenscovell.hinterstar.util._
 
 
-/**
-  * A SystemMarker is a node on the map grid.
-  * SystemMarkers are the graphical components of Systems which have sprites and are rendered.
-  * SystemMarker also carry state (eg EMPTY, CURRENT, EXPLORED, UNEXPLORED).
-  */
 class SystemMarker(x: Int, y: Int) extends Actor {
   val sx: Int = x * Constants.SYSTEMMARKER_SIZE
   val sy: Int = y * Constants.SYSTEMMARKER_SIZE
@@ -31,67 +26,43 @@ class SystemMarker(x: Int, y: Int) extends Actor {
   })
 
 
-  /**
-    * Return this SystemMarker.
-    */
+
   def getThisSystemMarker: SystemMarker = {
     this
   }
 
-  /**
-    * Return this SystemMarker's associated System.
-    */
   def getSystem: System = {
     system
   }
 
-  /**
-    * Associate a System with this SystemMarker.
-    */
   def setSystem(s: System): Unit = {
     system = s
   }
 
-  /**
-    * Return true if this SystemMarker is currently EMPTY (no sprite).
-    */
+
+
   def isEmpty: Boolean = {
     markerType == MarkerType.EMPTY
   }
 
-  /**
-    * Return true if this SystemMarker is the CURRENT place the Player is.
-    */
   def isCurrent: Boolean = {
     markerType == MarkerType.CURRENT
   }
 
-  /**
-    * Return true if this SystemMarker has been EXPLORED by the Player.
-    */
   def isExplored: Boolean = {
     markerType == MarkerType.EXPLORED
   }
 
-  /**
-    * Return true if this SystemMarker is UNEXPLORED by the Player.
-    */
   def isUnexplored: Boolean = {
     markerType == MarkerType.UNEXPLORED
   }
 
 
 
-  /**
-    * Make this SystemMarker EMPTY (remove its sprite)
-    */
   def becomeEmpty(): Unit = {
     markerType = MarkerType.EMPTY
   }
 
-  /**
-    * Make this SystemMarker the CURRENT Player System.
-    */
   def becomeCurrent(): Unit = {
     Resources.currentMarker.setTarget(
       sx + Constants.SYSTEM_MARKER_X - Constants.SYSTEMMARKER_SIZE,
@@ -100,16 +71,10 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     markerType = MarkerType.CURRENT
   }
 
-  /**
-    * Mark this SystemMarker as EXPLORED by the Player.
-    */
   def becomeExplored(): Unit = {
     markerType = MarkerType.EXPLORED
   }
 
-  /**
-    * Mark this SystemMarker as UNEXPLORED by the Player.
-    */
   def becomeUnexplored(): Unit = {
     sprite = Resources.spTest0
     markerType = MarkerType.UNEXPLORED
@@ -117,9 +82,6 @@ class SystemMarker(x: Int, y: Int) extends Actor {
 
 
 
-  /**
-    * Draw this SystemMarker's sprite.
-    */
   override def draw(batch: Batch, parentAlpha: Float): Unit = {
     if (!isEmpty) {
       glow(batch)
@@ -136,9 +98,6 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     }
   }
 
-  /**
-    * Draw this SystemMarker's animation effects (glowing/color).
-    */
   private def glow(batch: Batch): Unit = {
     if (glowing) {
       frames += 1

@@ -5,9 +5,6 @@ import galenscovell.hinterstar.util._
 import scala.collection.mutable.ArrayBuffer
 
 
-/**
-  * MapGenerator constructs SystemMarker grid and places non-overlapping Systems.
-  */
 class SectorGenerator(maxSystems: Int, padSize: Int) {
   private val systemMarkers: Array[Array[SystemMarker]] = Array.ofDim[SystemMarker](Constants.MAP_HEIGHT, Constants.MAP_WIDTH)
   private val systems: ArrayBuffer[System] = ArrayBuffer()
@@ -17,16 +14,12 @@ class SectorGenerator(maxSystems: Int, padSize: Int) {
   SystemRepo.populateSystems(systems)
 
 
-  /**
-    * Return 2D Array of SystemMarkers.
-    */
   def getSystemMarkers: Array[Array[SystemMarker]] = {
     systemMarkers
   }
 
-  /**
-    * Construct SystemMarker[MAP_HEIGHT][MAP_WIDTH] of all empty SystemMarkers.
-    */
+
+
   private def build(): Unit = {
     for (x <- 0 until Constants.MAP_WIDTH) {
       for (y <- 0 until Constants.MAP_HEIGHT) {
@@ -35,10 +28,6 @@ class SectorGenerator(maxSystems: Int, padSize: Int) {
     }
   }
 
-  /**
-    * Place random Systems, ensuring that they are distanced apart.
-    * TODO: Ensure that there is at least one full path from start to finish.
-    */
   private def placeSystems(): Unit = {
     var attempts: Int = 240
 
@@ -60,9 +49,6 @@ class SectorGenerator(maxSystems: Int, padSize: Int) {
     }
   }
 
-  /**
-    * Return if target System overlaps an already placed System.
-    */
   private def doesCollide(system: System): Boolean = {
     for (i <- systems.indices) {
       val check: System = systems(i)
@@ -76,15 +62,11 @@ class SectorGenerator(maxSystems: Int, padSize: Int) {
     false
   }
 
-  /**
-    * Return a random integer between low and high.
-    */
   private def getRandom(low: Int, high: Int): Int = {
     (Math.random * (high - low)).toInt + low
   }
 
-
-  def debugPrint(): Unit = {
+  private def debugPrint(): Unit = {
     println()
     for (row: Array[SystemMarker] <- systemMarkers) {
       for (sm: SystemMarker <- row) {

@@ -22,31 +22,19 @@ class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: F
   private val savedSpeed: Vector2 = new Vector2(0, 0)
 
 
-  /**
-    * Set parallax movement speed to a specific Vector2.
-    */
   def setSpeed(newSpeed: Vector2): Unit = {
     speed = newSpeed
   }
 
-  /**
-    * Get current parallax movement speed as Vector2.
-    */
   def getSpeed(): Vector2 = {
     speed
   }
 
-  /**
-    * Modify the parallax movement speed by a Vector2.
-    */
   def modifySpeed(dxSpeed: Vector2): Unit = {
     speed.x += dxSpeed.x
     speed.y += dxSpeed.y
   }
 
-  /**
-    * Temporarily stop the parallax movement, saving the current speed.
-    */
   def pause(): Unit = {
     savedSpeed.x = speed.x
     savedSpeed.y = speed.y
@@ -54,17 +42,11 @@ class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: F
     speed.y = 0
   }
 
-  /**
-    * Resume the parallax movement using the saved speed from pause().
-    */
   def unpause(): Unit = {
     speed.x = savedSpeed.x
     speed.y = savedSpeed.y
   }
 
-  /**
-    * Render the parallax background, drawing the ParallaxLayers at different speeds.
-    */
   def render(delta: Float): Unit = {
     camera.position.add(speed.x * delta, speed.y * delta, 0)
     batch.setProjectionMatrix(camera.projection)
