@@ -44,14 +44,14 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
       .expand.fill.center
 
     mainTable.add(hullHealthPanel)
-      .width(Constants.EXACT_X / 3)
+      .width(Constants.EXACT_X / 2)
       .height(32)
       .left.padLeft(8)
     mainTable.row
     mainTable.add(shipStatsPanel)
       .width(Constants.EXACT_X / 2)
       .height(32)
-      .left
+      .left.padLeft(8)
     mainTable.row
     mainTable.add(centerTable)
       .width(Constants.EXACT_X)

@@ -1,5 +1,6 @@
 package galenscovell.hinterstar.ui.components.gamescreen.hud
 
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.scenes.scene2d.ui._
 import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
@@ -8,7 +9,11 @@ import galenscovell.hinterstar.util._
 class ShipStatsPanel(stage: HudStage) extends Table {
   private val hudStage: HudStage = stage
   private val shipStatsTable: Table = new Table
-  private val statLabels: Array[String] = Array("Shields", "Evasion", "Weapons")
+  private val statIcons: Array[Image] = Array(
+    new Image(new Sprite(Resources.uiAtlas.createSprite("shield-icon"))),
+    new Image(new Sprite(Resources.uiAtlas.createSprite("engine-icon"))),
+    new Image(new Sprite(Resources.uiAtlas.createSprite("weapon-icon")))
+  )
 
   construct()
   refreshStats()
@@ -28,8 +33,7 @@ class ShipStatsPanel(stage: HudStage) extends Table {
       statTable.setBackground(Resources.npTest4)
 
       val statKeyTable: Table = new Table
-      val statLabel: Label = new Label(statLabels(i), Resources.labelTinyStyle)
-      statKeyTable.add(statLabel).expand.fill.center.pad(4)
+      statKeyTable.add(statIcons(i)).expand.fill.width(24).height(24).center.pad(4)
 
       val statValueTable: Table = new Table
       val statValueLabel: Label = new Label(stats(i).toString, Resources.labelTinyStyle)
@@ -39,10 +43,10 @@ class ShipStatsPanel(stage: HudStage) extends Table {
       statTable.add(statValueTable).expand.fill.center
 
       shipStatsTable.add(statTable)
-        .width(100)
+        .width(64)
         .height(32)
         .center
-        .pad(4)
+        .padRight(4)
     }
   }
 }

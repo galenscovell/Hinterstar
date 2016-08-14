@@ -15,7 +15,7 @@ class InteriorOverlay(shipName: String) extends Table {
 
 
   private def construct(): Unit = {
-    this.setDebug(true)
+    // this.setDebug(true)
 
     for (row: Array[Tile] <- subsystems) {
       for (subsystem: Tile <- row) {

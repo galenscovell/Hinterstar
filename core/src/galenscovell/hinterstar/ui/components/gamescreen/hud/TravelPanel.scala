@@ -3,7 +3,6 @@ package galenscovell.hinterstar.ui.components.gamescreen.hud
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
-import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.generation.sector._
 import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._

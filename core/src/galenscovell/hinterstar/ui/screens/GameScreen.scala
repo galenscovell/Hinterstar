@@ -27,8 +27,8 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   private var travelFrames: Int = 0
   private var travelPanelOpen: Boolean = false
 
-  private var normalBg: ParallaxBackground = createBackground("purple_bg", "bg1", "bg2")
-  private var blurBg: ParallaxBackground = createBackground("purple_bg", "bg1_blur", "bg2_blur")
+  private var normalBg: ParallaxBackground = createBackground("blue_bg", "bg1", "bg2")
+  private var blurBg: ParallaxBackground = createBackground("blue_bg", "bg1_blur", "bg2_blur")
   var currentBackground: ParallaxBackground = normalBg
 
   private var bg0, bg1, bg2: String = _
@@ -210,18 +210,23 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
   private def createBackground(bg0: String, bg1: String, bg2: String): ParallaxBackground = {
     if (!(bg0 == "")) {
-      val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](3)
+      val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](4)
       parallaxLayers(0) = new ParallaxLayer(
-        Resources.uiAtlas.findRegion(bg0),
-        new Vector2(0.02f, 0.02f),
+        Resources.uiAtlas.findRegion("space-dust2"),
+        new Vector2(0.0f, 0.0f),
         new Vector2(0, 0)
       )
       parallaxLayers(1) = new ParallaxLayer(
+        Resources.uiAtlas.findRegion(bg0),
+        new Vector2(0.2f, 0.2f),
+        new Vector2(0, 0)
+      )
+      parallaxLayers(2) = new ParallaxLayer(
         Resources.uiAtlas.findRegion(bg1),
         new Vector2(0.4f, 0.4f),
         new Vector2(0, 0)
       )
-      parallaxLayers(2) = new ParallaxLayer(
+      parallaxLayers(3) = new ParallaxLayer(
         Resources.uiAtlas.findRegion(bg2),
         new Vector2(0.8f, 0.8f),
         new Vector2(0, 0)
@@ -234,13 +239,18 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
         new Vector2(2, 0)
       )
     } else {
-      val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](2)
+      val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](3)
       parallaxLayers(0) = new ParallaxLayer(
+        Resources.uiAtlas.findRegion("space-dust2"),
+        new Vector2(0.0f, 0.0f),
+        new Vector2(0, 0)
+      )
+      parallaxLayers(1) = new ParallaxLayer(
         Resources.uiAtlas.findRegion(bg1),
         new Vector2(0.4f, 0.4f),
         new Vector2(0, 0)
       )
-      parallaxLayers(1) = new ParallaxLayer(
+      parallaxLayers(2) = new ParallaxLayer(
         Resources.uiAtlas.findRegion(bg2),
         new Vector2(0.8f, 0.8f),
         new Vector2(0, 0)
