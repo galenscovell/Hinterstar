@@ -50,9 +50,13 @@ class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: F
   def render(delta: Float): Unit = {
     camera.position.add(speed.x * delta, speed.y * delta, 0)
     batch.setProjectionMatrix(camera.projection)
+    val parentAlpha: Float = batch.getColor.a
     batch.begin()
 
     for (layer <- layers) {
+      val layerColor: Color = layer.getColor
+      batch.setColor(layerColor.r, layerColor.g, layerColor.b, parentAlpha)
+
       var currentX: Float = -camera.position.x * layer.parallaxRatio.x % (layer.region.getRegionWidth + layer.padding.x)
       var currentY: Float = 0.0f
 

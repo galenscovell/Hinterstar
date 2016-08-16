@@ -3,191 +3,149 @@ atlas.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-bg1
+Ship-0
   rotate: false
-  xy: 1, 1559
-  size: 800, 480
-  orig: 800, 480
+  xy: 1, 255
+  size: 640, 256
+  orig: 640, 256
   offset: 0, 0
   index: -1
-bg1_blur
+Ship-1
   rotate: false
-  xy: 1, 1077
-  size: 800, 480
-  orig: 800, 480
+  xy: 643, 255
+  size: 640, 256
+  orig: 640, 256
   offset: 0, 0
   index: -1
-bg2
+Ship-2
   rotate: false
-  xy: 803, 1559
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
-bg2_blur
-  rotate: false
-  xy: 1, 595
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
-blue_bg
-  rotate: false
-  xy: 803, 1077
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
-green_bg
-  rotate: false
-  xy: 1, 113
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
-purple_bg
-  rotate: false
-  xy: 803, 595
-  size: 800, 480
-  orig: 800, 480
-  offset: 0, 0
-  index: -1
-space-dust
-  rotate: false
-  xy: 803, 113
-  size: 800, 480
-  orig: 800, 480
+  xy: 1285, 255
+  size: 640, 256
+  orig: 640, 256
   offset: 0, 0
   index: -1
 current_marker
   rotate: false
-  xy: 1605, 1959
+  xy: 1, 173
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 test-crewmate
   rotate: false
-  xy: 1, 39
+  xy: 1927, 439
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 subsystem_marker
   rotate: false
-  xy: 1605, 1897
+  xy: 1, 111
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 0 of 1
   rotate: false
-  xy: 1687, 1991
+  xy: 83, 205
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 0 of 3
   rotate: false
-  xy: 75, 63
-  size: 48, 48
-  orig: 48, 48
-  offset: 0, 0
-  index: -1
-0 of 4
-  rotate: false
-  xy: 1605, 1847
+  xy: 1927, 389
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 1 of 1
   rotate: false
-  xy: 1737, 1991
+  xy: 1, 61
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 1 of 3
   rotate: false
-  xy: 125, 63
+  xy: 133, 205
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 2 of 3
   rotate: false
-  xy: 1605, 1797
+  xy: 1927, 339
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 3 of 3
   rotate: false
-  xy: 1787, 1991
+  xy: 1, 11
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 drone-icon
   rotate: false
-  xy: 175, 63
+  xy: 183, 205
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 engine-icon
   rotate: false
-  xy: 1605, 1747
+  xy: 1927, 289
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 helm-icon
   rotate: false
-  xy: 1837, 1991
+  xy: 233, 205
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 map_glow
   rotate: false
-  xy: 225, 63
+  xy: 283, 205
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 oxygen-icon
   rotate: false
-  xy: 1605, 1697
+  xy: 333, 205
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 shield-icon
   rotate: false
-  xy: 1887, 1991
+  xy: 383, 205
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 teleport-icon
   rotate: false
-  xy: 275, 63
+  xy: 433, 205
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 weapon-icon
   rotate: false
-  xy: 1605, 1647
+  xy: 483, 205
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blue_button0_np
   rotate: false
-  xy: 1, 1
+  xy: 2001, 475
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -195,7 +153,7 @@ blue_button0_np
   index: -1
 blue_button1_np
   rotate: false
-  xy: 1937, 2003
+  xy: 533, 217
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -203,7 +161,7 @@ blue_button1_np
   index: -1
 green_button0_np
   rotate: false
-  xy: 325, 75
+  xy: 571, 217
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -211,7 +169,7 @@ green_button0_np
   index: -1
 green_button1_np
   rotate: false
-  xy: 1605, 1609
+  xy: 609, 217
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -219,42 +177,42 @@ green_button1_np
   index: -1
 test-box-0
   rotate: false
-  xy: 39, 5
+  xy: 1927, 255
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-1
   rotate: false
-  xy: 1975, 2007
+  xy: 2001, 441
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-2
   rotate: false
-  xy: 363, 79
+  xy: 647, 221
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-3
   rotate: false
-  xy: 1605, 1575
+  xy: 681, 221
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-4
   rotate: false
-  xy: 2009, 2007
+  xy: 715, 221
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-np-0
   rotate: false
-  xy: 1687, 1965
+  xy: 83, 179
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -262,7 +220,7 @@ test-np-0
   index: -1
 test-np-1
   rotate: false
-  xy: 397, 87
+  xy: 749, 229
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -270,7 +228,7 @@ test-np-1
   index: -1
 test-np-2
   rotate: false
-  xy: 1605, 1549
+  xy: 109, 179
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -278,7 +236,7 @@ test-np-2
   index: -1
 test-np-3
   rotate: false
-  xy: 1713, 1965
+  xy: 775, 229
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -286,7 +244,7 @@ test-np-3
   index: -1
 test-np-4
   rotate: false
-  xy: 423, 87
+  xy: 135, 179
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -294,7 +252,7 @@ test-np-4
   index: -1
 text-field-bg-np
   rotate: false
-  xy: 423, 87
+  xy: 135, 179
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -302,7 +260,7 @@ text-field-bg-np
   index: -1
 font-cursor-np
   rotate: false
-  xy: 1667, 1933
+  xy: 63, 147
   size: 3, 24
   split: 0, 0, 0, 0
   orig: 3, 24
@@ -310,7 +268,7 @@ font-cursor-np
   index: -1
 health-bar-empty-np
   rotate: false
-  xy: 75, 53
+  xy: 1, 1
   size: 3, 8
   split: 0, 0, 0, 0
   orig: 3, 8
@@ -318,35 +276,9 @@ health-bar-empty-np
   index: -1
 health-bar-fill-np
   rotate: false
-  xy: 1655, 1887
+  xy: 6, 1
   size: 3, 8
   split: 0, 0, 0, 0
   orig: 3, 8
-  offset: 0, 0
-  index: -1
-
-atlas2.png
-format: RGBA8888
-filter: Nearest,Nearest
-repeat: none
-Ship-0
-  rotate: false
-  xy: 1, 1
-  size: 640, 256
-  orig: 640, 256
-  offset: 0, 0
-  index: -1
-Ship-1
-  rotate: false
-  xy: 643, 1
-  size: 640, 256
-  orig: 640, 256
-  offset: 0, 0
-  index: -1
-Ship-2
-  rotate: false
-  xy: 1285, 1
-  size: 640, 256
-  orig: 640, 256
   offset: 0, 0
   index: -1

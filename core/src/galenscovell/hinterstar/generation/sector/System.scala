@@ -42,15 +42,8 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
   }
 
   private def createBackground(): Unit = {
-    val num: Int = (Math.random * 3).toInt
-    var layerName: String = ""
-
-    num match {
-      case 0 => layerName = "blue_bg"
-      case 1 => layerName = "purple_bg"
-      case 2 => layerName = "green_bg"
-    }
-
-    SystemRepo.gameScreen.transitionSector(layerName, "bg1", "bg2", layerName, "bg1_blur", "bg2_blur")
+    val num0: Int = (Math.random * 8).toInt  // Value between 0-7
+    val num1: Int = (Math.random * 4).toInt + 8 // Value between 8-12
+    SystemRepo.gameScreen.transitionSector(num0.toString, num1.toString, "stars0", "stars1", "stars0_blur", "stars1_blur")
   }
 }

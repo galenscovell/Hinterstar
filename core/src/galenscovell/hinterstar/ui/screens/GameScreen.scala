@@ -1,11 +1,13 @@
 package galenscovell.hinterstar.ui.screens
 
 import com.badlogic.gdx._
-import com.badlogic.gdx.graphics.{GL20, OrthographicCamera}
+import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.graphics._
 import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.math.{Vector2, Vector3}
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
@@ -13,6 +15,8 @@ import galenscovell.hinterstar.processing.controls.GestureHandler
 import galenscovell.hinterstar.things.parts.Weapon
 import galenscovell.hinterstar.ui.components.gamescreen.stages._
 import galenscovell.hinterstar.util._
+
+import scala.util.Random
 
 
 class GameScreen(gameRoot: Hinterstar) extends Screen {
@@ -27,12 +31,19 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   private var travelFrames: Int = 0
   private var travelPanelOpen: Boolean = false
 
-  private var normalBg: ParallaxBackground = createBackground("blue_bg", "bg1", "bg2")
-  private var blurBg: ParallaxBackground = createBackground("blue_bg", "bg1_blur", "bg2_blur")
-  private var currentBackground: ParallaxBackground = normalBg
+  private var normalBg, blurBg: ParallaxBackground = _
 
-  private var bg0, bg1, bg2: String = _
-  private var bg0Blur, bg1Blur, bg2Blur: String = _
+  val num0: Int = (Math.random * 8).toInt  // Value between 0-7
+  val num1: Int = (Math.random * 4).toInt + 8 // Value between 8-12
+
+  private var bg0: String = num0.toString
+  private var bg1: String = num1.toString
+  private var bg2: String = "stars0"
+  private var bg3: String = "stars1"
+  private var bg2Blur: String = "stars0_blur"
+  private var bg3Blur: String = "stars1_blur"
+  createBackground()
+  private var currentBackground: ParallaxBackground = normalBg
 
   private val originVector: Vector3 = new Vector3(Constants.EXACT_X / 2, Constants.EXACT_Y / 2, 0)
   private val cameraXmin: Float = Constants.EXACT_X * 0.5f
@@ -53,7 +64,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     hudStage = new HudStage(this, hudViewport, root.spriteBatch)
 
     enableInput()
-    hudStage.togglePause()  // TEMPORARY, should be called when events are concluded
+    // hudStage.togglePause()  // TEMPORARY, should be called when events are started/resolved
   }
 
   private def enableInput(): Unit = {
@@ -97,13 +108,14 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     paused = setting
   }
 
-  def transitionSector(bg0: String, bg1: String, bg2: String, bg0Blur: String, bg1Blur: String, bg2Blur: String): Unit = {
+  def transitionSector(bg0: String, bg1: String, bg2: String, bg3: String,
+                       bg2Blur: String, bg3Blur: String): Unit = {
     this.bg0 = bg0
     this.bg1 = bg1
     this.bg2 = bg2
-    this.bg0Blur = bg0Blur
-    this.bg1Blur = bg1Blur
+    this.bg3 = bg3
     this.bg2Blur = bg2Blur
+    this.bg3Blur = bg3Blur
 
     actionStage.updatePlayerAnimation()
     actionStage.getRoot.addAction(Actions.sequence(
@@ -142,61 +154,77 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     }
   }
 
-  private def createBackground(bg0: String, bg1: String, bg2: String): ParallaxBackground = {
-    if (!(bg0 == "")) {
-      val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](4)
-      parallaxLayers(0) = new ParallaxLayer(
-        Resources.atlas.findRegion("space-dust"),
-        new Vector2(0.0f, 0.0f),
-        new Vector2(0, 0)
-      )
-      parallaxLayers(1) = new ParallaxLayer(
-        Resources.atlas.findRegion(bg0),
-        new Vector2(0.2f, 0.2f),
-        new Vector2(0, 0)
-      )
-      parallaxLayers(2) = new ParallaxLayer(
-        Resources.atlas.findRegion(bg1),
-        new Vector2(0.4f, 0.4f),
-        new Vector2(0, 0)
-      )
-      parallaxLayers(3) = new ParallaxLayer(
-        Resources.atlas.findRegion(bg2),
-        new Vector2(0.8f, 0.8f),
-        new Vector2(0, 0)
-      )
-      new ParallaxBackground(
-        root.spriteBatch,
-        parallaxLayers,
-        Constants.EXACT_X,
-        Constants.EXACT_Y,
-        new Vector2(2, 0)
-      )
-    } else {
-      val parallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](3)
-      parallaxLayers(0) = new ParallaxLayer(
-        Resources.atlas.findRegion("space-dust"),
-        new Vector2(0.0f, 0.0f),
-        new Vector2(0, 0)
-      )
-      parallaxLayers(1) = new ParallaxLayer(
-        Resources.atlas.findRegion(bg1),
-        new Vector2(0.4f, 0.4f),
-        new Vector2(0, 0)
-      )
-      parallaxLayers(2) = new ParallaxLayer(
-        Resources.atlas.findRegion(bg2),
-        new Vector2(0.8f, 0.8f),
-        new Vector2(0, 0)
-      )
-      new ParallaxBackground(
-        root.spriteBatch,
-        parallaxLayers,
-        Constants.EXACT_X,
-        Constants.EXACT_Y,
-        new Vector2(2, 0)
-      )
-    }
+  private def createBackground(): Unit = {
+    val normalParallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](4)
+    val blurParallaxLayers: Array[ParallaxLayer] = new Array[ParallaxLayer](4)
+
+    val layer0: ParallaxLayer = new ParallaxLayer(
+      new TextureRegion(new Texture(Gdx.files.internal("backgrounds/" + bg0 + ".png"))),
+      new Vector2(0.0f, 0.0f),
+      new Vector2(0, 0),
+      generateRandomColor
+    )
+    val layer1: ParallaxLayer = new ParallaxLayer(
+      new TextureRegion(new Texture(Gdx.files.internal("backgrounds/" + bg1 + ".png"))),
+      new Vector2(0.0f, 0.0f),
+      new Vector2(0, 0),
+      generateRandomColor
+    )
+
+    normalParallaxLayers(0) = layer0
+    normalParallaxLayers(1) = layer1
+    normalParallaxLayers(2) = new ParallaxLayer(
+      new TextureRegion(new Texture(Gdx.files.internal("backgrounds/" + bg2 + ".png"))),
+      new Vector2(0.4f, 0.4f),
+      new Vector2(0, 0),
+      Color.WHITE
+    )
+    normalParallaxLayers(3) = new ParallaxLayer(
+      new TextureRegion(new Texture(Gdx.files.internal("backgrounds/" + bg3 + ".png"))),
+      new Vector2(0.8f, 0.8f),
+      new Vector2(0, 0),
+      Color.WHITE
+    )
+
+    blurParallaxLayers(0) = layer0
+    blurParallaxLayers(1) = layer1
+    blurParallaxLayers(2) = new ParallaxLayer(
+      new TextureRegion(new Texture(Gdx.files.internal("backgrounds/" + bg2Blur + ".png"))),
+      new Vector2(0.4f, 0.4f),
+      new Vector2(0, 0),
+      Color.WHITE
+    )
+    blurParallaxLayers(3) = new ParallaxLayer(
+      new TextureRegion(new Texture(Gdx.files.internal("backgrounds/" + bg3Blur + ".png"))),
+      new Vector2(0.8f, 0.8f),
+      new Vector2(0, 0),
+      Color.WHITE
+    )
+
+    normalBg = new ParallaxBackground(
+      root.spriteBatch,
+      normalParallaxLayers,
+      Constants.EXACT_X,
+      Constants.EXACT_Y,
+      new Vector2(2, 0)
+    )
+
+    blurBg = new ParallaxBackground(
+      root.spriteBatch,
+      blurParallaxLayers,
+      Constants.EXACT_X,
+      Constants.EXACT_Y,
+      new Vector2(2, 0)
+    )
+  }
+
+  private def generateRandomColor: Color = {
+    val random: Random = new Random
+    val r: Float = random.nextFloat / 2
+    val g: Float = random.nextFloat
+    val b: Float = random.nextFloat
+
+    new Color(r, g, b, 1f)
   }
 
 
@@ -304,9 +332,8 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     ***************************/
   private[screens] var warpTransitionAction: Action = new Action() {
     def act(delta: Float): Boolean = {
-      normalBg = createBackground(bg0, bg1, bg2)
+      createBackground()
       normalBg.setSpeed(new Vector2(2500, 0))
-      blurBg = createBackground(bg0Blur, bg1Blur, bg2Blur)
       blurBg.setSpeed(new Vector2(2500, 0))
       currentBackground = blurBg
       true
