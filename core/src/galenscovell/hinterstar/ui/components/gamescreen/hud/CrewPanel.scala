@@ -2,7 +2,6 @@ package galenscovell.hinterstar.ui.components.gamescreen.hud
 
 import com.badlogic.gdx.scenes.scene2d.ui._
 import galenscovell.hinterstar.things.entities.Crewmate
-import galenscovell.hinterstar.ui.components.gamescreen.hud
 import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
 
@@ -23,8 +22,7 @@ class CrewPanel(stage: HudStage) extends Table {
     contentTable.clear()
 
     for (crewmate: Crewmate <- PlayerData.getCrew) {
-      val crewBox: hud.CrewmateBox = new hud.CrewmateBox(hudStage, crewmate)
-      contentTable.add(crewBox).width(128).height(60).padRight(4)
+      contentTable.add(crewmate.getCrewTable(true)).width(128).height(60).padRight(4)
     }
   }
 }

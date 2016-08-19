@@ -14,8 +14,17 @@ object CrewOperations {
     gameScreen = gs
   }
 
-  def selectCrewmate(cm: Crewmate): Unit = {
-    selectedCrewmate = cm
+  def selectCrewmate(newCrewmate: Crewmate): Unit = {
+    if (selectedCrewmate != null) {
+      selectedCrewmate.unhighlightTable()
+    }
+
+    if (selectedCrewmate == newCrewmate) {
+      selectedCrewmate = null
+    } else {
+      newCrewmate.highlightTable()
+      selectedCrewmate = newCrewmate
+    }
   }
 
   def assignCrewmate(subsystem: Tile): Unit = {
@@ -28,8 +37,10 @@ object CrewOperations {
         selectedCrewmate.setAssignment(subsystem)
         subsystem.assignCrewmate()
         gameScreen.getHudStage.refreshCrewAndStats()
-        gameScreen.getActionStage.disableSubsystemOverlay()
       }
+
+      selectedCrewmate.unhighlightTable()
+      selectedCrewmate = null
     }
   }
 }

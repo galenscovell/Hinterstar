@@ -26,7 +26,6 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
     mainTable.setFillParent(true)
 
     val actionTable: Table = new Table
-    // actionTable.setDebug(true)
 
     leftTable.add(player).expand.fill.left
     rightTable.add(npcShip).expand.fill.right

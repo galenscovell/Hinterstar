@@ -25,9 +25,7 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String) extends Actor {
   this.addListener(new ActorGestureListener() {
     override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
       if (isSubsystem) {
-        if (!occupancyFull) {
-          CrewOperations.assignCrewmate(getThisTile)
-        }
+        CrewOperations.assignCrewmate(getThisTile)
       }
     }
   })
@@ -95,12 +93,12 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String) extends Actor {
       if (glowing) {
         frames += 1
       } else {
-        frames -= 2
+        frames -= 1
       }
 
       if (frames == 240) {
         glowing = false
-      } else if (frames == 80) {
+      } else if (frames == 120) {
         glowing = true
       }
 

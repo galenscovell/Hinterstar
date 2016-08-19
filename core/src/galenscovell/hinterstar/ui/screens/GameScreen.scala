@@ -1,13 +1,12 @@
 package galenscovell.hinterstar.ui.screens
 
 import com.badlogic.gdx._
-import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.graphics._
+import com.badlogic.gdx.graphics.g2d.TextureRegion
 import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.math.{Vector2, Vector3}
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
@@ -65,6 +64,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
     enableInput()
     // hudStage.togglePause()  // TEMPORARY, should be called when events are started/resolved
+    actionStage.toggleSubsystemOverlay()
   }
 
   private def enableInput(): Unit = {
@@ -151,6 +151,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
     if (travelFrames == 0) {
       currentBackground.setSpeed(new Vector2(2, 0))
+      actionStage.toggleSubsystemOverlay()
     }
   }
 

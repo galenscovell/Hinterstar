@@ -15,8 +15,10 @@ class WeaponPanel(stage: HudStage) extends Table  {
   private val weapons: ArrayBuffer[Weapon] = ArrayBuffer()
 
   construct()
-  addWeapon(new Weapon("Machinegun", "Basic part", 5, 10, "None"))
-  addWeapon(new Weapon("Railgun", "Basic part", 20, 30, "None"))
+
+  // DEBUG
+  addWeapon(new Weapon("Machinegun", "Basic part", 5, 30, "None"))
+  addWeapon(new Weapon("Railgun", "Basic part", 20, 60, "None"))
 
 
   private def construct(): Unit = {

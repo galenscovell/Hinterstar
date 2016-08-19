@@ -13,7 +13,7 @@ class Weapon(n: String, desc: String, dmg: Int, fr: Int, fx: String) {
   private var active: Boolean = false
   private val fireBar: ProgressBar = new ProgressBar(0, firerate, 1, false, Resources.healthBarStyle)
   fireBar.setValue(fireBar.getMinValue)
-  fireBar.setAnimateDuration(0.1f)
+  fireBar.setAnimateDuration(0.5f)
 
 
   def getName: String = {
