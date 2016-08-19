@@ -19,10 +19,6 @@ class StartScreen(gameRoot: Hinterstar) extends Screen {
 
   private val crewPanel: CrewSelectPanel = new CrewSelectPanel
   private val shipPanel: ShipSelectPanel = new ShipSelectPanel
-  private val crewPanelButton: TextButton = new TextButton("Crew", Resources.toggleButtonStyle)
-  private val shipPanelButton: TextButton = new TextButton("Ship", Resources.toggleButtonStyle)
-  private var currentPanelButton: TextButton = crewPanelButton
-  private val contentPanel: Table = new Table
 
 
   private def create(): Unit = {
@@ -37,9 +33,9 @@ class StartScreen(gameRoot: Hinterstar) extends Screen {
 
     val titleTable: Table = createTitleTable
     val contentTable: Table = new Table
-    contentTable.add(contentPanel).width(780).height(400)
-    updateContent(true)
-    currentPanelButton.setChecked(true)
+
+    contentTable.add(crewPanel).width(240).height(400).left.padRight(20)
+    contentTable.add(shipPanel).width(520).height(400).right
 
     mainTable.add(titleTable).width(770).height(50).pad(5)
     mainTable.row
@@ -55,29 +51,6 @@ class StartScreen(gameRoot: Hinterstar) extends Screen {
   private def createTitleTable: Table = {
     val titleTable: Table = new Table
     val noticeTable: Table = new Table
-
-    crewPanelButton.addListener(new ClickListener() {
-      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        if (currentPanelButton != crewPanelButton) {
-          currentPanelButton.setChecked(false)
-          currentPanelButton = crewPanelButton
-          updateContent(false)
-        }
-        currentPanelButton.setChecked(true)
-      }
-    })
-    shipPanelButton.addListener(new ClickListener() {
-      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        if (currentPanelButton != shipPanelButton) {
-          currentPanelButton.setChecked(false)
-          currentPanelButton = shipPanelButton
-          updateContent(true)
-        }
-        currentPanelButton.setChecked(true)
-      }
-    })
-    noticeTable.add(crewPanelButton).width(90).height(50).left
-    noticeTable.add(shipPanelButton).width(90).height(50).right
 
     val returnButton: TextButton = new TextButton("Return", Resources.greenButtonStyle)
     returnButton.addListener(new ClickListener() {
@@ -113,32 +86,6 @@ class StartScreen(gameRoot: Hinterstar) extends Screen {
     titleTable.add(embarkButton).width(200).height(50)
 
     titleTable
-  }
-
-  def updateContent(right: Boolean): Unit = {
-    contentPanel.clearActions()
-
-    if (right) {
-      contentPanel.addAction(Actions.sequence(
-        Actions.fadeOut(0.1f),
-        contentTransitionRightAction,
-        Actions.moveTo(100, 0),
-        Actions.parallel(
-          Actions.fadeIn(0.1f),
-          Actions.moveBy(-100, 0, 0.15f)
-        )
-      ))
-    } else {
-      contentPanel.addAction(Actions.sequence(
-        Actions.fadeOut(0.1f),
-        contentTransitionLeftAction,
-        Actions.moveTo(-100, 0),
-        Actions.parallel(
-          Actions.fadeIn(0.1f),
-          Actions.moveBy(100, 0, 0.15f)
-        )
-      ))
-    }
   }
 
 
@@ -192,38 +139,6 @@ class StartScreen(gameRoot: Hinterstar) extends Screen {
   private[screens] var toGameScreenAction: Action = new Action() {
     def act(delta: Float): Boolean = {
       root.setScreen(root.gameScreen)
-      true
-    }
-  }
-  private[screens] var contentTransitionRightAction: Action = new Action {
-    def act(delta: Float): Boolean = {
-      var newContent: Table = null
-      if (crewPanel.hasParent) {
-        crewPanel.remove()
-        newContent = shipPanel
-      } else if (shipPanel.hasParent) {
-        shipPanel.remove()
-        newContent = crewPanel
-      } else {
-        newContent = crewPanel
-      }
-      contentPanel.add(newContent).expand.fill.center
-      true
-    }
-  }
-  private[screens] var contentTransitionLeftAction: Action = new Action {
-    def act(delta: Float): Boolean = {
-      var newContent: Table = null
-      if (crewPanel.hasParent) {
-        crewPanel.remove()
-        newContent = shipPanel
-      } else if (shipPanel.hasParent) {
-        shipPanel.remove()
-        newContent = crewPanel
-      } else {
-        newContent = crewPanel
-      }
-      contentPanel.add(newContent).expand.fill.center
       true
     }
   }

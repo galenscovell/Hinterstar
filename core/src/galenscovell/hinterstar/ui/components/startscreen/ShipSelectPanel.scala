@@ -34,11 +34,11 @@ class ShipSelectPanel extends Table {
     val topTable: Table = createTopTable
     val bottomTable: Table = new Table
 
-    bottomTable.add(shipDetail).expand.fill
+    bottomTable.add(shipDetail)
 
-    add(topTable).width(780).height(160).center
-    row
-    add(bottomTable).width(780).height(220).padTop(10).padBottom(10).center
+    this.add(topTable).width(520).height(160).center
+    this.row
+    this.add(bottomTable).width(520).height(240).center
   }
 
   private def createTopTable: Table = {
@@ -67,15 +67,15 @@ class ShipSelectPanel extends Table {
       }
     })
 
-    topTable.add(scrollLeftButton).width(60).height(140).expand.fill.left
-    topTable.add(shipDisplay).expand.fill
-    topTable.add(scrollRightButton).width(60).height(140).expand.fill.right
+    topTable.add(scrollLeftButton).width(60).height(150).expand.fill.left
+    topTable.add(shipDisplay).expand.fill.center
+    topTable.add(scrollRightButton).width(60).height(150).expand.fill.right
 
     topTable
   }
 
   def updateShipDisplay(transitionRight: Boolean): Unit = {
-    var amount: Int = 100
+    var amount: Int = 60
     var origin: Int = 0
     if (!transitionRight) {
       origin = amount * 2
@@ -108,11 +108,10 @@ class ShipSelectPanel extends Table {
 
     val shipDetailTop: Table = new Table
     shipDetailTop.setBackground(Resources.npTest1)
-    val shipName: String = allShips(currentShipIndex).getName
-    val shipDesc: String = allShips(currentShipIndex).getDescription
-    val shipNameLabel: Label = new Label(shipName, Resources.labelMenuStyle)
+
+    val shipNameLabel: Label = new Label(allShips(currentShipIndex).getName, Resources.labelMenuStyle)
     shipNameLabel.setAlignment(Align.center, Align.center)
-    val shipDescLabel: Label = new Label(shipDesc, Resources.labelMediumStyle)
+    val shipDescLabel: Label = new Label(allShips(currentShipIndex).getDescription, Resources.labelMediumStyle)
     shipDescLabel.setAlignment(Align.top, Align.center)
     shipDescLabel.setWrap(true)
 
