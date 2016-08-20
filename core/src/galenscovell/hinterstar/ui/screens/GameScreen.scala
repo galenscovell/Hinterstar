@@ -30,11 +30,18 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   private var travelFrames: Int = 0
   private var travelPanelOpen: Boolean = false
 
-  private var normalBg, blurBg: ParallaxBackground = _
+  private val originVector: Vector3 = new Vector3(Constants.EXACT_X / 2, Constants.EXACT_Y / 2, 0)
+  private val cameraXmin: Float = Constants.EXACT_X * 0.5f
+  private val cameraXmax: Float = Constants.EXACT_X
+
+  private val timestep: Int = 30
+  private var accumulator: Int = 0
+  private var paused: Boolean = false
 
   val num0: Int = (Math.random * 8).toInt  // Value between 0-7
   val num1: Int = (Math.random * 4).toInt + 8 // Value between 8-12
 
+  private var normalBg, blurBg: ParallaxBackground = _
   private var bg0: String = num0.toString
   private var bg1: String = num1.toString
   private var bg2: String = "stars0"
@@ -43,14 +50,6 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   private var bg3Blur: String = "stars1_blur"
   createBackground()
   private var currentBackground: ParallaxBackground = normalBg
-
-  private val originVector: Vector3 = new Vector3(Constants.EXACT_X / 2, Constants.EXACT_Y / 2, 0)
-  private val cameraXmin: Float = Constants.EXACT_X * 0.5f
-  private val cameraXmax: Float = Constants.EXACT_X
-
-  private val timestep: Int = 30
-  private var accumulator: Int = 0
-  private var paused: Boolean = false
 
   construct()
 
@@ -250,7 +249,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     if (!paused) {
       if (accumulator > timestep) {
         accumulator = 0
-        val readyWeapons: Array[Weapon] = hudStage.getWeaponPanel.update()
+        val readyWeapons: Array[Weapon] = PlayerData.getShip.updateEquippedWeapons()
       }
       accumulator += 1
     }
@@ -313,7 +312,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   def actionZoom(zoom: Float): Unit = {
     val initialZoom: Float = getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom
 
-    if (!(initialZoom + zoom > 1.25) && !(initialZoom + zoom < 0.75)) {
+    if (!(initialZoom + zoom > 1.5) && !(initialZoom + zoom < 1)) {
       getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom += zoom
     }
   }

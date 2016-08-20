@@ -20,7 +20,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
   private val hullHealthPanel: HullHealthPanel = new HullHealthPanel(this)
   private val shipStatsPanel: ShipStatsPanel = new ShipStatsPanel(this)
   private val crewPanel: CrewPanel = new CrewPanel(this)
-  private val weaponPanel: WeaponPanel = new WeaponPanel(this)
+  private val weaponPanel: Table = PlayerData.getShip.getWeaponPanel
   private val topTable: Table = new Table
 
   private var eventPanel: EventPanel = _
@@ -132,10 +132,6 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
 
   def getGameScreen: GameScreen = {
     gameScreen
-  }
-
-  def getWeaponPanel: WeaponPanel = {
-    weaponPanel
   }
 
   def togglePause(): Unit = {

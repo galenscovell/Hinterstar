@@ -119,6 +119,8 @@ object PlayerData {
       currentWeaponNames(i) = currentWeapons(i).getName
     }
 
+    // Save assigned crewmate to each equipped weapon
+
     prefs.putString("weapons", currentWeaponNames.mkString(","))
     prefs.flush()
   }
@@ -133,6 +135,8 @@ object PlayerData {
       val weapon: Weapon = weaponParser.parseSingle(name)
       weaponArray.append(weapon)
     }
+
+    // Load equipped weapons and the assigned crewmate
 
     ship.setWeapons(weaponArray.toArray)
   }

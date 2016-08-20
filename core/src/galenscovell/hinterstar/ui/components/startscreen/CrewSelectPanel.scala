@@ -47,12 +47,30 @@ class CrewSelectPanel extends Table {
     crewTable.add(teamTable).expand.fill
   }
 
-  private def updateShipTable(): Unit = {
-
-  }
-
   private def constructCrewTable: Table = {
     val crewTable: Table = new Table
+
+    val nameTable: Table = new Table
+    val nameLabel: Label = new Label("Crewmates", Resources.labelMenuStyle)
+    nameLabel.setAlignment(Align.center)
+
+    val modifyCrewmateButton: TextButton = new TextButton("Update Selected", Resources.greenButtonStyle)
+    modifyCrewmateButton.addListener(new ClickListener() {
+      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+        currentCrewmate.setName(nameInput.getText)
+        crewTable.addAction(Actions.sequence(
+          updateLeftTableAction
+        ))
+      }
+    })
+
+    nameTable.add(nameLabel).expand.fill.height(30).padBottom(2)
+    nameTable.row
+    nameTable.add(nameInput).expand.fill.height(40).pad(2)
+
+    crewTable.add(nameTable).expand.fill.height(70).pad(2)
+    crewTable.row
+    crewTable.add(modifyCrewmateButton).expand.fill.height(50).pad(10)
 
     for (crewmate: Crewmate <- crewmates) {
       val memberTable: Table = new Table
@@ -82,31 +100,9 @@ class CrewSelectPanel extends Table {
       memberTable.add(button).width(160).height(60).pad(4)
       memberTable.add(iconTable).width(70).height(60).pad(4)
 
-      crewTable.add(memberTable).expand.fill.height(60).pad(2)
       crewTable.row
+      crewTable.add(memberTable).expand.fill.height(60).pad(2)
     }
-
-    val nameTable: Table = new Table
-    val nameLabel: Label = new Label("Crewmate", Resources.labelMenuStyle)
-    nameLabel.setAlignment(Align.center)
-
-    val modifyCrewmateButton: TextButton = new TextButton("Update Crewmate", Resources.greenButtonStyle)
-    modifyCrewmateButton.addListener(new ClickListener() {
-      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        currentCrewmate.setName(nameInput.getText)
-        crewTable.addAction(Actions.sequence(
-          updateLeftTableAction
-        ))
-      }
-    })
-
-    nameTable.add(nameLabel).expand.fill.height(30).padBottom(2)
-    nameTable.row
-    nameTable.add(nameInput).expand.fill.height(40).pad(2)
-
-    crewTable.add(nameTable).expand.fill.height(70).pad(2)
-    crewTable.row
-    crewTable.add(modifyCrewmateButton).expand.fill.height(50).pad(10)
 
     crewTable
   }

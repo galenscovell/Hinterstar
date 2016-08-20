@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.generation.interior.Tile
+import galenscovell.hinterstar.things.parts.Weapon
 import galenscovell.hinterstar.util.{CrewOperations, Resources}
 
 import scala.collection.mutable
@@ -15,6 +16,7 @@ class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
   private var name: String = n
   private val proficiencies: mutable.Map[String, Int] = p
   private var assignment: Tile = _
+  private var weapon: Weapon = _
   private var health: Int = h
 
   private val sprite: Sprite = Resources.spCrewmate
@@ -63,19 +65,6 @@ class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
     healthBar
   }
 
-  def getCrewTable(refresh: Boolean): Table = {
-    crewTable = constructTable
-    crewTable
-  }
-
-  def highlightTable(): Unit = {
-    crewTable.setBackground(Resources.npTest2)
-  }
-
-  def unhighlightTable(): Unit = {
-    crewTable.setBackground(Resources.npTest4)
-  }
-
 
 
   def setName(n: String): Unit = {
@@ -90,6 +79,10 @@ class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
     assignment = ss
   }
 
+  def setWeapon(w: Weapon): Unit = {
+    weapon = w
+  }
+
   def updateHealth(value: Int): Unit = {
     health += value
     if (health > 100) {
@@ -101,6 +94,22 @@ class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
   }
 
 
+
+  /**********************
+    *    UI Component   *
+    **********************/
+  def getCrewTable(refresh: Boolean): Table = {
+    crewTable = constructTable
+    crewTable
+  }
+
+  def highlightTable(): Unit = {
+    crewTable.setBackground(Resources.npTest2)
+  }
+
+  def unhighlightTable(): Unit = {
+    crewTable.setBackground(Resources.npTest4)
+  }
 
   private def constructTable: Table = {
     val table: Table = new Table
