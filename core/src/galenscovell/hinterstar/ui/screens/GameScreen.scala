@@ -249,7 +249,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     if (!paused) {
       if (accumulator > timestep) {
         accumulator = 0
-        val readyWeapons: Array[Weapon] = PlayerData.getShip.updateEquippedWeapons()
+        val readyWeapons: Array[Weapon] = PlayerData.getShip.updateActiveWeapons()
       }
       accumulator += 1
     }

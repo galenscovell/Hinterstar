@@ -45,6 +45,10 @@ class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
     assignment
   }
 
+  def getWeapon: Weapon = {
+    weapon
+  }
+
   def getAssignedSubsystemName: String = {
     if (assignment == null) {
       "None"
@@ -95,9 +99,9 @@ class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
 
 
 
-  /**********************
-    *    UI Component   *
-    **********************/
+  /***********************
+    *    UI Component    *
+    ***********************/
   def getCrewTable(refresh: Boolean): Table = {
     crewTable = constructTable
     crewTable

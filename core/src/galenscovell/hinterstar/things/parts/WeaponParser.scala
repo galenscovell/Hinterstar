@@ -31,10 +31,11 @@ class WeaponParser {
 
   def constructWeapon(entry: JsonValue): Weapon = {
     val name: String = entry.name
+    val subsystem: String = entry.getString("subsystem")
     val desc: String = entry.getString("description")
     val damage: Int = entry.getInt("damage")
     val firerate: Int = entry.getInt("firerate")
     val effect: String = entry.getString("effect")
-    new Weapon(name, desc, damage, firerate, effect)
+    new Weapon(name, subsystem, desc, damage, firerate, effect)
   }
 }

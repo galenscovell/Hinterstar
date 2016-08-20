@@ -20,8 +20,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
   private val hullHealthPanel: HullHealthPanel = new HullHealthPanel(this)
   private val shipStatsPanel: ShipStatsPanel = new ShipStatsPanel(this)
   private val crewPanel: CrewPanel = new CrewPanel(this)
-  private val weaponPanel: Table = PlayerData.getShip.getWeaponPanel
-  private val topTable: Table = new Table
+  private val activeWeaponPanel: Table = PlayerData.getShip.getActiveWeaponPanel
 
   private var eventPanel: EventPanel = _
   private val pausePanel: PausePanel = new PausePanel()
@@ -29,6 +28,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
   construct()
   CrewOperations.initialize(gameScreen)
 
+  // DEBUG
   enableTravelButton()
 
 
@@ -47,7 +47,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
     mainTable.row
     mainTable.add(centerTable).width(Constants.EXACT_X).expand.fill
     mainTable.row
-    mainTable.add(weaponPanel).width(Constants.EXACT_X).height(32).bottom
+    mainTable.add(activeWeaponPanel).width(Constants.EXACT_X).height(32).bottom
     mainTable.row
     mainTable.add(crewPanel).width(Constants.EXACT_X).height(60).bottom
 
@@ -97,7 +97,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
       Actions.touchable(Touchable.disabled),
       Actions.fadeOut(0.5f, Interpolation.sine)
     ))
-    weaponPanel.addAction(Actions.sequence(
+    activeWeaponPanel.addAction(Actions.sequence(
       Actions.touchable(Touchable.disabled),
       Actions.fadeOut(0.5f, Interpolation.sine)
     ))
@@ -116,7 +116,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
       Actions.fadeIn(0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
-    weaponPanel.addAction(Actions.sequence(
+    activeWeaponPanel.addAction(Actions.sequence(
       Actions.fadeIn(0.5f, Interpolation.sine),
       Actions.touchable(Touchable.enabled)
     ))
@@ -147,6 +147,17 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
   def refreshCrewAndStats(): Unit = {
     crewPanel.refreshCrewBoxes()
     shipStatsPanel.refreshStats()
+  }
+
+  def openWeaponSelect(): Unit = {
+    this.addActor(PlayerData.getShip.getWeaponSelectPanel)
+  }
+
+  def closeWeaponSelect(): Unit = {
+    val weaponSelectPanel: Table = PlayerData.getShip.getWeaponSelectPanel
+    if (weaponSelectPanel.hasParent) {
+      weaponSelectPanel.remove()
+    }
   }
 
   private def showEventPanel(): Unit = {

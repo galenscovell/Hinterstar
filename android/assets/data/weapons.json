@@ -1,11 +1,13 @@
 {
   "Machinegun": {
+    "subsystem": "Weapon Control",
     "description": "A basic combat part.",
     "damage": 2,
     "firerate": 10,
     "effect": ""
   },
   "Railgun": {
+    "subsystem": "Weapon Control",
     "description": "A basic combat part.",
     "damage": 3,
     "firerate": 15,
