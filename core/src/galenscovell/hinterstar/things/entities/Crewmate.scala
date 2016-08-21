@@ -26,6 +26,10 @@ class Crewmate(n: String, p: mutable.Map[String, Int], startingAssignmentName: S
   private var crewTable: Table = constructTable
 
 
+
+  /********************
+    *     Getters     *
+    ********************/
   def getThisCrewmate: Crewmate = {
     this
   }
@@ -71,6 +75,9 @@ class Crewmate(n: String, p: mutable.Map[String, Int], startingAssignmentName: S
 
 
 
+  /********************
+    *     Setters     *
+    ********************/
   def setName(n: String): Unit = {
     name = n
   }

@@ -36,8 +36,8 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
         }
       })
 
-      // Start all crewmates in their saved assigned subsystem
-      // Start unassigned crewmates in Medbay subsystem
+      // Start all player crewmates in their saved assigned subsystem
+      // Start unassigned player crewmates in Medbay subsystem
       for (crewmate: Crewmate <- PlayerData.getCrew) {
         if (crewmate.getAssignedSubsystemName == name) {
           crewmate.setAssignment(getThisTile)
@@ -48,9 +48,48 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
     }
   }
 
+  private def constructInfo: SubsystemInfo = {
+    if (isSubsystem) {
+      // Render above or below depending on relative position of subsystem
+      var infoY: Int = 0
+      if (height - ty > (height / 2)) {
+        infoY = (tileSize * (overlayHeight - 1)) - (ty * tileSize) + 48
+      } else {
+        infoY = (tileSize * (overlayHeight - 1)) - (ty * tileSize) - 48
+      }
+      val info: SubsystemInfo = new SubsystemInfo(name, maxOccupancy, tx * tileSize, infoY)
+      info
+    } else {
+      null
+    }
+  }
 
 
-  // Occupancy Operations
+
+  /********************
+    *     Getters     *
+    ********************/
+  override def getName: String = {
+    name
+  }
+
+  private def getThisTile: Tile = {
+    this
+  }
+
+  private def isSubsystem: Boolean = {
+    name != "none"
+  }
+
+  def isWeaponSubsystem: Boolean = {
+    weaponSystem
+  }
+
+
+
+  /**********************
+    *     Occupancy     *
+    **********************/
   def occupancyFull: Boolean = {
     assignedCrewmates == maxOccupancy
   }
@@ -78,40 +117,9 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
 
 
 
-  override def getName: String = {
-    name
-  }
-
-  private def getThisTile: Tile = {
-    this
-  }
-
-  private def isSubsystem: Boolean = {
-    name != "none"
-  }
-
-  def isWeaponSubsystem: Boolean = {
-    weaponSystem
-  }
-
-  private def constructInfo: SubsystemInfo = {
-    if (isSubsystem) {
-      // Render above or below depending on relative position of subsystem
-      var infoY: Int = 0
-      if (height - ty > (height / 2)) {
-        infoY = (tileSize * (overlayHeight - 1)) - (ty * tileSize) + 48
-      } else {
-        infoY = (tileSize * (overlayHeight - 1)) - (ty * tileSize) - 48
-      }
-      val info: SubsystemInfo = new SubsystemInfo(name, maxOccupancy, tx * tileSize, infoY)
-      info
-    } else {
-      null
-    }
-  }
-
-
-
+  /**********************
+    *     Rendering     *
+    **********************/
   override def draw(batch: Batch, parentAlpha: Float): Unit = {
     if (isSubsystem) {
       if (glowing) {

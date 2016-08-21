@@ -19,6 +19,10 @@ class Ship(n: String, desc: String, w: Array[Weapon], s: Array[String]) {
   private var isPlayer: Boolean = false
 
 
+
+  /********************
+    *     Getters     *
+    ********************/
   def getName: String = {
     name
   }
@@ -31,16 +35,8 @@ class Ship(n: String, desc: String, w: Array[Weapon], s: Array[String]) {
     weapons
   }
 
-  def setWeapons(w: Array[Weapon]): Unit = {
-    weapons = w
-  }
-
   def getSubsystems: Array[String] = {
     subsystems
-  }
-
-  def setPlayerShip(): Unit = {
-    isPlayer = true
   }
 
   def isPlayerShip: Boolean = {
@@ -48,6 +44,17 @@ class Ship(n: String, desc: String, w: Array[Weapon], s: Array[String]) {
   }
 
 
+
+  /********************
+    *     Setters     *
+    ********************/
+  def setWeapons(w: Array[Weapon]): Unit = {
+    weapons = w
+  }
+
+  def setPlayerShip(): Unit = {
+    isPlayer = true
+  }
 
   def equipWeapon(w: Weapon): Unit = {
     w.activate()
@@ -60,6 +67,11 @@ class Ship(n: String, desc: String, w: Array[Weapon], s: Array[String]) {
     activeWeaponPanel.refresh(weapons)
   }
 
+
+
+  /*******************
+    *     Update     *
+    *******************/
   def updateActiveWeapons(): Array[Weapon] = {
     val readyWeapons: ArrayBuffer[Weapon] = ArrayBuffer()
 

@@ -19,6 +19,10 @@ class Weapon(n: String, ss: String, desc: String, dmg: Int, fr: Int, fx: String)
   fireBar.setAnimateDuration(0.5f)
 
 
+
+  /********************
+    *     Getters     *
+    ********************/
   def getName: String = {
     name
   }
@@ -47,6 +51,15 @@ class Weapon(n: String, ss: String, desc: String, dmg: Int, fr: Int, fx: String)
     fireBar
   }
 
+  def isActive: Boolean = {
+    active
+  }
+
+
+
+  /********************
+    *     Setters     *
+    ********************/
   def updateFireBar(): Boolean = {
     if (fireBar.getValue == fireBar.getMaxValue) {
       true
@@ -60,17 +73,11 @@ class Weapon(n: String, ss: String, desc: String, dmg: Int, fr: Int, fx: String)
     fireBar.setValue(fireBar.getMinValue)
   }
 
-
-
   def activate(): Unit = {
     active = true
   }
 
   def deactivate(): Unit = {
     active = false
-  }
-
-  def isActive: Boolean = {
-    active
   }
 }

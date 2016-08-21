@@ -14,6 +14,10 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
   private var systemMarker: SystemMarker = _
 
 
+
+  /********************
+    *     Getters     *
+    ********************/
   def getSystemMarker: SystemMarker = {
     systemMarker
   }
@@ -24,6 +28,9 @@ class System(gridX: Int, gridY: Int, gridSize: Int) {
 
 
 
+  /********************
+    *     Setters     *
+    ********************/
   def setSystemMarker(newSystemMarker: SystemMarker): Unit = {
     systemMarker = newSystemMarker
     systemMarker.becomeUnexplored()
