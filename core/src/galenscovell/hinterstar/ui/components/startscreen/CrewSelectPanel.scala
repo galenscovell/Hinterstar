@@ -1,10 +1,11 @@
 package galenscovell.hinterstar.ui.components.startscreen
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import com.badlogic.gdx.scenes.scene2d.ui.{Label, Table, TextButton, TextField}
+import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.{Action, InputEvent}
-import com.badlogic.gdx.utils.Align
+import com.badlogic.gdx.utils.{Align, JsonReader, JsonValue}
 import galenscovell.hinterstar.things.entities.Crewmate
 import galenscovell.hinterstar.util._
 
@@ -20,7 +21,7 @@ class CrewSelectPanel extends Table {
   private var currentCrewButton: TextButton = _
   private val nameInput: TextField = new TextField("", Resources.textFieldStyle)
   nameInput.setAlignment(Align.left)
-  nameInput.setMaxLength(20)
+  nameInput.setMaxLength(10)
 
   private val crewTable: Table = new Table
 
@@ -110,21 +111,23 @@ class CrewSelectPanel extends Table {
   private def randomizeStartingTeamNames: Array[Crewmate] = {
     val randomNames: ArrayBuffer[String] = ArrayBuffer()
 
-    val names: List[String] = List(
-      "Jack", "James", "Benjamin", "Joshua", "Ryan", "Patrick", "Samuel",
-      "William", "Kenji", "Ei", "Ren", "Ken", "Daniel", "Ethan", "Michael",
-      "Tobias", "Alexander", "Noah", "Nathan", "Magnus", "Lucas", "Adam",
-      "Robert", "Ryou",
-      "Olivia", "Emily", "Jessica", "Ashley", "Isabella", "Riko", "Nanami",
-      "Misaki", "Jennifer", "Sarah", "Hannah", "Ruby", "Chloe", "Lily",
-      "Sophia", "Maria", "Madison", "Chelsea", "Shelby", "Rachel", "Sakura",
-      "Nadia", "Amelia"
-    )
+    val mainJson: JsonValue = new JsonReader().parse(Gdx.files.internal("data/names.json"))
+    val humanJson: JsonValue = mainJson.get("Human")
+    val humanMale: Array[String] = humanJson.get("Male").asStringArray()
+    val humanFemale: Array[String] = humanJson.get("Female").asStringArray()
 
     val random: Random = new Random
     while (randomNames.length < 3) {
-      val randomNameIndex: Int = random.nextInt(names.length - 1)
-      val randomName: String = names(randomNameIndex)
+      var randomName: String = ""
+      val female: Boolean = random.nextInt(1) == 1
+
+      if (female) {
+        val randomNameIndex: Int = random.nextInt(humanFemale.length)
+        randomName = humanFemale(randomNameIndex)
+      } else {
+        val randomNameIndex: Int = random.nextInt(humanMale.length)
+        randomName = humanMale(randomNameIndex)
+      }
 
       if (!randomNames.contains(randomName)) {
         randomNames.append(randomName)
