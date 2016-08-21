@@ -8,13 +8,13 @@ import galenscovell.hinterstar.util._
 
 
 class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolean, forPlayerShip: Boolean) extends Actor {
-  val tx: Int = x
-  val ty: Int = y
-
+  private val tx: Int = x
+  private val ty: Int = y
   private val tileSize: Int = size
   private val overlayHeight: Int = height
   private val name: String = ss
   private val weaponSystem: Boolean = hasWeapon
+  private val isPlayerSubsystem: Boolean = forPlayerShip
 
   private var frames: Int = 100
   private var glowing: Boolean = true
@@ -23,7 +23,6 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
   private var assignedCrewmates: Int = 0
 
   private val infoDisplay: SubsystemInfo = constructInfo
-  private val isPlayerSubsystem: Boolean = forPlayerShip
 
   initialize()
 
@@ -42,7 +41,6 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
         if (crewmate.getAssignedSubsystemName == name) {
           crewmate.setAssignment(getThisTile)
           assignCrewmate()
-          println(crewmate.getName, crewmate.getAssignedSubsystemName)
         }
       }
     }

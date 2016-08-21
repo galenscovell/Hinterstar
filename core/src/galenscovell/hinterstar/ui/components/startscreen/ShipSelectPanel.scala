@@ -36,9 +36,9 @@ class ShipSelectPanel extends Table {
 
     bottomTable.add(shipDetail)
 
-    this.add(topTable).width(520).height(160).center
+    this.add(topTable).width(520).height(140).center
     this.row
-    this.add(bottomTable).width(520).height(240).center
+    this.add(bottomTable).width(520).height(260).center
   }
 
   private def createTopTable: Table = {
@@ -67,9 +67,9 @@ class ShipSelectPanel extends Table {
       }
     })
 
-    topTable.add(scrollLeftButton).width(60).height(150).expand.fill.left
+    topTable.add(scrollLeftButton).width(60).height(130).expand.fill.left
     topTable.add(shipDisplay).expand.fill.center
-    topTable.add(scrollRightButton).width(60).height(150).expand.fill.right
+    topTable.add(scrollRightButton).width(60).height(130).expand.fill.right
 
     topTable
   }
@@ -106,6 +106,7 @@ class ShipSelectPanel extends Table {
   def updateShipDetails(): Unit = {
     shipDetail.clear()
 
+    // Ship Detail Display
     val shipDetailTop: Table = new Table
     shipDetailTop.setBackground(Resources.npTest1)
 
@@ -121,6 +122,8 @@ class ShipSelectPanel extends Table {
 
     val shipDetailBottom: Table = new Table
 
+    // Ship Weapon Display
+    // Max # starting weapons for any given ship is 4
     val shipWeaponTable: Table = new Table
     for (weapon: Weapon <- allShips(currentShipIndex).getWeapons) {
       val weaponTable: Table = new Table
@@ -154,25 +157,50 @@ class ShipSelectPanel extends Table {
       shipWeaponTable.add(weaponTable).width(100).pad(5)
     }
 
+    // Ship Subsystem Display
+    // Max # subsystems for any given ship is 8
     val shipSubsystemTable: Table = new Table
-    for (subsystem: String <- allShips(currentShipIndex).getSubsystems) {
+    val shipSubsystems: Array[String] = allShips(currentShipIndex).getSubsystems
+
+    // Row 1
+    for (i <- 0 until 4) {
       val subsystemTable: Table = new Table
-      subsystemTable.setBackground(Resources.npTest4)
 
-      val subsystemLabel: Label = new Label(subsystem, Resources.labelTinyStyle)
-      subsystemLabel.setAlignment(Align.center)
-      subsystemTable.add(subsystemLabel).expand.fill.pad(5)
+      if (shipSubsystems.length >= i + 1) {
+        val subsystem: String = shipSubsystems(i)
 
-      shipSubsystemTable.add(subsystemTable).width(120).pad(5)
+        subsystemTable.setBackground(Resources.npTest4)
+        val subsystemLabel: Label = new Label(subsystem, Resources.labelTinyStyle)
+        subsystemLabel.setAlignment(Align.center)
+        subsystemTable.add(subsystemLabel).expand.fill.pad(2)
+      }
+      shipSubsystemTable.add(subsystemTable).width(120).pad(2)
     }
 
-    shipDetailBottom.add(shipWeaponTable).expand.fill.height(95).pad(4)
-    shipDetailBottom.row
-    shipDetailBottom.add(shipSubsystemTable).expand.fill.height(30).pad(4)
+    shipSubsystemTable.row
 
-    shipDetail.add(shipDetailTop).expand.fill.height(95).top.pad(5)
+    // Row 2
+    for (i <- 4 until 8) {
+      val subsystemTable: Table = new Table
+
+      if (shipSubsystems.length >= i + 1) {
+        val subsystem: String = shipSubsystems(i)
+
+        subsystemTable.setBackground(Resources.npTest4)
+        val subsystemLabel: Label = new Label(subsystem, Resources.labelTinyStyle)
+        subsystemLabel.setAlignment(Align.center)
+        subsystemTable.add(subsystemLabel).expand.fill.pad(2)
+      }
+      shipSubsystemTable.add(subsystemTable).width(120).pad(2)
+    }
+
+    shipDetailBottom.add(shipWeaponTable).expand.fill.height(95).pad(2)
+    shipDetailBottom.row
+    shipDetailBottom.add(shipSubsystemTable).expand.fill.height(30).pad(2)
+
+    shipDetail.add(shipDetailTop).expand.fill.width(516).height(100).top.pad(2)
     shipDetail.row
-    shipDetail.add(shipDetailBottom).expand.fill.height(125).top.pad(5)
+    shipDetail.add(shipDetailBottom).expand.fill.width(516).height(156).top.pad(2)
 
     shipDetail.addAction(Actions.sequence(
       Actions.color(Constants.FLASH_UI_COLOR, 0.25f, Interpolation.sine),
