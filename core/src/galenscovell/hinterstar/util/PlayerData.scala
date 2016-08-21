@@ -51,20 +51,24 @@ object PlayerData {
     ********************/
   def loadCrew(): Unit = {
     crew.clear()
-    val crewNames: Array[String] = prefs.getString("crew").split(",")
+    val crewString: String = prefs.getString("crew")
 
-    for (name: String <- crewNames) {
-      val assignment: String = prefs.getString(s"$name-assignment")
-      val health: Int = prefs.getInteger(s"$name-health")
-      val crewProficiencies: mutable.Map[String, Int] = mutable.Map()
+    if (crewString.nonEmpty) {
+      val crewNames: Array[String] = crewString.split(",")
 
-      for (p: String <- proficiencies) {
-        val proficiency: Int = prefs.getInteger(s"$name-$p")
-        crewProficiencies += (p -> proficiency)
+      for (name: String <- crewNames) {
+        val assignment: String = prefs.getString(s"$name-assignment")
+        val health: Int = prefs.getInteger(s"$name-health")
+        val crewProficiencies: mutable.Map[String, Int] = mutable.Map()
+
+        for (p: String <- proficiencies) {
+          val proficiency: Int = prefs.getInteger(s"$name-$p")
+          crewProficiencies += (p -> proficiency)
+        }
+
+        val crewmate: Crewmate = new Crewmate(name, crewProficiencies, assignment, health)
+        crew.append(crewmate)
       }
-
-      val crewmate: Crewmate = new Crewmate(name, crewProficiencies, assignment, health)
-      crew.append(crewmate)
     }
   }
 
@@ -114,31 +118,67 @@ object PlayerData {
   def saveWeapons(): Unit = {
     val currentWeapons: Array[Weapon] = ship.getWeapons
     val currentWeaponNames: Array[String] = Array.ofDim(currentWeapons.length)
+    val activeWeapons: ArrayBuffer[String] = ArrayBuffer()
 
+    // Save all weapons player currently has stored away
     for (i <- currentWeapons.indices) {
       currentWeaponNames(i) = currentWeapons(i).getName
     }
 
-    // Save assigned crewmate to each equipped weapon
+    // Save all active weapons and assigned crewmate, eg. "Machinegun|Tony"
+    for (crewmate: Crewmate <- crew) {
+      val assignedWeapon: Weapon = crewmate.getWeapon
+      if (assignedWeapon != null) {
+        activeWeapons.append(s"$assignedWeapon.getName|$crewmate.getName")
+      }
+    }
 
-    prefs.putString("weapons", currentWeaponNames.mkString(","))
+    prefs.putString("held-weapons", currentWeaponNames.mkString(","))
+    prefs.putString("active-weapons", activeWeapons.mkString(","))
     prefs.flush()
   }
 
   def loadWeapons(): Unit = {
-    val weaponsString: String = prefs.getString("weapons")
-    val weaponNames: Array[String] = weaponsString.split(",")
-    val weaponArray: ArrayBuffer[Weapon] = ArrayBuffer()
-    val weaponParser: WeaponParser = new WeaponParser
+    // Load all player stored weapons
+    val heldWeaponString: String = prefs.getString("held-weapons")
 
-    for (name: String <- weaponNames) {
-      val weapon: Weapon = weaponParser.parseSingle(name)
-      weaponArray.append(weapon)
+    if (heldWeaponString.nonEmpty) {
+      val weaponNames: Array[String] = heldWeaponString.split(",")
+      val weaponArray: ArrayBuffer[Weapon] = ArrayBuffer()
+      val weaponParser: WeaponParser = new WeaponParser
+
+      for (name: String <- weaponNames) {
+        val weapon: Weapon = weaponParser.parseSingle(name)
+        weaponArray.append(weapon)
+      }
+
+      ship.setWeapons(weaponArray.toArray)
     }
 
-    // Load equipped weapons and the assigned crewmate
+    // Activate saved active weapons and assign saved crewmate
+    val activeWeaponString: String = prefs.getString("active-weapons")
 
-    ship.setWeapons(weaponArray.toArray)
+    if (activeWeaponString.nonEmpty) {
+      val activeWeaponEntries: Array[String] = activeWeaponString.split(",")
+
+      for (weapon: Weapon <- ship.getWeapons) {
+        for (entry: String <- activeWeaponEntries) {
+          val components: Array[String] = entry.split("|")
+          val weaponName: String = components(0)
+          val crewmateName: String = components(1)
+
+          if (weapon.getName == weaponName) {
+            ship.equipWeapon(weapon)
+
+            for (crewmate: Crewmate <- crew) {
+              if (crewmate.getName == crewmateName) {
+                crewmate.setWeapon(weapon)
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   // Should this be called every game update to ensure stats are always fresh?

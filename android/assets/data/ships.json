@@ -12,9 +12,9 @@
     ]
   },
   "Ship-1": {
-    "description": "A ship with additional subsystems, but lacks any weapon.",
+    "description": "A ship with additional subsystems like a drone bay, but lacks normal weapons.",
     "weapons": [
-
+      "Gun Drone"
     ],
     "subsystems": [
       "Helm",
@@ -27,7 +27,8 @@
     "description": "A ship with many starting weapons.",
     "weapons": [
       "Machinegun",
-      "Railgun"
+      "Railgun",
+      "Gun Drone"
     ],
     "subsystems": [
       "Helm",

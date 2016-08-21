@@ -12,5 +12,12 @@
     "damage": 3,
     "firerate": 15,
     "effect": ""
+  },
+  "Gun Drone": {
+    "subsystem": "Drone Bay",
+    "description": "A basic combat part.",
+    "damage": 5,
+    "firerate": 30,
+    "effect": ""
   }
 }

@@ -34,7 +34,7 @@ object CrewOperations {
     if (weaponCrewmate != null) {
       val currentWeapon: Weapon = weaponCrewmate.getWeapon
       if (currentWeapon != null) {
-        PlayerData.getShip.unequipWeapon(weapon)
+        PlayerData.getShip.unequipWeapon(currentWeapon)
       }
       weaponCrewmate.setWeapon(weapon)
       PlayerData.getShip.equipWeapon(weapon)
@@ -72,7 +72,7 @@ object CrewOperations {
         subsystem.assignCrewmate()
         gameScreen.getHudStage.refreshCrewAndStats()
 
-        // TODO: Add support for other weapon subsystems
+        // TODO: Add support for other weapon subsystems, eg 'Drone Bay'
         if (subsystem.getName == "Weapon Control") {
           weaponCrewmate = selectedCrewmate
           PlayerData.getShip.refreshWeaponSelectPanel(subsystem.getName)
