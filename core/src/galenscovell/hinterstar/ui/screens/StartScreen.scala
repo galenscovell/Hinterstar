@@ -52,7 +52,7 @@ class StartScreen(gameRoot: Hinterstar) extends Screen {
     val titleTable: Table = new Table
     val noticeTable: Table = new Table
 
-    val returnButton: TextButton = new TextButton("Return", Resources.greenButtonStyle)
+    val returnButton: TextButton = new TextButton("Main Menu", Resources.greenButtonStyle)
     returnButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         stage.getRoot.addAction(Actions.sequence(

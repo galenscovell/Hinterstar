@@ -16,6 +16,8 @@ class Ship(n: String, desc: String, w: Array[Weapon], s: Array[String]) {
   private val activeWeaponPanel: ActiveWeaponPanel = new ActiveWeaponPanel(this)
   private val weaponSelectPanel: WeaponSelectPanel = new WeaponSelectPanel(this)
 
+  private var isPlayer: Boolean = false
+
 
   def getName: String = {
     name
@@ -35,6 +37,14 @@ class Ship(n: String, desc: String, w: Array[Weapon], s: Array[String]) {
 
   def getSubsystems: Array[String] = {
     subsystems
+  }
+
+  def setPlayerShip(): Unit = {
+    isPlayer = true
+  }
+
+  def isPlayerShip: Boolean = {
+    isPlayer
   }
 
 

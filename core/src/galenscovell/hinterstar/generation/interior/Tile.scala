@@ -3,10 +3,11 @@ package galenscovell.hinterstar.generation.interior
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
 import com.badlogic.gdx.scenes.scene2d.{Actor, InputEvent}
-import galenscovell.hinterstar.util.{CrewOperations, Resources}
+import galenscovell.hinterstar.things.entities.Crewmate
+import galenscovell.hinterstar.util._
 
 
-class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolean) extends Actor {
+class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolean, forPlayerShip: Boolean) extends Actor {
   val tx: Int = x
   val ty: Int = y
 
@@ -22,15 +23,31 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
   private var assignedCrewmates: Int = 0
 
   private val infoDisplay: SubsystemInfo = constructInfo
+  private val isPlayerSubsystem: Boolean = forPlayerShip
+
+  initialize()
 
 
-  this.addListener(new ActorGestureListener() {
-    override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
-      if (isSubsystem) {
-        CrewOperations.assignCrewmate(getThisTile)
+  private def initialize(): Unit = {
+    if (isSubsystem && isPlayerSubsystem) {
+      this.addListener(new ActorGestureListener() {
+        override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
+          CrewOperations.assignCrewmate(getThisTile)
+        }
+      })
+
+      // Start all crewmates in their saved assigned subsystem
+      // Start unassigned crewmates in Medbay subsystem
+      for (crewmate: Crewmate <- PlayerData.getCrew) {
+        if (crewmate.getAssignedSubsystemName == name) {
+          crewmate.setAssignment(getThisTile)
+          assignCrewmate()
+          println(crewmate.getName, crewmate.getAssignedSubsystemName)
+        }
       }
     }
-  })
+  }
+
 
 
   // Occupancy Operations
@@ -54,6 +71,7 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
       case "Shield Control" => 3
       case "Engine Room" => 3
       case "Helm" => 1
+      case "Medbay" => 6
       case _ => 0
     }
   }
@@ -130,6 +148,7 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
       case "Shield Control" => "S"
       case "Engine Room" => "E"
       case "Helm" => "H"
+      case "Medbay" => "M"
       case _ => "~"
     }
   }

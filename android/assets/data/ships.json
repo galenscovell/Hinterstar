@@ -8,7 +8,8 @@
       "Helm",
       "Engine Room",
       "Shield Control",
-      "Weapon Control"
+      "Weapon Control",
+      "Medbay"
     ]
   },
   "Ship-1": {
@@ -20,7 +21,8 @@
       "Helm",
       "Engine Room",
       "Shield Control",
-      "Weapon Control"
+      "Weapon Control",
+      "Medbay"
     ]
   },
   "Ship-2": {
@@ -34,7 +36,8 @@
       "Helm",
       "Engine Room",
       "Shield Control",
-      "Weapon Control"
+      "Weapon Control",
+      "Medbay"
     ]
   }
 }

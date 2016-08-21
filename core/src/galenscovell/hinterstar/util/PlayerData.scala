@@ -113,6 +113,7 @@ object PlayerData {
   def loadShip(): Unit = {
     val shipName: String = prefs.getString("ship")
     ship = new ShipParser().parseSingle(shipName)
+    ship.setPlayerShip()
   }
 
   def saveWeapons(): Unit = {
@@ -185,16 +186,15 @@ object PlayerData {
   // ie crewmate moved to turret, check will see it immediately (once updated) and set
   //    the turret into firing mode
   def getShipStats: Array[Float] = {
-    // Stats Array = (Shield, Evasion, Weapons)
-    val stats: Array[Float] = Array(0, 0, 0)
+    // Stats Array = (Shield, Evasion)
+    val stats: Array[Float] = Array(0, 0)
     var helmManned: Boolean = false
 
     for (crewmate: Crewmate <- crew) {
       val assignment: String = crewmate.getAssignedSubsystemName
 
       assignment match {
-        case "Weapon Control" =>
-          stats(2) += 1
+        case "Weapon Control" => Unit
         case "Engine Room" =>
           val bonus: Float = 2.5f + (2.5f * (crewmate.getAProficiency("Engines") / 100))
           stats(1) += bonus

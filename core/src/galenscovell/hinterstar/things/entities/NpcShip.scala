@@ -18,7 +18,7 @@ class NpcShip(actionStage: ActionStage) extends Group {
   private val sprite: Sprite =  Resources.atlas.createSprite(PlayerData.getShip.getName)
   sprite.flip(true, false)
   private val shipActor: Image = new Image(sprite)
-  private val overlayActor: Actor = new InteriorOverlay(PlayerData.getShip.getName)
+  // private val overlayActor: Actor = new InteriorOverlay(PlayerData.getShip)
 
   construct()
 
@@ -26,7 +26,7 @@ class NpcShip(actionStage: ActionStage) extends Group {
   private def construct(): Unit = {
     this.setSize(480, 192)
     shipActor.setSize(480, 192)
-    overlayActor.setSize(480, 192)
+    // overlayActor.setSize(480, 192)
 
     this.addActor(shipActor)
 
@@ -39,14 +39,15 @@ class NpcShip(actionStage: ActionStage) extends Group {
   }
 
   def overlayPresent(): Boolean = {
-    overlayActor.hasParent
+    // overlayActor.hasParent
+    true
   }
 
   def enableOverlay(): Unit = {
-    this.addActor(overlayActor)
+    // this.addActor(overlayActor)
   }
 
   def disableOverlay(): Unit = {
-    overlayActor.remove()
+    // overlayActor.remove()
   }
 }

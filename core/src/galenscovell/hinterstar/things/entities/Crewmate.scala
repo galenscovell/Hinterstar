@@ -12,10 +12,11 @@ import galenscovell.hinterstar.util.{CrewOperations, Resources}
 import scala.collection.mutable
 
 
-class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
+class Crewmate(n: String, p: mutable.Map[String, Int], startingAssignmentName: String, h: Int) {
   private var name: String = n
   private val proficiencies: mutable.Map[String, Int] = p
   private var assignment: Tile = _
+  private var assignmentName: String = startingAssignmentName
   private var weapon: Weapon = _
   private var health: Int = h
 
@@ -50,11 +51,10 @@ class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
   }
 
   def getAssignedSubsystemName: String = {
-    if (assignment == null) {
-      "None"
-    } else {
-      assignment.getName
+    if (assignment != null) {
+      assignmentName = assignment.getName
     }
+    assignmentName
   }
 
   def getHealth: Int = {
@@ -79,8 +79,8 @@ class Crewmate(n: String, p: mutable.Map[String, Int], a: String, h: Int) {
     proficiencies.updated(proficiency, proficiencies(proficiency) + value)
   }
 
-  def setAssignment(ss: Tile): Unit = {
-    assignment = ss
+  def setAssignment(subsystem: Tile): Unit = {
+    assignment = subsystem
   }
 
   def setWeapon(w: Weapon): Unit = {

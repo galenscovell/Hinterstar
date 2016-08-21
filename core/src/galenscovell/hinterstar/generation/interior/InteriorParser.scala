@@ -3,6 +3,7 @@ package galenscovell.hinterstar.generation.interior
 import java.io._
 
 import com.badlogic.gdx.Gdx
+import galenscovell.hinterstar.things.ships.Ship
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -10,13 +11,14 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * Contains a grid of Tiles representing the subsystem actors for a given ship.
   */
-class InteriorParser(shipName: String) {
+class InteriorParser(ship: Ship) {
+  private val rootShip: Ship = ship
   private val tiles: ArrayBuffer[Array[Tile]] = ArrayBuffer()
   private var width: Int = 0
   private var height: Int = 0
   var tileSize: Int = 0
 
-  parse(shipName)
+  parse(ship.getName)
   // debugPrint()
 
 
@@ -40,11 +42,12 @@ class InteriorParser(shipName: String) {
 
         for (x <- 0 until line.length) {
           line(x) match {
-            case 'W' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Weapon Control", true)
-            case 'E' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Engine Room", false)
-            case 'H' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Helm", false)
-            case 'S' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Shield Control", false)
-            case _ => subsystemRow(x) = new Tile(x, y, tileSize, height, "none", false)
+            case 'W' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Weapon Control", true, rootShip.isPlayerShip)
+            case 'E' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Engine Room", false, rootShip.isPlayerShip)
+            case 'H' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Helm", false, rootShip.isPlayerShip)
+            case 'S' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Shield Control", false, rootShip.isPlayerShip)
+            case 'M' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Medbay", false, rootShip.isPlayerShip)
+            case _ => subsystemRow(x) = new Tile(x, y, tileSize, height, "none", false, rootShip.isPlayerShip)
           }
         }
 

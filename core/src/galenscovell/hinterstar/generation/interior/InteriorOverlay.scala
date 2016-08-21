@@ -1,14 +1,11 @@
 package galenscovell.hinterstar.generation.interior
 
 import com.badlogic.gdx.scenes.scene2d.ui.Table
+import galenscovell.hinterstar.things.ships.Ship
 
 
-/**
-  * The actor grid of subsystems generated from InteriorParser.
-  * Displayed at player will, crewmates can be sent to the subsystem selected.
-  */
-class InteriorOverlay(shipName: String) extends Table {
-  private val interiorParser: InteriorParser = new InteriorParser(shipName)
+class InteriorOverlay(ship: Ship) extends Table {
+  private val interiorParser: InteriorParser = new InteriorParser(ship)
   private val subsystems: Array[Array[Tile]] = interiorParser.getTiles
 
   construct()

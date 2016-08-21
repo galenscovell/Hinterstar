@@ -13,6 +13,7 @@ class SubsystemInfo(name: String, occupancy: Int, rootX: Int, rootY: Int) {
     case "Shield Control" => "shield"
     case "Engine Room" => "engine"
     case "Helm" => "helm"
+    case "Medbay" => "medbay"
     case _ => ""
   }
 
@@ -20,7 +21,7 @@ class SubsystemInfo(name: String, occupancy: Int, rootX: Int, rootY: Int) {
   private var currentOccupancy: Int = 0
 
   private var occupancySprite: Sprite = _
-  private val subsystemSprite: Sprite = new Sprite(Resources.atlas.createSprite(subsystemType + "-icon"))
+  private val subsystemSprite: Sprite = new Sprite(Resources.atlas.createSprite("icon_" + subsystemType))
 
   updateOccupancy(0)
 
@@ -33,6 +34,6 @@ class SubsystemInfo(name: String, occupancy: Int, rootX: Int, rootY: Int) {
 
   def draw(batch: Batch, parentAlpha: Float): Unit = {
     batch.draw(subsystemSprite, infoX - 16, infoY + 8, 32, 32)
-    batch.draw(occupancySprite, infoX + 16, infoY, 48, 48)
+    batch.draw(occupancySprite, infoX + 24, infoY + 8, 32, 32)
   }
 }

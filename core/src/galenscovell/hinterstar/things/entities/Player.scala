@@ -12,7 +12,7 @@ import galenscovell.hinterstar.util._
 class Player(actionStage: ActionStage) extends Group {
   private val gameScreen: GameScreen = actionStage.getGameScreen
   private val shipActor: Image = new Image(Resources.atlas.createSprite(PlayerData.getShip.getName))
-  private val overlayActor: Actor = new InteriorOverlay(PlayerData.getShip.getName)
+  private val overlayActor: Actor = new InteriorOverlay(PlayerData.getShip)
 
   construct()
 

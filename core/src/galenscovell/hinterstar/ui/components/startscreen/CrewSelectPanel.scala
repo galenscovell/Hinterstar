@@ -142,7 +142,7 @@ class CrewSelectPanel extends Table {
     )
     val startCrew: ArrayBuffer[Crewmate] = ArrayBuffer()
     for (name: String <- randomNames) {
-      val newCrewmate: Crewmate = new Crewmate(name, startingProficiencies, "No Action", 100)
+      val newCrewmate: Crewmate = new Crewmate(name, startingProficiencies, "Medbay", 100)
       startCrew.append(newCrewmate)
     }
 

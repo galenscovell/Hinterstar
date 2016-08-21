@@ -4,12 +4,13 @@ W = Weapon subsystem
 E = Engine subsystem
 H = Helm subsystem
 S = Shield subsystem
+M = Medbay subsystem
 
 Ship-0
 10,4,48
 ~~~~S~~~~~
 ~~~~~~~~~~
-~E~~~W~~H~
+~E~M~W~~H~
 ~~~~~~~~~~
 END
 
@@ -17,7 +18,7 @@ Ship-1
 10,4,48
 ~~~~S~~~~~
 ~~~~~~~~~~
-~E~~~W~~H~
+~E~M~W~~H~
 ~~~~~~~~~~
 END
 
@@ -25,7 +26,7 @@ Ship-2
 10,4,48
 ~~~~S~~~~~
 ~~~~~~~~~~
-~E~~~W~~H~
+~E~M~W~~H~
 ~~~~~~~~~~
 END
 
