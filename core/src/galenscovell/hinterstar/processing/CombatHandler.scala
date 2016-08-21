@@ -9,6 +9,7 @@ class CombatHandler {
 
 
   def update(readyWeapons: Array[Weapon]): Unit = {
+    // If no opposition, leave weapon firebar at full
     // Check ready to fire weapons on player ship
     if (readyWeapons.nonEmpty) {
 

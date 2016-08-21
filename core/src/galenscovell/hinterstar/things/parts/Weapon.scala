@@ -48,12 +48,10 @@ class Weapon(n: String, ss: String, desc: String, dmg: Int, fr: Int, fx: String)
   }
 
   def updateFireBar(): Boolean = {
-    fireBar.setValue(fireBar.getValue + 1)
-
     if (fireBar.getValue == fireBar.getMaxValue) {
-      fireBar.setValue(fireBar.getMinValue)
       true
     } else {
+      fireBar.setValue(fireBar.getValue + 1)
       false
     }
   }

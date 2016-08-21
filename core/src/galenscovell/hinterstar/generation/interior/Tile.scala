@@ -6,12 +6,14 @@ import com.badlogic.gdx.scenes.scene2d.{Actor, InputEvent}
 import galenscovell.hinterstar.util.{CrewOperations, Resources}
 
 
-class Tile(x: Int, y: Int, size: Int, height: Int, ss: String) extends Actor {
+class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolean) extends Actor {
   val tx: Int = x
   val ty: Int = y
-  val tileSize: Int = size
-  val overlayHeight: Int = height
-  val name: String = ss
+
+  private val tileSize: Int = size
+  private val overlayHeight: Int = height
+  private val name: String = ss
+  private val weaponSystem: Boolean = hasWeapon
 
   private var frames: Int = 100
   private var glowing: Boolean = true
@@ -68,6 +70,10 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String) extends Actor {
 
   private def isSubsystem: Boolean = {
     name != "none"
+  }
+
+  def isWeaponSubsystem: Boolean = {
+    weaponSystem
   }
 
   private def constructInfo: SubsystemInfo = {

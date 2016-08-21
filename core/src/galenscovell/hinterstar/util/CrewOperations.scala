@@ -17,6 +17,10 @@ object CrewOperations {
     gameScreen = gs
   }
 
+  /**
+    * Called when player selects crewmate from main HUD.
+    * Sets crewmate of interest for assignment operations.
+    */
   def selectCrewmate(newCrewmate: Crewmate): Unit = {
     if (selectedCrewmate != null) {
       selectedCrewmate.unhighlightTable()
@@ -30,6 +34,10 @@ object CrewOperations {
     }
   }
 
+  /**
+    * Called when player makes a weapon selection from weapon select panel.
+    * Sets weapon for selected crewmate and equips the weapon for ship.
+    */
   def equipWeapon(weapon: Weapon): Unit = {
     if (weaponCrewmate != null) {
       val currentWeapon: Weapon = weaponCrewmate.getWeapon
@@ -44,6 +52,10 @@ object CrewOperations {
     }
   }
 
+  /**
+    * Called if player cancels assigning crewmate to weapon subsystem.
+    * Closes weapon select panel and assigns crewmate back to previous assignment.
+    */
   def cancelWeaponAssignment(): Unit = {
     if (weaponCrewmate != null) {
       gameScreen.getHudStage.closeWeaponSelect()
@@ -60,22 +72,37 @@ object CrewOperations {
     }
   }
 
-  def assignCrewmate(subsystem: Tile): Unit = {
+  /**
+    * Called when player selects subsystem after selecting a crewmate for assignment.
+    * Assigns crewmate to new subsystem.
+    * If new assignment is a weapon subsystem, opens weapon select panel.
+    */
+  def assignCrewmate(newAssignment: Tile): Unit = {
     if (selectedCrewmate != null) {
-      if (!subsystem.occupancyFull) {
-        val currentAssignment: Tile = selectedCrewmate.getAssignment
-        if (currentAssignment != null) {
-          crewmatePreviousAssignment = currentAssignment
-          currentAssignment.removeCrewmate()
+      // TODO: Open 'Select a subsystem' tooltip label on HUD
+      // TODO: Have option to cancel assignment
+      if (!newAssignment.occupancyFull) {
+        val oldAssignment: Tile = selectedCrewmate.getAssignment
+
+        if (oldAssignment != null) {
+          crewmatePreviousAssignment = oldAssignment
+          oldAssignment.removeCrewmate()
+
+          if (oldAssignment.isWeaponSubsystem && !newAssignment.isWeaponSubsystem) {
+            val currentWeapon: Weapon = selectedCrewmate.getWeapon
+            if (currentWeapon != null) {
+              PlayerData.getShip.unequipWeapon(currentWeapon)
+            }
+          }
         }
-        selectedCrewmate.setAssignment(subsystem)
-        subsystem.assignCrewmate()
+
+        selectedCrewmate.setAssignment(newAssignment)
+        newAssignment.assignCrewmate()
         gameScreen.getHudStage.refreshCrewAndStats()
 
-        // TODO: Add support for other weapon subsystems, eg 'Drone Bay'
-        if (subsystem.getName == "Weapon Control") {
+        if (newAssignment.isWeaponSubsystem) {
           weaponCrewmate = selectedCrewmate
-          PlayerData.getShip.refreshWeaponSelectPanel(subsystem.getName)
+          PlayerData.getShip.refreshWeaponSelectPanel(newAssignment.getName)
           gameScreen.getHudStage.openWeaponSelect()
         }
       }
