@@ -1,16 +1,18 @@
 package galenscovell.hinterstar.things.ships
 
 import com.badlogic.gdx.scenes.scene2d.ui._
+import galenscovell.hinterstar.generation.interior.Tile
 import galenscovell.hinterstar.things.parts.Weapon
 import galenscovell.hinterstar.ui.components.gamescreen.hud.{ActiveWeaponPanel, WeaponSelectPanel}
 
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.{ArrayBuffer, Map}
 
 
 class Ship(n: String, desc: String, w: Array[Weapon], s: Array[String]) {
   private val name: String = n
   private val description: String = desc
-  private val subsystems: Array[String] = s
+  private val subsystemNames: Array[String] = s
+  private var interiorOverlay: InteriorOverlay = _
 
   private var weapons: Array[Weapon] = w
   private val activeWeaponPanel: ActiveWeaponPanel = new ActiveWeaponPanel(this)
@@ -35,12 +37,16 @@ class Ship(n: String, desc: String, w: Array[Weapon], s: Array[String]) {
     weapons
   }
 
-  def getSubsystems: Array[String] = {
-    subsystems
+  def getSubsystemNames: Array[String] = {
+    subsystemNames
   }
 
   def isPlayerShip: Boolean = {
     isPlayer
+  }
+
+  def getSubsystemMap: Map[String, Tile] = {
+    interiorOverlay.getSubsystemMap
   }
 
 
@@ -69,9 +75,9 @@ class Ship(n: String, desc: String, w: Array[Weapon], s: Array[String]) {
 
 
 
-  /*******************
-    *     Update     *
-    *******************/
+  /*********************
+    *     Updating     *
+    *********************/
   def updateActiveWeapons(): Array[Weapon] = {
     val readyWeapons: ArrayBuffer[Weapon] = ArrayBuffer()
 
@@ -89,6 +95,14 @@ class Ship(n: String, desc: String, w: Array[Weapon], s: Array[String]) {
   /***********************
     *    UI Component    *
     ***********************/
+  def createInterior(): Unit = {
+    interiorOverlay = new InteriorOverlay(this)
+  }
+
+  def getInterior: InteriorOverlay = {
+    interiorOverlay
+  }
+
   def getActiveWeaponPanel: Table = {
     activeWeaponPanel
   }

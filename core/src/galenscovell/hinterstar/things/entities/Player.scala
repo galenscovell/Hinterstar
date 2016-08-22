@@ -3,7 +3,7 @@ package galenscovell.hinterstar.things.entities
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import galenscovell.hinterstar.generation.interior.InteriorOverlay
+import galenscovell.hinterstar.things.ships.Ship
 import galenscovell.hinterstar.ui.components.gamescreen.stages.ActionStage
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
@@ -11,16 +11,18 @@ import galenscovell.hinterstar.util._
 
 class Player(actionStage: ActionStage) extends Group {
   private val gameScreen: GameScreen = actionStage.getGameScreen
-  private val shipActor: Image = new Image(Resources.atlas.createSprite(PlayerData.getShip.getName))
-  private val overlayActor: Actor = new InteriorOverlay(PlayerData.getShip)
+  private val ship: Ship = PlayerData.getShip
+  private val shipActor: Image = new Image(Resources.atlas.createSprite(ship.getName))
 
   construct()
 
 
   private def construct(): Unit = {
+    ship.createInterior()
+
     this.setSize(480, 192)
     shipActor.setSize(480, 192)
-    overlayActor.setSize(480, 192)
+    ship.getInterior.setSize(480, 192)
 
     this.addActor(shipActor)
 
@@ -32,15 +34,19 @@ class Player(actionStage: ActionStage) extends Group {
     ))
   }
 
+  def getShip: Ship = {
+    ship
+  }
+
   def overlayPresent(): Boolean = {
-    overlayActor.hasParent
+    ship.getInterior.hasParent
   }
 
   def enableOverlay(): Unit = {
-    this.addActor(overlayActor)
+    this.addActor(ship.getInterior)
   }
 
   def disableOverlay(): Unit = {
-    overlayActor.remove()
+    ship.getInterior.remove()
   }
 }

@@ -160,7 +160,7 @@ class ShipSelectPanel extends Table {
     // Ship Subsystem Display
     // Max # subsystems for any given ship is 8
     val shipSubsystemTable: Table = new Table
-    val shipSubsystems: Array[String] = allShips(currentShipIndex).getSubsystems
+    val shipSubsystems: Array[String] = allShips(currentShipIndex).getSubsystemNames
 
     // Row 1
     for (i <- 0 until 4) {

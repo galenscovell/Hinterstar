@@ -1,9 +1,9 @@
-package galenscovell.hinterstar.generation.interior
+package galenscovell.hinterstar.things.ships
 
 import java.io._
 
 import com.badlogic.gdx.Gdx
-import galenscovell.hinterstar.things.ships.Ship
+import galenscovell.hinterstar.generation.interior.Tile
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -18,7 +18,7 @@ class InteriorParser(ship: Ship) {
   private var height: Int = 0
   var tileSize: Int = 0
 
-  parse(ship.getName)
+  parse()
   // debugPrint()
 
 
@@ -26,7 +26,7 @@ class InteriorParser(ship: Ship) {
     tiles.toArray
   }
 
-  private def parse(ship: String): Unit = {
+  private def parse(): Unit = {
     val reader: BufferedReader = Gdx.files.internal("data/ship_interiors.txt").reader(1024)
 
     var shipFound: Boolean = false
@@ -55,7 +55,7 @@ class InteriorParser(ship: Ship) {
         y += 1
       }
 
-      if (line == ship) {
+      if (line == ship.getName) {
         shipFound = true
         val dimLine: String = reader.readLine()
         val splitLine: Array[String] = dimLine.split(",")

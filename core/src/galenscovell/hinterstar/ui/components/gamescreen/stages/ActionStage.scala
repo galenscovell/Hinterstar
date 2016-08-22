@@ -6,7 +6,8 @@ import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.viewport.FitViewport
-import galenscovell.hinterstar.things.entities.{NpcShip, Player}
+import galenscovell.hinterstar.processing.CombatHandler
+import galenscovell.hinterstar.things.entities.{Npc, Player}
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 
@@ -14,7 +15,9 @@ import galenscovell.hinterstar.util._
 class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
   private val gameScreen: GameScreen = game
   private val player: Player = new Player(this)
-  private var npcShip: NpcShip = new NpcShip(this)
+  private var npc: Npc = new Npc(this)
+  private val combatHandler: CombatHandler = new CombatHandler(player.getShip)
+
   private val leftTable: Table = new Table
   private val rightTable: Table = new Table
 
@@ -28,7 +31,7 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
     val actionTable: Table = new Table
 
     leftTable.add(player).expand.fill.left
-    rightTable.add(npcShip).expand.fill.right
+    rightTable.add(npc).expand.fill.right
 
     actionTable.add(leftTable).left.padLeft(10)
     actionTable.add(rightTable).expand.right.padRight(10)
@@ -70,5 +73,17 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
 
   def getGameScreen: GameScreen = {
     gameScreen
+  }
+
+
+  /*******************
+    *     Combat     *
+    *******************/
+  def combatUpdate(): Unit = {
+    combatHandler.update(player.getShip.updateActiveWeapons(), npc.getShip.updateActiveWeapons())
+  }
+
+  def combatRender(delta: Float): Unit = {
+    combatHandler.render(delta)
   }
 }

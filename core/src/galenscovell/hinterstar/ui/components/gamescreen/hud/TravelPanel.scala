@@ -83,7 +83,7 @@ class TravelPanel(stage: HudStage) extends Table {
   }
 
   private def travelToSystem(): Unit = {
-    if (SystemRepo.travelToSelection) {
+    if (SystemOperations.travelToSelection) {
       hudStage.closeTravelPanel()
       hudStage.disableTravelButton()
       hudStage.getGameScreen.beginTravel()

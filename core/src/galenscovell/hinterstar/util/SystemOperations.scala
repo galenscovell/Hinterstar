@@ -13,7 +13,7 @@ import scala.collection.mutable.ArrayBuffer
   * Currently, System data is needed in some areas that aren't created with it.
   * Ideally, this will be able to be eradicated through redesign in architecture.
   */
-object SystemRepo {
+object SystemOperations {
   val systemsInRange: ArrayBuffer[System] = ArrayBuffer()
   val shapeRenderer: ShapeRenderer = new ShapeRenderer()
   val playerRangeRadius: Int = 8 * Constants.SYSTEMMARKER_SIZE

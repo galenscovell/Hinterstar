@@ -165,7 +165,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
       eventPanel.remove()
       eventPanel = null
     }
-    eventPanel = new EventPanel(this, SystemRepo.parseNextEvent)
+    eventPanel = new EventPanel(this, SystemOperations.parseNextEvent)
     this.addActor(eventPanel)
     hideUI()
   }

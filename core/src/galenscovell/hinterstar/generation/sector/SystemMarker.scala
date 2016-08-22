@@ -17,19 +17,6 @@ class SystemMarker(x: Int, y: Int) extends Actor {
   private var glowing: Boolean = true
   private var system: System = _
 
-  initialize()
-
-
-  private def initialize(): Unit = {
-    if (!isEmpty) {
-      this.addListener(new ActorGestureListener() {
-        override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
-            SystemRepo.setSelection(getSystem)
-        }
-      })
-    }
-  }
-
 
 
   /********************
@@ -66,6 +53,11 @@ class SystemMarker(x: Int, y: Int) extends Actor {
     ********************/
   def setSystem(s: System): Unit = {
     system = s
+    this.addListener(new ActorGestureListener() {
+      override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
+        SystemOperations.setSelection(s)
+      }
+    })
   }
 
   def becomeEmpty(): Unit = {

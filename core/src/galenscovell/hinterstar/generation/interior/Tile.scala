@@ -1,6 +1,7 @@
 package galenscovell.hinterstar.generation.interior
 
 import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
 import com.badlogic.gdx.scenes.scene2d.{Actor, InputEvent}
 import galenscovell.hinterstar.things.entities.Crewmate
@@ -75,12 +76,19 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
     this
   }
 
-  private def isSubsystem: Boolean = {
+  def isSubsystem: Boolean = {
     name != "none"
   }
 
   def isWeaponSubsystem: Boolean = {
     weaponSystem
+  }
+
+  def getScreenCoordinates(): Vector2 = {
+    val actorCoords: Vector2 = new Vector2(getX, getY)
+    val stageCoords: Vector2 = this.localToStageCoordinates(actorCoords)
+    val screenCoords: Vector2 = this.getStage.stageToScreenCoordinates(stageCoords)
+    screenCoords
   }
 
 

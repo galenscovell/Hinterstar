@@ -55,7 +55,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
 
   private def construct(): Unit = {
-    SystemRepo.setup(this)
+    SystemOperations.setup(this)
     val actionViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, actionCamera)
     val hudViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, hudCamera)
     actionStage = new ActionStage(this, actionViewport, root.spriteBatch)
@@ -96,7 +96,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
   def openTravelPanel(): Unit = {
     travelPanelOpen = true
-    SystemRepo.setTargetsInRange()
+    SystemOperations.setTargetsInRange()
   }
 
   def closeTravelPanel(): Unit = {
@@ -249,20 +249,22 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
     if (!paused) {
       if (accumulator > timestep) {
         accumulator = 0
-        val readyWeapons: Array[Weapon] = PlayerData.getShip.updateActiveWeapons()
+        actionStage.combatUpdate()
       }
       accumulator += 1
     }
 
-    // Update and render game stage
+    // Update and render game stages
     actionStage.act(delta)
     actionStage.draw()
+    actionStage.combatRender(delta)
+
     hudStage.act(delta)
     hudStage.draw()
 
     // Draw map panel shapes
     if (travelPanelOpen) {
-      SystemRepo.drawShapes()
+      SystemOperations.drawShapes()
     }
   }
 
