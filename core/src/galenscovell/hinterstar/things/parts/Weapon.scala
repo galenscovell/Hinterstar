@@ -1,16 +1,18 @@
 package galenscovell.hinterstar.things.parts
 
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar
+import galenscovell.hinterstar.graphics.WeaponFx
 import galenscovell.hinterstar.util.Resources
 
 
-class Weapon(n: String, ss: String, desc: String, dmg: Int, fr: Int, fx: String) {
+class Weapon(n: String, ss: String, desc: String, dmg: Int, fr: Int, eff: String, fxType: String, speed: Float) {
   private val name: String = n
   private val subsystem: String = ss
   private val description: String = desc
   private val damage: Int = dmg
   private val firerate: Int = fr
-  private val effect: String = fx
+  private val effect: String = eff
+  private val fx: WeaponFx = new WeaponFx(fxType, speed)
 
   private var active: Boolean = false
 
@@ -53,6 +55,10 @@ class Weapon(n: String, ss: String, desc: String, dmg: Int, fr: Int, fx: String)
 
   def isActive: Boolean = {
     active
+  }
+
+  def getFx: WeaponFx = {
+    fx
   }
 
 

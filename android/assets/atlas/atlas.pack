@@ -5,56 +5,56 @@ filter: Nearest,Nearest
 repeat: none
 Ship-0
   rotate: false
-  xy: 1, 251
+  xy: 1, 765
   size: 640, 256
   orig: 640, 256
   offset: 0, 0
   index: -1
 Ship-1
   rotate: false
-  xy: 643, 251
+  xy: 1, 507
   size: 640, 256
   orig: 640, 256
   offset: 0, 0
   index: -1
 Ship-2
   rotate: false
-  xy: 1285, 251
+  xy: 1, 249
   size: 640, 256
   orig: 640, 256
   offset: 0, 0
   index: -1
 current_marker
   rotate: false
-  xy: 1, 169
+  xy: 643, 941
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 test-crewmate
   rotate: false
-  xy: 1927, 435
+  xy: 1, 175
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 subsystem_marker
   rotate: false
-  xy: 1, 107
+  xy: 643, 879
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 map_glow
   rotate: false
-  xy: 83, 201
+  xy: 725, 973
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blue_button0_np
   rotate: false
-  xy: 1927, 397
+  xy: 1, 137
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -62,7 +62,7 @@ blue_button0_np
   index: -1
 blue_button1_np
   rotate: false
-  xy: 2001, 471
+  xy: 75, 211
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -70,7 +70,7 @@ blue_button1_np
   index: -1
 green_button0_np
   rotate: false
-  xy: 1, 69
+  xy: 643, 841
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -78,7 +78,7 @@ green_button0_np
   index: -1
 green_button1_np
   rotate: false
-  xy: 133, 213
+  xy: 775, 985
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -86,182 +86,182 @@ green_button1_np
   index: -1
 0 of 1
   rotate: false
-  xy: 1927, 363
+  xy: 1, 103
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 0 of 3
   rotate: false
-  xy: 1965, 401
+  xy: 39, 141
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 0 of 6
   rotate: false
-  xy: 2001, 437
+  xy: 75, 177
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 1 of 1
   rotate: false
-  xy: 1, 35
+  xy: 113, 215
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 1 of 3
   rotate: false
-  xy: 171, 217
+  xy: 643, 807
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 1 of 6
   rotate: false
-  xy: 1927, 329
+  xy: 813, 989
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 2 of 3
   rotate: false
-  xy: 1, 1
+  xy: 1, 69
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 2 of 6
   rotate: false
-  xy: 205, 217
+  xy: 147, 215
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 3 of 3
   rotate: false
-  xy: 1927, 295
+  xy: 643, 773
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 3 of 6
   rotate: false
-  xy: 239, 217
+  xy: 847, 989
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 4 of 6
   rotate: false
-  xy: 1927, 261
+  xy: 1, 35
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 5 of 6
   rotate: false
-  xy: 273, 217
+  xy: 181, 215
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 6 of 6
   rotate: false
-  xy: 307, 217
+  xy: 643, 739
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_drone
   rotate: false
-  xy: 341, 217
+  xy: 881, 989
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_engine
   rotate: false
-  xy: 375, 217
+  xy: 1, 1
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_helm
   rotate: false
-  xy: 409, 217
+  xy: 215, 215
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_medbay
   rotate: false
-  xy: 443, 217
+  xy: 643, 705
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_sensor
   rotate: false
-  xy: 477, 217
+  xy: 915, 989
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_shield
   rotate: false
-  xy: 511, 217
+  xy: 249, 215
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_weapon
   rotate: false
-  xy: 545, 217
+  xy: 643, 671
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-0
   rotate: false
-  xy: 579, 217
+  xy: 949, 989
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-1
   rotate: false
-  xy: 613, 217
+  xy: 283, 215
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-2
   rotate: false
-  xy: 647, 217
+  xy: 643, 637
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-3
   rotate: false
-  xy: 681, 217
+  xy: 983, 989
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-4
   rotate: false
-  xy: 715, 217
+  xy: 317, 215
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-np-0
   rotate: false
-  xy: 83, 175
+  xy: 725, 947
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -269,7 +269,7 @@ test-np-0
   index: -1
 test-np-1
   rotate: false
-  xy: 749, 225
+  xy: 643, 611
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -277,7 +277,7 @@ test-np-1
   index: -1
 test-np-2
   rotate: false
-  xy: 775, 225
+  xy: 351, 223
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -285,7 +285,7 @@ test-np-2
   index: -1
 test-np-3
   rotate: false
-  xy: 801, 225
+  xy: 643, 585
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -293,7 +293,7 @@ test-np-3
   index: -1
 test-np-4
   rotate: false
-  xy: 827, 225
+  xy: 377, 223
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -301,15 +301,29 @@ test-np-4
   index: -1
 text-field-bg-np
   rotate: false
-  xy: 827, 225
+  xy: 377, 223
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
   offset: 0, 0
   index: -1
+fx_laser
+  rotate: false
+  xy: 705, 923
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+fx_solid
+  rotate: false
+  xy: 681, 861
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
 font-cursor-np
   rotate: false
-  xy: 63, 143
+  xy: 1017, 997
   size: 3, 24
   split: 0, 0, 0, 0
   orig: 3, 24
@@ -317,7 +331,7 @@ font-cursor-np
   index: -1
 health-bar-empty-np
   rotate: false
-  xy: 2039, 499
+  xy: 775, 975
   size: 3, 8
   split: 0, 0, 0, 0
   orig: 3, 8
@@ -325,7 +339,7 @@ health-bar-empty-np
   index: -1
 health-bar-fill-np
   rotate: false
-  xy: 2044, 499
+  xy: 751, 963
   size: 3, 8
   split: 0, 0, 0, 0
   orig: 3, 8

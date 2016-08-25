@@ -16,7 +16,7 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
   private val gameScreen: GameScreen = game
   private val player: Player = new Player(this)
   private var npc: Npc = new Npc(this)
-  private val combatHandler: CombatHandler = new CombatHandler(player.getShip)
+  private val combatHandler: CombatHandler = new CombatHandler(this, player.getShip)
 
   private val leftTable: Table = new Table
   private val rightTable: Table = new Table
@@ -39,6 +39,9 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
     mainTable.add(actionTable).width(Constants.EXACT_X * 1.5f).expand.fill.padLeft(Constants.EXACT_X / 2)
 
     this.addActor(mainTable)
+
+    npc.enableOverlay()
+    combatHandler.setOpposition(npc)
   }
 
   def updatePlayerAnimation(): Unit = {
@@ -84,6 +87,6 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
   }
 
   def combatRender(delta: Float): Unit = {
-    combatHandler.render(delta)
+    combatHandler.render(delta, this.spriteBatch)
   }
 }

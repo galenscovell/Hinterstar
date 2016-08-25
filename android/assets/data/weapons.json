@@ -1,23 +1,29 @@
 {
-  "Machinegun": {
+  "Railgun": {
     "subsystem": "Weapon Control",
     "description": "A basic combat part.",
     "damage": 2,
     "firerate": 10,
-    "effect": ""
+    "effect": "",
+    "fx": "fx_solid",
+    "speed": 1.5
   },
-  "Railgun": {
+  "Basic Laser": {
     "subsystem": "Weapon Control",
     "description": "A basic combat part.",
     "damage": 3,
     "firerate": 15,
-    "effect": ""
+    "effect": "",
+    "fx": "fx_laser",
+    "speed": 0
   },
   "Gun Drone": {
     "subsystem": "Drone Bay",
     "description": "A basic combat part.",
     "damage": 5,
     "firerate": 30,
-    "effect": ""
+    "effect": "",
+    "fx": "fx_drone",
+    "speed": 0
   }
 }

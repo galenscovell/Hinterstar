@@ -84,11 +84,15 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
     weaponSystem
   }
 
-  def getScreenCoordinates(): Vector2 = {
-    val actorCoords: Vector2 = new Vector2(getX, getY)
+  def getActorCoordinates: Vector2 = {
+    val actorCoords: Vector2 = new Vector2(getX + (tileSize / 1.5f), getY + ((ty + 1.5f) * tileSize))
+    actorCoords
+  }
+
+  def getStageCoordinates: Vector2 = {
+    val actorCoords: Vector2 = new Vector2(getX - 240, getY - (tileSize / 2))
     val stageCoords: Vector2 = this.localToStageCoordinates(actorCoords)
-    val screenCoords: Vector2 = this.getStage.stageToScreenCoordinates(stageCoords)
-    screenCoords
+    stageCoords
   }
 
 

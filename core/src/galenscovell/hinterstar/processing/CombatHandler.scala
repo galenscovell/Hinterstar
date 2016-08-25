@@ -1,5 +1,8 @@
 package galenscovell.hinterstar.processing
 
+import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.math.Vector2
+import com.badlogic.gdx.scenes.scene2d.Stage
 import galenscovell.hinterstar.generation.interior.Tile
 import galenscovell.hinterstar.graphics.WeaponFx
 import galenscovell.hinterstar.things.entities.Npc
@@ -22,7 +25,8 @@ import scala.collection.mutable.ArrayBuffer
   * The exact coordinate source for each weapon is the subsystem that it's housed within.
   * The exact coordinate target is any subsystem on the opposition ship.
   */
-class CombatHandler(playerShip: Ship) {
+class CombatHandler(root: Stage, playerShip: Ship) {
+  private val actionStage: Stage = root
   private val player: Ship = playerShip
   private var opposition: Npc = _
   private val weaponFx: ArrayBuffer[WeaponFx] = ArrayBuffer()
@@ -42,11 +46,15 @@ class CombatHandler(playerShip: Ship) {
     // Check ready to fire weapons for player ship
     if (playerReadyWeapons.nonEmpty) {
       for (weapon: Weapon <- playerReadyWeapons) {
-        val weaponSubsystem: String = weapon.getSubsystem
-        val weaponTile: Tile = player.getSubsystemMap(weaponSubsystem)
-        println(weaponTile.getScreenCoordinates.toString)
+        if (!weaponFx.contains(weapon.getFx)) {
+          val weaponSubsystem: String = weapon.getSubsystem
+          val weaponTile: Tile = player.getSubsystemMap(weaponSubsystem)
+          weaponFx.append(weapon.getFx)
+          val srcCoords: Vector2 = weaponTile.getActorCoordinates
+          val targetCoords: Vector2 = opposition.getShip.getSubsystemMap("Weapon Control").getStageCoordinates
+          weapon.getFx.fire(srcCoords, targetCoords)
+        }
       }
-
     }
 
     // Repeat above for opposition
@@ -60,16 +68,17 @@ class CombatHandler(playerShip: Ship) {
   /**********************
     *     Rendering     *
     **********************/
-  def render(delta: Float): Unit = {
+  def render(delta: Float, spriteBatch: Batch): Unit = {
     val finishedFxIndices: ArrayBuffer[Int] = ArrayBuffer()
 
+    spriteBatch.begin()
     for (fx <- weaponFx) {
-      if (!fx.done) {
-        fx.draw(delta)
-      } else {
+      fx.draw(delta, spriteBatch)
+      if (fx.done) {
         finishedFxIndices.append(weaponFx.indexOf(fx))
       }
     }
+    spriteBatch.end()
 
     for (i: Int <- finishedFxIndices) {
       weaponFx.remove(i)
