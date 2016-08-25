@@ -13,6 +13,13 @@ import scala.collection.mutable.ArrayBuffer
   */
 class InteriorParser(ship: Ship) {
   private val rootShip: Ship = ship
+  private val targetShipName: String = {
+    if (ship.isPlayerShip) {
+      ship.getName
+    } else {
+      ship.getName + "-reversed"
+    }
+  }
   private val tiles: ArrayBuffer[Array[Tile]] = ArrayBuffer()
   private var width: Int = 0
   private var height: Int = 0
@@ -55,7 +62,7 @@ class InteriorParser(ship: Ship) {
         y += 1
       }
 
-      if (line == ship.getName) {
+      if (line == targetShipName) {
         shipFound = true
         val dimLine: String = reader.readLine()
         val splitLine: Array[String] = dimLine.split(",")
