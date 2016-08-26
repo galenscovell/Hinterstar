@@ -28,12 +28,15 @@ class WeaponFx(fxType: String, speed: Float) {
     // Return true if current position surpasses destination
     val diffX: Float = Math.abs(destination.x - pos.x)
     val diffY: Float = Math.abs(destination.y - pos.y)
-    diffX <= 4 && diffY <= 4
+    diffX <= 4 && diffY <= 8
   }
 
   def draw(delta: Float, spriteBatch: Batch): Unit = {
     pos.x += (destination.x - start.x) * velocity * delta
     pos.y += (destination.y - start.y) * velocity * delta
     spriteBatch.draw(sprite, pos.x, pos.y, 8, 8)
+
+    spriteBatch.draw(sprite, start.x, start.y, 8, 8)
+    spriteBatch.draw(sprite, destination.x, destination.y, 8, 8)
   }
 }

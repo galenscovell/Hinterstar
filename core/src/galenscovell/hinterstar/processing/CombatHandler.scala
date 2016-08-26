@@ -10,6 +10,7 @@ import galenscovell.hinterstar.things.parts.Weapon
 import galenscovell.hinterstar.things.ships.Ship
 
 import scala.collection.mutable.ArrayBuffer
+import scala.util.Random
 
 
 /**
@@ -27,6 +28,7 @@ import scala.collection.mutable.ArrayBuffer
   */
 class CombatHandler(root: Stage, playerShip: Ship) {
   private val actionStage: Stage = root
+  private val random: Random = new Random()
   private val player: Ship = playerShip
   private var opposition: Npc = _
   private val weaponFx: ArrayBuffer[WeaponFx] = ArrayBuffer()
@@ -51,8 +53,13 @@ class CombatHandler(root: Stage, playerShip: Ship) {
           val weaponTile: Tile = player.getSubsystemMap(weaponSubsystem)
           weaponFx.append(weapon.getFx)
           val srcCoords: Vector2 = weaponTile.getActorCoordinates
-          val targetCoords: Vector2 = opposition.getShip.getSubsystemMap("Weapon Control").getStageCoordinates
+
+          val targetSubsystemNames: Array[String] = opposition.getShip.getSubsystemNames
+          val randomSubsystemIndex: Int = random.nextInt(targetSubsystemNames.length)
+          val targetCoords: Vector2 = opposition.getShip.getSubsystemMap(targetSubsystemNames(randomSubsystemIndex)).getStageCoordinates
+
           weapon.getFx.fire(srcCoords, targetCoords)
+          weapon.resetFireBar()
         }
       }
     }

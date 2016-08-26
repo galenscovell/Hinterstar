@@ -1,5 +1,6 @@
 package galenscovell.hinterstar.generation.interior
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
@@ -85,14 +86,25 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
   }
 
   def getActorCoordinates: Vector2 = {
-    val actorCoords: Vector2 = new Vector2(getX + (tileSize / 1.5f), getY + ((ty + 1.5f) * tileSize))
-    actorCoords
+    // Return Vector of internal x and y used to draw sprites in draw()
+    // Y is inverted (screenheight - y) because of how Scene2D thinks opposite in regards to height
+    // tilesize / 2 is added to both x and y to make the point in the center of the tile
+    val internalCoords: Vector2 = new Vector2(
+      (tx * tileSize) + (tileSize / 2) + 4,
+      Gdx.graphics.getHeight - (tileSize * (overlayHeight - 1)) - (ty * tileSize) - (tileSize / 2)
+    )
+    internalCoords
   }
 
   def getStageCoordinates: Vector2 = {
-    val actorCoords: Vector2 = new Vector2(getX - 240, getY - (tileSize / 2))
-    val stageCoords: Vector2 = this.localToStageCoordinates(actorCoords)
-    stageCoords
+    val internalCoords: Vector2 = new Vector2(
+      (tx * tileSize) + (tileSize / 2) + 4,
+      Gdx.graphics.getHeight - (tileSize * (overlayHeight - 1)) - (ty * tileSize) - (tileSize / 2)
+    )
+    val actorCoords: Vector2 = new Vector2(getX, getY)
+    val stageCoords: Vector2 = this.localToStageCoordinates(internalCoords)
+    val screenCoords :Vector2 = this.getStage.stageToScreenCoordinates(stageCoords)
+    screenCoords
   }
 
 

@@ -3,7 +3,7 @@
     "subsystem": "Weapon Control",
     "description": "A basic combat part.",
     "damage": 2,
-    "firerate": 10,
+    "firerate": 1,
     "effect": "",
     "fx": "fx_solid",
     "speed": 1.5
