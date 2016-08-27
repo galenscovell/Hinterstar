@@ -46,18 +46,18 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
         }
       }
     }
+
+    this.setPosition(tx * tileSize, (tileSize * (overlayHeight - 1)) - (ty * tileSize))
   }
 
   private def constructInfo: SubsystemInfo = {
     if (isSubsystem) {
       // Render above or below depending on relative position of subsystem
-      var infoY: Int = 0
-      if (height - ty > (height / 2)) {
-        infoY = (tileSize * (overlayHeight - 1)) - (ty * tileSize) + 48
-      } else {
-        infoY = (tileSize * (overlayHeight - 1)) - (ty * tileSize) - 48
+      var infoY: Float = getY
+      if (overlayHeight - ty > (overlayHeight / 2)) {
+        infoY += (overlayHeight * tileSize)
       }
-      val info: SubsystemInfo = new SubsystemInfo(name, maxOccupancy, tx * tileSize, infoY)
+      val info: SubsystemInfo = new SubsystemInfo(name, maxOccupancy, tx * tileSize, infoY.toInt)
       info
     } else {
       null
@@ -86,25 +86,16 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
   }
 
   def getActorCoordinates: Vector2 = {
-    // Return Vector of internal x and y used to draw sprites in draw()
-    // Y is inverted (screenheight - y) because of how Scene2D thinks opposite in regards to height
-    // tilesize / 2 is added to both x and y to make the point in the center of the tile
-    val internalCoords: Vector2 = new Vector2(
-      (tx * tileSize) + (tileSize / 2) + 4,
-      Gdx.graphics.getHeight - (tileSize * (overlayHeight - 1)) - (ty * tileSize) - (tileSize / 2)
-    )
-    internalCoords
-  }
-
-  def getStageCoordinates: Vector2 = {
-    val internalCoords: Vector2 = new Vector2(
-      (tx * tileSize) + (tileSize / 2) + 4,
-      Gdx.graphics.getHeight - (tileSize * (overlayHeight - 1)) - (ty * tileSize) - (tileSize / 2)
-    )
-    val actorCoords: Vector2 = new Vector2(getX, getY)
-    val stageCoords: Vector2 = this.localToStageCoordinates(internalCoords)
-    val screenCoords :Vector2 = this.getStage.stageToScreenCoordinates(stageCoords)
-    screenCoords
+    // This is confusing -- one would think to use getX() and getY(), but _don't_
+    // Those return the location of the actor within the table, which we would then
+    // attempt to transform to stage coordinates.
+    // What we need to do is determine where a point is _within_ the current actor.
+    // Vector2(0, 0) is the bottom left corner of the actor
+    // Vector2(0, getHeight()) is the top left corner of the actor
+    this.localToStageCoordinates(new Vector2(
+      (tileSize / 2) - 4,
+      (tileSize / 2) - 4
+    ))
   }
 
 
@@ -159,13 +150,7 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
       val frameAlpha: Float = frames / 240.0f
 
       batch.setColor(0.2f, 0.9f, 0.2f, frameAlpha)
-      batch.draw(
-        Resources.spSubsystemMarker,
-        tx * tileSize,
-        (tileSize * (overlayHeight - 1)) - (ty * tileSize),
-        tileSize,
-        tileSize
-      )
+      batch.draw(Resources.spSubsystemMarker, getX, getY, tileSize, tileSize)
 
       infoDisplay.draw(batch, parentAlpha)
       batch.setColor(1, 1, 1, 1)

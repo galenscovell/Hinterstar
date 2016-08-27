@@ -52,11 +52,12 @@ class CombatHandler(root: Stage, playerShip: Ship) {
           val weaponSubsystem: String = weapon.getSubsystem
           val weaponTile: Tile = player.getSubsystemMap(weaponSubsystem)
           weaponFx.append(weapon.getFx)
+
           val srcCoords: Vector2 = weaponTile.getActorCoordinates
 
           val targetSubsystemNames: Array[String] = opposition.getShip.getSubsystemNames
           val randomSubsystemIndex: Int = random.nextInt(targetSubsystemNames.length)
-          val targetCoords: Vector2 = opposition.getShip.getSubsystemMap(targetSubsystemNames(randomSubsystemIndex)).getStageCoordinates
+          val targetCoords: Vector2 = opposition.getShip.getSubsystemMap(targetSubsystemNames(randomSubsystemIndex)).getActorCoordinates
 
           weapon.getFx.fire(srcCoords, targetCoords)
           weapon.resetFireBar()

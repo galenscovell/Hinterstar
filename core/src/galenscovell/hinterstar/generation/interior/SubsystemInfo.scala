@@ -33,7 +33,7 @@ class SubsystemInfo(name: String, occupancy: Int, rootX: Int, rootY: Int) {
   }
 
   def draw(batch: Batch, parentAlpha: Float): Unit = {
-    batch.draw(subsystemSprite, infoX - 16, infoY + 8, 32, 32)
-    batch.draw(occupancySprite, infoX + 24, infoY + 8, 32, 32)
+    batch.draw(subsystemSprite, infoX - 8, infoY + 8, 32, 32)
+    batch.draw(occupancySprite, infoX + 32, infoY + 8, 32, 32)
   }
 }
