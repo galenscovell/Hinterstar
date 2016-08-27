@@ -25,9 +25,9 @@ class Npc(actionStage: ActionStage) extends Group {
   private def construct(): Unit = {
     ship.createInterior()
 
-    this.setSize(480, 192)
-    shipActor.setSize(480, 192)
-    ship.getInterior.setSize(480, 192)
+    this.setSize(420, 168)
+    shipActor.setSize(420, 168)
+    ship.getInterior.setSize(420, 168)
 
     this.addActor(shipActor)
 
@@ -45,7 +45,6 @@ class Npc(actionStage: ActionStage) extends Group {
 
   def overlayPresent(): Boolean = {
     ship.getInterior.hasParent
-    true
   }
 
   def enableOverlay(): Unit = {

@@ -18,9 +18,6 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
   private var npc: Npc = new Npc(this)
   private val combatHandler: CombatHandler = new CombatHandler(this, player.getShip)
 
-  private val leftTable: Table = new Table
-  private val rightTable: Table = new Table
-
   construct()
 
 
@@ -28,19 +25,19 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
-    val actionTable: Table = new Table
+    val actionGroup: Group = new Group
+    actionGroup.setSize(Constants.EXACT_X * 1.125f, Constants.EXACT_Y)
+    actionGroup.setPosition(0, 0)
 
-    leftTable.add(player).expand.fill.left
-    rightTable.add(npc).expand.fill.right
+    actionGroup.addActor(player)
+    player.setPosition(0, 96)
 
-    actionTable.add(leftTable).left.padLeft(10)
-    actionTable.add(rightTable).expand.right.padRight(10)
+    actionGroup.addActor(npc)
+    npc.setPosition(380, 240)
 
-    mainTable.add(actionTable).width(Constants.EXACT_X * 1.5f).expand.fill.padLeft(Constants.EXACT_X / 2)
-
+    mainTable.addActor(actionGroup)
     this.addActor(mainTable)
 
-    npc.enableOverlay()
     combatHandler.setOpposition(npc)
   }
 
@@ -66,17 +63,32 @@ class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBa
     } else {
       player.enableOverlay()
     }
+
+    if (npc != null) {
+      if (npc.overlayPresent()) {
+        npc.disableOverlay()
+      } else {
+        npc.enableOverlay()
+      }
+    }
   }
 
   def disableSubsystemOverlay(): Unit = {
     if (player.overlayPresent()) {
       player.disableOverlay()
     }
+
+    if (npc != null) {
+      if (npc.overlayPresent()) {
+        npc.disableOverlay()
+      }
+    }
   }
 
   def getGameScreen: GameScreen = {
     gameScreen
   }
+
 
 
   /*******************

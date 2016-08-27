@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
 import galenscovell.hinterstar.processing.controls.GestureHandler
-import galenscovell.hinterstar.things.parts.Weapon
 import galenscovell.hinterstar.ui.components.gamescreen.stages._
 import galenscovell.hinterstar.util._
 
@@ -32,7 +31,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
 
   private val originVector: Vector3 = new Vector3(Constants.EXACT_X / 2, Constants.EXACT_Y / 2, 0)
   private val cameraXmin: Float = Constants.EXACT_X * 0.5f
-  private val cameraXmax: Float = Constants.EXACT_X
+  private val cameraXmax: Float = Constants.EXACT_X * 0.5f
 
   private val timestep: Int = 30
   private var accumulator: Int = 0

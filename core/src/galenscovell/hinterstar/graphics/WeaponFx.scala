@@ -33,7 +33,7 @@ class WeaponFx(fxType: String, speed: Float) {
       case "fx_railgun" =>
         val diffX: Float = Math.abs(destination.x - pos.x)
         val diffY: Float = Math.abs(destination.y - pos.y)
-        diffX <= 4 && diffY <= 4
+        diffX <= 8 && diffY <= 8
       case "fx_basic_laser" =>
         frames -= 1
         frames <= 0
@@ -45,7 +45,7 @@ class WeaponFx(fxType: String, speed: Float) {
       case "fx_railgun" =>
         pos.x += (destination.x - start.x) * velocity * delta
         pos.y += (destination.y - start.y) * velocity * delta
-        spriteBatch.draw(sprite, pos.x, pos.y, 4, 4)
+        spriteBatch.draw(sprite, pos.x, pos.y, 6, 6)
 
       case "fx_basic_laser" =>
         val distance: Float = start.dst(destination)

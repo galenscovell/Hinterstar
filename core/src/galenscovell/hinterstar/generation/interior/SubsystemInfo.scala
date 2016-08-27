@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.{Batch, Sprite}
 import galenscovell.hinterstar.util.Resources
 
 
-class SubsystemInfo(name: String, occupancy: Int, rootX: Int, rootY: Int) {
+class SubsystemInfo(name: String, occupancy: Int, rootX: Int, rootY: Int, tileSize: Int) {
   private val infoX: Int = rootX
   private val infoY: Int = rootY
 

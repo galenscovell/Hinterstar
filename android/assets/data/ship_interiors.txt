@@ -7,7 +7,7 @@ S = Shield subsystem
 M = Medbay subsystem
 
 Ship-0
-10,4,48
+10,4,42
 ~~~~S~~~~~
 ~~~~~~~~~~
 ~E~M~W~~H~
@@ -15,7 +15,7 @@ Ship-0
 END
 
 Ship-1
-10,4,48
+10,4,42
 ~~~~S~~~~~
 ~~~~~~~~~~
 ~E~M~W~~H~
@@ -23,7 +23,7 @@ Ship-1
 END
 
 Ship-1-reversed
-10,4,48
+10,4,42
 ~~~~~S~~~~
 ~~~~~~~~~~
 ~H~~W~M~E~
@@ -31,7 +31,7 @@ Ship-1-reversed
 END
 
 Ship-2
-10,4,48
+10,4,42
 ~~~~S~~~~~
 ~~~~~~~~~~
 ~E~M~W~~H~

@@ -57,7 +57,7 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
       if (overlayHeight - ty > (overlayHeight / 2)) {
         infoY += (overlayHeight * tileSize)
       }
-      val info: SubsystemInfo = new SubsystemInfo(name, maxOccupancy, tx * tileSize, infoY.toInt)
+      val info: SubsystemInfo = new SubsystemInfo(name, maxOccupancy, tx * tileSize, infoY.toInt, tileSize)
       info
     } else {
       null
