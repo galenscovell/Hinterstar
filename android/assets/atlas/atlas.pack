@@ -5,56 +5,56 @@ filter: Nearest,Nearest
 repeat: none
 Ship-0
   rotate: false
-  xy: 1, 765
+  xy: 1, 251
   size: 640, 256
   orig: 640, 256
   offset: 0, 0
   index: -1
 Ship-1
   rotate: false
-  xy: 1, 507
+  xy: 643, 251
   size: 640, 256
   orig: 640, 256
   offset: 0, 0
   index: -1
 Ship-2
   rotate: false
-  xy: 1, 249
+  xy: 1285, 251
   size: 640, 256
   orig: 640, 256
   offset: 0, 0
   index: -1
 current_marker
   rotate: false
-  xy: 643, 941
+  xy: 1, 169
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 test-crewmate
   rotate: false
-  xy: 1, 175
+  xy: 1927, 435
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 subsystem_marker
   rotate: false
-  xy: 643, 879
+  xy: 1, 107
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 map_glow
   rotate: false
-  xy: 725, 973
+  xy: 83, 201
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blue_button0_np
   rotate: false
-  xy: 1, 137
+  xy: 1927, 397
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -62,7 +62,7 @@ blue_button0_np
   index: -1
 blue_button1_np
   rotate: false
-  xy: 75, 211
+  xy: 2001, 471
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -70,7 +70,7 @@ blue_button1_np
   index: -1
 green_button0_np
   rotate: false
-  xy: 643, 841
+  xy: 1, 69
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -78,7 +78,7 @@ green_button0_np
   index: -1
 green_button1_np
   rotate: false
-  xy: 775, 985
+  xy: 133, 213
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -86,182 +86,182 @@ green_button1_np
   index: -1
 0 of 1
   rotate: false
-  xy: 1, 103
+  xy: 1927, 363
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 0 of 3
   rotate: false
-  xy: 39, 141
+  xy: 1965, 401
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 0 of 6
   rotate: false
-  xy: 75, 177
+  xy: 2001, 437
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 1 of 1
   rotate: false
-  xy: 113, 215
+  xy: 1, 35
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 1 of 3
   rotate: false
-  xy: 643, 807
+  xy: 171, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 1 of 6
   rotate: false
-  xy: 813, 989
+  xy: 1927, 329
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 2 of 3
   rotate: false
-  xy: 1, 69
+  xy: 1, 1
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 2 of 6
   rotate: false
-  xy: 147, 215
+  xy: 205, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 3 of 3
   rotate: false
-  xy: 643, 773
+  xy: 1927, 295
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 3 of 6
   rotate: false
-  xy: 847, 989
+  xy: 239, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 4 of 6
   rotate: false
-  xy: 1, 35
+  xy: 1927, 261
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 5 of 6
   rotate: false
-  xy: 181, 215
+  xy: 273, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 6 of 6
   rotate: false
-  xy: 643, 739
+  xy: 307, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_drone
   rotate: false
-  xy: 881, 989
+  xy: 341, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_engine
   rotate: false
-  xy: 1, 1
+  xy: 375, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_helm
   rotate: false
-  xy: 215, 215
+  xy: 409, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_medbay
   rotate: false
-  xy: 643, 705
+  xy: 443, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_sensor
   rotate: false
-  xy: 915, 989
+  xy: 477, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_shield
   rotate: false
-  xy: 249, 215
+  xy: 511, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_weapon
   rotate: false
-  xy: 643, 671
+  xy: 545, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-0
   rotate: false
-  xy: 949, 989
+  xy: 579, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-1
   rotate: false
-  xy: 283, 215
+  xy: 613, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-2
   rotate: false
-  xy: 643, 637
+  xy: 647, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-3
   rotate: false
-  xy: 983, 989
+  xy: 681, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-4
   rotate: false
-  xy: 317, 215
+  xy: 715, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-np-0
   rotate: false
-  xy: 725, 947
+  xy: 83, 175
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -269,7 +269,7 @@ test-np-0
   index: -1
 test-np-1
   rotate: false
-  xy: 643, 611
+  xy: 749, 225
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -277,7 +277,7 @@ test-np-1
   index: -1
 test-np-2
   rotate: false
-  xy: 351, 223
+  xy: 775, 225
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -285,7 +285,7 @@ test-np-2
   index: -1
 test-np-3
   rotate: false
-  xy: 643, 585
+  xy: 801, 225
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -293,7 +293,7 @@ test-np-3
   index: -1
 test-np-4
   rotate: false
-  xy: 377, 223
+  xy: 827, 225
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -301,29 +301,29 @@ test-np-4
   index: -1
 text-field-bg-np
   rotate: false
-  xy: 377, 223
+  xy: 827, 225
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
   offset: 0, 0
   index: -1
-fx_laser
+fx_basic_laser
   rotate: false
-  xy: 705, 923
+  xy: 63, 151
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
-fx_solid
+fx_railgun
   rotate: false
-  xy: 681, 861
+  xy: 39, 89
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 font-cursor-np
   rotate: false
-  xy: 1017, 997
+  xy: 2039, 483
   size: 3, 24
   split: 0, 0, 0, 0
   orig: 3, 24
@@ -331,7 +331,7 @@ font-cursor-np
   index: -1
 health-bar-empty-np
   rotate: false
-  xy: 775, 975
+  xy: 2044, 499
   size: 3, 8
   split: 0, 0, 0, 0
   orig: 3, 8
@@ -339,7 +339,7 @@ health-bar-empty-np
   index: -1
 health-bar-fill-np
   rotate: false
-  xy: 751, 963
+  xy: 2044, 489
   size: 3, 8
   split: 0, 0, 0, 0
   orig: 3, 8

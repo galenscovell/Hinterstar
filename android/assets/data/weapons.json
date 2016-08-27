@@ -5,16 +5,16 @@
     "damage": 2,
     "firerate": 1,
     "effect": "",
-    "fx": "fx_solid",
+    "fx": "fx_railgun",
     "speed": 1.5
   },
   "Basic Laser": {
     "subsystem": "Weapon Control",
     "description": "A basic combat part.",
     "damage": 3,
-    "firerate": 15,
+    "firerate": 4,
     "effect": "",
-    "fx": "fx_laser",
+    "fx": "fx_basic_laser",
     "speed": 0
   },
   "Gun Drone": {
