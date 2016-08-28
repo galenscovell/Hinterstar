@@ -12,13 +12,13 @@ import galenscovell.hinterstar.ui.components.startscreen.{CrewSelectPanel, ShipS
 import galenscovell.hinterstar.util._
 
 
-class StartScreen(gameRoot: Hinterstar) extends Screen {
-  private val root: Hinterstar = gameRoot
+class StartScreen(root: Hinterstar) extends Screen {
   private var stage: Stage = _
   private val camera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
 
   private val crewPanel: CrewSelectPanel = new CrewSelectPanel
   private val shipPanel: ShipSelectPanel = new ShipSelectPanel
+
 
 
   private def create(): Unit = {

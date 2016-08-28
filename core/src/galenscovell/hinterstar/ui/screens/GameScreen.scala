@@ -17,8 +17,7 @@ import galenscovell.hinterstar.util._
 import scala.util.Random
 
 
-class GameScreen(gameRoot: Hinterstar) extends Screen {
-  private val root: Hinterstar = gameRoot
+class GameScreen(root: Hinterstar) extends Screen {
   private val actionCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
   private val hudCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
   private var actionStage: ActionStage = _
@@ -51,6 +50,7 @@ class GameScreen(gameRoot: Hinterstar) extends Screen {
   private var currentBackground: ParallaxBackground = normalBg
 
   construct()
+
 
 
   private def construct(): Unit = {

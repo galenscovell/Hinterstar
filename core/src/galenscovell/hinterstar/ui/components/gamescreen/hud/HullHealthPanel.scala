@@ -5,12 +5,12 @@ import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
 
 
-class HullHealthPanel(stage: HudStage) extends Table {
-  private val hudStage: HudStage = stage
+class HullHealthPanel(hudStage: HudStage) extends Table {
   private val hullHealthBar: ProgressBar = new ProgressBar(0, 100, 1, false, Resources.healthBarStyle)
 
   construct()
   updateHealth()
+
 
 
   private def construct(): Unit = {

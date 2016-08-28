@@ -5,11 +5,7 @@ import galenscovell.hinterstar.util._
 
 
 
-class System(gridX: Int, gridY: Int, gridSize: Int) {
-  val x: Int = gridX
-  val y: Int = gridY
-  val size: Int = gridSize
-
+class System(val x: Int, val y: Int, val size: Int) {
   private var event: Event = new Event()
   private var systemMarker: SystemMarker = _
 

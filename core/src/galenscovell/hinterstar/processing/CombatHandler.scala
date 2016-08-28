@@ -26,10 +26,8 @@ import scala.util.Random
   * The exact coordinate source for each weapon is the subsystem that it's housed within.
   * The exact coordinate target is any subsystem on the opposition ship.
   */
-class CombatHandler(root: Stage, playerShip: Ship) {
-  private val actionStage: Stage = root
+class CombatHandler(actionStage: Stage, playerShip: Ship) {
   private val random: Random = new Random()
-  private val player: Ship = playerShip
   private var opposition: Npc = _
   private val weaponFx: ArrayBuffer[WeaponFx] = ArrayBuffer()
 
@@ -50,7 +48,7 @@ class CombatHandler(root: Stage, playerShip: Ship) {
       for (weapon: Weapon <- playerReadyWeapons) {
         if (!weaponFx.contains(weapon.getFx)) {
           val weaponSubsystem: String = weapon.getSubsystem
-          val weaponTile: Tile = player.getSubsystemMap(weaponSubsystem)
+          val weaponTile: Tile = playerShip.getSubsystemMap(weaponSubsystem)
           weaponFx.append(weapon.getFx)
 
           val srcCoords: Vector2 = weaponTile.getActorCoordinates

@@ -29,7 +29,8 @@
     "description": "A ship with many starting weapons.",
     "weapons": [
       "Railgun",
-      "Basic Laser"
+      "Basic Laser",
+      "Dual Laser"
     ],
     "subsystems": [
       "Helm",

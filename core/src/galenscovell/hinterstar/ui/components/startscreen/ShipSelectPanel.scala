@@ -26,6 +26,7 @@ class ShipSelectPanel extends Table {
   construct()
 
 
+
   def getShip: Ship = {
     allShips(currentShipIndex)
   }

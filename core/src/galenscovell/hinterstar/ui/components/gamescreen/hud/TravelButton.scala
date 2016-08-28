@@ -7,11 +7,11 @@ import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
 
 
-class TravelButton(stage: HudStage) extends Table {
-  private val hudStage: HudStage = stage
+class TravelButton(hudStage: HudStage) extends Table {
   private var button: TextButton = _
 
   construct()
+
 
 
   private def construct(): Unit = {

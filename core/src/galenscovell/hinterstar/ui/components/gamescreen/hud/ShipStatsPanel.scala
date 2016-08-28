@@ -6,8 +6,7 @@ import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
 
 
-class ShipStatsPanel(stage: HudStage) extends Table {
-  private val hudStage: HudStage = stage
+class ShipStatsPanel(hudStage: HudStage) extends Table {
   private val shipStatsTable: Table = new Table
   private val statIcons: Array[Image] = Array(
     new Image(new Sprite(Resources.atlas.createSprite("icon_shield"))),
@@ -16,6 +15,7 @@ class ShipStatsPanel(stage: HudStage) extends Table {
 
   construct()
   refreshStats()
+
 
 
   private def construct(): Unit = {

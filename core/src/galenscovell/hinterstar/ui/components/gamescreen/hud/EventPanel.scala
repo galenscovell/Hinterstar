@@ -7,11 +7,9 @@ import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
 
 
-class EventPanel(stage: HudStage, eventContainer: Event) extends Table {
-  private val hudStage: HudStage = stage
-  private val container: Event = eventContainer
-
+class EventPanel(hudStage: HudStage, eventContainer: Event) extends Table {
   construct()
+
 
 
   def construct(): Unit = {
@@ -19,10 +17,10 @@ class EventPanel(stage: HudStage, eventContainer: Event) extends Table {
     val mainTable: Table = new Table
     mainTable.setBackground(Resources.npTest4)
 
-    val titleTable: Table = createTitleTable(container.name)
+    val titleTable: Table = createTitleTable(eventContainer.name)
 
     val centerTable: Table = new Table
-    val descriptionTable: Table = createDescriptionTable(container.description)
+    val descriptionTable: Table = createDescriptionTable(eventContainer.description)
     val optionTable: Table = createOptionTable
 
     centerTable.add(descriptionTable).height(100).expand.fill.top
@@ -58,7 +56,7 @@ class EventPanel(stage: HudStage, eventContainer: Event) extends Table {
     val optionTable: Table = new Table
     optionTable.setBackground(Resources.npTest1)
 
-    for (choice <- container.choices) {
+    for (choice <- eventContainer.choices) {
       val choiceText: String = choice.get("choice-text") match {
         case Some(a) => s"$a"
         case None    => "ERROR: Choice text not found"

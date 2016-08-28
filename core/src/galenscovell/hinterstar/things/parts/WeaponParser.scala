@@ -35,9 +35,11 @@ class WeaponParser {
     val desc: String = entry.getString("description")
     val damage: Int = entry.getInt("damage")
     val firerate: Int = entry.getInt("firerate")
+    val accuracy: Int = entry.getInt("accuracy")
+    val shots: Int = entry.getInt("shots")
     val effect: String = entry.getString("effect")
     val fx: String = entry.getString("fx")
     val speed: Float = entry.getFloat("speed")
-    new Weapon(name, subsystem, desc, damage, firerate, effect, fx, speed)
+    new Weapon(name, subsystem, desc, damage, firerate, accuracy, shots, effect, fx, speed)
   }
 }

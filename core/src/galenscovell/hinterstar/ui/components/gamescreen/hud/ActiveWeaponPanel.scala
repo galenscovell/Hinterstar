@@ -7,8 +7,8 @@ import galenscovell.hinterstar.things.ships.Ship
 import galenscovell.hinterstar.util.Resources
 
 
-class ActiveWeaponPanel(ship: Ship) extends Table {
-  private val rootShip: Ship = ship
+class ActiveWeaponPanel(rootShip: Ship) extends Table {
+
 
 
   def refresh(weapons: Array[Weapon]): Unit = {

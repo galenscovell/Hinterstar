@@ -45,22 +45,21 @@ subsystem_marker
   orig: 60, 60
   offset: 0, 0
   index: -1
-map_glow
+fx_basic_laser
   rotate: false
   xy: 83, 201
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-blue_button0_np
+map_glow
   rotate: false
-  xy: 1927, 397
-  size: 36, 36
-  split: 4, 4, 4, 4
-  orig: 36, 36
+  xy: 1927, 385
+  size: 48, 48
+  orig: 48, 48
   offset: 0, 0
   index: -1
-blue_button1_np
+blue_button0_np
   rotate: false
   xy: 2001, 471
   size: 36, 36
@@ -68,7 +67,7 @@ blue_button1_np
   orig: 36, 36
   offset: 0, 0
   index: -1
-green_button0_np
+blue_button1_np
   rotate: false
   xy: 1, 69
   size: 36, 36
@@ -76,7 +75,7 @@ green_button0_np
   orig: 36, 36
   offset: 0, 0
   index: -1
-green_button1_np
+green_button0_np
   rotate: false
   xy: 133, 213
   size: 36, 36
@@ -84,177 +83,192 @@ green_button1_np
   orig: 36, 36
   offset: 0, 0
   index: -1
+green_button1_np
+  rotate: false
+  xy: 1927, 347
+  size: 36, 36
+  split: 4, 4, 4, 4
+  orig: 36, 36
+  offset: 0, 0
+  index: -1
 0 of 1
-  rotate: false
-  xy: 1927, 363
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-0 of 3
-  rotate: false
-  xy: 1965, 401
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-0 of 6
   rotate: false
   xy: 2001, 437
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-1 of 1
+0 of 3
   rotate: false
   xy: 1, 35
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-1 of 3
+0 of 6
   rotate: false
   xy: 171, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-1 of 6
+1 of 1
   rotate: false
-  xy: 1927, 329
+  xy: 1927, 313
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-2 of 3
+1 of 3
   rotate: false
   xy: 1, 1
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-2 of 6
+1 of 6
   rotate: false
   xy: 205, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-3 of 3
+2 of 3
   rotate: false
-  xy: 1927, 295
+  xy: 1927, 279
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-3 of 6
+2 of 6
   rotate: false
   xy: 239, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-4 of 6
-  rotate: false
-  xy: 1927, 261
-  size: 32, 32
-  orig: 32, 32
-  offset: 0, 0
-  index: -1
-5 of 6
+3 of 3
   rotate: false
   xy: 273, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-6 of 6
+3 of 6
   rotate: false
   xy: 307, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-icon_drone
+4 of 6
   rotate: false
   xy: 341, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-icon_engine
+5 of 6
   rotate: false
   xy: 375, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-icon_helm
+6 of 6
   rotate: false
   xy: 409, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-icon_medbay
+fx_railgun
   rotate: false
   xy: 443, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-icon_sensor
+icon_drone
   rotate: false
   xy: 477, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-icon_shield
+icon_engine
   rotate: false
   xy: 511, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-icon_weapon
+icon_helm
   rotate: false
   xy: 545, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-test-box-0
+icon_medbay
   rotate: false
   xy: 579, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-test-box-1
+icon_sensor
   rotate: false
   xy: 613, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-test-box-2
+icon_shield
   rotate: false
   xy: 647, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-test-box-3
+icon_weapon
   rotate: false
   xy: 681, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-test-box-4
+test-box-0
   rotate: false
   xy: 715, 217
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+test-box-1
+  rotate: false
+  xy: 749, 217
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+test-box-2
+  rotate: false
+  xy: 783, 217
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+test-box-3
+  rotate: false
+  xy: 817, 217
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+test-box-4
+  rotate: false
+  xy: 851, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -269,7 +283,7 @@ test-np-0
   index: -1
 test-np-1
   rotate: false
-  xy: 749, 225
+  xy: 1927, 253
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -277,7 +291,7 @@ test-np-1
   index: -1
 test-np-2
   rotate: false
-  xy: 775, 225
+  xy: 885, 225
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -285,7 +299,7 @@ test-np-2
   index: -1
 test-np-3
   rotate: false
-  xy: 801, 225
+  xy: 911, 225
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -293,7 +307,7 @@ test-np-3
   index: -1
 test-np-4
   rotate: false
-  xy: 827, 225
+  xy: 937, 225
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -301,29 +315,15 @@ test-np-4
   index: -1
 text-field-bg-np
   rotate: false
-  xy: 827, 225
+  xy: 937, 225
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
   offset: 0, 0
   index: -1
-fx_basic_laser
-  rotate: false
-  xy: 63, 151
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-fx_railgun
-  rotate: false
-  xy: 39, 89
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
 font-cursor-np
   rotate: false
-  xy: 2039, 483
+  xy: 63, 143
   size: 3, 24
   split: 0, 0, 0, 0
   orig: 3, 24
@@ -331,7 +331,7 @@ font-cursor-np
   index: -1
 health-bar-empty-np
   rotate: false
-  xy: 2044, 499
+  xy: 1977, 425
   size: 3, 8
   split: 0, 0, 0, 0
   orig: 3, 8
@@ -339,7 +339,7 @@ health-bar-empty-np
   index: -1
 health-bar-fill-np
   rotate: false
-  xy: 2044, 489
+  xy: 2039, 499
   size: 3, 8
   split: 0, 0, 0, 0
   orig: 3, 8

@@ -39,6 +39,7 @@ object Resources {
   var currentMarker: CurrentSystemAnimation = _
 
 
+
   def load(): Unit = {
     assetManager.load("atlas/atlas.pack", classOf[TextureAtlas])
     val resolver: FileHandleResolver = new InternalFileHandleResolver

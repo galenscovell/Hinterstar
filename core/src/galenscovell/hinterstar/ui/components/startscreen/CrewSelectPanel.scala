@@ -28,6 +28,7 @@ class CrewSelectPanel extends Table {
   construct()
 
 
+
   def getCrewmates: Array[Crewmate] = {
     crewmates
   }

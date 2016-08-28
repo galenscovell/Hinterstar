@@ -26,6 +26,7 @@ object PlayerData {
     List("Weapons", "Engines", "Piloting", "Shields")
 
 
+
   /**
     * Instantiate preferences file and add default SFX/Music settings.
     */

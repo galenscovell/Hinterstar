@@ -14,12 +14,10 @@ import com.badlogic.gdx.math.Vector2
   *     a speed (Vector2, can be modified)
   *     a savedSpeed (initially (0, 0), used for pause() and unpause())
   */
-class ParallaxBackground(b: SpriteBatch, l: Array[ParallaxLayer], w: Float, h: Float, s: Vector2) {
-  private val layers: Array[ParallaxLayer] = l
+class ParallaxBackground(batch: SpriteBatch, layers: Array[ParallaxLayer], w: Float, h: Float, var speed: Vector2) {
   private val camera: Camera = new OrthographicCamera(w, h)
-  private val batch: SpriteBatch = b
-  private var speed: Vector2 = s
   private val savedSpeed: Vector2 = new Vector2(0, 0)
+
 
 
   def setSpeed(newSpeed: Vector2): Unit = {

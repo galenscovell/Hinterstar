@@ -6,11 +6,11 @@ import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
 
 
-class CrewPanel(stage: HudStage) extends Table {
-  private val hudStage: HudStage = stage
+class CrewPanel(hudStage: HudStage) extends Table {
   private val contentTable: Table = new Table
 
   construct()
+
 
 
   private def construct(): Unit = {

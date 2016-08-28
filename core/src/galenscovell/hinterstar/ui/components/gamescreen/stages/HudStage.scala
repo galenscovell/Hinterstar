@@ -11,9 +11,7 @@ import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 
 
-class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
-  private val gameScreen: GameScreen = game
-
+class HudStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
   private val travelPanel: TravelPanel = new TravelPanel(this)
   private val travelButton: TravelButton = new TravelButton(this)
 
@@ -30,6 +28,7 @@ class HudStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch
 
   // DEBUG
   enableTravelButton()
+
 
 
   private def construct(): Unit = {

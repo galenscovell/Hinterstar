@@ -8,13 +8,9 @@ import galenscovell.hinterstar.ui.components.gamescreen.hud.{ActiveWeaponPanel, 
 import scala.collection.mutable.{ArrayBuffer, Map}
 
 
-class Ship(n: String, desc: String, w: Array[Weapon], s: Array[String]) {
-  private val name: String = n
-  private val description: String = desc
-  private val subsystemNames: Array[String] = s
+class Ship(name: String, description: String, var weapons: Array[Weapon], subsystemNames: Array[String]) {
   private var interiorOverlay: InteriorOverlay = _
 
-  private var weapons: Array[Weapon] = w
   private val activeWeaponPanel: ActiveWeaponPanel = new ActiveWeaponPanel(this)
   private val weaponSelectPanel: WeaponSelectPanel = new WeaponSelectPanel(this)
 

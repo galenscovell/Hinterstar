@@ -16,7 +16,9 @@ class WeaponFx(fxType: String, speed: Float) {
   private var pos: Vector2 = _
   private var destination: Vector2 = _
   private val velocity: Float = speed
+
   private var frames: Int = 60
+  private var degrees: Float = _
 
 
 
@@ -24,6 +26,7 @@ class WeaponFx(fxType: String, speed: Float) {
     start = src
     pos = start.cpy()
     destination = dest
+    degrees = Math.toDegrees(Math.atan2(destination.y - start.y, destination.x - start.x)).toFloat
     frames = 60
   }
 
@@ -34,7 +37,13 @@ class WeaponFx(fxType: String, speed: Float) {
         val diffX: Float = Math.abs(destination.x - pos.x)
         val diffY: Float = Math.abs(destination.y - pos.y)
         diffX <= 8 && diffY <= 8
+
       case "fx_basic_laser" =>
+        val diffX: Float = Math.abs(destination.x - pos.x)
+        val diffY: Float = Math.abs(destination.y - pos.y)
+        diffX <= 8 && diffY <= 8
+
+      case "fx_longterm_laser" =>
         frames -= 1
         frames <= 0
     }
@@ -45,12 +54,16 @@ class WeaponFx(fxType: String, speed: Float) {
       case "fx_railgun" =>
         pos.x += (destination.x - start.x) * velocity * delta
         pos.y += (destination.y - start.y) * velocity * delta
-        spriteBatch.draw(sprite, pos.x, pos.y, 6, 6)
+        spriteBatch.draw(sprite, pos.x, pos.y, 0, 0, 48, 48, 1, 1, degrees)
 
       case "fx_basic_laser" =>
+        pos.x += (destination.x - start.x) * velocity * delta
+        pos.y += (destination.y - start.y) * velocity * delta
+        spriteBatch.draw(sprite, pos.x, pos.y, 0, 0, 48, 48, 1, 1, degrees)
+
+      case "fx_longterm_laser" =>
         val distance: Float = start.dst(destination)
-        val degrees: Float = Math.toDegrees(Math.atan2(destination.y - start.y, destination.x - start.x)).toFloat
-        spriteBatch.draw(sprite, start.x, start.y, 0, 0, distance, 4, 1, 1, degrees)
+        spriteBatch.draw(sprite, start.x, start.y, 0, 0, distance, 48, 1, 1, degrees)
     }
   }
 }

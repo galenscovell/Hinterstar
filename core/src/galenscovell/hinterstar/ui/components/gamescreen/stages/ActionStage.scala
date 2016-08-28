@@ -12,8 +12,7 @@ import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 
 
-class ActionStage(game: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
-  private val gameScreen: GameScreen = game
+class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
   private val player: Player = new Player(this)
   private var npc: Npc = new Npc(this)
   private val combatHandler: CombatHandler = new CombatHandler(this, player.getShip)

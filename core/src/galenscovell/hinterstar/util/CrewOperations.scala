@@ -13,6 +13,7 @@ object CrewOperations {
   private var crewmatePreviousAssignment: Tile = _
 
 
+
   def initialize(gs: GameScreen): Unit = {
     gameScreen = gs
   }

@@ -13,12 +13,8 @@ import com.badlogic.gdx.math.Vector2
   *     a startPosition (always the origin (0, 0) unless created with alternate constructor)
   *     a padding (amount of space around the layer to prevent graphics issues)
   */
-class ParallaxLayer(r: TextureRegion, pRatio: Vector2, pad: Vector2, color: Color) {
-  val region: TextureRegion = r
-  val parallaxRatio: Vector2 = pRatio
+class ParallaxLayer(val region: TextureRegion, val parallaxRatio: Vector2, val padding: Vector2, layerColor: Color) {
   var startPosition: Vector2 = new Vector2(0, 0)
-  val padding: Vector2 = pad
-  val layerColor: Color = color
 
   /**
     * Alternate constructor for ParallaxLayer involving a starting position Vector2.

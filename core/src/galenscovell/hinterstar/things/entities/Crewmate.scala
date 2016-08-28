@@ -12,13 +12,9 @@ import galenscovell.hinterstar.util.{CrewOperations, Resources}
 import scala.collection.mutable
 
 
-class Crewmate(n: String, p: mutable.Map[String, Int], startingAssignmentName: String, h: Int) {
-  private var name: String = n
-  private val proficiencies: mutable.Map[String, Int] = p
+class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var assignmentName: String, var health: Int) {
   private var assignment: Tile = _
-  private var assignmentName: String = startingAssignmentName
   private var weapon: Weapon = _
-  private var health: Int = h
 
   private val sprite: Sprite = Resources.spCrewmate
   private val healthBar: ProgressBar = new ProgressBar(0, 100, 1, false, Resources.healthBarStyle)

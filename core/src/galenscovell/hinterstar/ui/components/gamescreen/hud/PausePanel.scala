@@ -8,6 +8,7 @@ class PausePanel extends Table {
   construct()
 
 
+
   private def construct(): Unit = {
     this.setFillParent(true)
 

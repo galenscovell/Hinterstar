@@ -8,11 +8,11 @@ import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
 import galenscovell.hinterstar.util._
 
 
-class TravelPanel(stage: HudStage) extends Table {
-  private val hudStage: HudStage = stage
+class TravelPanel(hudStage: HudStage) extends Table {
   private var distanceLabel: Label = _
 
   construct()
+
 
 
   private def construct(): Unit = {

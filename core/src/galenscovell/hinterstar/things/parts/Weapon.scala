@@ -5,17 +5,11 @@ import galenscovell.hinterstar.graphics.WeaponFx
 import galenscovell.hinterstar.util.Resources
 
 
-class Weapon(n: String, ss: String, desc: String, dmg: Int, fr: Int, eff: String, fxType: String, speed: Float) {
-  private val name: String = n
-  private val subsystem: String = ss
-  private val description: String = desc
-  private val damage: Int = dmg
-  private val firerate: Int = fr
-  private val effect: String = eff
+class Weapon(name: String, subsystem: String, description: String, damage: Int,
+             firerate: Int, accuracy: Int, shots: Int, effect: String, fxType: String,
+             speed: Float) {
   private val fx: WeaponFx = new WeaponFx(fxType, speed)
-
   private var active: Boolean = false
-
   private val fireBar: ProgressBar = new ProgressBar(0, firerate, 1, false, Resources.healthBarStyle)
   fireBar.setValue(fireBar.getMinValue)
   fireBar.setAnimateDuration(0.5f)
@@ -43,6 +37,14 @@ class Weapon(n: String, ss: String, desc: String, dmg: Int, fr: Int, eff: String
 
   def getFirerate: Int = {
     firerate
+  }
+
+  def getAccuracy: Int = {
+    accuracy
+  }
+
+  def getShots: Int = {
+    shots
   }
 
   def getEffect: String = {

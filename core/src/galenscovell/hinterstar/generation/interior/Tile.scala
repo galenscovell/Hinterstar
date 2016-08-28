@@ -1,6 +1,5 @@
 package galenscovell.hinterstar.generation.interior
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
@@ -9,15 +8,8 @@ import galenscovell.hinterstar.things.entities.Crewmate
 import galenscovell.hinterstar.util._
 
 
-class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolean, forPlayerShip: Boolean) extends Actor {
-  private val tx: Int = x
-  private val ty: Int = y
-  private val tileSize: Int = size
-  private val overlayHeight: Int = height
-  private val name: String = ss
-  private val weaponSystem: Boolean = hasWeapon
-  private val isPlayerSubsystem: Boolean = forPlayerShip
-
+class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
+           hasWeapon: Boolean, isPlayerSubsystem: Boolean) extends Actor {
   private var frames: Int = 100
   private var glowing: Boolean = true
 
@@ -82,7 +74,7 @@ class Tile(x: Int, y: Int, size: Int, height: Int, ss: String, hasWeapon: Boolea
   }
 
   def isWeaponSubsystem: Boolean = {
-    weaponSystem
+    hasWeapon
   }
 
   def getActorCoordinates: Vector2 = {

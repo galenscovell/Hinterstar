@@ -9,11 +9,10 @@ import galenscovell.hinterstar.things.ships.Ship
 import galenscovell.hinterstar.util.{CrewOperations, Resources}
 
 
-class WeaponSelectPanel(ship: Ship) extends Table {
-  private val rootShip: Ship = ship
-
+class WeaponSelectPanel(rootShip: Ship) extends Table {
   this.setFillParent(true)
   this.setTouchable(Touchable.enabled)
+
 
 
   def refresh(weapons: Array[Weapon], subsystem: String): Unit = {

@@ -2,28 +2,34 @@
   "Railgun": {
     "subsystem": "Weapon Control",
     "description": "A basic combat part.",
-    "damage": 2,
+    "damage": 1,
     "firerate": 1,
+    "accuracy": 50,
+    "shots": 1,
     "effect": "",
     "fx": "fx_railgun",
-    "speed": 1.5
+    "speed": 2
   },
   "Basic Laser": {
     "subsystem": "Weapon Control",
     "description": "A basic combat part.",
-    "damage": 3,
+    "damage": 2,
     "firerate": 4,
+    "accuracy": 50,
+    "shots": 1,
     "effect": "",
     "fx": "fx_basic_laser",
-    "speed": 0
+    "speed": 2
   },
-  "Gun Drone": {
-    "subsystem": "Drone Bay",
+  "Dual Laser": {
+    "subsystem": "Weapon Control",
     "description": "A basic combat part.",
-    "damage": 5,
-    "firerate": 30,
+    "damage": 2,
+    "firerate": 4,
+    "accuracy": 50,
+    "shots": 2,
     "effect": "",
-    "fx": "fx_drone",
-    "speed": 0
+    "fx": "fx_basic_laser",
+    "speed": 2
   }
 }

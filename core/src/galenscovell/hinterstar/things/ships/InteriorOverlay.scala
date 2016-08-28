@@ -27,7 +27,7 @@ class InteriorOverlay(ship: Ship) extends Table {
 
 
   private def construct(): Unit = {
-//    this.setDebug(true)
+    this.setDebug(true)
     for (row: Array[Tile] <- tiles) {
       for (tile: Tile <- row) {
         this.add(tile).width(interiorParser.tileSize).height(interiorParser.tileSize)

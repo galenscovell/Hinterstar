@@ -12,11 +12,11 @@ import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.util._
 
 
-class LoadScreen(gameRoot: Hinterstar) extends Screen {
-  private val root: Hinterstar = gameRoot
+class LoadScreen(root: Hinterstar) extends Screen {
   private val camera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
   private var stage: Stage = _
   private var loadingBar: ProgressBar = _
+
 
 
   private def create(): Unit = {
