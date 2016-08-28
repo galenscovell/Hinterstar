@@ -26,7 +26,8 @@ object Resources {
 
   var npTest0, npTest1, npTest2, npTest3, npTest4,
       greenButtonNp0, greenButtonNp1, blueButtonNp0, blueButtonNp1,
-      npFontCursor, npTextFieldBg, npHealthFill, npHealthEmpty: NinePatchDrawable = _
+      npFontCursor, npTextFieldBg, npHullHealthFill, npHullHealthEmpty,
+      npCrewHealthFill, npCrewHealthEmpty: NinePatchDrawable = _
 
   var buttonMenuStyle, buttonMapStyle0, buttonMapStyle1, buttonMapStyle2,
       buttonEventStyle, toggleButtonStyle, greenButtonStyle, blueButtonStyle: TextButtonStyle = _
@@ -34,7 +35,7 @@ object Resources {
   var mapGlow, spTest0, spTest1, spTest2, spTest3, spTest4,
       spCrewmate, spSubsystemMarker: Sprite = _
 
-  var hullBarStyle, healthBarStyle: ProgressBarStyle = _
+  var hullHealthBarStyle, crewHealthBarStyle: ProgressBarStyle = _
 
   var currentMarker: CurrentSystemAnimation = _
 
@@ -101,8 +102,10 @@ object Resources {
     npFontCursor = new NinePatchDrawable(atlas.createPatch("font-cursor-np"))
     npTextFieldBg = new NinePatchDrawable(atlas.createPatch("text-field-bg-np"))
 
-    npHealthFill = new NinePatchDrawable(atlas.createPatch("health-bar-fill-np"))
-    npHealthEmpty = new NinePatchDrawable(atlas.createPatch("health-bar-empty-np"))
+    npHullHealthFill = new NinePatchDrawable(atlas.createPatch("health-bar-fill-np"))
+    npHullHealthEmpty = new NinePatchDrawable(atlas.createPatch("health-bar-empty-np"))
+    npCrewHealthFill = new NinePatchDrawable(atlas.createPatch("crew-health-bar-fill-np"))
+    npCrewHealthEmpty = new NinePatchDrawable(atlas.createPatch("crew-health-bar-empty-np"))
   }
 
   private def loadLabelStyles(): Unit = {
@@ -164,11 +167,17 @@ object Resources {
   }
 
   private def loadProgressBars(): Unit = {
-    healthBarStyle = new ProgressBarStyle(
-      npHealthEmpty,
-      npHealthFill
+    hullHealthBarStyle = new ProgressBarStyle(
+      npHullHealthEmpty,
+      npHullHealthFill
     )
-    healthBarStyle.knobBefore = npHealthFill
+    hullHealthBarStyle.knobBefore = npHullHealthFill
+
+    crewHealthBarStyle = new ProgressBarStyle(
+      npCrewHealthEmpty,
+      npCrewHealthFill
+    )
+    crewHealthBarStyle.knobBefore = npCrewHealthFill
   }
 }
 

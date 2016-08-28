@@ -30,6 +30,7 @@ class CombatHandler(actionStage: Stage, playerShip: Ship) {
   private val random: Random = new Random()
   private var opposition: Npc = _
   private val weaponFx: ArrayBuffer[WeaponFx] = ArrayBuffer()
+  private val finishedFx: ArrayBuffer[WeaponFx] = ArrayBuffer()
 
 
 
@@ -75,19 +76,22 @@ class CombatHandler(actionStage: Stage, playerShip: Ship) {
     *     Rendering     *
     **********************/
   def render(delta: Float, spriteBatch: Batch): Unit = {
-    val finishedFxIndices: ArrayBuffer[Int] = ArrayBuffer()
-
     spriteBatch.begin()
     for (fx <- weaponFx) {
       fx.draw(delta, spriteBatch)
       if (fx.done) {
-        finishedFxIndices.append(weaponFx.indexOf(fx))
+        finishedFx.append(fx)
       }
     }
     spriteBatch.end()
 
-    for (i: Int <- finishedFxIndices) {
-      weaponFx.remove(i)
+    if (finishedFx.nonEmpty) {
+      for (fx: WeaponFx <- finishedFx) {
+        val index: Int = weaponFx.indexOf(fx)
+        weaponFx.remove(index)
+      }
+
+      finishedFx.clear()
     }
   }
 }

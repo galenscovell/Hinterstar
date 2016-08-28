@@ -29,7 +29,7 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
     actionGroup.setPosition(0, 0)
 
     actionGroup.addActor(player)
-    player.setPosition(0, 96)
+    player.setPosition(0, 100)
 
     actionGroup.addActor(npc)
     npc.setPosition(380, 240)

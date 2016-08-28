@@ -4,21 +4,10 @@ import com.badlogic.gdx.graphics.g2d.{Batch, Sprite}
 import galenscovell.hinterstar.util.Resources
 
 
-class SubsystemInfo(name: String, occupancy: Int, rootX: Int, rootY: Int, tileSize: Int) {
-  private val subsystemType: String = name match {
-    case "Weapon Control" => "weapon"
-    case "Shield Control" => "shield"
-    case "Engine Room" => "engine"
-    case "Helm" => "helm"
-    case "Medbay" => "medbay"
-    case _ => ""
-  }
-
+class SubsystemInfo(name: String, subsystemIcon: Sprite, occupancy: Int, rootX: Int, rootY: Int, tileSize: Int) {
   private val maxOccupancy: Int = occupancy
   private var currentOccupancy: Int = 0
-
   private var occupancySprite: Sprite = _
-  private val subsystemSprite: Sprite = new Sprite(Resources.atlas.createSprite("icon_" + subsystemType))
 
   updateOccupancy(0)
 
@@ -31,7 +20,7 @@ class SubsystemInfo(name: String, occupancy: Int, rootX: Int, rootY: Int, tileSi
   }
 
   def draw(batch: Batch, parentAlpha: Float): Unit = {
-    batch.draw(subsystemSprite, rootX - 8, rootY + 8, 32, 32)
+    batch.draw(subsystemIcon, rootX - 8, rootY + 8, 32, 32)
     batch.draw(occupancySprite, rootX + 32, rootY + 8, 32, 32)
   }
 }

@@ -39,7 +39,8 @@ class WeaponParser {
     val shots: Int = entry.getInt("shots")
     val effect: String = entry.getString("effect")
     val fx: String = entry.getString("fx")
+    val animationType: String = entry.getString("animation-type")
     val speed: Float = entry.getFloat("speed")
-    new Weapon(name, subsystem, desc, damage, firerate, accuracy, shots, effect, fx, speed)
+    new Weapon(name, subsystem, desc, damage, firerate, accuracy, shots, effect, fx, animationType, speed)
   }
 }

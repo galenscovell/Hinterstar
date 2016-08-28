@@ -6,7 +6,7 @@ import galenscovell.hinterstar.util._
 
 
 class HullHealthPanel(hudStage: HudStage) extends Table {
-  private val hullHealthBar: ProgressBar = new ProgressBar(0, 100, 1, false, Resources.healthBarStyle)
+  private val hullHealthBar: ProgressBar = new ProgressBar(0, 100, 1, false, Resources.hullHealthBarStyle)
 
   construct()
   updateHealth()

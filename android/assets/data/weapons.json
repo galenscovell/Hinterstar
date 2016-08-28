@@ -8,6 +8,7 @@
     "shots": 1,
     "effect": "",
     "fx": "fx_railgun",
+    "animation-type": "shot",
     "speed": 2
   },
   "Basic Laser": {
@@ -19,6 +20,7 @@
     "shots": 1,
     "effect": "",
     "fx": "fx_basic_laser",
+    "animation-type": "shot",
     "speed": 2
   },
   "Dual Laser": {
@@ -30,6 +32,19 @@
     "shots": 2,
     "effect": "",
     "fx": "fx_basic_laser",
+    "animation-type": "shot",
     "speed": 2
+  },
+  "Hull Laser": {
+    "subsystem": "Weapon Control",
+    "description": "A basic combat part.",
+    "damage": 4,
+    "firerate": 10,
+    "accuracy": 50,
+    "shots": 1,
+    "effect": "",
+    "fx": "fx_basic_laser",
+    "animation-type": "stream",
+    "speed": 0
   }
 }

@@ -1,7 +1,7 @@
 package galenscovell.hinterstar.things.entities
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import com.badlogic.gdx.scenes.scene2d.InputEvent
+import com.badlogic.gdx.scenes.scene2d.{Group, InputEvent}
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.Align
@@ -14,12 +14,17 @@ import scala.collection.mutable
 
 class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var assignmentName: String, var health: Int) {
   private var assignment: Tile = _
+  private var additionalDetail: String = _
   private var weapon: Weapon = _
 
   private val sprite: Sprite = Resources.spCrewmate
-  private val healthBar: ProgressBar = new ProgressBar(0, 100, 1, false, Resources.healthBarStyle)
+  private val healthBar: ProgressBar = new ProgressBar(0, 100, 1, true, Resources.crewHealthBarStyle)
   healthBar.setValue(100)
-  private var crewTable: Table = constructTable
+  private val crewInnerTable: Table = new Table
+  private val crewBox: Group = new Group
+
+  constructBox()
+//  crewBox.setDebug(true)
 
 
 
@@ -44,6 +49,14 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
 
   def getAssignment: Tile = {
     assignment
+  }
+
+  def getAdditionalDetail: String = {
+    if (additionalDetail != null && additionalDetail != "") {
+      additionalDetail
+    } else {
+      "..."
+    }
   }
 
   def getWeapon: Weapon = {
@@ -86,8 +99,18 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     assignment = subsystem
   }
 
+  def setAdditionalDetail(detail: String): Unit = {
+    additionalDetail = detail
+  }
+
   def setWeapon(w: Weapon): Unit = {
     weapon = w
+    additionalDetail = w.getName
+  }
+
+  def removeWeapon(): Unit = {
+    weapon = null
+    additionalDetail = ""
   }
 
   def updateHealth(value: Int): Unit = {
@@ -105,57 +128,67 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
   /***********************
     *    UI Component    *
     ***********************/
-  def getCrewTable(refresh: Boolean): Table = {
-    crewTable = constructTable
-    crewTable
+  def getCrewBox: Group = {
+    constructBox()
+    crewBox
   }
 
   def highlightTable(): Unit = {
-    crewTable.setBackground(Resources.npTest2)
+    crewInnerTable.setBackground(Resources.npTest2)
   }
 
   def unhighlightTable(): Unit = {
-    crewTable.setBackground(Resources.npTest4)
+    crewInnerTable.setBackground(Resources.npTest4)
   }
 
-  private def constructTable: Table = {
-    val table: Table = new Table
-    table.setBackground(Resources.npTest4)
+  private def constructBox(): Unit = {
+    if (crewBox != null) {
+      crewBox.clear()
+      crewInnerTable.clear()
+    }
 
-    table.addListener(new ClickListener() {
+    crewInnerTable.setBackground(Resources.npTest4)
+    crewInnerTable.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         CrewOperations.selectCrewmate(getThisCrewmate)
       }
     })
 
-    val crewmateDetail: Table = new Table
+    val leftTable: Table = new Table
 
     val spriteTable: Table = new Table
     spriteTable.setBackground(Resources.npTest3)
     val sprite: Image = new Image(getSprite)
     spriteTable.add(sprite).expand.fillX
 
-    val detailTop: Table = new Table
+    leftTable.add(spriteTable).expand.fill.width(32).height(32).left.top
+    leftTable.row
+    leftTable.add(healthBar).expand.fill.width(32).height(28).left
+
+    val rightTable: Table = new Table
+
     val nameLabel: Label = new Label(name, Resources.labelTinyStyle)
-    nameLabel.setAlignment(Align.center)
+    nameLabel.setAlignment(Align.center, Align.left)
 
-    val healthBarTable: Table = new Table
-    healthBarTable.add(healthBar).width(80).height(16)
+    val additionalLabel: Label = new Label(getAdditionalDetail, Resources.labelTinyStyle)
+    additionalLabel.setAlignment(Align.center, Align.left)
 
-    detailTop.add(nameLabel).expand.fill.height(40)
-    detailTop.row
-    detailTop.add(healthBarTable).expand.fill.center
+    rightTable.add(nameLabel).expand.fill.width(68)
+    rightTable.row
+    rightTable.add(additionalLabel).expand.fill.width(68)
 
-    crewmateDetail.add(spriteTable).expand.fill.width(40).height(40).left.top
-    crewmateDetail.add(detailTop).expand.fill.width(88).height(40).top
+    crewInnerTable.add(leftTable).expand.width(32).height(60).left
+    crewInnerTable.add(rightTable).expand.fill.width(80).height(60)
 
-    val assignmentLabel: Label = new Label(getAssignedSubsystemName, Resources.labelTinyStyle)
-    assignmentLabel.setAlignment(Align.center)
+    crewBox.addActor(crewInnerTable)
+    crewInnerTable.setSize(112, 60)
+    crewInnerTable.setPosition(0, 0)
 
-    table.add(crewmateDetail).expand.fill.height(40)
-    table.row
-    table.add(assignmentLabel).expand.fill.height(20)
-
-    table
+    if (assignment != null) {
+      val assignmentIcon: Image = new Image(assignment.getIcon)
+      crewBox.addActor(assignmentIcon)
+      assignmentIcon.setSize(32, 32)
+      assignmentIcon.setPosition(94, 40)
+    }
   }
 }

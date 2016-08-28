@@ -43,11 +43,13 @@ object CrewOperations {
     if (weaponCrewmate != null) {
       val currentWeapon: Weapon = weaponCrewmate.getWeapon
       if (currentWeapon != null) {
+        weaponCrewmate.removeWeapon()
         PlayerData.getShip.unequipWeapon(currentWeapon)
       }
       weaponCrewmate.setWeapon(weapon)
       PlayerData.getShip.equipWeapon(weapon)
       gameScreen.getHudStage.closeWeaponSelect()
+      gameScreen.getHudStage.refreshCrewAndStats()
 
       weaponCrewmate = null
     }
@@ -92,6 +94,7 @@ object CrewOperations {
           if (oldAssignment.isWeaponSubsystem && !newAssignment.isWeaponSubsystem) {
             val currentWeapon: Weapon = selectedCrewmate.getWeapon
             if (currentWeapon != null) {
+              selectedCrewmate.removeWeapon()
               PlayerData.getShip.unequipWeapon(currentWeapon)
             }
           }

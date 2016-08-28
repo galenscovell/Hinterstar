@@ -48,7 +48,7 @@ class HudStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sprit
     mainTable.row
     mainTable.add(activeWeaponPanel).width(Constants.EXACT_X).height(32).bottom
     mainTable.row
-    mainTable.add(crewPanel).width(Constants.EXACT_X).height(60).bottom
+    mainTable.add(crewPanel).width(Constants.EXACT_X).height(66).bottom
 
     this.addActor(mainTable)
   }

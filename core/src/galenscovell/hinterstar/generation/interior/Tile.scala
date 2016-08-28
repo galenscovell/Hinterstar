@@ -1,6 +1,6 @@
 package galenscovell.hinterstar.generation.interior
 
-import com.badlogic.gdx.graphics.g2d.Batch
+import com.badlogic.gdx.graphics.g2d.{Batch, Sprite}
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
 import com.badlogic.gdx.scenes.scene2d.{Actor, InputEvent}
@@ -16,6 +16,7 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
   private val maxOccupancy: Int = setMaxOccupancy
   private var assignedCrewmates: Int = 0
 
+  private val icon: Sprite = createSprite
   private val infoDisplay: SubsystemInfo = constructInfo
 
   initialize()
@@ -42,6 +43,23 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
     this.setPosition(tx * tileSize, (tileSize * (overlayHeight - 1)) - (ty * tileSize))
   }
 
+  private def createSprite: Sprite = {
+    if (isSubsystem) {
+      val iconName: String = name match {
+        case "Weapon Control" => "weapon"
+        case "Shield Control" => "shield"
+        case "Engine Room" => "engine"
+        case "Helm" => "helm"
+        case "Medbay" => "medbay"
+        case _ => ""
+      }
+
+      new Sprite(Resources.atlas.createSprite("icon_" + iconName))
+    } else {
+      null
+    }
+  }
+
   private def constructInfo: SubsystemInfo = {
     if (isSubsystem) {
       // Render above or below depending on relative position of subsystem
@@ -49,7 +67,7 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
       if (overlayHeight - ty > (overlayHeight / 2)) {
         infoY += (overlayHeight * tileSize)
       }
-      val info: SubsystemInfo = new SubsystemInfo(name, maxOccupancy, tx * tileSize, infoY.toInt, tileSize)
+      val info: SubsystemInfo = new SubsystemInfo(name, icon, maxOccupancy, tx * tileSize, infoY.toInt, tileSize)
       info
     } else {
       null
@@ -75,6 +93,10 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
 
   def isWeaponSubsystem: Boolean = {
     hasWeapon
+  }
+
+  def getIcon: Sprite = {
+    icon
   }
 
   def getActorCoordinates: Vector2 = {

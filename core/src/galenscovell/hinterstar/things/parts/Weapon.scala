@@ -6,11 +6,11 @@ import galenscovell.hinterstar.util.Resources
 
 
 class Weapon(name: String, subsystem: String, description: String, damage: Int,
-             firerate: Int, accuracy: Int, shots: Int, effect: String, fxType: String,
-             speed: Float) {
-  private val fx: WeaponFx = new WeaponFx(fxType, speed)
+             firerate: Int, accuracy: Int, shots: Int, effect: String,
+             fxType: String, animationType: String, speed: Float) {
+  private val fx: WeaponFx = new WeaponFx(fxType, animationType, speed)
   private var active: Boolean = false
-  private val fireBar: ProgressBar = new ProgressBar(0, firerate, 1, false, Resources.healthBarStyle)
+  private val fireBar: ProgressBar = new ProgressBar(0, firerate, 1, false, Resources.hullHealthBarStyle)
   fireBar.setValue(fireBar.getMinValue)
   fireBar.setAnimateDuration(0.5f)
 
