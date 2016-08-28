@@ -14,7 +14,7 @@ class PausePanel extends Table {
 
     val pauseTable: Table = new Table
     pauseTable.setBackground(Resources.npTest3)
-    val pauseLabel: Label = new Label("Paused", Resources.labelMenuStyle)
+    val pauseLabel: Label = new Label("Paused", Resources.labelLargeStyle)
 
     pauseTable.add(pauseLabel)
 

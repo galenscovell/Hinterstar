@@ -18,7 +18,7 @@ class WeaponSelectPanel(rootShip: Ship) extends Table {
   def refresh(weapons: Array[Weapon], subsystem: String): Unit = {
     this.clearChildren()
 
-    val selectionLabel: Label = new Label("Select a weapon", Resources.labelMenuStyle)
+    val selectionLabel: Label = new Label("Select a weapon", Resources.labelLargeStyle)
     selectionLabel.setAlignment(Align.center)
 
     val selectionPanel: Table = new Table
@@ -55,7 +55,7 @@ class WeaponSelectPanel(rootShip: Ship) extends Table {
       val iconTable = new Table
       iconTable.setBackground(Resources.npTest0)
 
-      val damageLabel: Label = new Label(weapon.getDamage.toString, Resources.labelDetailStyle)
+      val damageLabel: Label = new Label(weapon.getDamage.toString, Resources.labelSmallStyle)
       damageLabel.setAlignment(Align.center)
 
       topBarTable.add(iconTable).expand.fill.width(20).height(20)
@@ -75,7 +75,7 @@ class WeaponSelectPanel(rootShip: Ship) extends Table {
 
       val bottomWeaponTable: Table = new Table
       bottomWeaponTable.setBackground(Resources.npTest1)
-      val weaponLabel: Label = new Label(weapon.getName, Resources.labelDetailStyle)
+      val weaponLabel: Label = new Label(weapon.getName, Resources.labelSmallStyle)
       weaponLabel.setAlignment(Align.center)
 
       bottomWeaponTable.add(weaponLabel).expand.fill

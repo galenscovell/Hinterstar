@@ -1,5 +1,6 @@
 KEY
-~ = Empty
+. = Empty
+- = Traversible tile of ship
 W = Weapon subsystem
 E = Engine subsystem
 H = Helm subsystem
@@ -8,34 +9,34 @@ M = Medbay subsystem
 
 Ship-0
 10,4,42
-~~~~S~~~~~
-~~~~~~~~~~
-~E~M~W~~H~
-~~~~~~~~~~
+....S.....
+....-.....
+.E-M-W--H.
+..........
 END
 
 Ship-1
 10,4,42
-~~~~S~~~~~
-~~~~~~~~~~
-~E~M~W~~H~
-~~~~~~~~~~
+....S.....
+....-.....
+.E-M-W--H.
+..........
 END
 
 Ship-1-reversed
 10,4,42
-~~~~~S~~~~
-~~~~~~~~~~
-~H~~W~M~E~
-~~~~~~~~~~
+.....S....
+.....-....
+.H--W-M-E.
+..........
 END
 
 Ship-2
 10,4,42
-~~~~S~~~~~
-~~~~~~~~~~
-~E~M~W~~H~
-~~~~~~~~~~
+....S.....
+....-.....
+.E-M-W--H.
+..........
 END
 
 

@@ -22,7 +22,7 @@ class CrewPanel(hudStage: HudStage) extends Table {
     contentTable.clear()
 
     for (crewmate: Crewmate <- PlayerData.getCrew) {
-      contentTable.add(crewmate.getCrewBox).width(112).height(60).left.padRight(14)
+      contentTable.add(crewmate.getCrewBox).width(120).height(60).left.padRight(12)
     }
   }
 }

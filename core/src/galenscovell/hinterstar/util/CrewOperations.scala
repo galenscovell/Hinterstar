@@ -109,6 +109,13 @@ object CrewOperations {
           PlayerData.getShip.refreshWeaponSelectPanel(newAssignment.getName)
           gameScreen.getHudStage.openWeaponSelect()
         }
+
+        val path: scala.collection.mutable.Stack[Tile] = Pathfinder.findPath(oldAssignment, newAssignment)
+
+        while (path.nonEmpty) {
+          val t: Tile = path.pop()
+          println(t.getTx, t.getTy)
+        }
       }
 
       selectedCrewmate.unhighlightTable()

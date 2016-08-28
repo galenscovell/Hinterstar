@@ -9,15 +9,16 @@ import galenscovell.hinterstar.util._
 
 
 class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
-           hasWeapon: Boolean, isPlayerSubsystem: Boolean) extends Actor {
+           hasWeapon: Boolean, isPlayerSubsystem: Boolean, traversible: Boolean) extends Actor {
   private var frames: Int = 100
   private var glowing: Boolean = true
-
-  private val maxOccupancy: Int = setMaxOccupancy
   private var assignedCrewmates: Int = 0
 
+  private val maxOccupancy: Int = setMaxOccupancy
   private val icon: Sprite = createSprite
   private val infoDisplay: SubsystemInfo = constructInfo
+
+  private var neighbors: Array[Tile] = _
 
   initialize()
 
@@ -43,42 +44,19 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
     this.setPosition(tx * tileSize, (tileSize * (overlayHeight - 1)) - (ty * tileSize))
   }
 
-  private def createSprite: Sprite = {
-    if (isSubsystem) {
-      val iconName: String = name match {
-        case "Weapon Control" => "weapon"
-        case "Shield Control" => "shield"
-        case "Engine Room" => "engine"
-        case "Helm" => "helm"
-        case "Medbay" => "medbay"
-        case _ => ""
-      }
-
-      new Sprite(Resources.atlas.createSprite("icon_" + iconName))
-    } else {
-      null
-    }
-  }
-
-  private def constructInfo: SubsystemInfo = {
-    if (isSubsystem) {
-      // Render above or below depending on relative position of subsystem
-      var infoY: Float = getY
-      if (overlayHeight - ty > (overlayHeight / 2)) {
-        infoY += (overlayHeight * tileSize)
-      }
-      val info: SubsystemInfo = new SubsystemInfo(name, icon, maxOccupancy, tx * tileSize, infoY.toInt, tileSize)
-      info
-    } else {
-      null
-    }
-  }
-
 
 
   /********************
     *     Getters     *
     ********************/
+  def getTx: Int = {
+    tx
+  }
+
+  def getTy: Int = {
+    ty
+  }
+
   override def getName: String = {
     name
   }
@@ -95,8 +73,16 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
     hasWeapon
   }
 
+  def isTraversible: Boolean = {
+    traversible
+  }
+
   def getIcon: Sprite = {
     icon
+  }
+
+  def getNeighbors: Array[Tile] = {
+    neighbors
   }
 
   def getActorCoordinates: Vector2 = {
@@ -110,6 +96,15 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
       (tileSize / 2) - 4,
       (tileSize / 2) - 4
     ))
+  }
+
+
+
+  /********************
+    *     Setters     *
+    ********************/
+  def setNeighbors(tiles: Array[Tile]): Unit = {
+    neighbors = tiles
   }
 
 
@@ -147,6 +142,36 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
   /**********************
     *     Rendering     *
     **********************/
+  private def createSprite: Sprite = {
+    if (isSubsystem) {
+      val iconName: String = name match {
+        case "Weapon Control" => "weapon"
+        case "Shield Control" => "shield"
+        case "Engine Room" => "engine"
+        case "Helm" => "helm"
+        case "Medbay" => "medbay"
+        case _ => ""
+      }
+
+      new Sprite(Resources.atlas.createSprite("icon_" + iconName))
+    } else {
+      null
+    }
+  }
+
+  private def constructInfo: SubsystemInfo = {
+    if (isSubsystem) {
+      // Render above or below depending on relative position of subsystem
+      var infoY: Float = getY
+      if (overlayHeight - ty > (overlayHeight / 2)) {
+        infoY += (overlayHeight * tileSize)
+      }
+      new SubsystemInfo(name, icon, maxOccupancy, tx * tileSize, infoY.toInt, tileSize)
+    } else {
+      null
+    }
+  }
+
   override def draw(batch: Batch, parentAlpha: Float): Unit = {
     if (isSubsystem) {
       if (glowing) {

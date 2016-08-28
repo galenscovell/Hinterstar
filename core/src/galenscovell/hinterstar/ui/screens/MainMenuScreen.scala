@@ -26,7 +26,7 @@ class MainMenuScreen(root: Hinterstar) extends Screen {
     mainTable.setFillParent(true)
 
     val titleTable: Table = new Table
-    val titleLabel: Label = new Label("Hinterstar", Resources.labelTitleStyle)
+    val titleLabel: Label = new Label("Hinterstar", Resources.labelXLargeStyle)
     titleLabel.setAlignment(Align.center, Align.left)
     titleTable.add(titleLabel).width(760).height(60)
 
@@ -76,7 +76,7 @@ class MainMenuScreen(root: Hinterstar) extends Screen {
     })
 
     val detailTable: Table = new Table
-    val detailLabel: Label = new Label(s"v0.1a 2016 Galen Scovell", Resources.labelDetailStyle)
+    val detailLabel: Label = new Label(s"v0.1a 2016 Galen Scovell", Resources.labelSmallStyle)
     detailLabel.setAlignment(Align.center, Align.right)
     detailTable.add(detailLabel).width(760).height(40)
 

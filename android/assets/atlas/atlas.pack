@@ -217,58 +217,65 @@ icon_medbay
   orig: 32, 32
   offset: 0, 0
   index: -1
-icon_sensor
+icon_movement
   rotate: false
   xy: 613, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-icon_shield
+icon_sensor
   rotate: false
   xy: 647, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-icon_weapon
+icon_shield
   rotate: false
   xy: 681, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-test-box-0
+icon_weapon
   rotate: false
   xy: 715, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-test-box-1
+test-box-0
   rotate: false
   xy: 749, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-test-box-2
+test-box-1
   rotate: false
   xy: 783, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-test-box-3
+test-box-2
   rotate: false
   xy: 817, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
-test-box-4
+test-box-3
   rotate: false
   xy: 851, 217
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+test-box-4
+  rotate: false
+  xy: 885, 217
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -291,7 +298,7 @@ test-np-1
   index: -1
 test-np-2
   rotate: false
-  xy: 885, 225
+  xy: 919, 225
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -299,7 +306,7 @@ test-np-2
   index: -1
 test-np-3
   rotate: false
-  xy: 911, 225
+  xy: 945, 225
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -307,7 +314,7 @@ test-np-3
   index: -1
 test-np-4
   rotate: false
-  xy: 937, 225
+  xy: 971, 225
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -315,7 +322,7 @@ test-np-4
   index: -1
 text-field-bg-np
   rotate: false
-  xy: 937, 225
+  xy: 971, 225
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24

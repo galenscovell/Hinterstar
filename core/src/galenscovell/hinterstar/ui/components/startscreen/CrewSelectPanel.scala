@@ -53,7 +53,7 @@ class CrewSelectPanel extends Table {
     val crewTable: Table = new Table
 
     val nameTable: Table = new Table
-    val nameLabel: Label = new Label("Crewmates", Resources.labelMenuStyle)
+    val nameLabel: Label = new Label("Crewmates", Resources.labelLargeStyle)
     nameLabel.setAlignment(Align.center)
 
     val modifyCrewmateButton: TextButton = new TextButton("Update Selected", Resources.greenButtonStyle)

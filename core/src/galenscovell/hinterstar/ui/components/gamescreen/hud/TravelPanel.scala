@@ -75,7 +75,7 @@ class TravelPanel(hudStage: HudStage) extends Table {
         travelToSystem()
       }
     })
-    distanceLabel = new Label("Distance: 0 AU", Resources.labelMenuStyle)
+    distanceLabel = new Label("Distance: 0 AU", Resources.labelLargeStyle)
     table.add(distanceLabel).expand.fill.left.padLeft(10)
     table.add(travelButton).width(96).height(40).expand.fill.right.padRight(10)
 

@@ -26,6 +26,7 @@ class InteriorParser(ship: Ship) {
   var tileSize: Int = 0
 
   parse()
+  setTileNeighbors()
   // debugPrint()
 
 
@@ -49,12 +50,13 @@ class InteriorParser(ship: Ship) {
 
         for (x <- 0 until line.length) {
           line(x) match {
-            case 'W' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Weapon Control", true, rootShip.isPlayerShip)
-            case 'E' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Engine Room", false, rootShip.isPlayerShip)
-            case 'H' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Helm", false, rootShip.isPlayerShip)
-            case 'S' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Shield Control", false, rootShip.isPlayerShip)
-            case 'M' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Medbay", false, rootShip.isPlayerShip)
-            case _ => subsystemRow(x) = new Tile(x, y, tileSize, height, "none", false, rootShip.isPlayerShip)
+            case 'W' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Weapon Control", true, rootShip.isPlayerShip, true)
+            case 'E' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Engine Room", false, rootShip.isPlayerShip, true)
+            case 'H' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Helm", false, rootShip.isPlayerShip, true)
+            case 'S' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Shield Control", false, rootShip.isPlayerShip, true)
+            case 'M' => subsystemRow(x) = new Tile(x, y, tileSize, height, "Medbay", false, rootShip.isPlayerShip, true)
+            case '-' => subsystemRow(x) = new Tile(x, y, tileSize, height, "none", false, rootShip.isPlayerShip, true)
+            case '.' => subsystemRow(x) = new Tile(x, y, tileSize, height, "none", false, rootShip.isPlayerShip, false)
           }
         }
 
@@ -75,6 +77,36 @@ class InteriorParser(ship: Ship) {
     }
 
     reader.close()
+  }
+
+  private def setTileNeighbors(): Unit = {
+    for (row: Array[Tile] <- getTiles) {
+      for (tile: Tile <- row) {
+        val neighbors: ArrayBuffer[Tile] = ArrayBuffer()
+
+        for (dx: Int <- -1 to 1) {
+          val newX: Int = tile.getTx + dx
+          if (!isOutOfBounds(newX, tile.getTy)) {
+            val neighbor: Tile = tiles(tile.getTy)(newX)
+            neighbors.append(neighbor)
+          }
+        }
+
+        for (dy: Int <- -1 to 1) {
+          val newY: Int = tile.getTy + dy
+          if (!isOutOfBounds(tile.getTx, newY)) {
+            val neighbor: Tile = tiles(newY)(tile.getTx)
+            neighbors.append(neighbor)
+          }
+        }
+
+        tile.setNeighbors(neighbors.toArray)
+      }
+    }
+  }
+
+  private def isOutOfBounds(x: Int, y: Int): Boolean = {
+    x < 0 || y < 0 || x >= width || y >= height
   }
 
   private def debugPrint(): Unit = {

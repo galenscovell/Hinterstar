@@ -173,22 +173,25 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     val additionalLabel: Label = new Label(getAdditionalDetail, Resources.labelTinyStyle)
     additionalLabel.setAlignment(Align.center, Align.left)
 
-    rightTable.add(nameLabel).expand.fill.width(68)
+    rightTable.add(nameLabel).expand.fill.width(80)
     rightTable.row
-    rightTable.add(additionalLabel).expand.fill.width(68)
+    rightTable.add(additionalLabel).expand.fill.width(80)
 
     crewInnerTable.add(leftTable).expand.width(32).height(60).left
-    crewInnerTable.add(rightTable).expand.fill.width(80).height(60)
+    crewInnerTable.add(rightTable).expand.fill.width(88).height(60)
 
     crewBox.addActor(crewInnerTable)
-    crewInnerTable.setSize(112, 60)
+    crewInnerTable.setSize(120, 60)
     crewInnerTable.setPosition(0, 0)
 
-    if (assignment != null) {
-      val assignmentIcon: Image = new Image(assignment.getIcon)
-      crewBox.addActor(assignmentIcon)
-      assignmentIcon.setSize(32, 32)
-      assignmentIcon.setPosition(94, 40)
+    var assignmentIcon: Image = null
+    if (assignment != null && assignment.isSubsystem) {
+      assignmentIcon = new Image(assignment.getIcon)
+    } else {
+      assignmentIcon = new Image(Resources.spMovementIcon)
     }
+    crewBox.addActor(assignmentIcon)
+    assignmentIcon.setSize(32, 32)
+    assignmentIcon.setPosition(102, 40)
   }
 }

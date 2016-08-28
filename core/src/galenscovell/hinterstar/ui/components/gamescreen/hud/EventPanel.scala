@@ -37,7 +37,7 @@ class EventPanel(hudStage: HudStage, eventContainer: Event) extends Table {
   private def createTitleTable(eventTitle: String): Table = {
     val titleTable: Table = new Table
     titleTable.setBackground(Resources.npTest1)
-    val titleLabel: Label = new Label(eventTitle, Resources.labelTitleStyle)
+    val titleLabel: Label = new Label(eventTitle, Resources.labelXLargeStyle)
     titleLabel.setAlignment(Align.center, Align.center)
     titleTable.add(titleLabel)
     titleTable
@@ -45,7 +45,7 @@ class EventPanel(hudStage: HudStage, eventContainer: Event) extends Table {
 
   private def createDescriptionTable(eventDescription: String): Table = {
     val descriptionTable: Table = new Table
-    val descriptionLabel: Label = new Label(eventDescription, Resources.labelDetailStyle)
+    val descriptionLabel: Label = new Label(eventDescription, Resources.labelSmallStyle)
     descriptionLabel.setWrap(true)
     descriptionLabel.setAlignment(Align.center, Align.left)
     descriptionTable.add(descriptionLabel).width(680)

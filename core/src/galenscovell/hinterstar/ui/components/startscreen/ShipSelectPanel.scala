@@ -111,7 +111,7 @@ class ShipSelectPanel extends Table {
     val shipDetailTop: Table = new Table
     shipDetailTop.setBackground(Resources.npTest1)
 
-    val shipNameLabel: Label = new Label(allShips(currentShipIndex).getName, Resources.labelMenuStyle)
+    val shipNameLabel: Label = new Label(allShips(currentShipIndex).getName, Resources.labelLargeStyle)
     shipNameLabel.setAlignment(Align.center, Align.center)
     val shipDescLabel: Label = new Label(allShips(currentShipIndex).getDescription, Resources.labelMediumStyle)
     shipDescLabel.setAlignment(Align.top, Align.center)
@@ -134,7 +134,7 @@ class ShipSelectPanel extends Table {
       topBarTable.setBackground(Resources.npTest3)
       val iconTable = new Table
       iconTable.setBackground(Resources.npTest0)
-      val damageLabel: Label = new Label(weapon.getDamage.toString, Resources.labelDetailStyle)
+      val damageLabel: Label = new Label(weapon.getDamage.toString, Resources.labelSmallStyle)
       damageLabel.setAlignment(Align.center)
 
       topBarTable.add(iconTable).expand.fill.width(20).height(20)
@@ -144,7 +144,7 @@ class ShipSelectPanel extends Table {
 
       val bottomWeaponTable: Table = new Table
       bottomWeaponTable.setBackground(Resources.npTest1)
-      val weaponLabel: Label = new Label(weapon.getName, Resources.labelDetailStyle)
+      val weaponLabel: Label = new Label(weapon.getName, Resources.labelSmallStyle)
       weaponLabel.setAlignment(Align.center)
 
       bottomWeaponTable.add(weaponLabel).expand.fill

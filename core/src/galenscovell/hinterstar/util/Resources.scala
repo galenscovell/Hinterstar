@@ -21,8 +21,8 @@ object Resources {
 
   var textFieldStyle: TextFieldStyle = _
 
-  var labelTinyStyle, labelMediumStyle, labelDetailStyle, labelMenuStyle,
-      labelTitleStyle: LabelStyle = _
+  var labelTinyStyle, labelSmallStyle, labelMediumStyle,
+      labelLargeStyle, labelXLargeStyle: LabelStyle = _
 
   var npTest0, npTest1, npTest2, npTest3, npTest4,
       greenButtonNp0, greenButtonNp1, blueButtonNp0, blueButtonNp1,
@@ -33,7 +33,7 @@ object Resources {
       buttonEventStyle, toggleButtonStyle, greenButtonStyle, blueButtonStyle: TextButtonStyle = _
 
   var mapGlow, spTest0, spTest1, spTest2, spTest3, spTest4,
-      spCrewmate, spSubsystemMarker: Sprite = _
+      spCrewmate, spSubsystemMarker, spMovementIcon: Sprite = _
 
   var hullHealthBarStyle, crewHealthBarStyle: ProgressBarStyle = _
 
@@ -51,7 +51,7 @@ object Resources {
     generateFont("ui/Terminus.ttf", 16, 0, Color.WHITE, Color.BLACK, "smallFont.ttf")
     generateFont("ui/Terminus.ttf", 18, 0, Color.WHITE, Color.BLACK, "mediumFont.ttf")
     generateFont("ui/Terminus.ttf", 22, 0, Color.WHITE, Color.BLACK, "largeFont.ttf")
-    generateFont("ui/cubeOne.ttf", 48, 0, Color.TEAL, Color.BLACK, "titleFont.ttf")
+    generateFont("ui/cubeOne.ttf", 48, 0, Color.TEAL, Color.BLACK, "xLargeFont.ttf")
   }
 
   def done(): Unit = {
@@ -110,10 +110,10 @@ object Resources {
 
   private def loadLabelStyles(): Unit = {
     labelTinyStyle = new LabelStyle(assetManager.get("tinyFont.ttf", classOf[BitmapFont]), Color.WHITE)
-    labelDetailStyle = new LabelStyle(assetManager.get("smallFont.ttf", classOf[BitmapFont]), Color.WHITE)
+    labelSmallStyle = new LabelStyle(assetManager.get("smallFont.ttf", classOf[BitmapFont]), Color.WHITE)
     labelMediumStyle = new LabelStyle(assetManager.get("mediumFont.ttf", classOf[BitmapFont]), Color.WHITE)
-    labelMenuStyle = new LabelStyle(assetManager.get("largeFont.ttf", classOf[BitmapFont]), Color.WHITE)
-    labelTitleStyle = new LabelStyle(assetManager.get("titleFont.ttf", classOf[BitmapFont]), Color.WHITE)
+    labelLargeStyle = new LabelStyle(assetManager.get("largeFont.ttf", classOf[BitmapFont]), Color.WHITE)
+    labelXLargeStyle = new LabelStyle(assetManager.get("xLargeFont.ttf", classOf[BitmapFont]), Color.WHITE)
   }
 
   private def loadButtonStyles(): Unit = {
@@ -148,6 +148,7 @@ object Resources {
     spTest4 = new Sprite(atlas.createSprite("test-box-4"))
     spCrewmate = new Sprite(atlas.createSprite("test-crewmate"))
     spSubsystemMarker = new Sprite(atlas.createSprite("subsystem_marker"))
+    spMovementIcon = new Sprite(atlas.createSprite("icon_movement"))
   }
 
   private def loadAnimations(): Unit = {
