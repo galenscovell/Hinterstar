@@ -14,11 +14,11 @@ class CrewPanel(hudStage: HudStage) extends Table {
 
 
   private def construct(): Unit = {
-    refreshCrewBoxes()
+    refresh()
     this.add(contentTable).expand.left.bottom
   }
 
-  def refreshCrewBoxes(): Unit = {
+  def refresh(): Unit = {
     contentTable.clear()
 
     for (crewmate: Crewmate <- PlayerData.getCrew) {

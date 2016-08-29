@@ -3,14 +3,12 @@ package galenscovell.hinterstar.ui.screens
 import com.badlogic.gdx._
 import com.badlogic.gdx.graphics._
 import com.badlogic.gdx.graphics.g2d.TextureRegion
-import com.badlogic.gdx.input.GestureDetector
-import com.badlogic.gdx.math.{Vector2, Vector3}
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
-import galenscovell.hinterstar.processing.controls.GestureHandler
 import galenscovell.hinterstar.ui.components.gamescreen.stages._
 import galenscovell.hinterstar.util._
 
@@ -24,13 +22,8 @@ class GameScreen(root: Hinterstar) extends Screen {
   private var hudStage: HudStage = _
 
   private val input: InputMultiplexer = new InputMultiplexer
-  private val gestureHandler: GestureDetector = new GestureDetector(new GestureHandler(this))
   private var travelFrames: Int = 0
   private var travelPanelOpen: Boolean = false
-
-  private val originVector: Vector3 = new Vector3(Constants.EXACT_X / 2, Constants.EXACT_Y / 2, 0)
-  private val cameraXmin: Float = Constants.EXACT_X * 0.5f
-  private val cameraXmax: Float = Constants.EXACT_X * 0.5f
 
   private val timestep: Int = 30
   private var accumulator: Int = 0
@@ -61,14 +54,12 @@ class GameScreen(root: Hinterstar) extends Screen {
     hudStage = new HudStage(this, hudViewport, root.spriteBatch)
 
     enableInput()
-    // hudStage.togglePause()  // TEMPORARY, should be called when events are started/resolved
-    actionStage.toggleSubsystemOverlay()
+    actionStage.toggleInteriorOverlay()
   }
 
   private def enableInput(): Unit = {
     input.addProcessor(hudStage)
     input.addProcessor(actionStage)
-    input.addProcessor(gestureHandler)
     Gdx.input.setInputProcessor(input)
   }
 
@@ -88,7 +79,7 @@ class GameScreen(root: Hinterstar) extends Screen {
     if (!paused) {
       hudStage.togglePause()
     }
-    getActionStage.disableSubsystemOverlay()
+    getActionStage.disableInteriorOverlay()
     input.clear()
     travelFrames = 500
   }
@@ -149,7 +140,7 @@ class GameScreen(root: Hinterstar) extends Screen {
 
     if (travelFrames == 0) {
       currentBackground.setSpeed(new Vector2(2, 0))
-      actionStage.toggleSubsystemOverlay()
+      actionStage.toggleInteriorOverlay()
     }
   }
 
@@ -237,7 +228,6 @@ class GameScreen(root: Hinterstar) extends Screen {
 
     // Handle travel and background animations
     if (travelFrames > 0) {
-      centerCamera(delta)
       travel()
     }
 
@@ -245,10 +235,12 @@ class GameScreen(root: Hinterstar) extends Screen {
       currentBackground.render(delta)
     }
 
+    // Pause stops combat and crew movement for all players
     if (!paused) {
       if (accumulator > timestep) {
         accumulator = 0
         actionStage.combatUpdate()
+        CrewOperations.updateCrewmatePositions()
       }
       accumulator += 1
     }
@@ -260,6 +252,7 @@ class GameScreen(root: Hinterstar) extends Screen {
 
     hudStage.act(delta)
     hudStage.draw()
+
 
     // Draw map panel shapes
     if (travelPanelOpen) {
@@ -296,35 +289,6 @@ class GameScreen(root: Hinterstar) extends Screen {
   override def pause(): Unit =  {}
 
   override def resume(): Unit =  {}
-
-
-
-  /******************************
-    * Screen Gesture Operations *
-    ******************************/
-  def actionPan(dx: Float): Unit = {
-    val newCameraX: Float = getActionStage.getCamera.position.x - dx
-
-    if (newCameraX >= cameraXmin && newCameraX < cameraXmax) {
-      getActionStage.getCamera.translate(-dx, 0, 0)
-    }
-  }
-
-  def actionZoom(zoom: Float): Unit = {
-    val initialZoom: Float = getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom
-
-    if (!(initialZoom + zoom > 1.5) && !(initialZoom + zoom < 1)) {
-      getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom += zoom
-    }
-  }
-
-  def centerCamera(delta: Float): Unit = {
-    getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom +=
-      (1 - getActionStage.getCamera.asInstanceOf[OrthographicCamera].zoom) * 0.9f * delta
-
-    getActionStage.getCamera.position.x +=
-      (originVector.x - getActionStage.getCamera.position.x) * 0.9f * delta
-  }
 
 
 

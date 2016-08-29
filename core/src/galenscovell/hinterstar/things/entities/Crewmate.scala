@@ -13,7 +13,8 @@ import scala.collection.mutable
 
 
 class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var assignmentName: String, var health: Int) {
-  private var assignment: Tile = _
+  private var currentAssignment: Tile = _
+  private var targetAssignment: Tile = _
   private var additionalDetail: String = _
   private var weapon: Weapon = _
 
@@ -22,6 +23,9 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
   healthBar.setValue(100)
   private val crewInnerTable: Table = new Table
   private val crewBox: Group = new Group
+
+  private var frames: Int = 0
+  private var path: mutable.Stack[Tile] = _
 
   constructBox()
 //  crewBox.setDebug(true)
@@ -47,8 +51,12 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     proficiencies(proficiency)
   }
 
-  def getAssignment: Tile = {
-    assignment
+  def getCurrentAssignment: Tile = {
+    currentAssignment
+  }
+
+  def getTargetAssignment: Tile = {
+    targetAssignment
   }
 
   def getAdditionalDetail: String = {
@@ -64,8 +72,8 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
   }
 
   def getAssignedSubsystemName: String = {
-    if (assignment != null) {
-      assignmentName = assignment.getName
+    if (currentAssignment != null) {
+      assignmentName = currentAssignment.getName
     }
     assignmentName
   }
@@ -82,6 +90,18 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     healthBar
   }
 
+  def getFrames: Int = {
+    frames
+  }
+
+  def hasPath: Boolean = {
+    path != null && path.nonEmpty
+  }
+
+  def getNextTileInPath: Tile = {
+    path.pop()
+  }
+
 
 
   /********************
@@ -95,8 +115,12 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     proficiencies.updated(proficiency, proficiencies(proficiency) + value)
   }
 
-  def setAssignment(subsystem: Tile): Unit = {
-    assignment = subsystem
+  def setCurrentAssignment(t: Tile): Unit = {
+    currentAssignment = t
+  }
+
+  def setTargetAssignment(t: Tile): Unit = {
+    targetAssignment = t
   }
 
   def setAdditionalDetail(detail: String): Unit = {
@@ -121,6 +145,18 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
       health = 0
     }
     healthBar.setValue(health)
+  }
+
+  def setFrames(f: Int): Unit = {
+    frames = f
+  }
+
+  def decrementFrames(): Unit = {
+    frames -= 1
+  }
+
+  def setPath(p: mutable.Stack[Tile]): Unit = {
+    path = p
   }
 
 
@@ -185,8 +221,8 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     crewInnerTable.setPosition(0, 0)
 
     var assignmentIcon: Image = null
-    if (assignment != null && assignment.isSubsystem) {
-      assignmentIcon = new Image(assignment.getIcon)
+    if (currentAssignment != null && !hasPath) {
+      assignmentIcon = new Image(currentAssignment.getIcon)
     } else {
       assignmentIcon = new Image(Resources.spMovementIcon)
     }

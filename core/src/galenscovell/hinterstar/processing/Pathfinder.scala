@@ -1,13 +1,12 @@
-package galenscovell.hinterstar.util
+package galenscovell.hinterstar.processing
 
 import galenscovell.hinterstar.generation.interior.Tile
-import galenscovell.hinterstar.processing.Node
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 
-object Pathfinder {
+class Pathfinder {
   private val openList: ArrayBuffer[Node] = ArrayBuffer()
   private val closedList: ArrayBuffer[Node] = ArrayBuffer()
 

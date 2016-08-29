@@ -8,9 +8,6 @@ import galenscovell.hinterstar.generation.interior.Tile
 import scala.collection.mutable.ArrayBuffer
 
 
-/**
-  * Contains a grid of Tiles representing the subsystem actors for a given ship.
-  */
 class InteriorParser(ship: Ship) {
   private val rootShip: Ship = ship
   private val targetShipName: String = {
@@ -27,7 +24,7 @@ class InteriorParser(ship: Ship) {
 
   parse()
   setTileNeighbors()
-  // debugPrint()
+
 
 
   def getTiles: Array[Array[Tile]] = {
@@ -107,16 +104,5 @@ class InteriorParser(ship: Ship) {
 
   private def isOutOfBounds(x: Int, y: Int): Boolean = {
     x < 0 || y < 0 || x >= width || y >= height
-  }
-
-  private def debugPrint(): Unit = {
-    println("Parsed interior")
-    for (row: Array[Tile] <- tiles) {
-      println()
-      for (tile: Tile <- row) {
-        print(tile.debugDraw)
-      }
-    }
-    println()
   }
 }

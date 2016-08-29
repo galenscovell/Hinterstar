@@ -19,6 +19,7 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
   private val infoDisplay: SubsystemInfo = constructInfo
 
   private var neighbors: Array[Tile] = _
+  private var path: Boolean = false
 
   initialize()
 
@@ -35,7 +36,7 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
       // Start unassigned player crewmates in Medbay subsystem
       for (crewmate: Crewmate <- PlayerData.getCrew) {
         if (crewmate.getAssignedSubsystemName == name) {
-          crewmate.setAssignment(getThisTile)
+          crewmate.setCurrentAssignment(getThisTile)
           assignCrewmate()
         }
       }
@@ -77,6 +78,10 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
     traversible
   }
 
+  def isPath: Boolean = {
+    path
+  }
+
   def getIcon: Sprite = {
     icon
   }
@@ -105,6 +110,14 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
     ********************/
   def setNeighbors(tiles: Array[Tile]): Unit = {
     neighbors = tiles
+  }
+
+  def setPath(): Unit = {
+    path = true
+  }
+
+  def removePath(): Unit = {
+    path = false
   }
 
 
@@ -194,16 +207,9 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
       infoDisplay.draw(batch, parentAlpha)
       batch.setColor(1, 1, 1, 1)
     }
-  }
 
-  def debugDraw: String = {
-    name match {
-      case "Weapon Control" => "W"
-      case "Shield Control" => "S"
-      case "Engine Room" => "E"
-      case "Helm" => "H"
-      case "Medbay" => "M"
-      case _ => "~"
+    if (path) {
+      batch.draw(Resources.spTest3, getX + 16, getY + 16, 8, 8)
     }
   }
 }

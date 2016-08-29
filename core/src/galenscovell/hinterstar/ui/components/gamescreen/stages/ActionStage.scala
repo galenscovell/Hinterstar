@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.viewport.FitViewport
-import galenscovell.hinterstar.processing.CombatHandler
+import galenscovell.hinterstar.processing.CombatProcessor
 import galenscovell.hinterstar.things.entities.{Npc, Player}
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
@@ -15,7 +15,7 @@ import galenscovell.hinterstar.util._
 class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
   private val player: Player = new Player(this)
   private var npc: Npc = new Npc(this)
-  private val combatHandler: CombatHandler = new CombatHandler(this, player.getShip)
+  private val combatProcessor: CombatProcessor = new CombatProcessor(this, player.getShip)
 
   construct()
 
@@ -25,7 +25,7 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
     mainTable.setFillParent(true)
 
     val actionGroup: Group = new Group
-    actionGroup.setSize(Constants.EXACT_X * 1.125f, Constants.EXACT_Y)
+    actionGroup.setSize(Constants.EXACT_X, Constants.EXACT_Y)
     actionGroup.setPosition(0, 0)
 
     actionGroup.addActor(player)
@@ -37,7 +37,7 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
     mainTable.addActor(actionGroup)
     this.addActor(mainTable)
 
-    combatHandler.setOpposition(npc)
+    combatProcessor.setOpposition(npc)
   }
 
   def updatePlayerAnimation(): Unit = {
@@ -56,7 +56,7 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
     ))
   }
 
-  def toggleSubsystemOverlay(): Unit = {
+  def toggleInteriorOverlay(): Unit = {
     if (player.overlayPresent()) {
       player.disableOverlay()
     } else {
@@ -72,7 +72,7 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
     }
   }
 
-  def disableSubsystemOverlay(): Unit = {
+  def disableInteriorOverlay(): Unit = {
     if (player.overlayPresent()) {
       player.disableOverlay()
     }
@@ -94,10 +94,10 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
     *     Combat     *
     *******************/
   def combatUpdate(): Unit = {
-    combatHandler.update(player.getShip.updateActiveWeapons(), npc.getShip.updateActiveWeapons())
+    combatProcessor.update(player.getShip.updateActiveWeapons(), npc.getShip.updateActiveWeapons())
   }
 
   def combatRender(delta: Float): Unit = {
-    combatHandler.render(delta, this.spriteBatch)
+    combatProcessor.render(delta, spriteBatch)
   }
 }

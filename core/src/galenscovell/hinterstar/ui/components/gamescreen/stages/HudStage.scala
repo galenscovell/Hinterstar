@@ -143,9 +143,12 @@ class HudStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sprit
     }
   }
 
-  def refreshCrewAndStats(): Unit = {
-    crewPanel.refreshCrewBoxes()
-    shipStatsPanel.refreshStats()
+  def refreshCrewPanel(): Unit = {
+    crewPanel.refresh()
+  }
+
+  def refreshStatsPanel(): Unit = {
+    shipStatsPanel.refresh()
   }
 
   def openWeaponSelect(): Unit = {

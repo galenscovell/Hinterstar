@@ -1,6 +1,7 @@
 package galenscovell.hinterstar.util
 
 import galenscovell.hinterstar.generation.interior.Tile
+import galenscovell.hinterstar.processing.Pathfinder
 import galenscovell.hinterstar.things.entities.Crewmate
 import galenscovell.hinterstar.things.parts.Weapon
 import galenscovell.hinterstar.ui.screens.GameScreen
@@ -10,12 +11,49 @@ object CrewOperations {
   private var gameScreen: GameScreen = _
   private var selectedCrewmate: Crewmate = _
   private var weaponCrewmate: Crewmate = _
-  private var crewmatePreviousAssignment: Tile = _
-
+  private val pathfinder: Pathfinder = new Pathfinder
 
 
   def initialize(gs: GameScreen): Unit = {
     gameScreen = gs
+  }
+
+  /**
+    * Called every update in game loop.
+    * Loops through current crewmates and checks if they're currently in motion to a new assignment.
+    * If they are, decrement the frames they've been in their current assignment.
+    * If their frames == 0, move them to the next tile in their assignment path.
+    * TEMP: Mark current crewmate tile as path for debug drawing to see where they are.
+    */
+  def updateCrewmatePositions(): Unit = {
+    for (crewmate: Crewmate <- PlayerData.getCrew) {
+      if (crewmate.hasPath) {
+        if (crewmate.getFrames == 0) {
+          val oldAssignment: Tile = crewmate.getCurrentAssignment
+          val newAssignment: Tile = crewmate.getNextTileInPath
+
+          oldAssignment.removePath()
+          crewmate.setCurrentAssignment(newAssignment)
+
+          // Reached destination
+          if (!crewmate.hasPath) {
+            newAssignment.assignCrewmate()
+            if (newAssignment.isWeaponSubsystem) {
+              weaponCrewmate = crewmate
+              PlayerData.getShip.refreshWeaponSelectPanel(newAssignment.getName)
+              gameScreen.getHudStage.openWeaponSelect()
+            }
+            gameScreen.getHudStage.refreshCrewPanel()
+            gameScreen.getHudStage.refreshStatsPanel()
+          } else {
+            crewmate.setFrames(5)
+            newAssignment.setPath()
+          }
+        } else {
+          crewmate.decrementFrames()
+        }
+      }
+    }
   }
 
   /**
@@ -49,27 +87,8 @@ object CrewOperations {
       weaponCrewmate.setWeapon(weapon)
       PlayerData.getShip.equipWeapon(weapon)
       gameScreen.getHudStage.closeWeaponSelect()
-      gameScreen.getHudStage.refreshCrewAndStats()
-
-      weaponCrewmate = null
-    }
-  }
-
-  /**
-    * Called if player cancels assigning crewmate to weapon subsystem.
-    * Closes weapon select panel and assigns crewmate back to previous assignment.
-    */
-  def cancelWeaponAssignment(): Unit = {
-    if (weaponCrewmate != null) {
-      gameScreen.getHudStage.closeWeaponSelect()
-      weaponCrewmate.getAssignment.removeCrewmate()
-
-      if (crewmatePreviousAssignment != null) {
-        weaponCrewmate.setAssignment(crewmatePreviousAssignment)
-        crewmatePreviousAssignment.assignCrewmate()
-        crewmatePreviousAssignment = null
-      }
-      gameScreen.getHudStage.refreshCrewAndStats()
+      gameScreen.getHudStage.refreshCrewPanel()
+      gameScreen.getHudStage.refreshStatsPanel()
 
       weaponCrewmate = null
     }
@@ -77,21 +96,23 @@ object CrewOperations {
 
   /**
     * Called when player selects subsystem after selecting a crewmate for assignment.
-    * Assigns crewmate to new subsystem.
-    * If new assignment is a weapon subsystem, opens weapon select panel.
+    * Assigns target subsystem to selected crewmate, sending them in motion with a path.
     */
   def assignCrewmate(newAssignment: Tile): Unit = {
     if (selectedCrewmate != null) {
       // TODO: Open 'Select a subsystem' tooltip label on HUD
-      // TODO: Have option to cancel assignment
+      // TODO: Have option to cancel ^ assignment
       if (!newAssignment.occupancyFull) {
-        val oldAssignment: Tile = selectedCrewmate.getAssignment
+        val oldAssignment: Tile = selectedCrewmate.getCurrentAssignment
 
         if (oldAssignment != null) {
-          crewmatePreviousAssignment = oldAssignment
-          oldAssignment.removeCrewmate()
+          // If crewmate is currently in motion, they're not fully assigned to a subsystem, so skip this
+          if (!selectedCrewmate.hasPath) {
+            oldAssignment.removeCrewmate()
+          }
 
-          if (oldAssignment.isWeaponSubsystem && !newAssignment.isWeaponSubsystem) {
+          // If previous assignment was a weapon, unequip that weapon
+          if (oldAssignment.isWeaponSubsystem) {
             val currentWeapon: Weapon = selectedCrewmate.getWeapon
             if (currentWeapon != null) {
               selectedCrewmate.removeWeapon()
@@ -100,22 +121,13 @@ object CrewOperations {
           }
         }
 
-        selectedCrewmate.setAssignment(newAssignment)
-        newAssignment.assignCrewmate()
-        gameScreen.getHudStage.refreshCrewAndStats()
+        gameScreen.getHudStage.refreshCrewPanel()
 
-        if (newAssignment.isWeaponSubsystem) {
-          weaponCrewmate = selectedCrewmate
-          PlayerData.getShip.refreshWeaponSelectPanel(newAssignment.getName)
-          gameScreen.getHudStage.openWeaponSelect()
-        }
-
-        val path: scala.collection.mutable.Stack[Tile] = Pathfinder.findPath(oldAssignment, newAssignment)
-
-        while (path.nonEmpty) {
-          val t: Tile = path.pop()
-          println(t.getTx, t.getTy)
-        }
+        // Pathfinding, don't select weapon subsystem for now... (how to work around weapon select?)
+        // AHA! Have crewmate pick their weapon _when they get there_ rather than before!
+        // Now the question is -- what to do when multiple crewmates hit the weapon subsystem at once?
+        selectedCrewmate.setPath(pathfinder.findPath(oldAssignment, newAssignment))
+        selectedCrewmate.setFrames(5)
       }
 
       selectedCrewmate.unhighlightTable()

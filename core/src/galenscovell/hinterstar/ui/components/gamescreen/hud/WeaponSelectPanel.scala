@@ -16,23 +16,13 @@ class WeaponSelectPanel(rootShip: Ship) extends Table {
 
 
   def refresh(weapons: Array[Weapon], subsystem: String): Unit = {
-    this.clearChildren()
+    this.clear()
 
     val selectionLabel: Label = new Label("Select a weapon", Resources.labelLargeStyle)
     selectionLabel.setAlignment(Align.center)
 
     val selectionPanel: Table = new Table
     selectionPanel.setBackground(Resources.npTest1)
-
-    val closeButton: Table = new TextButton("Close", Resources.greenButtonStyle)
-
-    selectionPanel.add(closeButton).expand.width(300).height(20).center
-    closeButton.addListener(new ClickListener() {
-      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        CrewOperations.cancelWeaponAssignment()
-      }
-    })
-    selectionPanel.row
 
     val weaponTableHolder: Table = new Table
 
