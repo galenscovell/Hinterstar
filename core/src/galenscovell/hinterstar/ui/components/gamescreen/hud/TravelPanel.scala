@@ -4,11 +4,11 @@ import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import galenscovell.hinterstar.generation.sector._
-import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
+import galenscovell.hinterstar.ui.components.gamescreen.stages.InterfaceStage
 import galenscovell.hinterstar.util._
 
 
-class TravelPanel(hudStage: HudStage) extends Table {
+class TravelPanel(interfaceStage: InterfaceStage) extends Table {
   private var distanceLabel: Label = _
 
   construct()
@@ -36,7 +36,7 @@ class TravelPanel(hudStage: HudStage) extends Table {
     val closeButton: TextButton = new TextButton("Close", Resources.blueButtonStyle)
     closeButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float) {
-        hudStage.closeTravelPanel()
+        interfaceStage.closeTravelPanel()
       }
     })
     table.add(closeButton).expand.width(96).height(40).right.padRight(10)
@@ -84,10 +84,10 @@ class TravelPanel(hudStage: HudStage) extends Table {
 
   private def travelToSystem(): Unit = {
     if (SystemOperations.travelToSelection) {
-      hudStage.closeTravelPanel()
-      hudStage.disableTravelButton()
-      hudStage.getGameScreen.beginTravel()
-      hudStage.hideUI()
+      interfaceStage.closeTravelPanel()
+      interfaceStage.disableTravelButton()
+      interfaceStage.getGameScreen.beginTravel()
+      interfaceStage.hideUI()
     }
   }
   

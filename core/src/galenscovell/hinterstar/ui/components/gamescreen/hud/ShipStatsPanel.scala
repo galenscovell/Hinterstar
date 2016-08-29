@@ -2,11 +2,11 @@ package galenscovell.hinterstar.ui.components.gamescreen.hud
 
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.scenes.scene2d.ui._
-import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
+import galenscovell.hinterstar.ui.components.gamescreen.stages.InterfaceStage
 import galenscovell.hinterstar.util._
 
 
-class ShipStatsPanel(hudStage: HudStage) extends Table {
+class ShipStatsPanel(interfaceStage: InterfaceStage) extends Table {
   private val shipStatsTable: Table = new Table
   private val statIcons: Array[Image] = Array(
     new Image(new Sprite(Resources.atlas.createSprite("icon_shield"))),

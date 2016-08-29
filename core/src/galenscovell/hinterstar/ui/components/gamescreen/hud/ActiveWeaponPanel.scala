@@ -12,7 +12,7 @@ class ActiveWeaponPanel(rootShip: Ship) extends Table {
 
 
   def refresh(weapons: Array[Weapon]): Unit = {
-    this.clearChildren()
+    this.clear()
 
     val activeWeaponTable: Table = new Table
 

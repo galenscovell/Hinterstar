@@ -3,11 +3,11 @@ package galenscovell.hinterstar.ui.components.gamescreen.hud
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.processing.Event
-import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
+import galenscovell.hinterstar.ui.components.gamescreen.stages.InterfaceStage
 import galenscovell.hinterstar.util._
 
 
-class EventPanel(hudStage: HudStage, eventContainer: Event) extends Table {
+class EventPanel(interfaceStage: InterfaceStage, eventContainer: Event) extends Table {
   construct()
 
 

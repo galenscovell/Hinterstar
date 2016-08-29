@@ -41,12 +41,12 @@ object CrewOperations {
             if (newAssignment.isWeaponSubsystem) {
               weaponCrewmate = crewmate
               PlayerData.getShip.refreshWeaponSelectPanel(newAssignment.getName)
-              gameScreen.getHudStage.openWeaponSelect()
+              gameScreen.getInterfaceStage.openWeaponSelect()
             }
-            gameScreen.getHudStage.refreshCrewPanel()
-            gameScreen.getHudStage.refreshStatsPanel()
+            crewmate.setAssignmentIcon()
+            gameScreen.getInterfaceStage.refreshStatsPanel()
           } else {
-            crewmate.setFrames(5)
+            crewmate.setFrames(4)
             newAssignment.setPath()
           }
         } else {
@@ -57,7 +57,7 @@ object CrewOperations {
   }
 
   /**
-    * Called when player selects crewmate from main HUD.
+    * Called when player selects crewmate from main interface.
     * Sets crewmate of interest for assignment operations.
     */
   def selectCrewmate(newCrewmate: Crewmate): Unit = {
@@ -86,9 +86,8 @@ object CrewOperations {
       }
       weaponCrewmate.setWeapon(weapon)
       PlayerData.getShip.equipWeapon(weapon)
-      gameScreen.getHudStage.closeWeaponSelect()
-      gameScreen.getHudStage.refreshCrewPanel()
-      gameScreen.getHudStage.refreshStatsPanel()
+      gameScreen.getInterfaceStage.closeWeaponSelect()
+      gameScreen.getInterfaceStage.refreshStatsPanel()
 
       weaponCrewmate = null
     }
@@ -121,13 +120,15 @@ object CrewOperations {
           }
         }
 
-        gameScreen.getHudStage.refreshCrewPanel()
-
         // Pathfinding, don't select weapon subsystem for now... (how to work around weapon select?)
         // AHA! Have crewmate pick their weapon _when they get there_ rather than before!
         // Now the question is -- what to do when multiple crewmates hit the weapon subsystem at once?
+        // IDEA: When crewmate enters weapon subsystem, show an option somewhere to pick their weapon
+        //    this would leave the timing entirely to the player rather than automatic.
         selectedCrewmate.setPath(pathfinder.findPath(oldAssignment, newAssignment))
-        selectedCrewmate.setFrames(5)
+        selectedCrewmate.setFrames(4)
+
+        selectedCrewmate.setAssignmentIcon()
       }
 
       selectedCrewmate.unhighlightTable()

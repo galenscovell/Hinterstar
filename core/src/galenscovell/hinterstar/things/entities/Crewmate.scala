@@ -15,7 +15,6 @@ import scala.collection.mutable
 class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var assignmentName: String, var health: Int) {
   private var currentAssignment: Tile = _
   private var targetAssignment: Tile = _
-  private var additionalDetail: String = _
   private var weapon: Weapon = _
 
   private val sprite: Sprite = Resources.spCrewmate
@@ -23,6 +22,8 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
   healthBar.setValue(100)
   private val crewInnerTable: Table = new Table
   private val crewBox: Group = new Group
+  private val assignmentIconTable: Table = new Table
+  private val detailLabel: Label = new Label("...", Resources.labelTinyStyle)
 
   private var frames: Int = 0
   private var path: mutable.Stack[Tile] = _
@@ -57,14 +58,6 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
 
   def getTargetAssignment: Tile = {
     targetAssignment
-  }
-
-  def getAdditionalDetail: String = {
-    if (additionalDetail != null && additionalDetail != "") {
-      additionalDetail
-    } else {
-      "..."
-    }
   }
 
   def getWeapon: Weapon = {
@@ -123,18 +116,14 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     targetAssignment = t
   }
 
-  def setAdditionalDetail(detail: String): Unit = {
-    additionalDetail = detail
-  }
-
   def setWeapon(w: Weapon): Unit = {
     weapon = w
-    additionalDetail = w.getName
+    setDetail(w.getName)
   }
 
   def removeWeapon(): Unit = {
     weapon = null
-    additionalDetail = ""
+    setDetail("...")
   }
 
   def updateHealth(value: Int): Unit = {
@@ -177,6 +166,25 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     crewInnerTable.setBackground(Resources.npTest4)
   }
 
+  def setAssignmentIcon(): Unit = {
+    var assignmentIcon: Image = null
+    if (currentAssignment != null && !hasPath) {
+      assignmentIcon = new Image(currentAssignment.getIcon)
+    } else {
+      assignmentIcon = new Image(Resources.spMovementIcon)
+    }
+    assignmentIconTable.clear()
+    assignmentIconTable.add(assignmentIcon)
+  }
+
+  def getDetail: String = {
+    detailLabel.getText.toString
+  }
+
+  private def setDetail(detail: String): Unit = {
+    detailLabel.setText(detail)
+  }
+
   private def constructBox(): Unit = {
     if (crewBox != null) {
       crewBox.clear()
@@ -206,12 +214,11 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     val nameLabel: Label = new Label(name, Resources.labelTinyStyle)
     nameLabel.setAlignment(Align.center, Align.left)
 
-    val additionalLabel: Label = new Label(getAdditionalDetail, Resources.labelTinyStyle)
-    additionalLabel.setAlignment(Align.center, Align.left)
+    detailLabel.setAlignment(Align.center, Align.left)
 
     rightTable.add(nameLabel).expand.fill.width(80)
     rightTable.row
-    rightTable.add(additionalLabel).expand.fill.width(80)
+    rightTable.add(detailLabel).expand.fill.width(80)
 
     crewInnerTable.add(leftTable).expand.width(32).height(60).left
     crewInnerTable.add(rightTable).expand.fill.width(88).height(60)
@@ -220,14 +227,8 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     crewInnerTable.setSize(120, 60)
     crewInnerTable.setPosition(0, 0)
 
-    var assignmentIcon: Image = null
-    if (currentAssignment != null && !hasPath) {
-      assignmentIcon = new Image(currentAssignment.getIcon)
-    } else {
-      assignmentIcon = new Image(Resources.spMovementIcon)
-    }
-    crewBox.addActor(assignmentIcon)
-    assignmentIcon.setSize(32, 32)
-    assignmentIcon.setPosition(102, 40)
+    crewBox.addActor(assignmentIconTable)
+    assignmentIconTable.setSize(32, 32)
+    assignmentIconTable.setPosition(102, 40)
   }
 }

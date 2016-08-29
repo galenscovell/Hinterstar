@@ -65,7 +65,7 @@ object SystemOperations {
     val centerX: Float = currentSystem.getSystemMarker.sx + Constants.SYSTEM_MARKER_CENTER_X
     val centerY: Float = Constants.EXACT_Y - currentSystem.getSystemMarker.sy + Constants.SYSTEM_MARKER_CENTER_Y
 
-    shapeRenderer.setProjectionMatrix(gameScreen.getHudStage.getCamera.combined)
+    shapeRenderer.setProjectionMatrix(gameScreen.getInterfaceStage.getCamera.combined)
     shapeRenderer.begin(ShapeRenderer.ShapeType.Line)
 
     shapeRenderer.setColor(0.95f, 0.61f, 0.07f, 0.6f)
@@ -152,7 +152,7 @@ object SystemOperations {
       ) / Constants.SYSTEMMARKER_SIZE).toInt
     }
 
-    gameScreen.getHudStage.updateDistanceLabel(s"Distance: $distance AU")
+    gameScreen.getInterfaceStage.updateDistanceLabel(s"Distance: $distance AU")
   }
 
 

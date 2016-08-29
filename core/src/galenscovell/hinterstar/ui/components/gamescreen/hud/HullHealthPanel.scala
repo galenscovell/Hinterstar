@@ -1,11 +1,11 @@
 package galenscovell.hinterstar.ui.components.gamescreen.hud
 
 import com.badlogic.gdx.scenes.scene2d.ui._
-import galenscovell.hinterstar.ui.components.gamescreen.stages.HudStage
+import galenscovell.hinterstar.ui.components.gamescreen.stages.InterfaceStage
 import galenscovell.hinterstar.util._
 
 
-class HullHealthPanel(hudStage: HudStage) extends Table {
+class HullHealthPanel(interfaceStage: InterfaceStage) extends Table {
   private val hullHealthBar: ProgressBar = new ProgressBar(0, 100, 1, false, Resources.hullHealthBarStyle)
 
   construct()

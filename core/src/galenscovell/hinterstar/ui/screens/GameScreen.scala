@@ -17,19 +17,19 @@ import scala.util.Random
 
 class GameScreen(root: Hinterstar) extends Screen {
   private val actionCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
-  private val hudCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
+  private val interfaceCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
   private var actionStage: ActionStage = _
-  private var hudStage: HudStage = _
+  private var interfaceStage: InterfaceStage = _
 
   private val input: InputMultiplexer = new InputMultiplexer
   private var travelFrames: Int = 0
   private var travelPanelOpen: Boolean = false
 
-  private val timestep: Int = 30
-  private var accumulator: Int = 0
+  private val timestep: Float = (1 / 60.0f) * 30
+  private var accumulator: Float = 0
   private var paused: Boolean = false
 
-  val num0: Int = (Math.random * 8).toInt  // Value between 0-7
+  val num0: Int = (Math.random * 8).toInt     // Value between 0-7
   val num1: Int = (Math.random * 4).toInt + 8 // Value between 8-12
 
   private var normalBg, blurBg: ParallaxBackground = _
@@ -49,16 +49,16 @@ class GameScreen(root: Hinterstar) extends Screen {
   private def construct(): Unit = {
     SystemOperations.setup(this)
     val actionViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, actionCamera)
-    val hudViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, hudCamera)
+    val interfaceViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, interfaceCamera)
     actionStage = new ActionStage(this, actionViewport, root.spriteBatch)
-    hudStage = new HudStage(this, hudViewport, root.spriteBatch)
+    interfaceStage = new InterfaceStage(this, interfaceViewport, root.spriteBatch)
 
     enableInput()
     actionStage.toggleInteriorOverlay()
   }
 
   private def enableInput(): Unit = {
-    input.addProcessor(hudStage)
+    input.addProcessor(interfaceStage)
     input.addProcessor(actionStage)
     Gdx.input.setInputProcessor(input)
   }
@@ -67,8 +67,8 @@ class GameScreen(root: Hinterstar) extends Screen {
     actionStage
   }
 
-  def getHudStage: HudStage = {
-    hudStage
+  def getInterfaceStage: InterfaceStage = {
+    interfaceStage
   }
 
   def toMainMenu(): Unit = {
@@ -77,7 +77,7 @@ class GameScreen(root: Hinterstar) extends Screen {
 
   def beginTravel(): Unit = {
     if (!paused) {
-      hudStage.togglePause()
+      interfaceStage.togglePause()
     }
     getActionStage.disableInteriorOverlay()
     input.clear()
@@ -113,7 +113,7 @@ class GameScreen(root: Hinterstar) extends Screen {
       Actions.fadeIn(1.0f)
     ))
 
-    hudStage.getRoot.addAction(Actions.sequence(
+    interfaceStage.getRoot.addAction(Actions.sequence(
       Actions.delay(3f),
       Actions.fadeOut(1.0f),
       warpTransitionAction,
@@ -238,20 +238,20 @@ class GameScreen(root: Hinterstar) extends Screen {
     // Pause stops combat and crew movement for all players
     if (!paused) {
       if (accumulator > timestep) {
-        accumulator = 0
+        accumulator -= timestep
         actionStage.combatUpdate()
         CrewOperations.updateCrewmatePositions()
       }
-      accumulator += 1
+      accumulator += delta
     }
 
-    // Update and render game stages
+    // Update and render primary game stages
     actionStage.act(delta)
     actionStage.draw()
     actionStage.combatRender(delta)
 
-    hudStage.act(delta)
-    hudStage.draw()
+    interfaceStage.act(delta)
+    interfaceStage.draw()
 
 
     // Draw map panel shapes
@@ -268,8 +268,8 @@ class GameScreen(root: Hinterstar) extends Screen {
     if (actionStage != null) {
       actionStage.getViewport.update(width, height, true)
     }
-    if (hudStage != null) {
-      hudStage.getViewport.update(width, height, true)
+    if (interfaceStage != null) {
+      interfaceStage.getViewport.update(width, height, true)
     }
   }
 
@@ -281,8 +281,8 @@ class GameScreen(root: Hinterstar) extends Screen {
     if (actionStage != null) {
       actionStage.dispose()
     }
-    if (hudStage != null) {
-      hudStage.dispose()
+    if (interfaceStage != null) {
+      interfaceStage.dispose()
     }
   }
 
@@ -306,7 +306,7 @@ class GameScreen(root: Hinterstar) extends Screen {
   }
   private[screens] var showViewButtonsAction: Action = new Action() {
     def act(delta: Float): Boolean = {
-      hudStage.showUI()
+      interfaceStage.showUI()
       true
     }
   }
