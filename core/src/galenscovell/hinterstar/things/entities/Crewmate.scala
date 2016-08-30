@@ -1,9 +1,9 @@
 package galenscovell.hinterstar.things.entities
 
 import com.badlogic.gdx.graphics.g2d.Sprite
-import com.badlogic.gdx.scenes.scene2d.{Group, InputEvent}
 import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.scenes.scene2d.{Group, InputEvent}
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.generation.interior.Tile
 import galenscovell.hinterstar.things.parts.Weapon
@@ -25,11 +25,9 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
   private val assignmentIconTable: Table = new Table
   private val detailLabel: Label = new Label("...", Resources.labelTinyStyle)
 
-  private var frames: Int = 0
-  private var path: mutable.Stack[Tile] = _
+  private val flag: CrewmateFlag = new CrewmateFlag(name)
 
   constructBox()
-//  crewBox.setDebug(true)
 
 
 
@@ -83,16 +81,8 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     healthBar
   }
 
-  def getFrames: Int = {
-    frames
-  }
-
-  def hasPath: Boolean = {
-    path != null && path.nonEmpty
-  }
-
-  def getNextTileInPath: Tile = {
-    path.pop()
+  def getFlag: CrewmateFlag = {
+    flag
   }
 
 
@@ -136,18 +126,6 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     healthBar.setValue(health)
   }
 
-  def setFrames(f: Int): Unit = {
-    frames = f
-  }
-
-  def decrementFrames(): Unit = {
-    frames -= 1
-  }
-
-  def setPath(p: mutable.Stack[Tile]): Unit = {
-    path = p
-  }
-
 
 
   /***********************
@@ -168,7 +146,7 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
 
   def setAssignmentIcon(): Unit = {
     var assignmentIcon: Image = null
-    if (currentAssignment != null && !hasPath) {
+    if (currentAssignment != null && !flag.hasPath) {
       assignmentIcon = new Image(currentAssignment.getIcon)
     } else {
       assignmentIcon = new Image(Resources.spMovementIcon)

@@ -280,15 +280,14 @@ test-box-4
   orig: 32, 32
   offset: 0, 0
   index: -1
-test-np-0
+icon_crewmate_flag
   rotate: false
   xy: 83, 175
   size: 24, 24
-  split: 0, 0, 0, 0
   orig: 24, 24
   offset: 0, 0
   index: -1
-test-np-1
+test-np-0
   rotate: false
   xy: 1927, 253
   size: 24, 24
@@ -296,7 +295,7 @@ test-np-1
   orig: 24, 24
   offset: 0, 0
   index: -1
-test-np-2
+test-np-1
   rotate: false
   xy: 919, 225
   size: 24, 24
@@ -304,7 +303,7 @@ test-np-2
   orig: 24, 24
   offset: 0, 0
   index: -1
-test-np-3
+test-np-2
   rotate: false
   xy: 945, 225
   size: 24, 24
@@ -312,7 +311,7 @@ test-np-3
   orig: 24, 24
   offset: 0, 0
   index: -1
-test-np-4
+test-np-3
   rotate: false
   xy: 971, 225
   size: 24, 24
@@ -320,9 +319,17 @@ test-np-4
   orig: 24, 24
   offset: 0, 0
   index: -1
+test-np-4
+  rotate: false
+  xy: 997, 225
+  size: 24, 24
+  split: 0, 0, 0, 0
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
 text-field-bg-np
   rotate: false
-  xy: 971, 225
+  xy: 997, 225
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24

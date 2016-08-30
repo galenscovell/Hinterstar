@@ -253,6 +253,10 @@ class GameScreen(root: Hinterstar) extends Screen {
     interfaceStage.act(delta)
     interfaceStage.draw()
 
+    root.spriteBatch.begin()
+    CrewOperations.drawCrewmatePositions(delta, root.spriteBatch)
+    root.spriteBatch.end()
+
 
     // Draw map panel shapes
     if (travelPanelOpen) {

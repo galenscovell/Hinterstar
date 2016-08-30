@@ -97,6 +97,7 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
     // What we need to do is determine where a point is _within_ the current actor.
     // Vector2(0, 0) is the bottom left corner of the actor
     // Vector2(0, getHeight()) is the top left corner of the actor
+    // We want the centerpoint of the tile
     this.localToStageCoordinates(new Vector2(
       (tileSize / 2) - 4,
       (tileSize / 2) - 4
@@ -110,14 +111,6 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
     ********************/
   def setNeighbors(tiles: Array[Tile]): Unit = {
     neighbors = tiles
-  }
-
-  def setPath(): Unit = {
-    path = true
-  }
-
-  def removePath(): Unit = {
-    path = false
   }
 
 

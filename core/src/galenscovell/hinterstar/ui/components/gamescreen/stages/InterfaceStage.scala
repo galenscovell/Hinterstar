@@ -69,18 +69,12 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
 
   def openTravelPanel(): Unit = {
     this.addActor(travelPanel)
-    travelPanel.addAction(Actions.sequence(
-      // Actions.fadeIn(0.5f, Interpolation.sine),
-      travelPanelOpenAction
-    ))
+    gameScreen.openTravelPanel()
   }
 
   def closeTravelPanel(): Unit = {
-    travelPanel.addAction(Actions.sequence(
-      travelPanelCloseAction,
-      // Actions.fadeOut(0.5f, Interpolation.sine),
-      Actions.removeActor()
-    ))
+    travelPanel.remove()
+    gameScreen.closeTravelPanel()
   }
 
   def hideUI(): Unit = {
@@ -134,6 +128,7 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
   }
 
   def togglePause(): Unit = {
+    // Pause only happens during events
     if (pausePanel.hasParent) {
       pausePanel.remove()
       gameScreen.setPause(false)
@@ -167,26 +162,9 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
       eventPanel.remove()
       eventPanel = null
     }
+
     eventPanel = new EventPanel(this, SystemOperations.parseNextEvent)
     this.addActor(eventPanel)
     hideUI()
-  }
-
-
-
-  /***************************
-    * Custom Scene2D Actions *
-    ***************************/
-  private[components] var travelPanelOpenAction: Action = new Action() {
-    def act(delta: Float): Boolean = {
-      gameScreen.openTravelPanel()
-      true
-    }
-  }
-  private[components] var travelPanelCloseAction: Action = new Action() {
-    def act(delta: Float): Boolean = {
-      gameScreen.closeTravelPanel()
-      true
-    }
   }
 }
