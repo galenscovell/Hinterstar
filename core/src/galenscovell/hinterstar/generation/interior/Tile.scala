@@ -19,7 +19,6 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
   private val infoDisplay: SubsystemInfo = constructInfo
 
   private var neighbors: Array[Tile] = _
-  private var path: Boolean = false
 
   initialize()
 
@@ -36,7 +35,7 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
       // Start unassigned player crewmates in Medbay subsystem
       for (crewmate: Crewmate <- PlayerData.getCrew) {
         if (crewmate.getAssignedSubsystemName == name) {
-          crewmate.setCurrentAssignment(getThisTile)
+          crewmate.setAssignment(getThisTile)
           assignCrewmate()
         }
       }
@@ -76,10 +75,6 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
 
   def isTraversible: Boolean = {
     traversible
-  }
-
-  def isPath: Boolean = {
-    path
   }
 
   def getIcon: Sprite = {
@@ -199,10 +194,6 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
 
       infoDisplay.draw(batch, parentAlpha)
       batch.setColor(1, 1, 1, 1)
-    }
-
-    if (path) {
-      batch.draw(Resources.spTest3, getX + 16, getY + 16, 8, 8)
     }
   }
 }

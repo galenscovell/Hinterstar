@@ -13,8 +13,7 @@ import scala.collection.mutable
 
 
 class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var assignmentName: String, var health: Int) {
-  private var currentAssignment: Tile = _
-  private var targetAssignment: Tile = _
+  private var assignment: Tile = _
   private var weapon: Weapon = _
 
   private val sprite: Sprite = Resources.spCrewmate
@@ -50,12 +49,8 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     proficiencies(proficiency)
   }
 
-  def getCurrentAssignment: Tile = {
-    currentAssignment
-  }
-
-  def getTargetAssignment: Tile = {
-    targetAssignment
+  def getAssignment: Tile = {
+    assignment
   }
 
   def getWeapon: Weapon = {
@@ -63,8 +58,8 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
   }
 
   def getAssignedSubsystemName: String = {
-    if (currentAssignment != null) {
-      assignmentName = currentAssignment.getName
+    if (assignment != null) {
+      assignmentName = assignment.getName
     }
     assignmentName
   }
@@ -98,12 +93,8 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     proficiencies.updated(proficiency, proficiencies(proficiency) + value)
   }
 
-  def setCurrentAssignment(t: Tile): Unit = {
-    currentAssignment = t
-  }
-
-  def setTargetAssignment(t: Tile): Unit = {
-    targetAssignment = t
+  def setAssignment(t: Tile): Unit = {
+    assignment = t
   }
 
   def setWeapon(w: Weapon): Unit = {
@@ -146,11 +137,13 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
 
   def setAssignmentIcon(): Unit = {
     var assignmentIcon: Image = null
-    if (currentAssignment != null && !flag.hasPath) {
-      assignmentIcon = new Image(currentAssignment.getIcon)
+
+    if (assignment != null && !flag.hasPath) {
+      assignmentIcon = new Image(assignment.getIcon)
     } else {
       assignmentIcon = new Image(Resources.spMovementIcon)
     }
+
     assignmentIconTable.clear()
     assignmentIconTable.add(assignmentIcon)
   }

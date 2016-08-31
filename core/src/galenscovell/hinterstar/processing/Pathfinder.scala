@@ -2,7 +2,6 @@ package galenscovell.hinterstar.processing
 
 import galenscovell.hinterstar.generation.interior.Tile
 
-import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 
@@ -12,7 +11,7 @@ class Pathfinder {
 
 
 
-  def findPath(startTile: Tile, endTile: Tile): mutable.Stack[Tile] = {
+  def findPath(startTile: Tile, endTile: Tile): Array[Tile] = {
     openList.clear()
     closedList.clear()
 
@@ -87,15 +86,15 @@ class Pathfinder {
     bestNode
   }
 
-  private def tracePath(n: Node): mutable.Stack[Tile] = {
-    val path: mutable.Stack[Tile] = mutable.Stack()
+  private def tracePath(n: Node): Array[Tile] = {
+    val path: ArrayBuffer[Tile] = ArrayBuffer()
     var node: Node = n
 
-    while (node.getParent != null) {
-      path.push(node.getTile)
+    while (node != null) {
+      path.append(node.getTile)
       node = node.getParent
     }
 
-    path
+    path.toArray.reverse
   }
 }

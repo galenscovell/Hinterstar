@@ -1,7 +1,6 @@
 package galenscovell.hinterstar.util
 
 import com.badlogic.gdx.graphics.g2d.Batch
-import com.badlogic.gdx.math.Vector2
 import galenscovell.hinterstar.generation.interior.Tile
 import galenscovell.hinterstar.processing.Pathfinder
 import galenscovell.hinterstar.things.entities.{Crewmate, CrewmateFlag}
@@ -32,39 +31,41 @@ object CrewOperations {
       val flag: CrewmateFlag = crewmate.getFlag
 
       if (flag.isActive) {
-        if (flag.getFrames == 0) {
-          // Reached destination
-          if (!flag.hasPath) {
-            val targetAssignment: Tile = crewmate.getTargetAssignment
-            targetAssignment.assignCrewmate()
-            crewmate.setCurrentAssignment(targetAssignment)
-            crewmate.setTargetAssignment(null)
+        if (flag.step) {
+          flag.setNextDestination()
 
-            if (targetAssignment.isWeaponSubsystem) {
+          if (flag.hasPath) {
+            flag.start(5)
+          } else {
+            // Path is empty -- reached destination
+            val flagTile: Tile = flag.getCurrentTile
+            flagTile.assignCrewmate()
+            crewmate.setAssignment(flagTile)
+
+            if (flagTile.isWeaponSubsystem) {
               weaponCrewmate = crewmate
-              PlayerData.getShip.refreshWeaponSelectPanel(targetAssignment.getName)
+              PlayerData.getShip.refreshWeaponSelectPanel(flagTile.getName)
               gameScreen.getInterfaceStage.openWeaponSelect()
             }
 
             crewmate.setAssignmentIcon()
             gameScreen.getInterfaceStage.refreshStatsPanel()
-            flag.setInactive()
-          } else {
-            flag.setDestination(flag.getNextDestination)
-            flag.setFrames(5)
+            flag.stop()
           }
-        } else {
-          flag.decrementFrames()
         }
       }
     }
   }
 
+  /**
+    * Called every game render in mai ngame loop.
+    * Draws crewmate flag markers in their current position on the ship.
+    */
   def drawCrewmatePositions(delta: Float, spriteBatch: Batch): Unit = {
     for (crewmate: Crewmate <- PlayerData.getCrew) {
       val flag: CrewmateFlag = crewmate.getFlag
 
-      if (flag.hasPath || !flag.finished) {
+      if (flag.hasPath || flag.drawing) {
         flag.draw(delta, spriteBatch)
       }
     }
@@ -115,7 +116,7 @@ object CrewOperations {
     if (selectedCrewmate != null) {
       // TODO: Open 'Select a subsystem' tooltip label on HUD
       // TODO: Have option to cancel ^ assignment
-      val currentAssignment: Tile = selectedCrewmate.getCurrentAssignment
+      val currentAssignment: Tile = selectedCrewmate.getAssignment
       if (currentAssignment != newAssignment && !newAssignment.occupancyFull) {
         val flag: CrewmateFlag = selectedCrewmate.getFlag
 
@@ -135,23 +136,19 @@ object CrewOperations {
           }
         }
 
-        // Pathfinding, don't select weapon subsystem for now... (how to work around weapon select?)
-        // AHA! Have crewmate pick their weapon _when they get there_ rather than before!
         // Now the question is -- what to do when multiple crewmates hit the weapon subsystem at once?
         // IDEA: When crewmate enters weapon subsystem, show an option somewhere to pick their weapon
         //    this would leave the timing entirely to the player rather than automatic.
         if (currentAssignment == null) {
-          flag.setPath(flag.getCurrentPosition, pathfinder.findPath(flag.getCurrentTile, newAssignment))
+          flag.setPath(flag.getCurrentPosition, pathfinder.findPath(flag.getPreviousTile, newAssignment))
         } else {
-          flag.setPath(currentAssignment, pathfinder.findPath(currentAssignment, newAssignment))
+          flag.setPath(pathfinder.findPath(currentAssignment, newAssignment))
         }
 
-        selectedCrewmate.setCurrentAssignment(null)
-        flag.setFrames(5)
-        flag.setActive()
+        selectedCrewmate.setAssignment(null)
+        flag.start(5)
 
         selectedCrewmate.setAssignmentIcon()
-        selectedCrewmate.setTargetAssignment(newAssignment)
       }
 
       selectedCrewmate.unhighlightTable()

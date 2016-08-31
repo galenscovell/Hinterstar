@@ -5,38 +5,37 @@ import com.badlogic.gdx.math.Vector2
 import galenscovell.hinterstar.generation.interior.Tile
 import galenscovell.hinterstar.util.Resources
 
-import scala.collection.mutable
-
 
 class CrewmateFlag(name: String) {
   private var position: Vector2 = _
   private var destination: Vector2 = _
-  private var lastTile: Tile = _
 
   private val sprite: Sprite = new Sprite(Resources.atlas.createSprite("icon_crewmate_flag"))
 
   private var active: Boolean = false
   private var frames: Int = 0
-  private var path: mutable.Stack[Tile] = mutable.Stack()
+  private var path: Array[Tile] = _
+  private var index: Int = 0
 
 
 
+  /********************
+    *     Getters     *
+    ********************/
   def isActive: Boolean = {
     active
   }
 
-  def getFrames: Int = {
-    frames
-  }
-
-  def getNextDestination: Tile = {
-    val nextTile: Tile = path.pop()
-    lastTile = nextTile
-    nextTile
+  def getPreviousTile: Tile = {
+    if (index > 1) {
+      path(index - 2)
+    } else {
+      path(0)
+    }
   }
 
   def getCurrentTile: Tile = {
-    lastTile
+    path(index - 1)
   }
 
   def getCurrentPosition: Vector2 = {
@@ -44,52 +43,70 @@ class CrewmateFlag(name: String) {
   }
 
   def hasPath: Boolean = {
-    path != null && path.nonEmpty
+    path != null && (index < path.length)
   }
 
-  def finished: Boolean = {
-    if (position != null && destination != null) {
-      val diffX: Float = Math.abs(destination.x - position.x)
-      val diffY: Float = Math.abs(destination.y - position.y)
-      diffX <= 8 && diffY <= 8
-    } else {
-      true
+
+
+  /********************
+    *     Setters     *
+    ********************/
+  def setPath(startVector: Vector2, p: Array[Tile]): Unit = {
+    path = p
+    position = startVector
+    index = 0
+    setNextDestination()
+  }
+
+  def setPath(p: Array[Tile]): Unit = {
+    setPath(p(0).getActorCoordinates, p)
+  }
+
+  def setNextDestination(): Unit = {
+    index += 1
+
+    if (index < path.length) {
+      destination = path(index).getActorCoordinates.cpy()
     }
   }
 
 
 
-  def setActive(): Unit = {
+  /*******************
+    *    Updating    *
+    *******************/
+  def start(f: Int): Unit = {
+    frames = f
     active = true
   }
 
-  def setInactive(): Unit = {
+  def step: Boolean = {
+    frames -= 1
+    if (frames == 0) {
+      true
+    } else {
+      false
+    }
+  }
+
+  def stop(): Unit = {
     active = false
   }
 
-  def setPath(startVector: Vector2, p: mutable.Stack[Tile]): Unit = {
-    path = p
-    position = startVector
-    setDestination(getNextDestination)
+
+
+  /********************
+    *    Rendering    *
+    ********************/
+  def drawing: Boolean = {
+    if (position != null && destination != null) {
+      val diffX: Float = Math.abs(destination.x - position.x)
+      val diffY: Float = Math.abs(destination.y - position.y)
+      diffX > 12 && diffY > 12
+    } else {
+      false
+    }
   }
-
-  def setPath(startTile: Tile, p: mutable.Stack[Tile]): Unit = {
-    setPath(startTile.getActorCoordinates, p)
-  }
-
-  def setDestination(dest: Tile): Unit = {
-    destination = dest.getActorCoordinates
-  }
-
-  def setFrames(f: Int): Unit = {
-    frames = f
-  }
-
-  def decrementFrames(): Unit = {
-    frames -= 1
-  }
-
-
 
   def draw(delta: Float, spriteBatch: Batch): Unit = {
     position.x += (destination.x - position.x) * 0.5f * delta
