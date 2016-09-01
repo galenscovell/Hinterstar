@@ -72,6 +72,7 @@ object SystemOperations {
     // shapeRenderer.circle(centerX, centerY, playerRangeRadius)
     shapeRenderer.circle(centerX, centerY, 30)
 
+
     if (systemsInRange.nonEmpty) {
       shapeRenderer.setColor(0.93f, 0.94f, 0.95f, 0.6f)
 

@@ -21,7 +21,11 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
   private val activeWeaponPanel: Table = PlayerData.getShip.getActiveWeaponPanel
 
   private var eventPanel: EventPanel = _
-  private val pausePanel: PausePanel = new PausePanel()
+  
+  private val pauseInfo: InfoPanel = new InfoPanel("Paused")
+  private val assignmentSelectInfo: InfoPanel = new InfoPanel("Select Subsystem to Assign Crewmate")
+  private val targetSelectInfo: InfoPanel = new InfoPanel("Select Enemy Subsystem to Target")
+  private val weaponSelectInfo: InfoPanel = new InfoPanel("Select Weapon to Equip")
 
   construct()
   CrewOperations.initialize(gameScreen)
@@ -53,29 +57,7 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
     this.addActor(mainTable)
   }
 
-  def enableTravelButton(): Unit = {
-    this.addActor(travelButton)
-    travelButton.addAction(Actions.sequence(
-      Actions.fadeIn(0.5f, Interpolation.sine)
-    ))
-  }
 
-  def disableTravelButton(): Unit = {
-    travelButton.addAction(Actions.sequence(
-      Actions.fadeOut(0.5f, Interpolation.sine),
-      Actions.removeActor()
-    ))
-  }
-
-  def openTravelPanel(): Unit = {
-    this.addActor(travelPanel)
-    gameScreen.openTravelPanel()
-  }
-
-  def closeTravelPanel(): Unit = {
-    travelPanel.remove()
-    gameScreen.closeTravelPanel()
-  }
 
   def hideUI(): Unit = {
     crewPanel.addAction(Actions.sequence(
@@ -127,17 +109,6 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
     gameScreen
   }
 
-  def togglePause(): Unit = {
-    // Pause only happens during events
-    if (pausePanel.hasParent) {
-      pausePanel.remove()
-      gameScreen.setPause(false)
-    } else {
-      this.addActor(pausePanel)
-      gameScreen.setPause(true)
-    }
-  }
-
   def refreshCrewPanel(): Unit = {
     crewPanel.refresh()
   }
@@ -146,14 +117,85 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
     shipStatsPanel.refresh()
   }
 
+
+
+  /*************************
+    *    Panel Handling    *
+    *************************/
+  def enableTravelButton(): Unit = {
+    this.addActor(travelButton)
+    travelButton.addAction(Actions.sequence(
+      Actions.fadeIn(0.5f, Interpolation.sine)
+    ))
+  }
+
+  def disableTravelButton(): Unit = {
+    travelButton.addAction(Actions.sequence(
+      Actions.fadeOut(0.5f, Interpolation.sine),
+      Actions.removeActor()
+    ))
+  }
+
+  def openTravelPanel(): Unit = {
+    this.addActor(travelPanel)
+    gameScreen.openTravelPanel()
+  }
+
+  def closeTravelPanel(): Unit = {
+    travelPanel.remove()
+    gameScreen.closeTravelPanel()
+  }
+
+  def togglePause(): Unit = {
+    // Pause only happens during events
+    if (pauseInfo.hasParent) {
+      pauseInfo.remove()
+      gameScreen.setPause(false)
+    } else {
+      this.addActor(pauseInfo)
+      gameScreen.setPause(true)
+    }
+  }
+
+  def openAssignmentSelect(): Unit = {
+    if (!assignmentSelectInfo.hasParent) {
+      this.addActor(assignmentSelectInfo)
+    }
+  }
+
+  def closeAssignmentSelect(): Unit = {
+    if (assignmentSelectInfo.hasParent) {
+      assignmentSelectInfo.remove()
+    }
+  }
+
+  def openTargetSelect(): Unit = {
+    if (!targetSelectInfo.hasParent) {
+      this.addActor(targetSelectInfo)
+    }
+  }
+
+  def closeTargetSelect(): Unit = {
+    if (targetSelectInfo.hasParent) {
+      targetSelectInfo.remove()
+    }
+  }
+
   def openWeaponSelect(): Unit = {
     this.addActor(PlayerData.getShip.getWeaponSelectPanel)
+
+    if (!weaponSelectInfo.hasParent) {
+      this.addActor(weaponSelectInfo)
+    }
   }
 
   def closeWeaponSelect(): Unit = {
     val weaponSelectPanel: Table = PlayerData.getShip.getWeaponSelectPanel
     if (weaponSelectPanel.hasParent) {
       weaponSelectPanel.remove()
+    }
+    if (weaponSelectInfo.hasParent) {
+      weaponSelectInfo.remove()
     }
   }
 

@@ -18,9 +18,6 @@ class WeaponSelectPanel(rootShip: Ship) extends Table {
   def refresh(weapons: Array[Weapon], subsystem: String): Unit = {
     this.clear()
 
-    val selectionLabel: Label = new Label("Select a weapon", Resources.labelLargeStyle)
-    selectionLabel.setAlignment(Align.center)
-
     val selectionPanel: Table = new Table
     selectionPanel.setBackground(Resources.npTest1)
 
@@ -81,8 +78,6 @@ class WeaponSelectPanel(rootShip: Ship) extends Table {
 
     selectionPanel.add(weaponTableHolder).expand.left
 
-    this.add(selectionLabel).expand.fill.center.top.padTop(48)
-    this.row
     this.add(selectionPanel).expand.fill.height(120).center.bottom
   }
 }

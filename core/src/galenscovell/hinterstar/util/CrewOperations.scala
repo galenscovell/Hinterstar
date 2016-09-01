@@ -78,6 +78,7 @@ object CrewOperations {
   def selectCrewmate(newCrewmate: Crewmate): Unit = {
     if (selectedCrewmate != null) {
       selectedCrewmate.unhighlightTable()
+      gameScreen.getInterfaceStage.closeAssignmentSelect()
     }
 
     if (selectedCrewmate == newCrewmate) {
@@ -85,6 +86,9 @@ object CrewOperations {
     } else {
       newCrewmate.highlightTable()
       selectedCrewmate = newCrewmate
+      // TODO: Open 'Select a subsystem' tooltip label on HUD
+      // TODO: Have option to cancel ^ assignment
+      gameScreen.getInterfaceStage.openAssignmentSelect()
     }
   }
 
@@ -114,10 +118,9 @@ object CrewOperations {
     */
   def assignCrewmate(newAssignment: Tile): Unit = {
     if (selectedCrewmate != null) {
-      // TODO: Open 'Select a subsystem' tooltip label on HUD
-      // TODO: Have option to cancel ^ assignment
       val currentAssignment: Tile = selectedCrewmate.getAssignment
       if (currentAssignment != newAssignment && !newAssignment.occupancyFull) {
+        gameScreen.getInterfaceStage.closeAssignmentSelect()
         val flag: CrewmateFlag = selectedCrewmate.getFlag
 
         if (currentAssignment != null) {
