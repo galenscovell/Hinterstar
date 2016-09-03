@@ -42,6 +42,17 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
 
   def updatePlayerAnimation(): Unit = {
     player.clearActions()
+    npc.clearActions()
+
+    npc.addAction(Actions.sequence(
+      Actions.moveBy(-120, 0, 1.6f, Interpolation.exp5In),
+      Actions.parallel(
+        Actions.moveBy(-800, 0, 0.5f),
+        Actions.fadeOut(0.5f)
+      ),
+      Actions.removeActor()
+    ))
+
     player.addAction(Actions.sequence(
       Actions.moveBy(80, 0, 1.75f, Interpolation.exp5In),
       Actions.moveBy(0, 4, 1.25f, Interpolation.linear),
