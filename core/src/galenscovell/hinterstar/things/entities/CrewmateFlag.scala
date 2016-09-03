@@ -53,9 +53,9 @@ class CrewmateFlag(name: String) {
     ********************/
   def setPath(startVector: Vector2, p: Array[Tile]): Unit = {
     path = p
-    position = startVector
     index = 0
-    setNextDestination()
+    position = startVector
+    destination = startVector
   }
 
   def setPath(p: Array[Tile]): Unit = {
@@ -82,7 +82,7 @@ class CrewmateFlag(name: String) {
 
   def step: Boolean = {
     frames -= 1
-    if (frames == 0) {
+    if (frames <= 0) {
       true
     } else {
       false

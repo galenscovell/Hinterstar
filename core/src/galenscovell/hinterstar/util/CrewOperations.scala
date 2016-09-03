@@ -104,7 +104,7 @@ object CrewOperations {
 
         selectedCrewmate.setAssignment(null)
         selectedCrewmate.setAssignmentIcon()
-        flag.start(5)
+        flag.start(0)
       }
 
       selectedCrewmate.unhighlightTable()
