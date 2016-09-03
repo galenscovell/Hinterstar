@@ -107,7 +107,7 @@ class Ship(name: String, description: String, var weapons: Array[Weapon], subsys
     weaponSelectPanel
   }
 
-  def refreshWeaponSelectPanel(subsystem: String): Unit = {
-    weaponSelectPanel.refresh(weapons, subsystem)
+  def refreshWeaponSelectPanel(subsystem: String, crewmate: String): Unit = {
+    weaponSelectPanel.refresh(weapons, subsystem, crewmate)
   }
 }

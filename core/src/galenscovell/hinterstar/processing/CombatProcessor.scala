@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.Stage
 import galenscovell.hinterstar.generation.interior.Tile
 import galenscovell.hinterstar.graphics.WeaponFx
-import galenscovell.hinterstar.things.entities.Npc
+import galenscovell.hinterstar.things.entities.Enemy
 import galenscovell.hinterstar.things.parts.Weapon
 import galenscovell.hinterstar.things.ships.Ship
 
@@ -28,14 +28,14 @@ import scala.util.Random
   */
 class CombatProcessor(actionStage: Stage, playerShip: Ship) {
   private val random: Random = new Random()
-  private var opposition: Npc = _
+  private var enemy: Enemy = _
   private val weaponFx: ArrayBuffer[WeaponFx] = ArrayBuffer()
   private val finishedFx: ArrayBuffer[WeaponFx] = ArrayBuffer()
 
 
 
-  def setOpposition(npc: Npc): Unit = {
-    opposition = npc
+  def setEnemy(en: Enemy): Unit = {
+    enemy = en
   }
 
 
@@ -43,7 +43,7 @@ class CombatProcessor(actionStage: Stage, playerShip: Ship) {
   /*********************
     *     Updating     *
     *********************/
-  def update(playerReadyWeapons: Array[Weapon], npcReadyWeapons: Array[Weapon]): Unit = {
+  def update(playerReadyWeapons: Array[Weapon], enemyReadyWeapons: Array[Weapon]): Unit = {
     // Check ready to fire weapons for player ship
     if (playerReadyWeapons.nonEmpty) {
       for (weapon: Weapon <- playerReadyWeapons) {
@@ -54,9 +54,9 @@ class CombatProcessor(actionStage: Stage, playerShip: Ship) {
 
           val srcCoords: Vector2 = weaponTile.getActorCoordinates
 
-          val targetSubsystemNames: Array[String] = opposition.getShip.getSubsystemNames
+          val targetSubsystemNames: Array[String] = enemy.getShip.getSubsystemNames
           val randomSubsystemIndex: Int = random.nextInt(targetSubsystemNames.length)
-          val targetCoords: Vector2 = opposition.getShip.getSubsystemMap(targetSubsystemNames(randomSubsystemIndex)).getActorCoordinates
+          val targetCoords: Vector2 = enemy.getShip.getSubsystemMap(targetSubsystemNames(randomSubsystemIndex)).getActorCoordinates
 
           weapon.getFx.fire(srcCoords, targetCoords)
           weapon.resetFireBar()
@@ -64,8 +64,8 @@ class CombatProcessor(actionStage: Stage, playerShip: Ship) {
       }
     }
 
-    // Repeat above for opposition
-    if (npcReadyWeapons.nonEmpty) {
+    // Repeat above for enemy
+    if (enemyReadyWeapons.nonEmpty) {
 
     }
   }
@@ -77,12 +77,14 @@ class CombatProcessor(actionStage: Stage, playerShip: Ship) {
     **********************/
   def render(delta: Float, spriteBatch: Batch): Unit = {
     spriteBatch.begin()
+
     for (fx <- weaponFx) {
       fx.draw(delta, spriteBatch)
       if (fx.done) {
         finishedFx.append(fx)
       }
     }
+
     spriteBatch.end()
 
     if (finishedFx.nonEmpty) {

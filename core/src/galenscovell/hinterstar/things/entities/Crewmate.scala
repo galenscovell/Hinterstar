@@ -137,14 +137,23 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
 
   def setAssignmentIcon(): Unit = {
     var assignmentIcon: Image = null
+    assignmentIconTable.clear()
 
     if (assignment != null && !flag.hasPath) {
       assignmentIcon = new Image(assignment.getIcon)
+
+      if (assignment.isWeaponSubsystem) {
+        assignmentIconTable.addListener(new ClickListener() {
+          override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
+            CrewOperations.showWeaponSelect(getThisCrewmate)
+          }
+        })
+        assignmentIcon.setColor(0.7f, 0.2f, 0.2f, 1)
+      }
     } else {
       assignmentIcon = new Image(Resources.spMovementIcon)
     }
 
-    assignmentIconTable.clear()
     assignmentIconTable.add(assignmentIcon)
   }
 

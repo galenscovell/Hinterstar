@@ -7,14 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.processing.CombatProcessor
-import galenscovell.hinterstar.things.entities.{Npc, Player}
+import galenscovell.hinterstar.things.entities.{Enemy, Player}
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 
 
 class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
   private val player: Player = new Player(this)
-  private var npc: Npc = new Npc(this)
+  private var npc: Enemy = new Enemy(this)
   private val combatProcessor: CombatProcessor = new CombatProcessor(this, player.getShip)
 
   construct()
@@ -37,7 +37,7 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
     mainTable.addActor(actionGroup)
     this.addActor(mainTable)
 
-    combatProcessor.setOpposition(npc)
+    combatProcessor.setEnemy(npc)
   }
 
   def updatePlayerAnimation(): Unit = {

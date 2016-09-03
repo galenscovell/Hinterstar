@@ -10,7 +10,7 @@ import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 
 
-class Npc(actionStage: ActionStage) extends Group {
+class Enemy(actionStage: ActionStage) extends Group {
   // NPC ought to have hull health, weapons, evasion, and shields defined here
   // They fire weapons automatically just like the player, with crew assignments determining stats
   private val gameScreen: GameScreen = actionStage.getGameScreen

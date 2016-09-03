@@ -21,7 +21,7 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
   private val activeWeaponPanel: Table = PlayerData.getShip.getActiveWeaponPanel
 
   private var eventPanel: EventPanel = _
-  
+
   private val pauseInfo: InfoPanel = new InfoPanel("Paused")
   private val assignmentSelectInfo: InfoPanel = new InfoPanel("Select Subsystem to Assign Crewmate")
   private val targetSelectInfo: InfoPanel = new InfoPanel("Select Enemy Subsystem to Target")
