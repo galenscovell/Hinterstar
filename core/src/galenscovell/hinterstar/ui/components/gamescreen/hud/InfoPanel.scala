@@ -9,7 +9,7 @@ class InfoPanel(message: String) extends Table {
 
   val pauseTable: Table = new Table
   pauseTable.setBackground(Resources.blueButtonNp0)
-  val pauseLabel: Label = new Label(message, Resources.labelLargeStyle)
+  val pauseLabel: Label = new Label(message, Resources.labelMediumStyle)
 
   pauseTable.add(pauseLabel).pad(6)
 

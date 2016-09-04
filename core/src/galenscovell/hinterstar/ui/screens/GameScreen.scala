@@ -253,7 +253,7 @@ class GameScreen(root: Hinterstar) extends Screen {
     interfaceStage.act(delta)
     interfaceStage.draw()
 
-    // Draw map panel shapes
+    // Draw map panel shapes or crewmate flags if not currently travelling
     if (travelPanelOpen) {
       SystemOperations.drawShapes()
     } else if (travelFrames == 0) {

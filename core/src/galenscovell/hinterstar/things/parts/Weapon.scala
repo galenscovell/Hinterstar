@@ -1,6 +1,7 @@
 package galenscovell.hinterstar.things.parts
 
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar
+import galenscovell.hinterstar.generation.interior.Tile
 import galenscovell.hinterstar.graphics.WeaponFx
 import galenscovell.hinterstar.util.Resources
 
@@ -10,6 +11,7 @@ class Weapon(name: String, subsystem: String, description: String, damage: Int,
              fxType: String, animationType: String, speed: Float) {
   private val fx: WeaponFx = new WeaponFx(fxType, animationType, speed)
   private var active: Boolean = false
+  private var target: Tile = _
   private val fireBar: ProgressBar = new ProgressBar(0, firerate, 1, false, Resources.hullHealthBarStyle)
   fireBar.setValue(fireBar.getMinValue)
   fireBar.setAnimateDuration(0.5f)
@@ -63,6 +65,10 @@ class Weapon(name: String, subsystem: String, description: String, damage: Int,
     fx
   }
 
+  def getTarget: Tile = {
+    target
+  }
+
 
 
   /********************
@@ -87,5 +93,9 @@ class Weapon(name: String, subsystem: String, description: String, damage: Int,
 
   def deactivate(): Unit = {
     active = false
+  }
+
+  def setTarget(tile: Tile): Unit = {
+    target = tile
   }
 }

@@ -71,8 +71,7 @@ class WeaponSelectPanel(rootShip: Ship) extends Table {
       if (!weapon.isActive && weapon.getSubsystem == subsystem) {
         weaponImage.addListener(new ClickListener() {
           override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-            rootShip.equipWeapon(weapon)
-            CrewOperations.equipWeapon(weapon)
+            CrewOperations.selectWeapon(weapon)
           }
         })
       }

@@ -24,20 +24,32 @@ class Tile(tx: Int, ty: Int, tileSize: Int, overlayHeight: Int, name: String,
 
 
   private def initialize(): Unit = {
-    if (isSubsystem && isPlayerSubsystem) {
-      this.addListener(new ActorGestureListener() {
-        override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
-          CrewOperations.assignCrewmate(getThisTile)
-        }
-      })
+    if (isSubsystem) {
+      if (isPlayerSubsystem) {
+        // Set clicklistener for player subsystems (for crewmate assignment)
+        this.addListener(new ActorGestureListener() {
+          override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
+            CrewOperations.assignCrewmate(getThisTile)
+          }
+        })
 
-      // Start all player crewmates in their saved assigned subsystem
-      // Start unassigned player crewmates in Medbay subsystem
-      for (crewmate: Crewmate <- PlayerData.getCrew) {
-        if (crewmate.getAssignedSubsystemName == name) {
-          crewmate.setAssignment(getThisTile)
-          assignCrewmate()
+        // Start all player crewmates in their saved assigned subsystem
+        // Start unassigned player crewmates in Medbay subsystem
+        for (crewmate: Crewmate <- PlayerData.getCrew) {
+          if (crewmate.getAssignedSubsystemName == name) {
+            crewmate.setAssignment(getThisTile)
+            assignCrewmate()
+          }
         }
+      } else {
+        // Set clicklistener for enemy subsystems (for targetting)
+        this.addListener(new ActorGestureListener() {
+          override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
+            if (CrewOperations.weaponSelected) {
+              CrewOperations.targetEnemySubsystem(getThisTile)
+            }
+          }
+        })
       }
     }
 

@@ -53,10 +53,7 @@ class CombatProcessor(actionStage: Stage, playerShip: Ship) {
           weaponFx.append(weapon.getFx)
 
           val srcCoords: Vector2 = weaponTile.getActorCoordinates
-
-          val targetSubsystemNames: Array[String] = enemy.getShip.getSubsystemNames
-          val randomSubsystemIndex: Int = random.nextInt(targetSubsystemNames.length)
-          val targetCoords: Vector2 = enemy.getShip.getSubsystemMap(targetSubsystemNames(randomSubsystemIndex)).getActorCoordinates
+          val targetCoords: Vector2 = weapon.getTarget.getActorCoordinates
 
           weapon.getFx.fire(srcCoords, targetCoords)
           weapon.resetFireBar()

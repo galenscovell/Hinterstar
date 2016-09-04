@@ -15,6 +15,8 @@ object CrewOperations {
   private var selectedCrewmate: Crewmate = _
   private var weaponCrewmate: Crewmate = _
 
+  private var selectedWeapon: Weapon = _
+
 
 
   def initialize(gs: GameScreen): Unit = {
@@ -35,37 +37,6 @@ object CrewOperations {
       newCrewmate.highlightTable()
       selectedCrewmate = newCrewmate
       gameScreen.getInterfaceStage.openAssignmentSelect()
-    }
-  }
-
-  def showWeaponSelect(crewmate: Crewmate): Unit = {
-    weaponCrewmate = crewmate
-    PlayerData.getShip.refreshWeaponSelectPanel(weaponCrewmate.getAssignment.getName, weaponCrewmate.getName)
-    gameScreen.getInterfaceStage.openWeaponSelect()
-  }
-
-  def cancelWeaponAssignment(): Unit = {
-    if (weaponCrewmate != null) {
-      gameScreen.getInterfaceStage.closeWeaponSelect()
-      weaponCrewmate = null
-    }
-  }
-
-  def equipWeapon(weapon: Weapon): Unit = {
-    if (weaponCrewmate != null) {
-      val currentWeapon: Weapon = weaponCrewmate.getWeapon
-
-      if (currentWeapon != null) {
-        weaponCrewmate.removeWeapon()
-        PlayerData.getShip.unequipWeapon(currentWeapon)
-      }
-
-      weaponCrewmate.setWeapon(weapon)
-      PlayerData.getShip.equipWeapon(weapon)
-      gameScreen.getInterfaceStage.closeWeaponSelect()
-      gameScreen.getInterfaceStage.refreshStatsPanel()
-
-      weaponCrewmate = null
     }
   }
 
@@ -112,6 +83,54 @@ object CrewOperations {
     }
   }
 
+
+
+  def showWeaponSelect(crewmate: Crewmate): Unit = {
+    weaponCrewmate = crewmate
+    PlayerData.getShip.refreshWeaponSelectPanel(weaponCrewmate.getAssignment.getName, weaponCrewmate.getName)
+    gameScreen.getInterfaceStage.openWeaponSelect()
+  }
+
+  def cancelWeaponAssignment(): Unit = {
+    gameScreen.getInterfaceStage.closeWeaponSelect()
+    gameScreen.getInterfaceStage.closeTargetSelect()
+    weaponCrewmate = null
+    selectedWeapon = null
+  }
+
+  def selectWeapon(weapon: Weapon): Unit = {
+    selectedWeapon = weapon
+    gameScreen.getInterfaceStage.closeWeaponSelect()
+    gameScreen.getInterfaceStage.openTargetSelect()
+  }
+
+  def weaponSelected: Boolean = {
+    selectedWeapon != null
+  }
+
+  def targetEnemySubsystem(enemySubsystem: Tile): Unit = {
+    selectedWeapon.setTarget(enemySubsystem)
+    equipWeapon(selectedWeapon)
+  }
+
+  def equipWeapon(weapon: Weapon): Unit = {
+    if (weaponCrewmate != null) {
+      val oldWeapon: Weapon = weaponCrewmate.getWeapon
+
+      if (oldWeapon != null) {
+        weaponCrewmate.removeWeapon()
+        PlayerData.getShip.unequipWeapon(oldWeapon)
+      }
+
+      weaponCrewmate.setWeapon(selectedWeapon)
+      PlayerData.getShip.equipWeapon(selectedWeapon)
+      gameScreen.getInterfaceStage.closeTargetSelect()
+      gameScreen.getInterfaceStage.refreshStatsPanel()
+
+      weaponCrewmate = null
+      selectedWeapon = null
+    }
+  }
 
 
 
