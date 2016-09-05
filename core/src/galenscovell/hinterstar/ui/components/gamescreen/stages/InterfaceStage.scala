@@ -6,16 +6,17 @@ import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.viewport.FitViewport
+import galenscovell.hinterstar.things.entities.Player
 import galenscovell.hinterstar.ui.components.gamescreen.hud._
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 
 
-class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
+class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch, player: Player) extends Stage(viewport, spriteBatch) {
   private val travelPanel: TravelPanel = new TravelPanel(this)
   private val travelButton: TravelButton = new TravelButton(this)
 
-  private val hullHealthPanel: HullHealthPanel = new HullHealthPanel(this)
+  private val hullHealthPanel: HullHealthPanel = new HullHealthPanel(this, player.getShip.getHealthBar)
   private val shipStatsPanel: ShipStatsPanel = new ShipStatsPanel(this)
   private val crewPanel: CrewPanel = new CrewPanel(this)
   private val activeWeaponPanel: Table = PlayerData.getShip.getActiveWeaponPanel
@@ -39,18 +40,16 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
-    val centerTable: Table = new Table
     val actionTable = new Table
+    val statTable: Table = new Table
+    statTable.add(shipStatsPanel).width(180).height(32)
+    statTable.add(hullHealthPanel).width(280).height(32).padLeft(4)
 
-    centerTable.add(actionTable).width(Constants.EXACT_X).expand.fill.center
-
-    mainTable.add(hullHealthPanel).width(Constants.EXACT_X / 2).height(32).left.padLeft(8)
-    mainTable.row
-    mainTable.add(shipStatsPanel).width(Constants.EXACT_X / 2).height(32).left.padLeft(8)
-    mainTable.row
-    mainTable.add(centerTable).width(Constants.EXACT_X).expand.fill
+    mainTable.add(actionTable).width(Constants.EXACT_X).expand.fill
     mainTable.row
     mainTable.add(activeWeaponPanel).width(Constants.EXACT_X).height(32).bottom
+    mainTable.row
+    mainTable.add(statTable).width(460).height(32).left
     mainTable.row
     mainTable.add(crewPanel).width(Constants.EXACT_X).height(66).bottom
 

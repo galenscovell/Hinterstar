@@ -21,7 +21,6 @@ object PlayerData {
   private var prefs: Preferences = _
   private val crew: ArrayBuffer[Crewmate] = ArrayBuffer()
   private var ship: Ship = _
-  private var hullHealth: Int = 100
   private val proficiencies: List[String] =
     List("Weapons", "Engines", "Piloting", "Shields")
 
@@ -223,20 +222,12 @@ object PlayerData {
     * Hull Operations *
     ********************/
   def saveHullHealth(): Unit = {
-    prefs.putInteger("hull-health", hullHealth)
+    prefs.putInteger("hull-health", ship.getHealth)
     prefs.flush()
   }
 
-  def loadHullHealth(): Int = {
-    prefs.getInteger("hull-health")
-  }
-
-  def getHullHealth(): Int = {
-    hullHealth
-  }
-
-  def updateHullHealth(health: Int): Unit = {
-    hullHealth = health
+  def loadHullHealth(): Unit = {
+    ship.setHealth(prefs.getInteger("hull-health"))
   }
 
 

@@ -3,12 +3,14 @@ package galenscovell.hinterstar.ui.screens
 import com.badlogic.gdx._
 import com.badlogic.gdx.graphics._
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
 import galenscovell.hinterstar.graphics._
+import galenscovell.hinterstar.processing.GestureHandler
 import galenscovell.hinterstar.ui.components.gamescreen.stages._
 import galenscovell.hinterstar.util._
 
@@ -22,6 +24,7 @@ class GameScreen(root: Hinterstar) extends Screen {
   private var interfaceStage: InterfaceStage = _
 
   private val input: InputMultiplexer = new InputMultiplexer
+  private val gestureHandler: GestureDetector = new GestureDetector(new GestureHandler(this))
   private var travelFrames: Int = 0
   private var travelPanelOpen: Boolean = false
 
@@ -42,6 +45,11 @@ class GameScreen(root: Hinterstar) extends Screen {
   createBackground()
   private var currentBackground: ParallaxBackground = normalBg
 
+  private val lerp: Float = 0.9f
+  private val originVector: Vector2 = new Vector2(Constants.EXACT_X / 2, Constants.EXACT_Y / 2)
+  private val cameraXmin: Float = Constants.EXACT_X * 0.375f
+  private val cameraXmax: Float = Constants.EXACT_X * 0.625f
+
   construct()
 
 
@@ -51,7 +59,7 @@ class GameScreen(root: Hinterstar) extends Screen {
     val actionViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, actionCamera)
     val interfaceViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, interfaceCamera)
     actionStage = new ActionStage(this, actionViewport, root.spriteBatch)
-    interfaceStage = new InterfaceStage(this, interfaceViewport, root.spriteBatch)
+    interfaceStage = new InterfaceStage(this, interfaceViewport, root.spriteBatch, actionStage.getPlayer)
 
     enableInput()
     actionStage.toggleInteriorOverlay()
@@ -60,6 +68,7 @@ class GameScreen(root: Hinterstar) extends Screen {
   private def enableInput(): Unit = {
     input.addProcessor(interfaceStage)
     input.addProcessor(actionStage)
+    input.addProcessor(gestureHandler)
     Gdx.input.setInputProcessor(input)
   }
 
@@ -215,6 +224,20 @@ class GameScreen(root: Hinterstar) extends Screen {
     val b: Float = random.nextFloat
 
     new Color(r, g, b, 1f)
+  }
+
+
+
+  /***********************
+    * Gesture operations *
+    ***********************/
+  def actionPan(dx: Float, dy: Float): Unit = {
+    val newCameraX: Float = getActionStage.getCamera.position.x - dx
+    val newSpeed: Vector2 = new Vector2(40, 0)
+
+    if (newCameraX >= cameraXmin && newCameraX < cameraXmax) {
+      getActionStage.getCamera.translate(-dx, 0, 0)
+    }
   }
 
 

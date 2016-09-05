@@ -4,15 +4,20 @@ import com.badlogic.gdx.scenes.scene2d.ui._
 import galenscovell.hinterstar.generation.interior.Tile
 import galenscovell.hinterstar.things.parts.Weapon
 import galenscovell.hinterstar.ui.components.gamescreen.hud.{ActiveWeaponPanel, WeaponSelectPanel}
+import galenscovell.hinterstar.util.Resources
 
 import scala.collection.mutable.{ArrayBuffer, Map}
 
 
 class Ship(name: String, description: String, var weapons: Array[Weapon], subsystemNames: Array[String]) {
   private var interiorOverlay: InteriorOverlay = _
-
   private val activeWeaponPanel: ActiveWeaponPanel = new ActiveWeaponPanel(this)
   private val weaponSelectPanel: WeaponSelectPanel = new WeaponSelectPanel(this)
+
+  // TODO: Set max health depending on ship
+  private val healthBar: ProgressBar = new ProgressBar(0, 100, 1, false, Resources.hullHealthBarStyle)
+  healthBar.setValue(healthBar.getMinValue)
+  healthBar.setAnimateDuration(0.5f)
 
   private var isPlayer: Boolean = false
 
@@ -45,6 +50,14 @@ class Ship(name: String, description: String, var weapons: Array[Weapon], subsys
     interiorOverlay.getSubsystemMap
   }
 
+  def getHealthBar: ProgressBar = {
+    healthBar
+  }
+
+  def getHealth: Int = {
+    healthBar.getValue.toInt
+  }
+
 
 
   /********************
@@ -67,6 +80,23 @@ class Ship(name: String, description: String, var weapons: Array[Weapon], subsys
     w.resetFireBar()
     w.deactivate()
     activeWeaponPanel.refresh(weapons)
+  }
+
+  def setHealth(amount: Int): Unit = {
+    healthBar.setValue(amount)
+  }
+
+  def updateHealth(amount: Int): Unit = {
+    var health: Int = healthBar.getValue.toInt + amount
+
+    if (health < 0) {
+      // TODO: This means game over, at some point
+      health = 0
+    } else if (health > healthBar.getMaxValue) {
+      health = healthBar.getMaxValue.toInt
+    }
+
+    healthBar.setValue(health)
   }
 
 

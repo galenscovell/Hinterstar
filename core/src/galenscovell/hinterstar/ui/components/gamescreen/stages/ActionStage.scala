@@ -21,6 +21,7 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
 
 
   private def construct(): Unit = {
+    // TODO: Make two separate cameras, one for player slice and one for enemy slice
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
@@ -29,10 +30,10 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
     actionGroup.setPosition(0, 0)
 
     actionGroup.addActor(player)
-    player.setPosition(0, 100)
+    player.setPosition(0, 130)
 
     actionGroup.addActor(npc)
-    npc.setPosition(380, 240)
+    npc.setPosition(380, 270)
 
     mainTable.addActor(actionGroup)
     this.addActor(mainTable)
@@ -97,6 +98,10 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
 
   def getGameScreen: GameScreen = {
     gameScreen
+  }
+
+  def getPlayer: Player = {
+    player
   }
 
 
