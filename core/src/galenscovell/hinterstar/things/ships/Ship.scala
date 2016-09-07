@@ -15,8 +15,8 @@ class Ship(name: String, description: String, var weapons: Array[Weapon], subsys
   private val weaponSelectPanel: WeaponSelectPanel = new WeaponSelectPanel(this)
 
   // TODO: Set max health depending on ship
-  private val healthBar: ProgressBar = new ProgressBar(0, 100, 1, false, Resources.hullHealthBarStyle)
-  healthBar.setValue(healthBar.getMinValue)
+  private val healthBar: ProgressBar = new ProgressBar(0, 100, 1, true, Resources.hullHealthBarStyle)
+  healthBar.setValue(healthBar.getMaxValue)
   healthBar.setAnimateDuration(0.5f)
 
   private var isPlayer: Boolean = false

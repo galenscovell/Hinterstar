@@ -40,16 +40,18 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
+    val centerTable = new Table
     val actionTable = new Table
     val statTable: Table = new Table
-    statTable.add(shipStatsPanel).width(180).height(32)
-    statTable.add(hullHealthPanel).width(280).height(32).padLeft(4)
 
-    mainTable.add(actionTable).width(Constants.EXACT_X).expand.fill
+    centerTable.add(hullHealthPanel).width(24).height(300).expand.fill.left.bottom
+    centerTable.add(actionTable).width(Constants.EXACT_X - 24).expand.fill
+
+    mainTable.add(centerTable).width(Constants.EXACT_X).expand.fill
     mainTable.row
     mainTable.add(activeWeaponPanel).width(Constants.EXACT_X).height(32).bottom
     mainTable.row
-    mainTable.add(statTable).width(460).height(32).left
+    mainTable.add(shipStatsPanel).width(180).height(32).left
     mainTable.row
     mainTable.add(crewPanel).width(Constants.EXACT_X).height(66).bottom
 

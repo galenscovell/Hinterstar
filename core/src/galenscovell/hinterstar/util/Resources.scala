@@ -169,10 +169,10 @@ object Resources {
 
   private def loadProgressBars(): Unit = {
     hullHealthBarStyle = new ProgressBarStyle(
-      npHullHealthEmpty,
-      npHullHealthFill
+      npCrewHealthEmpty,
+      npCrewHealthFill
     )
-    hullHealthBarStyle.knobBefore = npHullHealthFill
+    hullHealthBarStyle.knobBefore = npCrewHealthFill
 
     crewHealthBarStyle = new ProgressBarStyle(
       npCrewHealthEmpty,
