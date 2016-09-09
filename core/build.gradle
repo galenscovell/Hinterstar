@@ -1,10 +1,18 @@
-apply plugin: "java"
-apply plugin: "scala"
+apply plugin: 'kotlin'
 
+sourceCompatibility = 1.6
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sourceSets.main.java.srcDirs = [ "src/" ]
-sourceSets.main.scala.srcDirs = ["src/"]
 
-dependencies {
+
+eclipse.project {
+    name = appName + "-core"
+}
+
+repositories {
+    mavenCentral()
+}
+sourceSets {
+    main.java.srcDirs += 'src/main/kotlin'
 }
