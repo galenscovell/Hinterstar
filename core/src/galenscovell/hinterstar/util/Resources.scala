@@ -33,7 +33,7 @@ object Resources {
       buttonEventStyle, toggleButtonStyle, greenButtonStyle, blueButtonStyle: TextButtonStyle = _
 
   var mapGlow, spTest0, spTest1, spTest2, spTest3, spTest4,
-      spCrewmate, spSubsystemMarker, spMovementIcon: Sprite = _
+      spCrewmate, spSubsystemMarker, spMovementIcon, shieldLayer: Sprite = _
 
   var hullHealthBarStyle, crewHealthBarStyle: ProgressBarStyle = _
 
@@ -149,6 +149,7 @@ object Resources {
     spCrewmate = new Sprite(atlas.createSprite("test-crewmate"))
     spSubsystemMarker = new Sprite(atlas.createSprite("subsystem_marker"))
     spMovementIcon = new Sprite(atlas.createSprite("icon_movement"))
+    shieldLayer = new Sprite(atlas.createSprite("shield_layer-1"))
   }
 
   private def loadAnimations(): Unit = {

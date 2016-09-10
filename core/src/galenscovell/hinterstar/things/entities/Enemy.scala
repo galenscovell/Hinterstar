@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
+import galenscovell.hinterstar.things.parts.Shield
 import galenscovell.hinterstar.things.ships.{Ship, ShipParser}
 import galenscovell.hinterstar.ui.components.gamescreen.stages.EntityStage
 import galenscovell.hinterstar.ui.screens.GameScreen
@@ -18,6 +19,7 @@ class Enemy(entityStage: EntityStage) extends Group {
   private val sprite: Sprite = Resources.atlas.createSprite(ship.getName)
   sprite.flip(true, false)
   private val shipActor: Image = new Image(sprite)
+  private val shields: Shield = new Shield(544 + 80, 218 + 80)
 
   construct()
 
@@ -25,11 +27,12 @@ class Enemy(entityStage: EntityStage) extends Group {
   private def construct(): Unit = {
     ship.createInterior()
 
-    this.setSize(480, 192)
-    shipActor.setSize(480, 192)
-    ship.getInterior.setSize(480, 192)
+    this.setSize(544, 218)
+    shipActor.setSize(544, 218)
+    ship.getInterior.setSize(544, 218)
 
     this.addActor(shipActor)
+    this.addActor(shields)
 
     this.addAction(Actions.forever(
       Actions.sequence(

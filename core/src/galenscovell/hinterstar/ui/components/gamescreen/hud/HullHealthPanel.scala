@@ -10,6 +10,6 @@ class HullHealthPanel(interfaceStage: InterfaceStage, healthBar: ProgressBar) ex
 
 
   private def construct(): Unit = {
-    this.add(healthBar).expand.fill
+    this.add(healthBar).expand.fill.left
   }
 }
