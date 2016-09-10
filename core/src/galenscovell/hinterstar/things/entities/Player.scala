@@ -4,13 +4,13 @@ import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import galenscovell.hinterstar.things.ships.Ship
-import galenscovell.hinterstar.ui.components.gamescreen.stages.ActionStage
+import galenscovell.hinterstar.ui.components.gamescreen.stages.EntityStage
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 
 
-class Player(actionStage: ActionStage) extends Group {
-  private val gameScreen: GameScreen = actionStage.getGameScreen
+class Player(entityStage: EntityStage) extends Group {
+  private val gameScreen: GameScreen = entityStage.getGameScreen
   private val ship: Ship = PlayerData.getShip
   private val shipActor: Image = new Image(Resources.atlas.createSprite(ship.getName))
 
@@ -20,9 +20,9 @@ class Player(actionStage: ActionStage) extends Group {
   private def construct(): Unit = {
     ship.createInterior()
 
-    this.setSize(420, 168)
-    shipActor.setSize(420, 168)
-    ship.getInterior.setSize(420, 168)
+    this.setSize(480, 192)
+    shipActor.setSize(480, 192)
+    ship.getInterior.setSize(480, 192)
 
     this.addActor(shipActor)
 

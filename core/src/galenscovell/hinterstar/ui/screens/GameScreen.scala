@@ -15,9 +15,7 @@ import galenscovell.hinterstar.util._
 
 
 class GameScreen(root: Hinterstar) extends Screen {
-  private val actionCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight / 2)
-  private val interfaceCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
-  private var actionStage: ActionStage = _
+  private var entityStage: EntityStage = _
   private var interfaceStage: InterfaceStage = _
   private var combatProcessor: CombatProcessor = _
 
@@ -32,8 +30,8 @@ class GameScreen(root: Hinterstar) extends Screen {
 
   private val lerp: Float = 0.9f
   private val originVector: Vector2 = new Vector2(Constants.EXACT_X / 2, Constants.EXACT_Y / 2)
-  private val cameraXmin: Float = Constants.EXACT_X * 0.375f
-  private val cameraXmax: Float = Constants.EXACT_X * 0.625f
+  private val cameraXmin: Float = Constants.EXACT_X * 0.5f
+  private val cameraXmax: Float = Constants.EXACT_X * 1.25f
 
   construct()
 
@@ -41,12 +39,16 @@ class GameScreen(root: Hinterstar) extends Screen {
 
   private def construct(): Unit = {
     SystemOperations.setup(this)
-    val actionViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y / 2, actionCamera)
+    val playerCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
+    val playerViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, playerCamera)
+    entityStage = new EntityStage(this, playerViewport, playerCamera, root.spriteBatch)
+
+    val interfaceCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
     val interfaceViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, interfaceCamera)
-    actionStage = new ActionStage(this, actionViewport, root.spriteBatch)
-    interfaceStage = new InterfaceStage(this, interfaceViewport, root.spriteBatch, actionStage.getPlayer)
-    combatProcessor = new CombatProcessor(actionStage)
-    combatProcessor.setEnemy(actionStage.getEnemy)
+    interfaceStage = new InterfaceStage(this, interfaceViewport, root.spriteBatch, entityStage.getPlayer)
+
+    combatProcessor = new CombatProcessor(entityStage)
+    combatProcessor.setEnemy(entityStage.getEnemy)
 
     enableInput()
     // GLProfiler.enable();
@@ -54,13 +56,13 @@ class GameScreen(root: Hinterstar) extends Screen {
 
   private def enableInput(): Unit = {
     input.addProcessor(interfaceStage)
-    input.addProcessor(actionStage)
+    input.addProcessor(entityStage)
     input.addProcessor(gestureHandler)
     Gdx.input.setInputProcessor(input)
   }
 
-  def getActionStage: ActionStage = {
-    actionStage
+  def getEntityStage: EntityStage = {
+    entityStage
   }
 
   def getInterfaceStage: InterfaceStage = {
@@ -79,7 +81,7 @@ class GameScreen(root: Hinterstar) extends Screen {
     if (!paused) {
       interfaceStage.togglePause()
     }
-    getActionStage.disableInteriorOverlay()
+    getEntityStage.disableInteriorOverlay()
     input.clear()
     travelFrames = 500
   }
@@ -98,9 +100,10 @@ class GameScreen(root: Hinterstar) extends Screen {
   }
 
   def transitionSector(bgStrings: Array[String]): Unit = {
-    actionStage.setupBackground(bgStrings)
-    actionStage.updatePlayerAnimation()
-    actionStage.getRoot.addAction(Actions.sequence(
+    entityStage.setupBackground(bgStrings)
+
+    entityStage.updatePlayerAnimation()
+    entityStage.getRoot.addAction(Actions.sequence(
       Actions.delay(3f),
       Actions.fadeOut(1.0f),
       Actions.fadeIn(1.0f)
@@ -124,12 +127,22 @@ class GameScreen(root: Hinterstar) extends Screen {
     * Gesture operations *
     ***********************/
   def actionPan(dx: Float, dy: Float): Unit = {
-    val newCameraX: Float = getActionStage.getCamera.position.x - dx
+    val newCameraX: Float = getEntityStage.getCamera.position.x - dx
     val newSpeed: Vector2 = new Vector2(40, 0)
 
     if (newCameraX >= cameraXmin && newCameraX < cameraXmax) {
-      getActionStage.getCamera.translate(-dx, 0, 0)
+      getEntityStage.getCamera.translate(-dx, 0, 0)
     }
+  }
+
+  def centerCamera(delta: Float): Unit = {
+    getEntityStage.getCamera.asInstanceOf[OrthographicCamera].zoom +=
+      (1 - getEntityStage.getCamera.asInstanceOf[OrthographicCamera].zoom) * lerp * delta
+
+    getEntityStage.getCamera.position.x +=
+      (originVector.x - getEntityStage.getCamera.position.x) * lerp * delta
+    //    getActionStage.getCamera.position.y +=
+    //      (originVector.y - getActionStage.getCamera.position.y) * lerp * delta
   }
 
 
@@ -139,8 +152,8 @@ class GameScreen(root: Hinterstar) extends Screen {
     *******************/
   def combatUpdate(): Unit = {
     combatProcessor.update(
-      actionStage.getPlayerShip.updateActiveWeapons(),
-      actionStage.getEnemyShip.updateActiveWeapons())
+      entityStage.getPlayerShip.updateActiveWeapons(),
+      entityStage.getEnemyShip.updateActiveWeapons())
   }
 
   def combatRender(delta: Float): Unit = {
@@ -159,7 +172,8 @@ class GameScreen(root: Hinterstar) extends Screen {
     // Handle travel and background animations
     if (travelFrames > 0) {
       travelFrames -= 1
-      actionStage.travel(travelFrames)
+      centerCamera(delta)
+      entityStage.travel(travelFrames)
     }
 
     // Pause stops combat and crew movement for all players
@@ -172,31 +186,28 @@ class GameScreen(root: Hinterstar) extends Screen {
       accumulator += delta
     }
 
-    // Update and render primary game stages
-    actionStage.act(delta)
-    // Enemy Stage
-    Gdx.gl.glViewport(0, 2 * Gdx.graphics.getHeight / 3, Gdx.graphics.getWidth, Gdx.graphics.getHeight / 3)
-    actionStage.drawBackground(delta)
-    actionStage.draw()
+    // Update and draw Entities
+    entityStage.act(delta)
+    entityStage.drawBackground(delta)
+    entityStage.draw()
 
-    // Player Stage
-    Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth, 2 * Gdx.graphics.getHeight / 3)
-    actionStage.drawBackground(delta)
-    actionStage.draw()
+    // Draw combat FX and Crewmate positions if not traveling
+    if (travelFrames == 0) {
+      combatRender(delta)
 
-    // Interface Stage
-    Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth, Gdx.graphics.getHeight)
-    combatRender(delta)
-    interfaceStage.act(delta)
-    interfaceStage.draw()
-
-    // Draw map panel shapes or crewmate flags if not currently traveling
-    if (travelPanelOpen) {
-      SystemOperations.drawShapes()
-    } else if (travelFrames == 0) {
+      root.spriteBatch.setProjectionMatrix(getEntityStage.getCamera.combined)
       root.spriteBatch.begin()
       CrewOperations.drawCrewmatePositions(delta, root.spriteBatch)
       root.spriteBatch.end()
+    }
+
+    // Update and draw Interface
+    interfaceStage.act(delta)
+    interfaceStage.draw()
+
+    // Draw map panel shapes
+    if (travelPanelOpen) {
+      SystemOperations.drawShapes()
     }
 
 //    println("Calls: " + GLProfiler.drawCalls + ", Bindings: " + GLProfiler.textureBindings)
@@ -209,8 +220,8 @@ class GameScreen(root: Hinterstar) extends Screen {
   }
 
   override def resize(width: Int, height: Int): Unit = {
-    if (actionStage != null) {
-      actionStage.getViewport.update(width, height, true)
+    if (entityStage != null) {
+      entityStage.getViewport.update(width, height, true)
     }
     if (interfaceStage != null) {
       interfaceStage.getViewport.update(width, height, true)
@@ -222,8 +233,8 @@ class GameScreen(root: Hinterstar) extends Screen {
   }
 
   override def dispose(): Unit = {
-    if (actionStage != null) {
-      actionStage.dispose()
+    if (entityStage != null) {
+      entityStage.dispose()
     }
     if (interfaceStage != null) {
       interfaceStage.dispose()
@@ -241,7 +252,7 @@ class GameScreen(root: Hinterstar) extends Screen {
     ***************************/
   private[screens] var warpTransitionAction: Action = new Action() {
     def act(delta: Float): Boolean = {
-      actionStage.warp()
+      entityStage.warp()
       true
     }
   }

@@ -66,7 +66,7 @@ class CrewmateFlag(name: String) {
     index += 1
 
     if (index < path.length) {
-      destination = path(index).getActorCoordinates.cpy()
+      destination = path(index).getActorCoordinates
     }
   }
 

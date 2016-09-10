@@ -5,15 +5,15 @@ import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import galenscovell.hinterstar.things.ships.{Ship, ShipParser}
-import galenscovell.hinterstar.ui.components.gamescreen.stages.ActionStage
+import galenscovell.hinterstar.ui.components.gamescreen.stages.EntityStage
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 
 
-class Enemy(actionStage: ActionStage) extends Group {
+class Enemy(entityStage: EntityStage) extends Group {
   // NPC ought to have hull health, weapons, evasion, and shields defined here
   // They fire weapons automatically just like the player, with crew assignments determining stats
-  private val gameScreen: GameScreen = actionStage.getGameScreen
+  private val gameScreen: GameScreen = entityStage.getGameScreen
   private val ship: Ship = new ShipParser().parseSingle("Ship-1")
   private val sprite: Sprite = Resources.atlas.createSprite(ship.getName)
   sprite.flip(true, false)
@@ -25,9 +25,9 @@ class Enemy(actionStage: ActionStage) extends Group {
   private def construct(): Unit = {
     ship.createInterior()
 
-    this.setSize(420, 168)
-    shipActor.setSize(420, 168)
-    ship.getInterior.setSize(420, 168)
+    this.setSize(480, 192)
+    shipActor.setSize(480, 192)
+    ship.getInterior.setSize(480, 192)
 
     this.addActor(shipActor)
 

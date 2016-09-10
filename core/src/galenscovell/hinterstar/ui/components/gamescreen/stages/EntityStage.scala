@@ -17,7 +17,8 @@ import galenscovell.hinterstar.util._
 import scala.util.Random
 
 
-class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
+class EntityStage(gameScreen: GameScreen, viewport: FitViewport,
+                  camera: Camera, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
   private val player: Player = new Player(this)
   private var enemy: Enemy = new Enemy(this)
 
@@ -31,17 +32,18 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
-    val actionGroup: Group = new Group
-    actionGroup.setSize(Constants.EXACT_X, Constants.EXACT_Y)
-    actionGroup.setPosition(0, 0)
+    val actionTable: Table = new Table
+    val leftTable: Table = new Table
+    val rightTable: Table = new Table
 
-    actionGroup.addActor(player)
-    player.setPosition(24, 130)
+    leftTable.add(player).expand.fill.left
+    rightTable.add(enemy).expand.fill.right
 
-    actionGroup.addActor(enemy)
-    enemy.setPosition(380, 270)
+    actionTable.add(leftTable).left.padLeft(60)
+    actionTable.add(rightTable).expand.right
 
-    mainTable.addActor(actionGroup)
+    mainTable.add(actionTable).width(Constants.EXACT_X * 1.75f).expand.fill.padLeft(Constants.EXACT_X / 1.5f)
+
     this.addActor(mainTable)
 
     setupBackground(null)
@@ -52,17 +54,6 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
 
   def updatePlayerAnimation(): Unit = {
     player.clearActions()
-    enemy.clearActions()
-
-    enemy.addAction(Actions.sequence(
-      Actions.moveBy(-120, 0, 1.6f, Interpolation.exp5In),
-      Actions.parallel(
-        Actions.moveBy(-800, 0, 0.5f),
-        Actions.fadeOut(0.5f)
-      ),
-      Actions.removeActor()
-    ))
-
     player.addAction(Actions.sequence(
       Actions.moveBy(80, 0, 1.75f, Interpolation.exp5In),
       Actions.moveBy(0, 4, 1.25f, Interpolation.linear),
@@ -83,7 +74,6 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
     } else {
       player.enableOverlay()
     }
-
     if (enemy != null) {
       if (enemy.overlayPresent()) {
         enemy.disableOverlay()
@@ -97,7 +87,6 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
     if (player.overlayPresent()) {
       player.disableOverlay()
     }
-
     if (enemy != null) {
       if (enemy.overlayPresent()) {
         enemy.disableOverlay()
@@ -113,17 +102,18 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: Sp
     player
   }
 
-  def getEnemy: Enemy = {
-    enemy
-  }
-
   def getPlayerShip: Ship = {
     player.getShip
+  }
+
+  def getEnemy: Enemy = {
+    enemy
   }
 
   def getEnemyShip: Ship = {
     enemy.getShip
   }
+
 
 
   /**************************

@@ -7,13 +7,13 @@ import galenscovell.hinterstar.graphics.WeaponFx
 import galenscovell.hinterstar.things.entities.Enemy
 import galenscovell.hinterstar.things.parts.Weapon
 import galenscovell.hinterstar.things.ships.Ship
-import galenscovell.hinterstar.ui.components.gamescreen.stages.ActionStage
+import galenscovell.hinterstar.ui.components.gamescreen.stages.EntityStage
 
 import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 
-class CombatProcessor(actionStage: ActionStage) {
+class CombatProcessor(actionStage: EntityStage) {
   private val random: Random = new Random()
   private var enemy: Enemy = _
   private val weaponFx: ArrayBuffer[WeaponFx] = ArrayBuffer()
