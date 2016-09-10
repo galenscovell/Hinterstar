@@ -31,7 +31,7 @@ class TravelPanel(interfaceStage: InterfaceStage) extends Table {
 
   private def createTopTable: Table = {
     val table: Table = new Table
-    table.setBackground(Resources.npTest1)
+    table.setBackground(Resources.npDarkBlue)
 
     val closeButton: TextButton = new TextButton("Close", Resources.blueButtonStyle)
     closeButton.addListener(new ClickListener() {
@@ -47,7 +47,7 @@ class TravelPanel(interfaceStage: InterfaceStage) extends Table {
   private def createMapTable: Table = {
     val mapTable: Table = new Table
     generateMap(mapTable)
-    mapTable.setBackground(Resources.npTest4)
+    mapTable.setBackground(Resources.npDarkGray)
     mapTable
   }
 
@@ -67,7 +67,7 @@ class TravelPanel(interfaceStage: InterfaceStage) extends Table {
 
   private def createBottomTable: Table = {
     val table: Table = new Table
-    table.setBackground(Resources.npTest1)
+    table.setBackground(Resources.npDarkBlue)
 
     val travelButton: TextButton = new TextButton("Warp", Resources.blueButtonStyle)
     travelButton.addListener(new ClickListener() {

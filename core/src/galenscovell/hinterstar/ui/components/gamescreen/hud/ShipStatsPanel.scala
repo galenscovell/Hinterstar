@@ -29,7 +29,7 @@ class ShipStatsPanel(interfaceStage: InterfaceStage) extends Table {
 
     for (i <- stats.indices) {
       val statTable: Table = new Table
-      statTable.setBackground(Resources.npTest4)
+      statTable.setBackground(Resources.npDarkGray)
 
       val statKeyTable: Table = new Table
       statKeyTable.add(statIcons(i)).expand.fill.width(32).height(32).center.left.pad(4)

@@ -24,7 +24,7 @@ object Resources {
   var labelTinyStyle, labelSmallStyle, labelMediumStyle,
       labelLargeStyle, labelXLargeStyle: LabelStyle = _
 
-  var npTest0, npTest1, npTest2, npTest3, npTest4,
+  var npGreen, npDarkBlue, npGray, npBlue, npDarkGray,
       greenButtonNp0, greenButtonNp1, blueButtonNp0, blueButtonNp1,
       npFontCursor, npTextFieldBg, npHullHealthFill, npHullHealthEmpty,
       npCrewHealthFill, npCrewHealthEmpty: NinePatchDrawable = _
@@ -88,11 +88,11 @@ object Resources {
   }
 
   private def loadNinepatches(): Unit = {
-    npTest0 = new NinePatchDrawable(atlas.createPatch("test-np-0"))
-    npTest1 = new NinePatchDrawable(atlas.createPatch("test-np-1"))
-    npTest2 = new NinePatchDrawable(atlas.createPatch("test-np-2"))
-    npTest3 = new NinePatchDrawable(atlas.createPatch("test-np-3"))
-    npTest4 = new NinePatchDrawable(atlas.createPatch("test-np-4"))
+    npGreen = new NinePatchDrawable(atlas.createPatch("test-np-0"))
+    npDarkBlue = new NinePatchDrawable(atlas.createPatch("test-np-1"))
+    npGray = new NinePatchDrawable(atlas.createPatch("test-np-2"))
+    npBlue = new NinePatchDrawable(atlas.createPatch("test-np-3"))
+    npDarkGray = new NinePatchDrawable(atlas.createPatch("test-np-4"))
 
     greenButtonNp0 = new NinePatchDrawable(atlas.createPatch("green_button0_np"))
     greenButtonNp1 = new NinePatchDrawable(atlas.createPatch("green_button1_np"))
@@ -117,17 +117,17 @@ object Resources {
   }
 
   private def loadButtonStyles(): Unit = {
-    buttonMenuStyle = new TextButtonStyle(npTest4, npTest3, npTest4, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
+    buttonMenuStyle = new TextButtonStyle(npDarkGray, npBlue, npDarkGray, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
     buttonMenuStyle.pressedOffsetY = -2
-    buttonMapStyle0 = new TextButtonStyle(npTest1, npTest4, npTest4, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
+    buttonMapStyle0 = new TextButtonStyle(npDarkBlue, npDarkGray, npDarkGray, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
     buttonMapStyle0.pressedOffsetY = -2
-    buttonMapStyle1 = new TextButtonStyle(npTest1, npTest3, npTest3, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
+    buttonMapStyle1 = new TextButtonStyle(npDarkBlue, npBlue, npBlue, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
     buttonMapStyle1.pressedOffsetY = -2
-    buttonMapStyle2 = new TextButtonStyle(npTest1, npTest2, npTest2, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
+    buttonMapStyle2 = new TextButtonStyle(npDarkBlue, npGray, npGray, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
     buttonMapStyle2.pressedOffsetY = -2
-    buttonEventStyle = new TextButtonStyle(npTest1, npTest2, npTest2, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
+    buttonEventStyle = new TextButtonStyle(npDarkBlue, npGray, npGray, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
     buttonEventStyle.pressedOffsetY = -2
-    toggleButtonStyle = new TextButtonStyle(npTest4, npTest3, npTest3, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
+    toggleButtonStyle = new TextButtonStyle(npDarkGray, npBlue, npBlue, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
     toggleButtonStyle.pressedOffsetY = -2
     greenButtonStyle = new TextButtonStyle(greenButtonNp0, greenButtonNp1, greenButtonNp0, assetManager.get("mediumFont.ttf", classOf[BitmapFont]))
 //    greenButtonStyle.downFontColor = new Color(0.0f, 0.7f, 0.41f, 1.0f)
@@ -160,7 +160,7 @@ object Resources {
       assetManager.get("mediumFont.ttf", classOf[BitmapFont]),
       Color.WHITE,  // Font color
       npFontCursor, // Cursor ninepatch
-      npTest0,      // Selection ninepatch
+      npGreen,      // Selection ninepatch
       npTextFieldBg // Background ninepatch
     )
     // This line is a workaround for inner padding in the TextField (10px padding, inner left)

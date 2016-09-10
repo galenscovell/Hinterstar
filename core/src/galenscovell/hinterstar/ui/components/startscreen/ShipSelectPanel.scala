@@ -20,7 +20,7 @@ class ShipSelectPanel extends Table {
   private val shipDetail: Table = new Table
 
   shipImage.setScaling(Scaling.fillY)
-  shipDetail.setBackground(Resources.npTest1)
+  shipDetail.setBackground(Resources.npDarkBlue)
   shipDetail.setColor(Constants.NORMAL_UI_COLOR)
 
   construct()
@@ -109,7 +109,7 @@ class ShipSelectPanel extends Table {
 
     // Ship Detail Display
     val shipDetailTop: Table = new Table
-    shipDetailTop.setBackground(Resources.npTest1)
+    shipDetailTop.setBackground(Resources.npDarkBlue)
 
     val shipNameLabel: Label = new Label(allShips(currentShipIndex).getName, Resources.labelLargeStyle)
     shipNameLabel.setAlignment(Align.center, Align.center)
@@ -128,12 +128,12 @@ class ShipSelectPanel extends Table {
     val shipWeaponTable: Table = new Table
     for (weapon: Weapon <- allShips(currentShipIndex).getWeapons) {
       val weaponTable: Table = new Table
-      weaponTable.setBackground(Resources.npTest4)
+      weaponTable.setBackground(Resources.npDarkGray)
 
       val topBarTable: Table = new Table
-      topBarTable.setBackground(Resources.npTest3)
+      topBarTable.setBackground(Resources.npBlue)
       val iconTable = new Table
-      iconTable.setBackground(Resources.npTest0)
+      iconTable.setBackground(Resources.npGreen)
       val damageLabel: Label = new Label(weapon.getDamage.toString, Resources.labelSmallStyle)
       damageLabel.setAlignment(Align.center)
 
@@ -143,7 +143,7 @@ class ShipSelectPanel extends Table {
       val weaponImage: Table = new Table
 
       val bottomWeaponTable: Table = new Table
-      bottomWeaponTable.setBackground(Resources.npTest1)
+      bottomWeaponTable.setBackground(Resources.npDarkBlue)
       val weaponLabel: Label = new Label(weapon.getName, Resources.labelSmallStyle)
       weaponLabel.setAlignment(Align.center)
 
@@ -170,7 +170,7 @@ class ShipSelectPanel extends Table {
       if (shipSubsystems.length >= i + 1) {
         val subsystem: String = shipSubsystems(i)
 
-        subsystemTable.setBackground(Resources.npTest4)
+        subsystemTable.setBackground(Resources.npDarkGray)
         val subsystemLabel: Label = new Label(subsystem, Resources.labelTinyStyle)
         subsystemLabel.setAlignment(Align.center)
         subsystemTable.add(subsystemLabel).expand.fill.pad(2)
@@ -187,7 +187,7 @@ class ShipSelectPanel extends Table {
       if (shipSubsystems.length >= i + 1) {
         val subsystem: String = shipSubsystems(i)
 
-        subsystemTable.setBackground(Resources.npTest4)
+        subsystemTable.setBackground(Resources.npDarkGray)
         val subsystemLabel: Label = new Label(subsystem, Resources.labelTinyStyle)
         subsystemLabel.setAlignment(Align.center)
         subsystemTable.add(subsystemLabel).expand.fill.pad(2)

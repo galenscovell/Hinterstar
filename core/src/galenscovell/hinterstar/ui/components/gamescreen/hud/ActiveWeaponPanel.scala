@@ -19,7 +19,7 @@ class ActiveWeaponPanel(rootShip: Ship) extends Table {
     for (weapon: Weapon <- weapons) {
       if (weapon.isActive) {
         val weaponTable: Table = new Table
-        weaponTable.setBackground(Resources.npTest1)
+        weaponTable.setBackground(Resources.npDarkBlue)
 
         val weaponLabel: Label = new Label(weapon.getName, Resources.labelTinyStyle)
         weaponLabel.setAlignment(Align.left, Align.center)

@@ -34,7 +34,7 @@ class CrewSelectPanel extends Table {
   }
 
   private def construct(): Unit = {
-    crewTable.setBackground(Resources.npTest1)
+    crewTable.setBackground(Resources.npDarkBlue)
     crewTable.setColor(Constants.NORMAL_UI_COLOR)
 
     updateCrewTable()

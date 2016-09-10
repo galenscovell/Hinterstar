@@ -32,7 +32,7 @@ class MainMenuScreen(root: Hinterstar) extends Screen {
 
     val buttonTable: Table = new Table
     val newGameTable: Table = new Table
-    newGameTable.setBackground(Resources.npTest4)
+    newGameTable.setBackground(Resources.npDarkGray)
     val newGameButton: TextButton = new TextButton("New Game", Resources.buttonMenuStyle)
     newGameButton.getLabel.setAlignment(Align.center, Align.center)
     newGameButton.addListener(new ClickListener() {
@@ -45,7 +45,7 @@ class MainMenuScreen(root: Hinterstar) extends Screen {
       }
     })
     val continueGameTable: Table = new Table
-    continueGameTable.setBackground(Resources.npTest4)
+    continueGameTable.setBackground(Resources.npDarkGray)
     val continueGameButton: TextButton = new TextButton("Continue Game", Resources.buttonMenuStyle)
     continueGameButton.getLabel.setAlignment(Align.center, Align.center)
     continueGameButton.addListener(new ClickListener() {
@@ -54,7 +54,7 @@ class MainMenuScreen(root: Hinterstar) extends Screen {
       }
     })
     val settingTable: Table = new Table
-    settingTable.setBackground(Resources.npTest4)
+    settingTable.setBackground(Resources.npDarkGray)
     val settingButton: TextButton = new TextButton("Preferences", Resources.buttonMenuStyle)
     settingButton.getLabel.setAlignment(Align.center, Align.center)
     settingButton.addListener(new ClickListener() {
@@ -63,7 +63,7 @@ class MainMenuScreen(root: Hinterstar) extends Screen {
       }
     })
     val quitTable: Table = new Table
-    quitTable.setBackground(Resources.npTest4)
+    quitTable.setBackground(Resources.npDarkGray)
     val quitButton: TextButton = new TextButton("Close", Resources.buttonMenuStyle)
     quitButton.getLabel.setAlignment(Align.center, Align.center)
     quitButton.addListener(new ClickListener() {

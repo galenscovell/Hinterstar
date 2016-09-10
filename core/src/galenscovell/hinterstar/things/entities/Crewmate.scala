@@ -128,11 +128,11 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
   }
 
   def highlightTable(): Unit = {
-    crewInnerTable.setBackground(Resources.npTest2)
+    crewInnerTable.setBackground(Resources.npGray)
   }
 
   def unhighlightTable(): Unit = {
-    crewInnerTable.setBackground(Resources.npTest4)
+    crewInnerTable.setBackground(Resources.npDarkGray)
   }
 
   def setAssignmentIcon(): Unit = {
@@ -171,7 +171,7 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
       crewInnerTable.clear()
     }
 
-    crewInnerTable.setBackground(Resources.npTest4)
+    crewInnerTable.setBackground(Resources.npDarkGray)
     crewInnerTable.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         CrewOperations.selectCrewmate(getThisCrewmate)
@@ -181,7 +181,7 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     val leftTable: Table = new Table
 
     val spriteTable: Table = new Table
-    spriteTable.setBackground(Resources.npTest3)
+    spriteTable.setBackground(Resources.npBlue)
     val sprite: Image = new Image(getSprite)
     spriteTable.add(sprite).expand.fillX
 

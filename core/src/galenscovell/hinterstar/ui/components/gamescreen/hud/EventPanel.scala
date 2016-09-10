@@ -15,7 +15,7 @@ class EventPanel(interfaceStage: InterfaceStage, eventContainer: Event) extends 
   def construct(): Unit = {
     this.setFillParent(true)
     val mainTable: Table = new Table
-    mainTable.setBackground(Resources.npTest4)
+    mainTable.setBackground(Resources.npDarkGray)
 
     val titleTable: Table = createTitleTable(eventContainer.name)
 
@@ -36,7 +36,7 @@ class EventPanel(interfaceStage: InterfaceStage, eventContainer: Event) extends 
 
   private def createTitleTable(eventTitle: String): Table = {
     val titleTable: Table = new Table
-    titleTable.setBackground(Resources.npTest1)
+    titleTable.setBackground(Resources.npDarkBlue)
     val titleLabel: Label = new Label(eventTitle, Resources.labelXLargeStyle)
     titleLabel.setAlignment(Align.center, Align.center)
     titleTable.add(titleLabel)
@@ -54,7 +54,7 @@ class EventPanel(interfaceStage: InterfaceStage, eventContainer: Event) extends 
 
   private def createOptionTable: Table = {
     val optionTable: Table = new Table
-    optionTable.setBackground(Resources.npTest1)
+    optionTable.setBackground(Resources.npDarkBlue)
 
     for (choice <- eventContainer.choices) {
       val choiceText: String = choice.get("choice-text") match {

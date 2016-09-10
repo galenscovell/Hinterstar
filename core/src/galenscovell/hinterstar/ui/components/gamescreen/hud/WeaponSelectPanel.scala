@@ -19,10 +19,10 @@ class WeaponSelectPanel(rootShip: Ship) extends Table {
     this.clear()
 
     val selectionPanel: Table = new Table
-    selectionPanel.setBackground(Resources.npTest1)
+    selectionPanel.setBackground(Resources.npDarkBlue)
 
     val topTable: Table = new Table
-    topTable.setBackground(Resources.npTest4)
+    topTable.setBackground(Resources.npDarkGray)
     val crewmateLabel: Label = new Label(crewmate, Resources.labelTinyStyle)
     crewmateLabel.setAlignment(Align.center)
     val closeButton: TextButton = new TextButton("Close", Resources.greenButtonStyle)
@@ -45,19 +45,19 @@ class WeaponSelectPanel(rootShip: Ship) extends Table {
 
       if (weapon.getSubsystem == subsystem) {
         if (!weapon.isActive) {
-          weaponTable.setBackground(Resources.npTest4)
+          weaponTable.setBackground(Resources.npDarkGray)
         } else {
-          weaponTable.setBackground(Resources.npTest0)
+          weaponTable.setBackground(Resources.npGreen)
         }
       } else {
-        weaponTable.setBackground(Resources.npTest2)
+        weaponTable.setBackground(Resources.npGray)
       }
 
       val topBarTable: Table = new Table
-      topBarTable.setBackground(Resources.npTest3)
+      topBarTable.setBackground(Resources.npBlue)
 
       val iconTable = new Table
-      iconTable.setBackground(Resources.npTest0)
+      iconTable.setBackground(Resources.npGreen)
 
       val damageLabel: Label = new Label(weapon.getDamage.toString, Resources.labelSmallStyle)
       damageLabel.setAlignment(Align.center)
@@ -77,7 +77,7 @@ class WeaponSelectPanel(rootShip: Ship) extends Table {
       }
 
       val bottomWeaponTable: Table = new Table
-      bottomWeaponTable.setBackground(Resources.npTest1)
+      bottomWeaponTable.setBackground(Resources.npDarkBlue)
       val weaponLabel: Label = new Label(weapon.getName, Resources.labelSmallStyle)
       weaponLabel.setAlignment(Align.center)
 

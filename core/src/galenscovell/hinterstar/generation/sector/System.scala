@@ -47,6 +47,7 @@ class System(val x: Int, val y: Int, val size: Int) {
   private def createBackground(): Unit = {
     val num0: Int = (Math.random * 8).toInt  // Value between 0-7
     val num1: Int = (Math.random * 4).toInt + 8 // Value between 8-12
-    SystemOperations.gameScreen.transitionSector(num0.toString, num1.toString, "stars0", "stars1", "stars0_blur", "stars1_blur")
+    val bgStrings: Array[String] = Array(num0.toString, num1.toString, "stars0", "stars1", "stars0_blur", "stars1_blur")
+    SystemOperations.gameScreen.transitionSector(bgStrings)
   }
 }
