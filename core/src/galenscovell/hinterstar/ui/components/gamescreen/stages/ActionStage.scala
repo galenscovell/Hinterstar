@@ -9,18 +9,17 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.graphics.{ParallaxBackground, ParallaxLayer}
-import galenscovell.hinterstar.processing.CombatProcessor
 import galenscovell.hinterstar.things.entities.{Enemy, Player}
+import galenscovell.hinterstar.things.ships.Ship
 import galenscovell.hinterstar.ui.screens.GameScreen
 import galenscovell.hinterstar.util._
 
 import scala.util.Random
 
 
-class ActionStage(gameScreen: GameScreen, viewport: FitViewport, private val spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
+class ActionStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch: SpriteBatch) extends Stage(viewport, spriteBatch) {
   private val player: Player = new Player(this)
-  private var npc: Enemy = new Enemy(this)
-  private val combatProcessor: CombatProcessor = new CombatProcessor(this, player.getShip)
+  private var enemy: Enemy = new Enemy(this)
 
   private var normalBg, blurBg, currentBackground: ParallaxBackground = _
   private val bgStrings: Array[String] = Array.ofDim(6)
@@ -29,7 +28,6 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, private val spr
 
 
   private def construct(): Unit = {
-    // TODO: Make two separate cameras, one for player slice and one for enemy slice
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
@@ -40,13 +38,11 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, private val spr
     actionGroup.addActor(player)
     player.setPosition(24, 130)
 
-    actionGroup.addActor(npc)
-    npc.setPosition(380, 270)
+    actionGroup.addActor(enemy)
+    enemy.setPosition(380, 270)
 
     mainTable.addActor(actionGroup)
     this.addActor(mainTable)
-
-    combatProcessor.setEnemy(npc)
 
     setupBackground(null)
     createBackground()
@@ -56,9 +52,9 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, private val spr
 
   def updatePlayerAnimation(): Unit = {
     player.clearActions()
-    npc.clearActions()
+    enemy.clearActions()
 
-    npc.addAction(Actions.sequence(
+    enemy.addAction(Actions.sequence(
       Actions.moveBy(-120, 0, 1.6f, Interpolation.exp5In),
       Actions.parallel(
         Actions.moveBy(-800, 0, 0.5f),
@@ -88,11 +84,11 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, private val spr
       player.enableOverlay()
     }
 
-    if (npc != null) {
-      if (npc.overlayPresent()) {
-        npc.disableOverlay()
+    if (enemy != null) {
+      if (enemy.overlayPresent()) {
+        enemy.disableOverlay()
       } else {
-        npc.enableOverlay()
+        enemy.enableOverlay()
       }
     }
   }
@@ -102,9 +98,9 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, private val spr
       player.disableOverlay()
     }
 
-    if (npc != null) {
-      if (npc.overlayPresent()) {
-        npc.disableOverlay()
+    if (enemy != null) {
+      if (enemy.overlayPresent()) {
+        enemy.disableOverlay()
       }
     }
   }
@@ -115,6 +111,18 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, private val spr
 
   def getPlayer: Player = {
     player
+  }
+
+  def getEnemy: Enemy = {
+    enemy
+  }
+
+  def getPlayerShip: Ship = {
+    player.getShip
+  }
+
+  def getEnemyShip: Ship = {
+    enemy.getShip
   }
 
 
@@ -180,11 +188,11 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, private val spr
       new Vector2(0.8f, 0.8f), new Vector2(0, 0), Color.WHITE
     )
 
-    normalBg = new ParallaxBackground(spriteBatch, normalParallaxLayers,
+    normalBg = new ParallaxBackground(gameScreen.getRoot.spriteBatch, normalParallaxLayers,
       Constants.EXACT_X, Constants.EXACT_Y, new Vector2(2, 0)
     )
 
-    blurBg = new ParallaxBackground(spriteBatch, blurParallaxLayers,
+    blurBg = new ParallaxBackground(gameScreen.getRoot.spriteBatch, blurParallaxLayers,
       Constants.EXACT_X, Constants.EXACT_Y, new Vector2(2, 0)
     )
   }
@@ -221,18 +229,5 @@ class ActionStage(gameScreen: GameScreen, viewport: FitViewport, private val spr
         currentBackground.modifySpeed(new Vector2(-(70 - travelFrames), 0))
       }
     }
-  }
-
-
-
-  /*******************
-    *     Combat     *
-    *******************/
-  def combatUpdate(): Unit = {
-    combatProcessor.update(player.getShip.updateActiveWeapons(), npc.getShip.updateActiveWeapons())
-  }
-
-  def combatRender(delta: Float): Unit = {
-    combatProcessor.render(delta, spriteBatch)
   }
 }

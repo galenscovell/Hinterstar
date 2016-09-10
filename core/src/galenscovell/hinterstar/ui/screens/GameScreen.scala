@@ -2,22 +2,24 @@ package galenscovell.hinterstar.ui.screens
 
 import com.badlogic.gdx._
 import com.badlogic.gdx.graphics._
+import com.badlogic.gdx.graphics.profiling.GLProfiler
 import com.badlogic.gdx.input.GestureDetector
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.viewport.FitViewport
 import galenscovell.hinterstar.Hinterstar
-import galenscovell.hinterstar.processing.GestureHandler
+import galenscovell.hinterstar.processing.{CombatProcessor, GestureHandler}
 import galenscovell.hinterstar.ui.components.gamescreen.stages._
 import galenscovell.hinterstar.util._
 
 
 class GameScreen(root: Hinterstar) extends Screen {
-  private val actionCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
+  private val actionCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight / 2)
   private val interfaceCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
   private var actionStage: ActionStage = _
   private var interfaceStage: InterfaceStage = _
+  private var combatProcessor: CombatProcessor = _
 
   private val input: InputMultiplexer = new InputMultiplexer
   private val gestureHandler: GestureDetector = new GestureDetector(new GestureHandler(this))
@@ -39,12 +41,15 @@ class GameScreen(root: Hinterstar) extends Screen {
 
   private def construct(): Unit = {
     SystemOperations.setup(this)
-    val actionViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, actionCamera)
+    val actionViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y / 2, actionCamera)
     val interfaceViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, interfaceCamera)
     actionStage = new ActionStage(this, actionViewport, root.spriteBatch)
     interfaceStage = new InterfaceStage(this, interfaceViewport, root.spriteBatch, actionStage.getPlayer)
+    combatProcessor = new CombatProcessor(actionStage)
+    combatProcessor.setEnemy(actionStage.getEnemy)
 
     enableInput()
+    // GLProfiler.enable();
   }
 
   private def enableInput(): Unit = {
@@ -60,6 +65,10 @@ class GameScreen(root: Hinterstar) extends Screen {
 
   def getInterfaceStage: InterfaceStage = {
     interfaceStage
+  }
+
+  def getRoot: Hinterstar = {
+    root
   }
 
   def toMainMenu(): Unit = {
@@ -125,6 +134,21 @@ class GameScreen(root: Hinterstar) extends Screen {
 
 
 
+  /*******************
+    *     Combat     *
+    *******************/
+  def combatUpdate(): Unit = {
+    combatProcessor.update(
+      actionStage.getPlayerShip.updateActiveWeapons(),
+      actionStage.getEnemyShip.updateActiveWeapons())
+  }
+
+  def combatRender(delta: Float): Unit = {
+    combatProcessor.render(delta, root.spriteBatch)
+  }
+
+
+
   /**********************
     * Screen Operations *
     **********************/
@@ -134,28 +158,35 @@ class GameScreen(root: Hinterstar) extends Screen {
 
     // Handle travel and background animations
     if (travelFrames > 0) {
-      actionStage.travel(travelFrames)
       travelFrames -= 1
+      actionStage.travel(travelFrames)
     }
 
     // Pause stops combat and crew movement for all players
     if (!paused) {
       if (accumulator > timestep) {
         accumulator -= timestep
-        actionStage.combatUpdate()
+        combatUpdate()
         CrewOperations.updateCrewmatePositions()
       }
       accumulator += delta
     }
 
     // Update and render primary game stages
-    // Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth / 2, Gdx.graphics.getHeight)
     actionStage.act(delta)
+    // Enemy Stage
+    Gdx.gl.glViewport(0, 2 * Gdx.graphics.getHeight / 3, Gdx.graphics.getWidth, Gdx.graphics.getHeight / 3)
     actionStage.drawBackground(delta)
     actionStage.draw()
-    actionStage.combatRender(delta)
 
-    // Gdx.gl.glViewport(Gdx.graphics.getWidth / 2, 0, Gdx.graphics.getWidth / 2, Gdx.graphics.getHeight)
+    // Player Stage
+    Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth, 2 * Gdx.graphics.getHeight / 3)
+    actionStage.drawBackground(delta)
+    actionStage.draw()
+
+    // Interface Stage
+    Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth, Gdx.graphics.getHeight)
+    combatRender(delta)
     interfaceStage.act(delta)
     interfaceStage.draw()
 
@@ -167,6 +198,10 @@ class GameScreen(root: Hinterstar) extends Screen {
       CrewOperations.drawCrewmatePositions(delta, root.spriteBatch)
       root.spriteBatch.end()
     }
+
+//    println("Calls: " + GLProfiler.drawCalls + ", Bindings: " + GLProfiler.textureBindings)
+//    println("Draw Calls: " + GLProfiler.drawCalls)
+//    GLProfiler.reset()
   }
 
   override def show(): Unit = {
