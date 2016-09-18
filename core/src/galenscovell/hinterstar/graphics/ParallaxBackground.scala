@@ -1,7 +1,7 @@
 package galenscovell.hinterstar.graphics
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics._
+import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.math.Vector2
 
 
@@ -14,17 +14,21 @@ import com.badlogic.gdx.math.Vector2
   *     a speed (Vector2, can be modified)
   *     a savedSpeed (initially (0, 0), used for pause() and unpause())
   */
-class ParallaxBackground(batch: SpriteBatch, layers: Array[ParallaxLayer], w: Float, h: Float, var speed: Vector2) {
+class ParallaxBackground(layers: Array[ParallaxLayer], w: Float, h: Float, var speed: Vector2) {
   private val camera: Camera = new OrthographicCamera(w, h)
   private val savedSpeed: Vector2 = new Vector2(0, 0)
 
 
 
+  def getCamera: Camera = {
+    camera
+  }
+
   def setSpeed(newSpeed: Vector2): Unit = {
     speed = newSpeed
   }
 
-  def getSpeed(): Vector2 = {
+  def getSpeed: Vector2 = {
     speed
   }
 
@@ -45,10 +49,11 @@ class ParallaxBackground(batch: SpriteBatch, layers: Array[ParallaxLayer], w: Fl
     speed.y = savedSpeed.y
   }
 
-  def render(delta: Float): Unit = {
+  def render(delta: Float, batch: Batch): Unit = {
     camera.position.add(speed.x * delta, speed.y * delta, 0)
     batch.setProjectionMatrix(camera.projection)
     val parentAlpha: Float = batch.getColor.a
+
     batch.begin()
 
     for (layer <- layers) {

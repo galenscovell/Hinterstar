@@ -147,9 +147,8 @@ object Resources {
     spTest3 = new Sprite(atlas.createSprite("test-box-3"))
     spTest4 = new Sprite(atlas.createSprite("test-box-4"))
     spCrewmate = new Sprite(atlas.createSprite("test-crewmate"))
-    spSubsystemMarker = new Sprite(atlas.createSprite("subsystem_marker"))
     spMovementIcon = new Sprite(atlas.createSprite("icon_movement"))
-    shieldLayer = new Sprite(atlas.createSprite("shield_layer-1"))
+    shieldLayer = new Sprite(atlas.createSprite("shield_layer"))
   }
 
   private def loadAnimations(): Unit = {

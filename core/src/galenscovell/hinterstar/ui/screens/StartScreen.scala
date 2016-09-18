@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.utils.viewport.FitViewport
 import com.badlogic.gdx.{Gdx, Screen}
 import galenscovell.hinterstar.Hinterstar
-import galenscovell.hinterstar.ui.components.startscreen.{CrewSelectPanel, ShipSelectPanel}
+import galenscovell.hinterstar.ui.components.startscreen.CrewSelectPanel
 import galenscovell.hinterstar.util._
 
 
@@ -17,13 +17,13 @@ class StartScreen(root: Hinterstar) extends Screen {
   private val camera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
 
   private val crewPanel: CrewSelectPanel = new CrewSelectPanel
-  private val shipPanel: ShipSelectPanel = new ShipSelectPanel
+  // private val shipPanel: ShipSelectPanel = new ShipSelectPanel
 
 
 
   private def create(): Unit = {
-    shipPanel.updateShipDetails()
-    shipPanel.updateShipDisplay(true)
+//    shipPanel.updateShipDetails()
+//    shipPanel.updateShipDisplay(true)
 
     val viewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, camera)
     stage = new Stage(viewport, root.spriteBatch)
@@ -35,7 +35,7 @@ class StartScreen(root: Hinterstar) extends Screen {
     val contentTable: Table = new Table
 
     contentTable.add(crewPanel).width(240).height(400).left.padRight(20)
-    contentTable.add(shipPanel).width(520).height(400).right
+//    contentTable.add(shipPanel).width(520).height(400).right
 
     mainTable.add(titleTable).width(770).height(50).pad(5)
     mainTable.row
@@ -66,12 +66,7 @@ class StartScreen(root: Hinterstar) extends Screen {
     embarkButton.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         PlayerData.clear()
-        PlayerData.saveCrew(crewPanel.getCrewmates)
-        PlayerData.loadCrew()
-        PlayerData.saveShip(shipPanel.getShip)
-        PlayerData.loadShip()
-        PlayerData.saveWeapons()
-        PlayerData.loadWeapons()
+        // Do all that saving/loading
 
         root.createGameScreen()
         stage.getRoot.addAction(Actions.sequence(

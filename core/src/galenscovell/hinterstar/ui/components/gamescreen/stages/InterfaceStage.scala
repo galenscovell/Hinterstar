@@ -16,21 +16,12 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
   private val travelPanel: TravelPanel = new TravelPanel(this)
   private val travelButton: TravelButton = new TravelButton(this)
 
-  private val hullHealthPanel: HullHealthPanel = new HullHealthPanel(this, player.getShip.getHealthBar)
-  private val shipStatsPanel: ShipStatsPanel = new ShipStatsPanel(this)
-  private val crewPanel: CrewPanel = new CrewPanel(this)
-  private val activeWeaponPanel: Table = PlayerData.getShip.getActiveWeaponPanel
-
   private var eventPanel: EventPanel = _
 
   private val pauseInfo: InfoPanel = new InfoPanel("Paused")
   private val assignmentSelectInfo: InfoPanel = new InfoPanel("Select Subsystem to Assign Crewmate")
-  private val targetSelectInfo: InfoPanel = new InfoPanel("Select Enemy Subsystem to Target")
-  private val weaponSelectInfo: InfoPanel = new InfoPanel("Select Weapon to Equip")
 
   construct()
-  CrewOperations.initialize(gameScreen)
-
   // DEBUG
   enableTravelButton()
 
@@ -40,15 +31,7 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
     val mainTable: Table = new Table
     mainTable.setFillParent(true)
 
-    mainTable.add(hullHealthPanel).width(Constants.EXACT_X / 2).height(24).left
-    mainTable.row
     mainTable.add(new Table).width(Constants.EXACT_X).expand.fill
-    mainTable.row
-    mainTable.add(activeWeaponPanel).width(Constants.EXACT_X).height(32).bottom
-    mainTable.row
-    mainTable.add(shipStatsPanel).width(180).height(32).left
-    mainTable.row
-    mainTable.add(crewPanel).width(Constants.EXACT_X).height(66).bottom
 
     this.addActor(mainTable)
   }
@@ -56,41 +39,11 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
 
 
   def hideUI(): Unit = {
-    crewPanel.addAction(Actions.sequence(
-      Actions.touchable(Touchable.disabled),
-      Actions.fadeOut(0.5f, Interpolation.sine)
-    ))
-    hullHealthPanel.addAction(Actions.sequence(
-      Actions.touchable(Touchable.disabled),
-      Actions.fadeOut(0.5f, Interpolation.sine)
-    ))
-    shipStatsPanel.addAction(Actions.sequence(
-      Actions.touchable(Touchable.disabled),
-      Actions.fadeOut(0.5f, Interpolation.sine)
-    ))
-    activeWeaponPanel.addAction(Actions.sequence(
-      Actions.touchable(Touchable.disabled),
-      Actions.fadeOut(0.5f, Interpolation.sine)
-    ))
+
   }
 
   def showUI(): Unit = {
-    crewPanel.addAction(Actions.sequence(
-      Actions.fadeIn(0.5f, Interpolation.sine),
-      Actions.touchable(Touchable.enabled)
-    ))
-    hullHealthPanel.addAction(Actions.sequence(
-      Actions.fadeIn(0.5f, Interpolation.sine),
-      Actions.touchable(Touchable.enabled)
-    ))
-    shipStatsPanel.addAction(Actions.sequence(
-      Actions.fadeIn(0.5f, Interpolation.sine),
-      Actions.touchable(Touchable.enabled)
-    ))
-    activeWeaponPanel.addAction(Actions.sequence(
-      Actions.fadeIn(0.5f, Interpolation.sine),
-      Actions.touchable(Touchable.enabled)
-    ))
+
   }
 
   def updateDistanceLabel(d: String): Unit = {
@@ -103,14 +56,6 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
 
   def getGameScreen: GameScreen = {
     gameScreen
-  }
-
-  def refreshCrewPanel(): Unit = {
-    crewPanel.refresh()
-  }
-
-  def refreshStatsPanel(): Unit = {
-    shipStatsPanel.refresh()
   }
 
 
@@ -162,36 +107,6 @@ class InterfaceStage(gameScreen: GameScreen, viewport: FitViewport, spriteBatch:
   def closeAssignmentSelect(): Unit = {
     if (assignmentSelectInfo.hasParent) {
       assignmentSelectInfo.remove()
-    }
-  }
-
-  def openTargetSelect(): Unit = {
-    if (!targetSelectInfo.hasParent) {
-      this.addActor(targetSelectInfo)
-    }
-  }
-
-  def closeTargetSelect(): Unit = {
-    if (targetSelectInfo.hasParent) {
-      targetSelectInfo.remove()
-    }
-  }
-
-  def openWeaponSelect(): Unit = {
-    this.addActor(PlayerData.getShip.getWeaponSelectPanel)
-
-    if (!weaponSelectInfo.hasParent) {
-      this.addActor(weaponSelectInfo)
-    }
-  }
-
-  def closeWeaponSelect(): Unit = {
-    val weaponSelectPanel: Table = PlayerData.getShip.getWeaponSelectPanel
-    if (weaponSelectPanel.hasParent) {
-      weaponSelectPanel.remove()
-    }
-    if (weaponSelectInfo.hasParent) {
-      weaponSelectInfo.remove()
     }
   }
 

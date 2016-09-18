@@ -1,0 +1,23 @@
+KEY
+. = Empty
+- = Traversible room
+V = down ladder
+^ = up ladder
+T = Turret
+E = Engine
+H = Helm
+S = Shield
+M = Medbay
+L = Life Support
+G = Generator
+R = Sensor
+P = Sleep pod
+
+placeholder_vehicle
+.T--v--H..
+S-vP^-v--T
+E-^v-M^--S
+..P^-v-R..
+.L-P-^....
+END
+

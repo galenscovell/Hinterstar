@@ -6,25 +6,20 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.{Group, InputEvent}
 import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.generation.interior.Tile
-import galenscovell.hinterstar.things.parts.Weapon
-import galenscovell.hinterstar.util.{CrewOperations, Resources}
+import galenscovell.hinterstar.util.Resources
 
 import scala.collection.mutable
 
 
 class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var assignmentName: String, var health: Int) {
   private var assignment: Tile = _
-  private var weapon: Weapon = _
 
   private val sprite: Sprite = Resources.spCrewmate
   private val healthBar: ProgressBar = new ProgressBar(0, 100, 1, true, Resources.crewHealthBarStyle)
   healthBar.setValue(100)
   private val crewInnerTable: Table = new Table
   private val crewBox: Group = new Group
-  private val assignmentIconTable: Table = new Table
   private val detailLabel: Label = new Label("...", Resources.labelTinyStyle)
-
-  private val flag: CrewmateFlag = new CrewmateFlag(name)
 
   constructBox()
 
@@ -53,11 +48,7 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     assignment
   }
 
-  def getWeapon: Weapon = {
-    weapon
-  }
-
-  def getAssignedSubsystemName: String = {
+  def getAssignedRoomName: String = {
     if (assignment != null) {
       assignmentName = assignment.getName
     }
@@ -76,10 +67,6 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     healthBar
   }
 
-  def getFlag: CrewmateFlag = {
-    flag
-  }
-
 
 
   /********************
@@ -95,16 +82,6 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
 
   def setAssignment(t: Tile): Unit = {
     assignment = t
-  }
-
-  def setWeapon(w: Weapon): Unit = {
-    weapon = w
-    setDetail(w.getName)
-  }
-
-  def removeWeapon(): Unit = {
-    weapon = null
-    setDetail("...")
   }
 
   def updateHealth(value: Int): Unit = {
@@ -135,28 +112,6 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     crewInnerTable.setBackground(Resources.npDarkGray)
   }
 
-  def setAssignmentIcon(): Unit = {
-    var assignmentIcon: Image = null
-    assignmentIconTable.clear()
-
-    if (assignment != null && !flag.hasPath) {
-      assignmentIcon = new Image(assignment.getIcon)
-
-      if (assignment.isWeaponSubsystem) {
-        assignmentIconTable.addListener(new ClickListener() {
-          override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-            CrewOperations.showWeaponSelect(getThisCrewmate)
-          }
-        })
-        assignmentIcon.setColor(0.7f, 0.2f, 0.2f, 1)
-      }
-    } else {
-      assignmentIcon = new Image(Resources.spMovementIcon)
-    }
-
-    assignmentIconTable.add(assignmentIcon)
-  }
-
   def getDetail: String = {
     detailLabel.getText.toString
   }
@@ -174,7 +129,7 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     crewInnerTable.setBackground(Resources.npDarkGray)
     crewInnerTable.addListener(new ClickListener() {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-        CrewOperations.selectCrewmate(getThisCrewmate)
+
       }
     })
 
@@ -206,9 +161,5 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     crewBox.addActor(crewInnerTable)
     crewInnerTable.setSize(120, 60)
     crewInnerTable.setPosition(0, 0)
-
-    crewBox.addActor(assignmentIconTable)
-    assignmentIconTable.setSize(32, 32)
-    assignmentIconTable.setPosition(102, 40)
   }
 }

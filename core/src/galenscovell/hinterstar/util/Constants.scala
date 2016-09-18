@@ -18,6 +18,12 @@ object Constants {
   val SCREEN_X: Int = 200
   val SCREEN_Y: Int = 120
 
+  // Interior dimensions
+  val TILE_WIDTH: Int = 56
+  val TILE_HEIGHT: Int = 72
+  val ROOM_COLUMNS: Int = 10
+  val ROOM_ROWS: Int = 5
+
   // Map dimensions
   val MAP_WIDTH: Int = 31
   val MAP_HEIGHT: Int = 15

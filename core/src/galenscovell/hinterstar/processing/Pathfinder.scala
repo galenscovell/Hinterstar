@@ -56,8 +56,8 @@ class Pathfinder {
   }
 
   private def heuristic(start: Node, end: Node): Double = {
-    val xs: Double = (start.getTile.getTx - end.getTile.getTx) * (start.getTile.getTx - end.getTile.getTx)
-    val ys: Double = (start.getTile.getTy - end.getTile.getTy) * (start.getTile.getTy - end.getTile.getTy)
+    val xs: Double = (start.getTile.tx - end.getTile.tx) * (start.getTile.tx - end.getTile.tx)
+    val ys: Double = (start.getTile.ty - end.getTile.ty) * (start.getTile.ty - end.getTile.ty)
     Math.sqrt(xs + ys)
   }
 
