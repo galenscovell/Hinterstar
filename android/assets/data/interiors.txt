@@ -3,6 +3,7 @@ KEY
 - = Traversible room
 V = down ladder
 ^ = up ladder
+| = ladder both up and down
 T = Turret
 E = Engine
 H = Helm
@@ -13,7 +14,7 @@ G = Generator
 R = Sensor
 P = Sleep pod
 
-placeholder_vehicle
+placeholder
 .T--v--H..
 S-vP^-v--T
 E-^v-M^--S
@@ -21,3 +22,12 @@ E-^v-M^--S
 .L-P-^....
 END
 
+ship
+..........
+.Tv.......
+..|-G..vH.
+.E^-v-L^T.
+...S|Mv-S.
+...P^.^R..
+..........
+END

@@ -25,7 +25,7 @@ void main() {
     vec2 ripple = vec2(
         sin((length(uv) * frequency) + (u_time * speed)),
         cos((length(uv) * frequency) + (u_time * speed))
-    ) * (amplitude / 1200.0);
+    ) * (amplitude / 1400.0);
 
     gl_FragColor = vec4(texture2D(u_texture, v_texCoords + ripple));
 }

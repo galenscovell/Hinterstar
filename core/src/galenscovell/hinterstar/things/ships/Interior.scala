@@ -56,6 +56,7 @@ class Interior() extends Table {
             case '-' => tileRow(x) = new Tile(x, y, "floor")
             case '^' => tileRow(x) = new Tile(x, y, "ladder-up")
             case 'v' => tileRow(x) = new Tile(x, y, "ladder-down")
+            case '|' => tileRow(x) = new Tile(x, y, "ladder-both")
             case '.' => tileRow(x) = new Tile(x, y, "empty")
           }
         }
@@ -64,7 +65,7 @@ class Interior() extends Table {
         y += 1
       }
 
-      if (line == "placeholder_vehicle") {
+      if (line == "ship") {
         shipFound = true
       }
 

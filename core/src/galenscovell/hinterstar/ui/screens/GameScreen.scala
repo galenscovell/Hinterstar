@@ -222,14 +222,12 @@ class GameScreen(root: Hinterstar) extends Screen {
     // Center and undo zoom for Entity Camera
     getEntityStage.getCamera.asInstanceOf[OrthographicCamera].zoom +=
       (1 - getEntityStage.getCamera.asInstanceOf[OrthographicCamera].zoom) * lerp * delta
-    getEntityStage.getCamera.position.x +=
-      (originVector.x - getEntityStage.getCamera.position.x) * lerp * delta
+    getEntityStage.getCamera.position.x += (originVector.x - getEntityStage.getCamera.position.x) * lerp * delta
 
     // Center and undo zoom for ParallaxBackground Camera
     parallaxBackground.getCamera.asInstanceOf[OrthographicCamera].zoom +=
       (1 - parallaxBackground.getCamera.asInstanceOf[OrthographicCamera].zoom) * lerp * delta
-    parallaxBackground.getCamera.position.x +=
-      (originVector.x - parallaxBackground.getCamera.position.x) * lerp * delta
+    parallaxBackground.getCamera.position.x += (originVector.x - parallaxBackground.getCamera.position.x) * lerp * delta
   }
 
 

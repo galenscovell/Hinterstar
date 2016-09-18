@@ -18,6 +18,7 @@ class Tile(val tx: Int, val ty: Int, tileType: String) extends Group {
   private def createSprite: Sprite = {
       tileType match {
         case "empty" => null
+        case "ladder-both" => Resources.atlas.createSprite("tile-ladder-both")
         case "ladder-up" => Resources.atlas.createSprite("tile-ladder-up")
         case "ladder-down" => Resources.atlas.createSprite("tile-ladder-down")
         case _ => Resources.atlas.createSprite("tile-empty")
@@ -42,7 +43,7 @@ class Tile(val tx: Int, val ty: Int, tileType: String) extends Group {
     if (image != null) {
       addActor(image)
       image.setSize(32, 32)
-      image.setPosition(1 + getWidth / 2 + image.getWidth / 3, getHeight / 2 + image.getHeight + 4)
+      image.setPosition(2 + getWidth / 2 + image.getWidth / 2, getHeight / 2 + image.getHeight / 2)
     }
   }
 

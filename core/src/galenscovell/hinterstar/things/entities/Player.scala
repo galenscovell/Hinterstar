@@ -12,16 +12,16 @@ import galenscovell.hinterstar.util._
 
 class Player(entityStage: EntityStage) extends Group {
   private val gameScreen: GameScreen = entityStage.getGameScreen
-  private val shipActor: Image = new Image(Resources.atlas.createSprite("placeholder_vehicle"))
+  private val shipActor: Image = new Image(Resources.atlas.createSprite("ship"))
   private val interior: Interior = new Interior()
 
   construct()
 
 
   private def construct(): Unit = {
-    this.setSize(560 + 24, 360 + 24)
-    shipActor.setSize(560 + 24, 360 + 24)
-    interior.setSize(560 + 24, 360 + 24)
+    this.setSize(720, 392)
+    shipActor.setSize(720, 392)
+    interior.setSize(720, 392)
 
     this.addActor(shipActor)
 
