@@ -41,14 +41,35 @@ class GameScreen(root: Hinterstar) extends Screen {
   private var shader: ShaderProgram = _
   private var parallaxBackground: ParallaxBackground = _
   private val backgroundBatch: SpriteBatch = new SpriteBatch()
+  private val crewBatch: SpriteBatch = new SpriteBatch()
   private val bgStrings: Array[String] = Array.ofDim(6)
 
   construct()
-  setupShader()
-  setupBackground(null)
-  createBackground()
 
 
+
+  /********************
+    *       Init      *
+    ********************/
+  private def construct(): Unit = {
+    SystemOperations.setup(this)
+    val playerCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
+    val playerViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, playerCamera)
+    entityStage = new EntityStage(this, playerViewport, playerCamera, new SpriteBatch())
+
+    val interfaceCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
+    val interfaceViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, interfaceCamera)
+    interfaceStage = new InterfaceStage(this, interfaceViewport, root.spriteBatch, entityStage.getPlayer)
+
+    enableInput()
+    // GLProfiler.enable()
+
+    setupShader()
+    setupBackground(null)
+    createBackground()
+
+    CrewOperations.initialize(this)
+  }
 
   private def setupShader(): Unit = {
     ShaderProgram.pedantic = false
@@ -64,22 +85,7 @@ class GameScreen(root: Hinterstar) extends Screen {
 
     entityStage.getBatch.setShader(shader)
     backgroundBatch.setShader(shader)
-  }
-
-
-
-  private def construct(): Unit = {
-    SystemOperations.setup(this)
-    val playerCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
-    val playerViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, playerCamera)
-    entityStage = new EntityStage(this, playerViewport, playerCamera, new SpriteBatch())
-
-    val interfaceCamera: OrthographicCamera = new OrthographicCamera(Gdx.graphics.getWidth, Gdx.graphics.getHeight)
-    val interfaceViewport: FitViewport = new FitViewport(Constants.EXACT_X, Constants.EXACT_Y, interfaceCamera)
-    interfaceStage = new InterfaceStage(this, interfaceViewport, root.spriteBatch, entityStage.getPlayer)
-
-    enableInput()
-    // GLProfiler.enable()
+    crewBatch.setShader(shader)
   }
 
   private def enableInput(): Unit = {
@@ -281,6 +287,11 @@ class GameScreen(root: Hinterstar) extends Screen {
     // Update and draw Entities
     entityStage.act(delta)
     entityStage.draw()
+
+    crewBatch.setProjectionMatrix(entityStage.getCamera.combined)
+    crewBatch.begin()
+    CrewOperations.drawCrewmatePositions(delta, crewBatch)
+    crewBatch.end()
 
     // Update and draw Interface
     interfaceStage.act(delta)

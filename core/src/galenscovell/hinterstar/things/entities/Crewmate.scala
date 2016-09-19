@@ -1,27 +1,24 @@
 package galenscovell.hinterstar.things.entities
 
-import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.graphics.g2d.{Batch, Sprite}
 import com.badlogic.gdx.scenes.scene2d.ui._
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
-import com.badlogic.gdx.scenes.scene2d.{Group, InputEvent}
-import com.badlogic.gdx.utils.Align
 import galenscovell.hinterstar.generation.interior.Tile
 import galenscovell.hinterstar.util.Resources
 
 import scala.collection.mutable
 
 
-class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var assignmentName: String, var health: Int) {
+class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var assignmentName: String,
+               var health: Int) {
+  private var tileX: Int = 0
+  private var tileY: Int = 0
   private var assignment: Tile = _
 
   private val sprite: Sprite = Resources.spCrewmate
   private val healthBar: ProgressBar = new ProgressBar(0, 100, 1, true, Resources.crewHealthBarStyle)
   healthBar.setValue(100)
-  private val crewInnerTable: Table = new Table
-  private val crewBox: Group = new Group
-  private val detailLabel: Label = new Label("...", Resources.labelTinyStyle)
 
-  constructBox()
+  private var selected: Boolean = false
 
 
 
@@ -44,11 +41,19 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     proficiencies(proficiency)
   }
 
+  def getTileX: Int = {
+    tileX
+  }
+
+  def getTileY: Int = {
+    tileY
+  }
+
   def getAssignment: Tile = {
     assignment
   }
 
-  def getAssignedRoomName: String = {
+  def getAssignmentName: String = {
     if (assignment != null) {
       assignmentName = assignment.getName
     }
@@ -96,70 +101,18 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
 
 
 
-  /***********************
-    *    UI Component    *
-    ***********************/
-  def getCrewBox: Group = {
-    constructBox()
-    crewBox
+  /********************
+    *    Rendering    *
+    ********************/
+  def highlight(): Unit = {
+    selected = true
   }
 
-  def highlightTable(): Unit = {
-    crewInnerTable.setBackground(Resources.npGray)
+  def unhighlight(): Unit = {
+    selected = false
   }
 
-  def unhighlightTable(): Unit = {
-    crewInnerTable.setBackground(Resources.npDarkGray)
-  }
-
-  def getDetail: String = {
-    detailLabel.getText.toString
-  }
-
-  private def setDetail(detail: String): Unit = {
-    detailLabel.setText(detail)
-  }
-
-  private def constructBox(): Unit = {
-    if (crewBox != null) {
-      crewBox.clear()
-      crewInnerTable.clear()
-    }
-
-    crewInnerTable.setBackground(Resources.npDarkGray)
-    crewInnerTable.addListener(new ClickListener() {
-      override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
-
-      }
-    })
-
-    val leftTable: Table = new Table
-
-    val spriteTable: Table = new Table
-    spriteTable.setBackground(Resources.npBlue)
-    val sprite: Image = new Image(getSprite)
-    spriteTable.add(sprite).expand.fillX
-
-    leftTable.add(spriteTable).expand.fill.width(32).height(32).left.top
-    leftTable.row
-    leftTable.add(healthBar).expand.fill.width(32).height(28).left
-
-    val rightTable: Table = new Table
-
-    val nameLabel: Label = new Label(name, Resources.labelTinyStyle)
-    nameLabel.setAlignment(Align.center, Align.left)
-
-    detailLabel.setAlignment(Align.center, Align.left)
-
-    rightTable.add(nameLabel).expand.fill.width(80)
-    rightTable.row
-    rightTable.add(detailLabel).expand.fill.width(80)
-
-    crewInnerTable.add(leftTable).expand.width(32).height(60).left
-    crewInnerTable.add(rightTable).expand.fill.width(88).height(60)
-
-    crewBox.addActor(crewInnerTable)
-    crewInnerTable.setSize(120, 60)
-    crewInnerTable.setPosition(0, 0)
+  def draw(delta: Float, batch: Batch): Unit = {
+    batch.draw(sprite, assignment.getX + 52, assignment.getY + 52, 48, 48)
   }
 }

@@ -1,19 +1,46 @@
 package galenscovell.hinterstar.generation.interior
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.{Batch, Sprite}
-import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.ui.Image
-import galenscovell.hinterstar.util.{Constants, Resources}
+import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
+import com.badlogic.gdx.scenes.scene2d._
+import galenscovell.hinterstar.things.entities.Crewmate
+import galenscovell.hinterstar.util._
 
 
 class Tile(val tx: Int, val ty: Int, tileType: String) extends Group {
   private var neighbors: Array[Tile] = _
   private val sprite: Sprite = createSprite
+  private var touched: Boolean = false
 
-  setX(getX - Gdx.graphics.getWidth / 2)
-  createIcon()
+  initialize()
 
+
+
+  private def initialize(): Unit = {
+    if (isTraversible) {
+      this.setTouchable(Touchable.enabled)
+      this.addListener(new ActorGestureListener() {
+        override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
+          touched = true
+        }
+        override def touchUp(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Unit = {
+          touched = false
+        }
+      })
+
+      // Start all player crewmates in their saved assigned subsystem
+      // Start unassigned player crewmates in Medbay subsystem
+      for (crewmate: Crewmate <- PlayerData.getCrew) {
+        if (crewmate.getAssignmentName == tileType) {
+          crewmate.setAssignment(getThisTile)
+//          assignCrewmate()
+        }
+      }
+    }
+
+    createIcon()
+  }
 
   private def createSprite: Sprite = {
       tileType match {
@@ -55,7 +82,7 @@ class Tile(val tx: Int, val ty: Int, tileType: String) extends Group {
     tileType
   }
 
-  private def getThisRoom: Tile = {
+  private def getThisTile: Tile = {
     this
   }
 
@@ -83,7 +110,11 @@ class Tile(val tx: Int, val ty: Int, tileType: String) extends Group {
     **********************/
   override def draw(batch: Batch, parentAlpha: Float): Unit = {
     if (isTraversible) {
+      if (touched) {
+        batch.setColor(0.18f, 0.8f, 0.44f, 1.0f)
+      }
       batch.draw(sprite, getX, getY, Constants.TILE_WIDTH, Constants.TILE_HEIGHT)
+      batch.setColor(1, 1, 1, 1)
       super.draw(batch, parentAlpha)
     }
   }

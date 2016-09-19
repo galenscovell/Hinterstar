@@ -24,6 +24,13 @@ placeholder_vehicle
   orig: 480, 320
   offset: 0, 0
   index: -1
+test-crewmate
+  rotate: false
+  xy: 8, 8
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
 tile-empty
   rotate: false
   xy: 1861, 392
@@ -54,28 +61,21 @@ tile-ladder-up
   index: -1
 current_marker
   rotate: false
-  xy: 8, 24
+  xy: 112, 24
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
-test-crewmate
-  rotate: false
-  xy: 888, 51
-  size: 58, 95
-  orig: 58, 95
-  offset: 0, 0
-  index: -1
 map_glow
   rotate: false
-  xy: 96, 56
+  xy: 888, 98
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blue_button0_np
   rotate: false
-  xy: 954, 110
+  xy: 200, 68
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -83,7 +83,7 @@ blue_button0_np
   index: -1
 blue_button1_np
   rotate: false
-  xy: 152, 68
+  xy: 888, 54
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -91,7 +91,7 @@ blue_button1_np
   index: -1
 green_button0_np
   rotate: false
-  xy: 954, 66
+  xy: 944, 110
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -99,7 +99,7 @@ green_button0_np
   index: -1
 green_button1_np
   rotate: false
-  xy: 998, 110
+  xy: 200, 24
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -107,112 +107,112 @@ green_button1_np
   index: -1
 icon_battery
   rotate: false
-  xy: 196, 72
+  xy: 244, 72
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_drone
   rotate: false
-  xy: 998, 70
+  xy: 988, 114
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_engine
   rotate: false
-  xy: 1042, 114
+  xy: 244, 32
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_helm
   rotate: false
-  xy: 236, 72
+  xy: 284, 72
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_medbay
   rotate: false
-  xy: 1082, 114
+  xy: 1028, 114
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_movement
   rotate: false
-  xy: 276, 72
+  xy: 284, 32
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_oxygen
   rotate: false
-  xy: 1122, 114
+  xy: 324, 72
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_sensor
   rotate: false
-  xy: 316, 72
+  xy: 1068, 114
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_shield
   rotate: false
-  xy: 1162, 114
+  xy: 324, 32
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_sleeppod
   rotate: false
-  xy: 356, 72
+  xy: 364, 72
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_weapon
   rotate: false
-  xy: 1202, 114
+  xy: 1108, 114
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-0
   rotate: false
-  xy: 396, 72
+  xy: 364, 32
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-1
   rotate: false
-  xy: 1242, 114
+  xy: 404, 72
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-2
   rotate: false
-  xy: 436, 72
+  xy: 1148, 114
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-3
   rotate: false
-  xy: 1282, 114
+  xy: 404, 32
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-4
   rotate: false
-  xy: 476, 72
+  xy: 444, 72
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
@@ -227,7 +227,7 @@ test-np-0
   index: -1
 test-np-1
   rotate: false
-  xy: 96, 24
+  xy: 1188, 122
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -235,7 +235,7 @@ test-np-1
   index: -1
 test-np-2
   rotate: false
-  xy: 1322, 122
+  xy: 444, 40
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -243,7 +243,7 @@ test-np-2
   index: -1
 test-np-3
   rotate: false
-  xy: 516, 80
+  xy: 444, 8
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -251,7 +251,7 @@ test-np-3
   index: -1
 test-np-4
   rotate: false
-  xy: 2013, 448
+  xy: 484, 80
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -259,7 +259,7 @@ test-np-4
   index: -1
 text-field-bg-np
   rotate: false
-  xy: 2013, 448
+  xy: 484, 80
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -267,7 +267,7 @@ text-field-bg-np
   index: -1
 font-cursor-np
   rotate: false
-  xy: 128, 24
+  xy: 932, 66
   size: 3, 24
   split: 0, 0, 0, 0
   orig: 3, 24
@@ -275,7 +275,7 @@ font-cursor-np
   index: -1
 health-bar-empty-np
   rotate: false
-  xy: 8, 8
+  xy: 112, 8
   size: 3, 8
   split: 0, 0, 0, 0
   orig: 3, 8
@@ -283,7 +283,7 @@ health-bar-empty-np
   index: -1
 health-bar-fill-np
   rotate: false
-  xy: 19, 8
+  xy: 123, 8
   size: 3, 8
   split: 0, 0, 0, 0
   orig: 3, 8
@@ -299,7 +299,7 @@ crew-health-bar-empty-np
   index: -1
 crew-health-bar-fill-np
   rotate: false
-  xy: 888, 40
+  xy: 888, 43
   size: 14, 3
   split: 0, 0, 0, 0
   orig: 14, 3

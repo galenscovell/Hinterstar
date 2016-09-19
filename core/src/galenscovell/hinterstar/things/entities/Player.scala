@@ -1,6 +1,5 @@
 package galenscovell.hinterstar.things.entities
 
-import com.badlogic.gdx.math.Interpolation
 import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.ui.Image

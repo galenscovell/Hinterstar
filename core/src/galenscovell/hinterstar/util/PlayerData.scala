@@ -4,6 +4,7 @@ import com.badlogic.gdx.{Gdx, Preferences}
 import galenscovell.hinterstar.things.entities.Crewmate
 import galenscovell.hinterstar.things.ships.Ship
 
+import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 
@@ -46,15 +47,49 @@ object PlayerData {
     * Crew Operations *
     ********************/
   def loadCrew(): Unit = {
+    crew.clear()
+    val crewString: String = prefs.getString("crew")
 
+    if (crewString.nonEmpty) {
+      val crewNames: Array[String] = crewString.split(",")
+
+      for (name: String <- crewNames) {
+        val assignment: String = prefs.getString(s"$name-assignment")
+        val health: Int = prefs.getInteger(s"$name-health")
+        val crewProficiencies: scala.collection.mutable.Map[String, Int] = mutable.Map()
+
+//        for (p: String <- proficiencies) {
+//          val proficiency: Int = prefs.getInteger(s"$name-$p")
+//          crewProficiencies += (p -> proficiency)
+//        }
+
+        val crewmate: Crewmate = new Crewmate(name, crewProficiencies, assignment, health)
+        crew.append(crewmate)
+      }
+    }
   }
 
   def saveCrew(cData: Array[Crewmate]): Unit = {
+    val crewNames: ArrayBuffer[String] = ArrayBuffer()
 
+    for (c: Crewmate <- cData) {
+      val name: String = c.getName
+      prefs.putString(s"$name-assignment", c.getAssignmentName)
+      prefs.putInteger(s"$name-health", c.getHealth)
+
+      for ((k, v) <- c.getAllProficiencies) {
+        prefs.putInteger(s"$name-$k", v)
+      }
+
+      crewNames.append(name)
+    }
+
+    prefs.putString("crew", crewNames.mkString(","))
+    prefs.flush()
   }
 
-  def getCrew(): Unit = {
-
+  def getCrew(): Array[Crewmate] = {
+    crew.toArray
   }
 
 

@@ -67,6 +67,8 @@ class StartScreen(root: Hinterstar) extends Screen {
       override def clicked(event: InputEvent, x: Float, y: Float): Unit = {
         PlayerData.clear()
         // Do all that saving/loading
+        PlayerData.saveCrew(crewPanel.getCrewmates)
+        PlayerData.loadCrew()
 
         root.createGameScreen()
         stage.getRoot.addAction(Actions.sequence(
