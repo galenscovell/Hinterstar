@@ -1,9 +1,9 @@
 package galenscovell.hinterstar.generation.interior
 
 import com.badlogic.gdx.graphics.g2d.{Batch, Sprite}
+import com.badlogic.gdx.scenes.scene2d._
 import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.utils.ActorGestureListener
-import com.badlogic.gdx.scenes.scene2d._
 import galenscovell.hinterstar.things.entities.Crewmate
 import galenscovell.hinterstar.util._
 
@@ -69,6 +69,7 @@ class Tile(val tx: Int, val ty: Int, tileType: String) extends Group {
 
     if (image != null) {
       addActor(image)
+      image.toBack()
       image.setSize(32, 32)
       image.setPosition(2 + getWidth / 2 + image.getWidth / 2, getHeight / 2 + image.getHeight / 2)
     }

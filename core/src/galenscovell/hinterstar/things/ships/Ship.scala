@@ -8,7 +8,7 @@ class Ship() {
   private var activeWeapons: Int = 0
 
   // TODO: Set max health depending on ship
-  private val healthBar: ProgressBar = new ProgressBar(0, 100, 1, false, Resources.hullHealthBarStyle)
+  private val healthBar: ProgressBar = new ProgressBar(0, 100, 1, false, Resources.horizontalBarStyle)
   healthBar.setValue(healthBar.getMaxValue)
   healthBar.setAnimateDuration(0.5f)
 

@@ -41,7 +41,7 @@ class GameScreen(root: Hinterstar) extends Screen {
   private var shader: ShaderProgram = _
   private var parallaxBackground: ParallaxBackground = _
   private val backgroundBatch: SpriteBatch = new SpriteBatch()
-  private val crewBatch: SpriteBatch = new SpriteBatch()
+  private val uiBatch: SpriteBatch = new SpriteBatch()
   private val bgStrings: Array[String] = Array.ofDim(6)
 
   construct()
@@ -85,7 +85,6 @@ class GameScreen(root: Hinterstar) extends Screen {
 
     entityStage.getBatch.setShader(shader)
     backgroundBatch.setShader(shader)
-    crewBatch.setShader(shader)
   }
 
   private def enableInput(): Unit = {
@@ -288,10 +287,10 @@ class GameScreen(root: Hinterstar) extends Screen {
     entityStage.act(delta)
     entityStage.draw()
 
-    crewBatch.setProjectionMatrix(entityStage.getCamera.combined)
-    crewBatch.begin()
-    CrewOperations.drawCrewmatePositions(delta, crewBatch)
-    crewBatch.end()
+    uiBatch.setProjectionMatrix(entityStage.getCamera.combined)
+    uiBatch.begin()
+    CrewOperations.drawCrewmateStats(delta, uiBatch)
+    uiBatch.end()
 
     // Update and draw Interface
     interfaceStage.act(delta)

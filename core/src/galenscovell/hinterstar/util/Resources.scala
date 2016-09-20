@@ -26,8 +26,8 @@ object Resources {
 
   var npGreen, npDarkBlue, npGray, npBlue, npDarkGray,
       greenButtonNp0, greenButtonNp1, blueButtonNp0, blueButtonNp1,
-      npFontCursor, npTextFieldBg, npHullHealthFill, npHullHealthEmpty,
-      npCrewHealthFill, npCrewHealthEmpty: NinePatchDrawable = _
+      npFontCursor, npTextFieldBg, npHorizontalBarFill, npHorizontalBarEmpty,
+      npVerticalBarFill, npVerticalBarEmpty: NinePatchDrawable = _
 
   var buttonMenuStyle, buttonMapStyle0, buttonMapStyle1, buttonMapStyle2,
       buttonEventStyle, toggleButtonStyle, greenButtonStyle, blueButtonStyle: TextButtonStyle = _
@@ -35,7 +35,7 @@ object Resources {
   var mapGlow, spTest0, spTest1, spTest2, spTest3, spTest4,
       spCrewmate, spSubsystemMarker, spMovementIcon, shieldLayer: Sprite = _
 
-  var hullHealthBarStyle, crewHealthBarStyle: ProgressBarStyle = _
+  var horizontalBarStyle, verticalBarStyle: ProgressBarStyle = _
 
   var currentMarker: CurrentSystemAnimation = _
 
@@ -102,10 +102,10 @@ object Resources {
     npFontCursor = new NinePatchDrawable(atlas.createPatch("font-cursor-np"))
     npTextFieldBg = new NinePatchDrawable(atlas.createPatch("text-field-bg-np"))
 
-    npHullHealthFill = new NinePatchDrawable(atlas.createPatch("health-bar-fill-np"))
-    npHullHealthEmpty = new NinePatchDrawable(atlas.createPatch("health-bar-empty-np"))
-    npCrewHealthFill = new NinePatchDrawable(atlas.createPatch("crew-health-bar-fill-np"))
-    npCrewHealthEmpty = new NinePatchDrawable(atlas.createPatch("crew-health-bar-empty-np"))
+    npHorizontalBarFill = new NinePatchDrawable(atlas.createPatch("horizontal-bar-fill-np"))
+    npHorizontalBarEmpty = new NinePatchDrawable(atlas.createPatch("horizontal-bar-empty-np"))
+    npVerticalBarFill = new NinePatchDrawable(atlas.createPatch("vertical-bar-fill-np"))
+    npVerticalBarEmpty = new NinePatchDrawable(atlas.createPatch("vertical-bar-empty-np"))
   }
 
   private def loadLabelStyles(): Unit = {
@@ -168,17 +168,17 @@ object Resources {
   }
 
   private def loadProgressBars(): Unit = {
-    hullHealthBarStyle = new ProgressBarStyle(
-      npCrewHealthEmpty,
-      npCrewHealthFill
+    horizontalBarStyle = new ProgressBarStyle(
+      npHorizontalBarEmpty,
+      npHorizontalBarFill
     )
-    hullHealthBarStyle.knobBefore = npCrewHealthFill
+    horizontalBarStyle.knobBefore = npHorizontalBarFill
 
-    crewHealthBarStyle = new ProgressBarStyle(
-      npCrewHealthEmpty,
-      npCrewHealthFill
+    verticalBarStyle = new ProgressBarStyle(
+      npVerticalBarEmpty,
+      npVerticalBarFill
     )
-    crewHealthBarStyle.knobBefore = npCrewHealthFill
+    verticalBarStyle.knobBefore = npVerticalBarFill
   }
 }
 

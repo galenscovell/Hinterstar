@@ -39,10 +39,10 @@ object CrewOperations {
   /********************
     *    Rendering    *
     ********************/
-  def drawCrewmatePositions(delta: Float, batch: Batch): Unit = {
+  def drawCrewmateStats(delta: Float, batch: Batch): Unit = {
     for (crewmate: Crewmate <- PlayerData.getCrew) {
       if (crewmate != null) {
-        crewmate.draw(delta, batch)
+        crewmate.drawStats(delta, batch)
       }
     }
   }

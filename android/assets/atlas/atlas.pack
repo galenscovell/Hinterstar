@@ -5,77 +5,70 @@ filter: Nearest,Nearest
 repeat: none
 ship
   rotate: false
-  xy: 8, 112
+  xy: 16, 104
   size: 720, 392
   orig: 720, 392
   offset: 0, 0
   index: -1
 shield_layer
   rotate: false
-  xy: 736, 154
+  xy: 752, 146
   size: 629, 350
   orig: 629, 350
   offset: 0, 0
   index: -1
-placeholder_vehicle
-  rotate: false
-  xy: 1373, 184
-  size: 480, 320
-  orig: 480, 320
-  offset: 0, 0
-  index: -1
-test-crewmate
-  rotate: false
-  xy: 8, 8
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
 tile-empty
   rotate: false
-  xy: 1861, 392
+  xy: 1397, 384
   size: 144, 112
   orig: 144, 112
   offset: 0, 0
   index: -1
 tile-ladder-both
   rotate: false
-  xy: 1861, 272
+  xy: 1397, 256
   size: 144, 112
   orig: 144, 112
   offset: 0, 0
   index: -1
 tile-ladder-down
   rotate: false
-  xy: 1861, 152
+  xy: 1557, 384
   size: 144, 112
   orig: 144, 112
   offset: 0, 0
   index: -1
 tile-ladder-up
   rotate: false
-  xy: 736, 34
+  xy: 1557, 256
   size: 144, 112
   orig: 144, 112
   offset: 0, 0
   index: -1
+test-crewmate
+  rotate: false
+  xy: 1717, 400
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
 current_marker
   rotate: false
-  xy: 112, 24
+  xy: 1397, 160
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 map_glow
   rotate: false
-  xy: 888, 98
+  xy: 16, 40
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 blue_button0_np
   rotate: false
-  xy: 200, 68
+  xy: 1717, 348
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -83,7 +76,7 @@ blue_button0_np
   index: -1
 blue_button1_np
   rotate: false
-  xy: 888, 54
+  xy: 1829, 460
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -91,7 +84,7 @@ blue_button1_np
   index: -1
 green_button0_np
   rotate: false
-  xy: 944, 110
+  xy: 1493, 204
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -99,7 +92,7 @@ green_button0_np
   index: -1
 green_button1_np
   rotate: false
-  xy: 200, 24
+  xy: 80, 52
   size: 36, 36
   split: 4, 4, 4, 4
   orig: 36, 36
@@ -107,119 +100,119 @@ green_button1_np
   index: -1
 icon_battery
   rotate: false
-  xy: 244, 72
+  xy: 1717, 300
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_drone
   rotate: false
-  xy: 988, 114
+  xy: 1769, 352
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_engine
   rotate: false
-  xy: 244, 32
+  xy: 1829, 412
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_helm
   rotate: false
-  xy: 284, 72
+  xy: 1881, 464
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_medbay
   rotate: false
-  xy: 1028, 114
+  xy: 1545, 208
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_movement
   rotate: false
-  xy: 284, 32
+  xy: 132, 56
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_oxygen
   rotate: false
-  xy: 324, 72
+  xy: 1929, 464
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_sensor
   rotate: false
-  xy: 1068, 114
+  xy: 1593, 208
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_shield
   rotate: false
-  xy: 324, 32
+  xy: 180, 56
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_sleeppod
   rotate: false
-  xy: 364, 72
+  xy: 1977, 464
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 icon_weapon
   rotate: false
-  xy: 1108, 114
+  xy: 1641, 208
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-0
   rotate: false
-  xy: 364, 32
+  xy: 228, 56
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-1
   rotate: false
-  xy: 404, 72
+  xy: 276, 56
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-2
   rotate: false
-  xy: 1148, 114
+  xy: 324, 56
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-3
   rotate: false
-  xy: 404, 32
+  xy: 372, 56
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-box-4
   rotate: false
-  xy: 444, 72
+  xy: 420, 56
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 test-np-0
   rotate: false
-  xy: 2013, 480
+  xy: 132, 16
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -227,7 +220,7 @@ test-np-0
   index: -1
 test-np-1
   rotate: false
-  xy: 1188, 122
+  xy: 172, 16
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -235,7 +228,7 @@ test-np-1
   index: -1
 test-np-2
   rotate: false
-  xy: 444, 40
+  xy: 212, 16
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -243,7 +236,7 @@ test-np-2
   index: -1
 test-np-3
   rotate: false
-  xy: 444, 8
+  xy: 252, 16
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -251,7 +244,7 @@ test-np-3
   index: -1
 test-np-4
   rotate: false
-  xy: 484, 80
+  xy: 292, 16
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -259,7 +252,7 @@ test-np-4
   index: -1
 text-field-bg-np
   rotate: false
-  xy: 484, 80
+  xy: 292, 16
   size: 24, 24
   split: 0, 0, 0, 0
   orig: 24, 24
@@ -267,41 +260,41 @@ text-field-bg-np
   index: -1
 font-cursor-np
   rotate: false
-  xy: 932, 66
+  xy: 332, 16
   size: 3, 24
   split: 0, 0, 0, 0
   orig: 3, 24
   offset: 0, 0
   index: -1
-health-bar-empty-np
+vertical-bar-empty-np
   rotate: false
-  xy: 112, 8
-  size: 3, 8
-  split: 0, 0, 0, 0
-  orig: 3, 8
-  offset: 0, 0
-  index: -1
-health-bar-fill-np
-  rotate: false
-  xy: 123, 8
-  size: 3, 8
-  split: 0, 0, 0, 0
-  orig: 3, 8
-  offset: 0, 0
-  index: -1
-crew-health-bar-empty-np
-  rotate: false
-  xy: 1373, 173
+  xy: 752, 127
   size: 14, 3
   split: 0, 0, 0, 0
   orig: 14, 3
   offset: 0, 0
   index: -1
-crew-health-bar-fill-np
+vertical-bar-fill-np
   rotate: false
-  xy: 888, 43
+  xy: 1493, 185
   size: 14, 3
   split: 0, 0, 0, 0
   orig: 14, 3
+  offset: 0, 0
+  index: -1
+horizontal-bar-empty-np
+  rotate: false
+  xy: 1717, 278
+  size: 3, 6
+  split: 0, 0, 0, 0
+  orig: 3, 6
+  offset: 0, 0
+  index: -1
+horizontal-bar-fill-np
+  rotate: false
+  xy: 2025, 490
+  size: 3, 6
+  split: 0, 0, 0, 0
+  orig: 3, 6
   offset: 0, 0
   index: -1
