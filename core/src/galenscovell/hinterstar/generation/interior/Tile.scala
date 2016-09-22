@@ -83,6 +83,14 @@ class Tile(val tx: Int, val ty: Int, tileType: String) extends Group {
     tileType
   }
 
+  def isLadderUp: Boolean = {
+    tileType.equals("ladder-both") || tileType.equals("ladder-up")
+  }
+
+  def isLadderDown: Boolean = {
+    tileType.equals("ladder-both") || tileType.equals("ladder-down")
+  }
+
   private def getThisTile: Tile = {
     this
   }

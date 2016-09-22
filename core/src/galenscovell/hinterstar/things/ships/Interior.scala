@@ -88,12 +88,14 @@ class Interior() extends Table {
           }
         }
 
-        for (dy: Int <- -1 to 1) {
-          val newY: Int = tile.ty + dy
-          if (!isOutOfBounds(tile.tx, newY)) {
-            val neighbor: Tile = tiles(newY)(tile.tx)
-            neighbors.append(neighbor)
-          }
+        if (tile.isLadderUp) {
+          val neighbor: Tile = tiles(tile.ty - 1)(tile.tx)
+          neighbors.append(neighbor)
+        }
+
+        if (tile.isLadderDown) {
+          val neighbor: Tile = tiles(tile.ty + 1)(tile.tx)
+          neighbors.append(neighbor)
         }
 
         tile.setNeighbors(neighbors.toArray)
