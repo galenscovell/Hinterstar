@@ -257,11 +257,11 @@ class GameScreen(root: Hinterstar) extends Screen {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
     Gdx.gl.glClearColor(0, 0, 0, 1)
 
+    // Shader
     time += delta
     if (time > 1200) {
       time = 0f
     }
-
     shader.begin()
     shader.setUniformf("u_time", time)
     shader.end()
@@ -279,6 +279,7 @@ class GameScreen(root: Hinterstar) extends Screen {
 
       if (accumulator > timestep) {
         accumulator -= timestep
+        CrewOperations.update()
       }
       accumulator += delta
     }

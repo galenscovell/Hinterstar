@@ -3,16 +3,16 @@ package galenscovell.hinterstar.things.entities
 import com.badlogic.gdx.graphics.g2d.{Batch, Sprite}
 import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d.ui._
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import com.badlogic.gdx.scenes.scene2d.{InputEvent, Touchable}
 import galenscovell.hinterstar.generation.interior.Tile
-import galenscovell.hinterstar.util.Resources
+import galenscovell.hinterstar.util.{CrewOperations, Resources}
 
 import scala.collection.mutable
 
 
 class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var assignmentName: String,
                var health: Int) extends Table {
-  private var tileX: Int = 0
-  private var tileY: Int = 0
   private var assignment: Tile = _
 
   private val sprite: Sprite = Resources.spCrewmate
@@ -20,6 +20,7 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
   private val stats: CrewStats = new CrewStats(this)
 
   private var selected: Boolean = false
+  private val path: mutable.Stack[Tile] = mutable.Stack()
 
   construct()
 
@@ -27,8 +28,15 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
 
   private def construct(): Unit = {
     this.setFillParent(true)
-
     this.add(image).expand.width(48).height(48).center
+
+    image.setTouchable(Touchable.enabled)
+    image.addListener(new ClickListener() {
+      override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean = {
+        CrewOperations.selectCrewmate(getThisCrewmate)
+        true
+      }
+    })
   }
 
 
@@ -50,14 +58,6 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
 
   def getAProficiency(proficiency: String): Int = {
     proficiencies(proficiency)
-  }
-
-  def getTileX: Int = {
-    tileX
-  }
-
-  def getTileY: Int = {
-    tileY
   }
 
   def getAssignment: Tile = {
@@ -97,6 +97,18 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     ))
   }
 
+  def isSelected: Boolean = {
+    selected
+  }
+
+  def getNextTileInPath: Tile = {
+    if (path.nonEmpty) {
+      path.pop()
+    } else {
+      null
+    }
+  }
+
 
 
   /********************
@@ -128,21 +140,44 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     stats.setHealthValue(health)
   }
 
+  def setPath(newPath: Array[Tile]): Unit = {
+    path.clear()
+    for (t: Tile <- newPath) {
+      path.push(t)
+    }
+  }
+
+
+
+  /********************
+    *    Updating     *
+    ********************/
+  def update(): Unit = {
+    if (path.nonEmpty) {
+      setAssignment(path.pop())
+    }
+  }
+
 
 
   /********************
     *    Rendering    *
     ********************/
   def highlight(): Unit = {
+    image.setColor(0.18f, 0.8f, 0.44f, 1.0f)
     selected = true
   }
 
   def unhighlight(): Unit = {
+    image.setColor(1, 1, 1, 1)
     selected = false
   }
 
   override def draw(batch: Batch, parentAlpha: Float): Unit = {
     super.draw(batch, parentAlpha)
+    if (isSelected) {
+      batch.setColor(1, 1, 1, 1)
+    }
   }
 
   def drawStats(delta: Float, batch: Batch): Unit = {

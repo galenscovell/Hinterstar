@@ -95,6 +95,6 @@ class Pathfinder {
       node = node.getParent
     }
 
-    path.toArray.reverse
+    path.toArray
   }
 }

@@ -1,6 +1,7 @@
 package galenscovell.hinterstar.util
 
 import com.badlogic.gdx.graphics.g2d.Batch
+import galenscovell.hinterstar.generation.interior.Tile
 import galenscovell.hinterstar.processing.Pathfinder
 import galenscovell.hinterstar.things.entities.Crewmate
 import galenscovell.hinterstar.ui.screens.GameScreen
@@ -19,6 +20,10 @@ object CrewOperations {
 
 
 
+  def crewmateSelected: Boolean = {
+    selectedCrewmate != null
+  }
+
   def selectCrewmate(newCrewmate: Crewmate): Unit = {
     if (selectedCrewmate != null) {
       selectedCrewmate.unhighlight()
@@ -34,6 +39,29 @@ object CrewOperations {
     }
   }
 
+  def moveCrewmate(assignment: Tile): Unit = {
+    if (selectedCrewmate != null) {
+      if (selectedCrewmate.getAssignment != assignment) {
+        val path: Array[Tile] = pathfinder.findPath(selectedCrewmate.getAssignment, assignment)
+        selectedCrewmate.setPath(path)
+        selectedCrewmate.unhighlight()
+        selectedCrewmate = null
+      }
+    }
+  }
+
+
+
+  /********************
+    *    Updating     *
+    ********************/
+  def update(): Unit = {
+    for (crewmate: Crewmate <- PlayerData.getCrew) {
+      if (crewmate != null) {
+        crewmate.update()
+      }
+    }
+  }
 
 
   /********************
