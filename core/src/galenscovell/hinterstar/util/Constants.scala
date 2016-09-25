@@ -19,6 +19,8 @@ object Constants {
   val SCREEN_Y: Int = 120
 
   // Interior dimensions
+  val INTERIOR_WIDTH: Int = 720
+  val INTERIOR_HEIGHT: Int = 392
   val TILE_WIDTH: Int = 72
   val TILE_HEIGHT: Int = 56
   val ROOM_COLUMNS: Int = 10

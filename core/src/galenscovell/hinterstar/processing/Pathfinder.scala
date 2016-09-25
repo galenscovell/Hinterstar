@@ -90,7 +90,7 @@ class Pathfinder {
     val path: ArrayBuffer[Tile] = ArrayBuffer()
     var node: Node = n
 
-    while (node != null) {
+    while (node.getParent != null) {
       path.append(node.getTile)
       node = node.getParent
     }

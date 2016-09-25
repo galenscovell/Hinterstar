@@ -1,14 +1,16 @@
 package galenscovell.hinterstar.generation.interior
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.{Batch, Sprite}
+import com.badlogic.gdx.math.Vector2
 import com.badlogic.gdx.scenes.scene2d._
-import com.badlogic.gdx.scenes.scene2d.ui.Image
+import com.badlogic.gdx.scenes.scene2d.ui.{Image, Table}
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import galenscovell.hinterstar.things.entities.Crewmate
 import galenscovell.hinterstar.util._
 
 
-class Tile(val tx: Int, val ty: Int, tileType: String) extends Group {
+class Tile(val tx: Int, val ty: Int, tileType: String) extends Table {
   private var neighbors: Array[Tile] = _
   private val sprite: Sprite = createSprite
 
@@ -103,6 +105,13 @@ class Tile(val tx: Int, val ty: Int, tileType: String) extends Group {
     neighbors
   }
 
+  def getActorCoordinates: Vector2 = {
+    new Vector2(
+      Constants.TILE_WIDTH * tx,                                    // Tile grid x * tile width
+      Constants.INTERIOR_HEIGHT - Constants.TILE_HEIGHT * (ty + 1)  // Ship interior height - Tile grid (y + 1) * tile height
+    )
+  }
+
 
 
   /********************
@@ -120,7 +129,6 @@ class Tile(val tx: Int, val ty: Int, tileType: String) extends Group {
   override def draw(batch: Batch, parentAlpha: Float): Unit = {
     if (isTraversible) {
       batch.draw(sprite, getX, getY, Constants.TILE_WIDTH, Constants.TILE_HEIGHT)
-      batch.setColor(1, 1, 1, 1)
       super.draw(batch, parentAlpha)
     }
   }

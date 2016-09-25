@@ -6,21 +6,27 @@ import com.badlogic.gdx.scenes.scene2d.ui._
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import com.badlogic.gdx.scenes.scene2d.{InputEvent, Touchable}
 import galenscovell.hinterstar.generation.interior.Tile
-import galenscovell.hinterstar.util.{CrewOperations, Resources}
+import galenscovell.hinterstar.util._
 
 import scala.collection.mutable
 
 
 class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var assignmentName: String,
                var health: Int) extends Table {
+  private val spriteWidth: Int = 48
+  private val spriteHeight: Int = 48
+
   private var assignment: Tile = _
 
   private val sprite: Sprite = Resources.spCrewmate
-  private val image: Image = new Image(sprite)
   private val stats: CrewStats = new CrewStats(this)
 
   private var selected: Boolean = false
   private val path: mutable.Stack[Tile] = mutable.Stack()
+  private var nextTile: Tile = _
+
+  private var currentCoords: Vector2 = _
+  private var nextCoords: Vector2 = _
 
   construct()
 
@@ -28,10 +34,9 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
 
   private def construct(): Unit = {
     this.setFillParent(true)
-    this.add(image).expand.width(48).height(48).center
 
-    image.setTouchable(Touchable.enabled)
-    image.addListener(new ClickListener() {
+    this.setTouchable(Touchable.enabled)
+    this.addListener(new ClickListener() {
       override def touchDown(event: InputEvent, x: Float, y: Float, pointer: Int, button: Int): Boolean = {
         CrewOperations.selectCrewmate(getThisCrewmate)
         true
@@ -101,14 +106,6 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     selected
   }
 
-  def getNextTileInPath: Tile = {
-    if (path.nonEmpty) {
-      path.pop()
-    } else {
-      null
-    }
-  }
-
 
 
   /********************
@@ -128,6 +125,7 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     }
     assignment = t
     assignment.addActor(this)
+    currentCoords = assignment.getActorCoordinates
   }
 
   def updateHealth(value: Int): Unit = {
@@ -154,7 +152,8 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     ********************/
   def update(): Unit = {
     if (path.nonEmpty) {
-      setAssignment(path.pop())
+      nextTile = path.pop()
+      setAssignment(nextTile)
     }
   }
 
@@ -164,17 +163,26 @@ class Crewmate(var name: String, proficiencies: mutable.Map[String, Int], var as
     *    Rendering    *
     ********************/
   def highlight(): Unit = {
-    image.setColor(0.18f, 0.8f, 0.44f, 1.0f)
     selected = true
   }
 
   def unhighlight(): Unit = {
-    image.setColor(1, 1, 1, 1)
     selected = false
   }
 
   override def draw(batch: Batch, parentAlpha: Float): Unit = {
+    if (isSelected) {
+      batch.setColor(0.18f, 0.8f, 0.44f, 1.0f)
+    }
+
+    batch.draw(
+      sprite,
+      currentCoords.x + 12, currentCoords.y + 6,
+      spriteWidth, spriteHeight
+    )
+
     super.draw(batch, parentAlpha)
+
     if (isSelected) {
       batch.setColor(1, 1, 1, 1)
     }

@@ -18,9 +18,9 @@ class Player(entityStage: EntityStage) extends Group {
 
 
   private def construct(): Unit = {
-    this.setSize(720, 392)
-    shipActor.setSize(720, 392)
-    interior.setSize(720, 392)
+    this.setSize(Constants.INTERIOR_WIDTH, Constants.INTERIOR_HEIGHT)
+    shipActor.setSize(Constants.INTERIOR_WIDTH, Constants.INTERIOR_HEIGHT)
+    interior.setSize(Constants.INTERIOR_WIDTH, Constants.INTERIOR_HEIGHT)
 
     this.addActor(shipActor)
 
